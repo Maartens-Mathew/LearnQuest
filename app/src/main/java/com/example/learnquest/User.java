@@ -1,4 +1,4 @@
-package com.example.learnquest.User;
+package com.example.learnquest;
 
 public class User {
     String first_Name;

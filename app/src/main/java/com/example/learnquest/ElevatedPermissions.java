@@ -1,4 +1,4 @@
-package com.example.learnquest.User;
+package com.example.learnquest;
 
 public interface ElevatedPermissions {
 }
