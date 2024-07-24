@@ -12,8 +12,13 @@ import java.util.ArrayList;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
 
-    private ArrayList<Group> groups;
+    private final ArrayList<Group> groups;
     private View.OnClickListener onClickListener;
+
+    public GroupAdapter(ArrayList<Group> groups){
+        this.groups = groups;
+    }
+
     @NonNull
     @Override
     public GroupViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,10 +36,18 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     }
 
     public static class GroupViewHolder extends RecyclerView.ViewHolder{
+        TextView lblGroupTopic;
+        ImageView imgGroupIcon;
+        public Group group;
         public GroupViewHolder(@NonNull View itemView) {
             super(itemView);
-            TextView lblGroupTopic = itemView.findViewById(R.id.lblGroupTopic);
-            ImageView imgGroupIcon  = itemView.findViewById(R.id.imgGroupIcon);
+            lblGroupTopic = itemView.findViewById(R.id.lblGroupTopic);
+            imgGroupIcon  = itemView.findViewById(R.id.imgGroupIcon);
+        }
+        public void setGroup(Group group){
+            this.group = group;
+            lblGroupTopic.setText(group.topic);
+            imgGroupIcon.setImageResource(R.drawable.test_image);
         }
     }
 }
