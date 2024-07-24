@@ -20,11 +20,8 @@ public class RegisterStudent extends AppCompatActivity {
         currentStudent = new Student();
 
         ActivityRegisterStudentBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_register_student);
-        binding.setStudent(currentStudent);
+        binding.setUser(currentStudent);
         binding.executePendingBindings();
-
-
-
 
     }
 
