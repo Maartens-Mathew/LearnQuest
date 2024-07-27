@@ -1,7 +1,10 @@
+import org.jetbrains.kotlin.gradle.plugin.kotlinToolingVersion
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+//val mysqlConnectorJavaVersion by extra(mysqlConnectorJavaVersion)
 
 android {
     namespace = "com.example.learnquest"
@@ -27,6 +30,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    //Added this again to sort out an issue between java and kotlin being different versions causing errors
+    kotlinOptions{
+        jvmTarget = "1.8"
+    }
 
     buildFeatures{
         dataBinding = true
@@ -41,6 +48,9 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+
+    //maybe upgrade to latest, this is for database. to import appropriate connector library
+    implementation("mysql:mysql-connector-java:5.1.47")
 
     //vico chart libraries
     implementation("com.patrykandpatrick.vico:compose:2.0.0-alpha.25")
