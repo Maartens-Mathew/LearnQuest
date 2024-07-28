@@ -1,4 +1,6 @@
 package com.example.learnquest;
 
-public class Moderator extends User implements ElevatedPermissions{
+import com.example.learnquest.user.ElevatedPermissions;
+
+public class Moderator implements ElevatedPermissions {
 }
