@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import com.example.learnquest.R
-import com.google.android.material.transition.MaterialSharedAxis.Axis
 import com.patrykandpatrick.vico.core.cartesian.CartesianChart
 import com.patrykandpatrick.vico.core.cartesian.axis.AxisPosition
 import com.patrykandpatrick.vico.core.cartesian.axis.HorizontalAxis

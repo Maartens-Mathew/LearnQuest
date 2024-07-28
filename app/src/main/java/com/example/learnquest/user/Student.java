@@ -67,4 +67,6 @@ package com.example.learnquest.user;
                 ", password='" + password + '\'' +
                 '}';
     }
+
+
 }
