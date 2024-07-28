@@ -1,4 +1,4 @@
-package com.example.learnquest;
+package com.example.learnquest.Utilities;
 
 import android.util.Log;
 import android.widget.Toast;

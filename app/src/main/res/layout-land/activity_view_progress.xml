@@ -8,19 +8,17 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="167dp"
+        android:layout_height="132dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="25dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/cartesianChartView">
+        app:layout_constraintStart_toEndOf="@+id/cartesianChartView"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ideal Mark"
             android:textSize="20sp" />
@@ -36,12 +34,13 @@
 
     <com.patrykandpatrick.vico.views.cartesian.CartesianChartView
         android:id="@+id/cartesianChartView"
-
+        android:layout_width="509dp"
+        android:layout_height="284dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
         app:chartHorizontalScrollingEnabled="true"
         app:chartZoomEnabled="true"
-        android:layout_width="410dp"
-        android:layout_height="232dp"
-        android:layout_marginTop="36dp"
+        app:layers="line"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,15 +56,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="171dp"
+        android:layout_height="131dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="22dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cartesianChartView">
+        app:layout_constraintStart_toEndOf="@+id/cartesianChartView"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <TextView
             android:id="@+id/textView3"
@@ -82,4 +79,12 @@
             android:textAlignment="center"
             android:textSize="60sp" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="327dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

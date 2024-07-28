@@ -1,4 +1,4 @@
-package com.example.learnquest;
+package com.example.learnquest.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.learnquest.R;
 
 public class MainActivity extends AppCompatActivity {
 
