@@ -1,6 +1,7 @@
-package com.example.learnquest;
+package com.example.learnquest.user;
 
-public class User {
+   public class Student{
+
     String first_Name;
     String last_Name;
     String national_ID;
@@ -54,5 +55,16 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "Student{" +
+                "first_Name='" + first_Name + '\'' +
+                ", last_Name='" + last_Name + '\'' +
+                ", national_ID='" + national_ID + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
