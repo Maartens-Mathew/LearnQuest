@@ -1,4 +1,4 @@
-package com.example.learnquest;
+package com.example.learnquest.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.learnquest.R;
+import com.example.learnquest.Student;
 import com.example.learnquest.databinding.ActivityRegisterStudentBinding;
 
 public class RegisterStudent extends AppCompatActivity {
