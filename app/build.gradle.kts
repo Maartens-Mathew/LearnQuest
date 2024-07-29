@@ -52,18 +52,6 @@ dependencies {
     //maybe upgrade to latest, this is for database. to import appropriate connector library
     implementation("mysql:mysql-connector-java:5.1.47")
 
-    //vico chart libraries
-    implementation("com.patrykandpatrick.vico:compose:2.0.0-alpha.25")
-
-    // For `compose`. Creates a `ChartStyle` based on an M2 Material Theme.
-    implementation("com.patrykandpatrick.vico:compose-m2:2.0.0-alpha.25")
-
-    // For `compose`. Creates a `ChartStyle` based on an M3 Material Theme.
-    implementation("com.patrykandpatrick.vico:compose-m3:2.0.0-alpha.25")
-
-    // Houses the core logic for charts and other elements. Included in all other modules.
-    implementation("com.patrykandpatrick.vico:core:2.0.0-alpha.25")
-
-    // For the view system.
-    implementation("com.patrykandpatrick.vico:views:2.0.0-alpha.25")
+    //MPAndroidChart library
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
