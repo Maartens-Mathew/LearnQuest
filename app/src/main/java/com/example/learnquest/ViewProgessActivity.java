@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -24,6 +25,7 @@ public class ViewProgessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_progess);
         try{
             LineChart lineChart = findViewById(R.id.lineChart);
+            lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
             LineData lineData = new LineData();
             Random random = new Random();
             int size = 5;
@@ -70,6 +72,8 @@ public class ViewProgessActivity extends AppCompatActivity {
             dx.setColor(Color.BLUE);
             dx.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             ds.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            ds.setDrawValues(false);
+            dx.setDrawValues(false);
             lineData.addDataSet(ds);
             lineData.addDataSet(dx);
             lineChart.setData(lineData);
