@@ -1,6 +1,5 @@
 package com.example.learnquest.DataValidation;
 
-import com.example.learnquest.Database;
 
 public class UserValidation {
 

@@ -12,14 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearnQuest"
         tools:targetApi="31">
+
         <activity
-            android:name=".ViewProgressActivity"
+            android:name=".Activities.ManageGroupsActivity"
             android:exported="false" />
         <activity
-            android:name=".ManageGroupsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterStudent"
+            android:name=".Activities.RegisterStudent"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="false" />
     </application>
 

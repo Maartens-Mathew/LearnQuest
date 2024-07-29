@@ -1,4 +1,4 @@
-package com.example.learnquest;
+package com.example.learnquest.user;
 
 import com.example.learnquest.user.ElevatedPermissions;
 
