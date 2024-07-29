@@ -47,7 +47,7 @@ class ViewProgressActivity : AppCompatActivity() {
                 return result
             }
             var totalWeight = 1.0
-            for (i in 0..<idealMarks.size){
+            for (i in idealMarks.indices){
                 indices[i] = i
                 idealMarks[i] = getValue(1.0)
                 weights[i] = getValue(totalWeight)
