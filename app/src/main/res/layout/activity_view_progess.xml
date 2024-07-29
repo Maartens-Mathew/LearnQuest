@@ -2,20 +2,73 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/lineChart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ViewProgessActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="52dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Goal Mark:" />
+
+        <TextView
+            android:id="@+id/lblGoalMark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="70%"
+            android:textSize="70sp" />
+    </LinearLayout>
+
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="409dp"
         android:layout_height="233dp"
-        android:padding="5dp"
+        android:padding="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="52dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Current Progress:" />
+
+        <TextView
+            android:id="@+id/lblCurrentProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="60%"
+            android:textSize="70sp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
