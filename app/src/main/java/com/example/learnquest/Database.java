@@ -36,7 +36,7 @@ public class Database {
             Enumeration<Driver> drivers = DriverManager.getDrivers();
             do{
                 Driver d = drivers.nextElement();
-                Log.e(dTag,d.getClass().toString());
+                Log.i(dTag,d.getClass().toString());
             }while (drivers.hasMoreElements());
         }
     }
