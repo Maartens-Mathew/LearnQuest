@@ -1,10 +1,20 @@
 package com.example.learnquest;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class ViewProgessActivity extends AppCompatActivity {
@@ -15,7 +25,8 @@ public class ViewProgessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_progess);
         TextView tx = findViewById(R.id.lblGoalMark);
         tx.setOnClickListener(view ->{
-            Database ds = new Database();
+            Database d = new Database();
+            tx.setText("W");
         });
 //        try{
 //            LineChart lineChart = findViewById(R.id.lineChart);
@@ -81,6 +92,40 @@ public class ViewProgessActivity extends AppCompatActivity {
 //                Log.e("MainActivity",e.toString());
 //            }
 //        }
+    }
+
+    private class Data{
+        private float markDesired, markObtained, weight;
+
+        public Data(float markDesired, float markObtained, float weight) {
+            this.markDesired = markDesired;
+            this.markObtained = markObtained;
+            this.weight = weight;
+        }
+
+        public float getMarkDesired() {
+            return markDesired;
+        }
+
+        public void setMarkDesired(float markDesired) {
+            this.markDesired = markDesired;
+        }
+
+        public float getMarkObtained() {
+            return markObtained;
+        }
+
+        public void setMarkObtained(float markObtained) {
+            this.markObtained = markObtained;
+        }
+
+        public float getWeight() {
+            return weight;
+        }
+
+        public void setWeight(float weight) {
+            this.weight = weight;
+        }
     }
 
     public float calcCurrentProgress(float[] idealMark, float[] weights, float[] markObtained, int n){
