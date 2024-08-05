@@ -25,7 +25,9 @@ public class ViewProgessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_progess);
         TextView tx = findViewById(R.id.lblGoalMark);
         tx.setOnClickListener(view ->{
-            Database d = new Database();
+            //Database d = new Database();
+            DatabaseConnectionTask t = new DatabaseConnectionTask();
+            t.execute();
             tx.setText("W");
         });
 //        try{
