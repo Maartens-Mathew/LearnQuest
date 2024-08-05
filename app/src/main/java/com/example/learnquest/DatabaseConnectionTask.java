@@ -18,9 +18,20 @@ public class DatabaseConnectionTask extends AsyncTask<Void,Void, Connection> {
         return connection;
     }
 
+
     @Override
     protected void onPostExecute(Connection connection) {
         super.onPostExecute(connection);
+        if (connection != null){
+            try {
+                Log.i("Database",Boolean.toString(connection.isValid(60)));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else{
+            Log.e("Database","connection is null");
+        }
         Log.i("Database","connected");
     }
 }
