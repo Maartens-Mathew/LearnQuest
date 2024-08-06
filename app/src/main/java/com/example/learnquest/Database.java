@@ -23,32 +23,22 @@ public class Database {
     }
 
     public Database(){
-//        try{
-//            Log.i(dTag,Class.forName("com.mysql.jdbc.Driver").toString());
-//            connection = DriverManager.getConnection("jdbc:mysql://project-sql-database-documentation4project.e.aivencloud.com:16222/defaultdb",
-//                    "avnadmin","AVNS_4DQayfBvqZRs5GSSp6m");
-//            Log.i(dTag,connection.toString());
-//            Log.i(dTag,"connected");
-//        }
-//        catch (Exception e){
-//            for(StackTraceElement element : e.getStackTrace()){
-//                Log.e(dTag,element.toString());
-//            }
-//            Enumeration<Driver> drivers = DriverManager.getDrivers();
-//            do{
-//                Driver d = drivers.nextElement();
-//                Log.i(dTag,d.getClass().toString());
-//            }while (drivers.hasMoreElements());
-//        }
-    }
-    public static Connection getConnection() throws SQLException{
         try{
-            Log.i("Database",Class.forName("com.mysql.jdbc.Driver").toString());
-            return DriverManager.getConnection("jdbc:mysql://project-sql-database-documentation4project.e.aivencloud.com:16222/defaultdb",
+            Log.i(dTag,Class.forName("com.mysql.jdbc.Driver").toString());
+            connection = DriverManager.getConnection("jdbc:mysql://project-sql-database-documentation4project.e.aivencloud.com:16222/defaultdb",
                     "avnadmin","AVNS_4DQayfBvqZRs5GSSp6m");
-
-        } catch (ClassNotFoundException e) {
-            throw new SQLException("MySQL JDBC driver not found!");
+            Log.i(dTag,connection.toString());
+            Log.i(dTag,"connected");
+        }
+        catch (Exception e){
+            for(StackTraceElement element : e.getStackTrace()){
+                Log.e(dTag,element.toString());
+            }
+            Enumeration<Driver> drivers = DriverManager.getDrivers();
+            do{
+                Driver d = drivers.nextElement();
+                Log.i(dTag,d.getClass().toString());
+            }while (drivers.hasMoreElements());
         }
     }
 
