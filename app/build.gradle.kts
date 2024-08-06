@@ -50,8 +50,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 
     //maybe upgrade to latest, this is for database. to import appropriate connector library
-    implementation("mysql:mysql-connector-java:5.1.47")
+    implementation("mysql:mysql-connector-java:8.0.33")//5.1.47
 
     //MPAndroidChart library
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
 }
