@@ -22,25 +22,35 @@ public class Database {
         super.finalize();
     }
 
+    private static final String URL = "mysql://avnadmin:AVNS_4DQayfBvqZRs5GSSp6m@project-sql-database-documentation4project.e.aivencloud.com:16222/defaultdb?ssl-mode=REQUIRED";
+
+
     public Database(){
-        try{
-            Log.i(dTag,Class.forName("com.mysql.jdbc.Driver").toString());
-            connection = DriverManager.getConnection("jdbc:mysql://project-sql-database-documentation4project.e.aivencloud.com:16222/defaultdb",
-                    "avnadmin","AVNS_4DQayfBvqZRs5GSSp6m");
-            Log.i(dTag,connection.toString());
-            Log.i(dTag,"connected");
-        }
-        catch (Exception e){
-            for(StackTraceElement element : e.getStackTrace()){
-                Log.e(dTag,element.toString());
+        try
+
+            {
+                Log.i(dTag, Class.forName("com.mysql.jdbc.Driver").toString());
+                connection = DriverManager.getConnection(URL);
+
+                Log.i(dTag, connection.toString());
+                Log.i(dTag, "connected");
             }
-            Enumeration<Driver> drivers = DriverManager.getDrivers();
-            do{
-                Driver d = drivers.nextElement();
-                Log.i(dTag,d.getClass().toString());
-            }while (drivers.hasMoreElements());
+        catch(
+            Exception e)
+
+            {
+                for (StackTraceElement element : e.getStackTrace()) {
+                    Log.e(dTag, element.toString());
+                }
+                Enumeration<Driver> drivers = DriverManager.getDrivers();
+                do {
+                    Driver d = drivers.nextElement();
+                    Log.i(dTag, d.getClass().toString());
+                } while (drivers.hasMoreElements());
+            }
         }
     }
 
 
-}
+
+
