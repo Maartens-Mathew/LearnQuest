@@ -63,7 +63,7 @@ public class ViewProgessActivity extends AppCompatActivity {
             LineDataSet ds = new LineDataSet(currProgressData,"current");
             LineDataSet dx = new LineDataSet(goalMarkData, "ideal");
             dx.setColor(R.color.teal_200);
-            ds.setColor(R.color.purple_200);
+            ds.setColor(R.color.purple_500);
             dx.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             ds.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             ds.setDrawValues(false);
