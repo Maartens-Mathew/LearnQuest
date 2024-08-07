@@ -8,163 +8,183 @@
             type="com.example.learnquest.user.Student" />
     </data>
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activities.RegisterStudent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/register_background"
+        tools:context=".Activities.RegisterStudent">
 
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Register Student"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Register Student"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="410dp"
+            android:layout_height="326dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="16dp"
+            android:background="#39FDFCFC"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.516"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="410dp"
-        android:layout_height="326dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+            <EditText
+                android:id="@+id/txt_FirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:autoText="false"
+                android:background="@color/white"
+                android:ems="15"
+                android:focusable="true"
 
-        <EditText
-            android:id="@+id/txt_FirstName"
-            android:layout_width="match_parent"
+                android:hint="First Name"
+                android:inputType="text"
+                android:text="@={student.first_Name}"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/txt_Surname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:autoText="false"
+                android:background="@color/white"
+                android:ems="15"
+                android:hint="Surname"
+                android:inputType="text"
+                android:text="@={student.last_Name}"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/txt_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/white"
+                android:ems="15"
+                android:hint="ID"
+                android:inputType="number"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/txt_EmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:autoText="false"
+                android:background="@color/white"
+                android:ems="15"
+                android:hint="E-mail"
+                android:inputType="textEmailAddress"
+                android:text="@={student.email}"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/txt_Username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:autoText="false"
+                android:background="@color/white"
+                android:ems="15"
+                android:hint="Username"
+                android:inputType="text"
+                android:text="@={student.username}"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/txt_Password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:autoText="false"
+                android:background="@color/white"
+                android:ems="15"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:text="@={student.password}"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/txt_RePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:autoText="false"
+                android:background="@color/white"
+                android:ems="15"
+                android:hint="Re-enter Password"
+                android:inputType="textPassword"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button"
+            style="@android:style/Theme.Material.NoActionBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_background"
+            android:onClick="ConfirmStudent"
+            android:text="Confirm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/button2"
+            style="@android:style/Theme.Material.NoActionBar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_background"
+            android:onClick="ReturnToMain"
+            android:text="Main Menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="58dp"
+            android:layout_height="62dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:autoText="false"
-            android:ems="10"
-            android:focusable="true"
-            android:hint="First Name"
-
-            android:inputType="text"
-            android:text="@={student.first_Name}" />
-
-        <EditText
-            android:id="@+id/txt_Surname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:autoText="false"
-            android:ems="10"
-            android:hint="Surname"
-            android:text="@={student.last_Name}"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/txt_ID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:ems="10"
-            android:hint="ID"
-            android:inputType="number" />
-
-        <EditText
-            android:id="@+id/txt_EmailAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:autoText="false"
-            android:ems="10"
-            android:hint="E-mail"
-            android:text="@={student.email}"
-            android:inputType="textEmailAddress" />
-
-        <EditText
-            android:id="@+id/txt_Username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:autoText="false"
-            android:ems="10"
-            android:hint="Username"
-            android:text="@={student.username}"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/txt_Password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:autoText="false"
-            android:ems="10"
-            android:hint="Enter Password"
-            android:text="@={student.password}"
-            android:inputType="textPassword" />
-
-        <EditText
-            android:id="@+id/txt_RePassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:autoText="false"
-            android:ems="10"
-            android:hint="Re-enter Password"
-            android:inputType="textPassword" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="ConfirmStudent"
-        android:text="Confirm"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:onClick="ReturnToMain"
-        android:text="Main Menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="58dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="ResetFields"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:srcCompat="@drawable/reset_button" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:onClick="ResetFields"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:srcCompat="@drawable/reset_button" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

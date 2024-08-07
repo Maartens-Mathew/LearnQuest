@@ -23,7 +23,7 @@ public class RegisterStudent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_student);
-        new FetchDataTask(this).execute();
+//        new FetchDataTask(this).execute();
 
 
 
@@ -40,7 +40,7 @@ public class RegisterStudent extends AppCompatActivity {
 
         EditText rePassword = findViewById(R.id.txt_RePassword);
 
-        if (rePassword.getText().toString() != currentStudent.getPassword())
+        if (!rePassword.getText().toString().equals(currentStudent.getPassword()))
             Toast.makeText(this,"Password is incorrect", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(this,"Welcome, " + currentStudent.getFirst_Name() + ".", Toast.LENGTH_SHORT).show();
@@ -55,6 +55,8 @@ public class RegisterStudent extends AppCompatActivity {
     public void ResetFields(View view) {
         binding.setStudent(new Student());
         currentStudent = binding.getStudent();
+        binding.txtID.setText("");
+        binding.txtRePassword.setText("");
         binding.txtFirstName.requestFocus();
 
     }
