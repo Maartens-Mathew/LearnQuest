@@ -35,17 +35,23 @@ public class ViewProgessActivity extends AppCompatActivity {
             float[] idealMarks = new float[size];
             float[] weights = new float[size];
             float[] marksObtained = new float[size];
+            float accumIdeal = 0f;
+            float accumCurr = 0f;
             //I don't know why but must have List<Entry> pointer
             List<Entry> currProgressData = new ArrayList<>(11);
             List<Entry> goalMarkData = new ArrayList<>(11);
             for (int i = 0; i < values.length; i++) {
-                Entry markDesired = new Entry((float)i,values[i].markDesired);
+                accumIdeal += values[i].markDesired*values[i].weight;
+                Entry markDesired = new Entry((float)i,accumIdeal);
                 if (i < 3){
-                    Entry actualMark = new Entry((float)i,values[i].markObtained);
+                    accumCurr += values[i].markObtained*values[i].weight;
+                    Entry actualMark = new Entry((float)i,accumCurr);
                     currProgressData.add(actualMark);
                 }
                 else{
-                    currProgressData.add(markDesired);
+                    accumCurr += values[i].markDesired*values[i].weight;
+                    Entry currProg = new Entry((float)i,accumCurr);
+                    currProgressData.add(currProg);
                 }
                 idealMarks[i] = values[i].markDesired;
                 marksObtained[i] = values[i].markObtained;
@@ -54,8 +60,8 @@ public class ViewProgessActivity extends AppCompatActivity {
             }
             float currProg = calcCurrentProgress(idealMarks,weights,marksObtained,3);
             float idealMark = calcIdealMark(idealMarks,weights);
-            String currProgOutput = String.format("%.0f",currProg*100.0f);
-            String idealMarkOutput = String.format("%.0f",idealMark*100.0f);
+            String currProgOutput = String.format("%.0f",accumCurr*100.0f);
+            String idealMarkOutput = String.format("%.0f",accumIdeal*100.0f);
             TextView lblCurrProgress = findViewById(R.id.lblCurrentProgress);
             TextView lblGoalMark = findViewById(R.id.lblGoalMark);
             lblCurrProgress.setText(currProgOutput + "%");
@@ -78,7 +84,7 @@ public class ViewProgessActivity extends AppCompatActivity {
             YAxis yAxisR = lineChart.getAxisRight();
             yAxisR.setEnabled(false);
             yAxisL.setAxisMinimum(0.0f);
-            yAxisL.setAxisMaximum(1.0f);
+            //yAxisL.setAxisMaximum(1.0f);
             xAxis.setAxisMinimum(0.0f);
             xAxis.setAxisMaximum((float)values.length-1);
             lineChart.invalidate();
