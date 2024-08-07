@@ -17,9 +17,8 @@
         android:theme="@style/Theme.LearnQuest"
         tools:targetApi="31">
         <activity
-            android:name=".ViewProgessActivity"
+            android:name=".ViewProgressActivity"
             android:exported="true" >
-
         </activity>
         <activity
             android:name=".Activities.ManageGroupsActivity"

@@ -1,6 +1,5 @@
 package com.example.learnquest;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -16,28 +15,27 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class ViewProgessActivity extends AppCompatActivity {
+public class ViewProgressActivity extends AppCompatActivity {
+
+    private LineChart lineChart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_progess);
         try{
-            LineChart lineChart = findViewById(R.id.lineChart);
-            lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            setUpChart();
             LineData lineData = new LineData();
             int size = 5;
-            Data data = new Data(0f,0f,0f);
-            data.setValues();
-            Data[] values = data.values;
+            DummyData dummyData = new DummyData();
+            DummyData[] values = dummyData.values;
             float[] idealMarks = new float[size];
             float[] weights = new float[size];
             float[] marksObtained = new float[size];
             float accumIdeal = 0f;
             float accumCurr = 0f;
-            //I don't know why but must have List<Entry> pointer
             List<Entry> currProgressData = new ArrayList<>(11);
             List<Entry> goalMarkData = new ArrayList<>(11);
             for (int i = 0; i < values.length; i++) {
@@ -58,14 +56,10 @@ public class ViewProgessActivity extends AppCompatActivity {
                 weights[i] = values[i].weight;
                 goalMarkData.add(markDesired);
             }
-            float currProg = calcCurrentProgress(idealMarks,weights,marksObtained,3);
-            float idealMark = calcIdealMark(idealMarks,weights);
-            String currProgOutput = String.format("%.0f",accumCurr*100.0f);
-            String idealMarkOutput = String.format("%.0f",accumIdeal*100.0f);
             TextView lblCurrProgress = findViewById(R.id.lblCurrentProgress);
             TextView lblGoalMark = findViewById(R.id.lblGoalMark);
-            lblCurrProgress.setText(currProgOutput + "%");
-            lblGoalMark.setText(idealMarkOutput + "%");
+            lblCurrProgress.setText(getResources().getString(R.string.current_mark, String.format("%.0f",accumCurr*100.0f)));
+            lblGoalMark.setText(getResources().getString(R.string.goal_mark,String.format("%.0f",accumIdeal*100.0f)));
             LineDataSet ds = new LineDataSet(currProgressData,"current");
             LineDataSet dx = new LineDataSet(goalMarkData, "ideal");
             dx.setColor(R.color.teal_200);
@@ -79,14 +73,6 @@ public class ViewProgessActivity extends AppCompatActivity {
             lineChart.setData(lineData);
             ds.setCubicIntensity(0.15f);
             dx.setCubicIntensity(0.15f);
-            XAxis xAxis = lineChart.getXAxis();
-            YAxis yAxisL = lineChart.getAxisLeft();
-            YAxis yAxisR = lineChart.getAxisRight();
-            yAxisR.setEnabled(false);
-            yAxisL.setAxisMinimum(0.0f);
-            //yAxisL.setAxisMaximum(1.0f);
-            xAxis.setAxisMinimum(0.0f);
-            xAxis.setAxisMaximum((float)values.length-1);
             lineChart.invalidate();
         }
         catch (Exception e){
@@ -99,24 +85,36 @@ public class ViewProgessActivity extends AppCompatActivity {
         }
     }
 
-    private class Data{
+    private void setUpChart(){
+        lineChart = findViewById(R.id.lineChart);
+        lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        lineChart.getXAxis().setAxisMinimum(0f);
+        lineChart.getAxisLeft().setAxisMinimum(0f);
+        lineChart.getAxisRight().setEnabled(false);
+    }
 
-        private Data[] values;
+    private class DummyData {
+
+        private DummyData[] values;
         private float markDesired, markObtained, weight;
 
-        public Data(float markDesired, float markObtained, float weight) {
+        public DummyData(float markDesired, float markObtained, float weight) {
             this.markDesired = markDesired;
             this.markObtained = markObtained;
             this.weight = weight;
         }
 
+        public DummyData(){
+            setValues();
+        }
+
         public void setValues(){
-            values = new Data[5];
-            values[0] = new Data(0.7f,0.5f,0.2f*0.3f);
-            values[1] = new Data(0.7f,0.65f,0.35f*0.3f);
-            values[2] = new Data(0.7f,0.7f,0.35f*0.3f);
-            values[3] = new Data(0.7f,0.8f,0.1f*0.3f);
-            values[4] = new Data(0.7f,0.75f,0.7f);
+            values = new DummyData[5];
+            values[0] = new DummyData(0.7f,0.5f,0.2f*0.3f);
+            values[1] = new DummyData(0.7f,0.65f,0.35f*0.3f);
+            values[2] = new DummyData(0.7f,0.7f,0.35f*0.3f);
+            values[3] = new DummyData(0.7f,0.8f,0.1f*0.3f);
+            values[4] = new DummyData(0.7f,0.75f,0.7f);
         }
     }
 

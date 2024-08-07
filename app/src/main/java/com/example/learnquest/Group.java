@@ -6,5 +6,6 @@ public class Group {
     public String description;
     public GroupTypes groupType;
 
-    public Group(){}
+    public Group(){
+    }
 }
