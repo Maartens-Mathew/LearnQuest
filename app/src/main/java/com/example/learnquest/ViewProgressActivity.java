@@ -1,5 +1,6 @@
 package com.example.learnquest;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -62,8 +63,8 @@ public class ViewProgressActivity extends AppCompatActivity {
             lblGoalMark.setText(getResources().getString(R.string.goal_mark,String.format("%.0f",accumIdeal*100.0f)));
             LineDataSet ds = new LineDataSet(currProgressData,"current");
             LineDataSet dx = new LineDataSet(goalMarkData, "ideal");
-            dx.setColor(R.color.teal_200);
-            ds.setColor(R.color.purple_500);
+            dx.setColor(Color.RED);
+            ds.setColor(Color.BLUE);
             dx.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             ds.setMode(LineDataSet.Mode.CUBIC_BEZIER);
             ds.setDrawValues(false);
