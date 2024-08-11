@@ -1,4 +1,4 @@
 package com.example.learnquest.user;
 
-public class Teacher implements ElevatedPermissions {
+public class Teacher extends User implements ElevatedPermissions {
 }

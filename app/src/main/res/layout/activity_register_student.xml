@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="student"
-            type="com.example.learnquest.user.Student" />
+            name="user"
+            type="com.example.learnquest.user.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +58,7 @@
 
                 android:hint="First Name"
                 android:inputType="text"
-                android:text="@={student.first_Name}"
+                android:text="@={user.firstName}"
                 android:textSize="24sp" />
 
             <EditText
@@ -73,7 +73,7 @@
                 android:ems="15"
                 android:hint="Surname"
                 android:inputType="text"
-                android:text="@={student.last_Name}"
+                android:text="@={user.lastName}"
                 android:textSize="24sp" />
 
             <EditText
@@ -84,6 +84,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/white"
+                android:text="@={user.nationalID}"
                 android:ems="15"
                 android:hint="ID"
                 android:inputType="number"
@@ -101,7 +102,7 @@
                 android:ems="15"
                 android:hint="E-mail"
                 android:inputType="textEmailAddress"
-                android:text="@={student.email}"
+                android:text="@={user.email}"
                 android:textSize="24sp" />
 
             <EditText
@@ -116,7 +117,7 @@
                 android:ems="15"
                 android:hint="Username"
                 android:inputType="text"
-                android:text="@={student.username}"
+                android:text="@={user.username}"
                 android:textSize="24sp" />
 
             <EditText
@@ -131,7 +132,7 @@
                 android:ems="15"
                 android:hint="Enter Password"
                 android:inputType="textPassword"
-                android:text="@={student.password}"
+                android:text="@={user.password}"
                 android:textSize="24sp" />
 
             <EditText
