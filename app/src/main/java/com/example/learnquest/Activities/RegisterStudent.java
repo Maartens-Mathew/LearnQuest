@@ -55,7 +55,7 @@ public class RegisterStudent extends AppCompatActivity {
         if (!rePassword.getText().toString().equals(currentStudent.getPassword()))
             Toast.makeText(this,"Password is incorrect", Toast.LENGTH_SHORT).show();
         else {
-            SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);\
+            SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
 
             Call<User> call = api.addUser(currentStudent);
 
