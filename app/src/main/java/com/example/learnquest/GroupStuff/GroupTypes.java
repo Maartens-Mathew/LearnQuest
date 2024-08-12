@@ -1,4 +1,4 @@
-package com.example.learnquest;
+package com.example.learnquest.GroupStuff;
 
 public enum GroupTypes {
     SINGLE, PEER, TEACHER_STUDENT

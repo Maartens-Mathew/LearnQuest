@@ -4,4 +4,6 @@
     <string name="forward"><![CDATA[->]]></string>
     <string name="current_mark">%s%%</string>
     <string name="goal_mark">%s%%</string>
+    <string name="chip_joined">Joined</string>
+    <string name="chip_unJoined">Not Joined</string>
 </resources>
