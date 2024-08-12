@@ -6,4 +6,6 @@
     <string name="goal_mark">%s%%</string>
     <string name="chip_joined">Joined</string>
     <string name="chip_unJoined">Not Joined</string>
+    <string name="edt_search_term_hint">Search for Group</string>
+    <string name="btn_Search">Search</string>
 </resources>

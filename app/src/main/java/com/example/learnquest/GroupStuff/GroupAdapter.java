@@ -3,6 +3,8 @@ package com.example.learnquest.GroupStuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +18,12 @@ import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
 
-    private final List<Group> groups;
+    public void filterList(List<Group> filteredGroup){
+        groups = filteredGroup;
+        notifyDataSetChanged();
+    }
+
+    private List<Group> groups;
     private View.OnClickListener onClickListener;
 
     public GroupAdapter(List<Group> groups){
