@@ -3,9 +3,9 @@ package com.example.learnquest.SetWeightings;
 public class Assessment {
     private String name;
     private String date;
-    private int weighting;
+    private double weighting;
 
-    public Assessment(String name, String date, int weighting) {
+    public Assessment(String name, String date, double weighting) {
         this.name = name;
         this.date = date;
         this.weighting = weighting;
@@ -19,7 +19,7 @@ public class Assessment {
         return date;
     }
 
-    public int getWeighting() {
+    public double getWeighting() {
         return weighting;
     }
 

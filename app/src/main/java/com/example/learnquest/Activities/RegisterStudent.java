@@ -58,6 +58,7 @@ public class RegisterStudent extends AppCompatActivity {
             SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
 
             Call<User> call = api.addUser(currentStudent);
+            //Call<User> select = api.getItems( " * from User");
 
             call.enqueue(new Callback<User>() {
                 @Override

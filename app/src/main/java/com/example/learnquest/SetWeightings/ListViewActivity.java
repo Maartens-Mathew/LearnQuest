@@ -13,6 +13,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learnquest.R;
+import com.example.learnquest.database.SupabaseApi;
+import com.example.learnquest.database.SupabaseClient;
+import com.example.learnquest.user.User;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -21,6 +24,11 @@ import com.github.mikephil.charting.data.PieEntry;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ListViewActivity extends AppCompatActivity {
     private ArrayAdapter<Assessment> adapter;
@@ -71,7 +79,7 @@ public class ListViewActivity extends AppCompatActivity {
     private void showAddAssessmentDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_add_assessment, null);
+        View dialogView = inflater.inflate(R.layout.dialog_add_assessment,null);
         builder.setView(dialogView);
 
         EditText etName = dialogView.findViewById(R.id.etName);
@@ -102,12 +110,48 @@ public class ListViewActivity extends AppCompatActivity {
                 assessments.add(assessment);
                 adapter.notifyDataSetChanged();
                 updatePieChart();
+                addToDatabase(assessment);
                 Toast.makeText(this, "Added assessment.", Toast.LENGTH_LONG).show();
+
             }
         });
 
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
         builder.create().show();
+    }
+
+    public boolean addToDatabase(Assessment assessment){
+        SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
+        AtomicBoolean mySuccessful = new AtomicBoolean();
+
+        Call<Assessment> call = api.addAssessment(assessment);
+        //Call<User> select = api.getItems( " * from User");
+
+
+        call.enqueue(new Callback<Assessment>() {
+            @Override
+            public void onResponse(Call<Assessment> call, Response<Assessment> response) {
+                if (response.isSuccessful()) {
+                    // Person inserted successfully
+                    System.out.println("Insert successful: " + response.body());
+                    mySuccessful.set(true);
+                } else {
+                    // Handle the error
+                    System.out.println("Insert failed: " + response.errorBody());
+                    mySuccessful.set(false);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Assessment> call, Throwable t) {
+                // Handle failure
+                t.printStackTrace();
+                mySuccessful.set(false);
+            }
+        });
+
+        return mySuccessful.get();
     }
 
     private int getTotalWeighting() {
@@ -121,7 +165,7 @@ public class ListViewActivity extends AppCompatActivity {
     private void updatePieChart() {
         List<PieEntry> entries = new ArrayList<>();
         for (Assessment assessment : assessments) {
-            entries.add(new PieEntry(assessment.getWeighting(), assessment.getName()));
+            entries.add(new PieEntry((float) assessment.getWeighting(), assessment.getName()));
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Assessments");

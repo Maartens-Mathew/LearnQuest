@@ -1,5 +1,6 @@
 package com.example.learnquest.database;
 
+import com.example.learnquest.SetWeightings.Assessment;
 import com.example.learnquest.user.User;
 
 import java.util.List;
@@ -28,5 +29,8 @@ public interface SupabaseApi {
 
     @POST("/rest/v1/User")
     Call<User> addUser(@Body User user);
+
+    @POST("/rest/v1/Assessment")
+    Call<Assessment> addAssessment(@Body Assessment assessment);
 
 }
