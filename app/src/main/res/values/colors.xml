@@ -11,4 +11,6 @@
     <color name="gray">#888</color>
     <color name="blue">#0000FF</color>
     <color name="teal">#011830</color>
+    <color name="material_dynamic_neutral30">#FFBDBDBD</color> <!-- Replace with your desired color -->
+
 </resources>
