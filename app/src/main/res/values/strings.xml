@@ -8,4 +8,5 @@
     <string name="chip_unJoined">Not Joined</string>
     <string name="edt_search_term_hint">Search for Group</string>
     <string name="btn_Search">Search</string>
+    <string name="error_existing_id">The %s  that you entered is already on the system. Please enter a unique %s</string>
 </resources>

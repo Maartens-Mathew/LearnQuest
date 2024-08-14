@@ -25,7 +25,11 @@ import retrofit2.http.Query;
  */
 public interface SupabaseApi {
     @GET("/rest/v1/notes") // Your table name is "Example"
-    Call<List<User>> getItems(@Query("select") String select); //first part of your query (select, update, insert, etc.)
+    Call<List<User>> getUsers(@Query("select") String select); //first part of your query (select, update, insert, etc.)
+
+
+    @GET("/rest/v1/User")
+    Call<User> getUser(@Query("select") String select);
 
     @POST("/rest/v1/User")
     Call<User> addUser(@Body User user);
