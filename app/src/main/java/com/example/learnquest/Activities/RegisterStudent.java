@@ -62,11 +62,11 @@ public class RegisterStudent extends AppCompatActivity {
             Toast.makeText(this,"Password is incorrect", Toast.LENGTH_SHORT).show();
         else {
 
-            if (!isIDUnique()){
-                Call<User> id_check_call = api.getUser("* FROM Users WHERE nationalID = " + binding.txtID.getText().toString());
-                List<User> existingUsersID = id_check_call.enqueue()
 
-            }
+                Call<User> id_check_call = api.getUser("* FROM Users WHERE nationalID = " + binding.txtID.getText().toString());
+
+
+
 
 
             //Bind state conditions to how database reacts
@@ -87,9 +87,7 @@ public class RegisterStudent extends AppCompatActivity {
 
     }
 
-    public boolean isIDUnique(){
 
-    }
 
     public void ReturnToMain(View view) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -113,10 +111,7 @@ public class RegisterStudent extends AppCompatActivity {
         //check if id is unique
 
 
-        existingUsers = api.getUser(" * FROM Users WHERE email = " + binding.txtEmailAddress.getText().toString());
-        if (existingUsers == null){
-            Toast.makeText(this,getString(R.string.error_existing_id,"national ID", "national ID"), Toast.LENGTH_SHORT).show();
-        }
+
 
 
 
@@ -127,5 +122,5 @@ public class RegisterStudent extends AppCompatActivity {
         Toast.makeText(this,"Could not connect to the database.",Toast.LENGTH_SHORT).show();
     }
 
-    public
+
 }

@@ -46,7 +46,7 @@ public class CallBack_Response<T> implements Callback<T> {
     public void onResponse(Call<T> call, Response<T> response) {
         if (response.isSuccessful()) {
             actions.get(DatabaseStates.ON_SUCCESSFUL).run();
-            response.errorBody().
+
         }
         else{
             //decide conditions
