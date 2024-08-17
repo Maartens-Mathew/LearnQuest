@@ -5,14 +5,14 @@
     <data>
         <variable
             name="user"
-            type="com.example.learnquest.user.User" />
+            type="com.example.learnquest.model.user.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/register_background"
-        tools:context=".Activities.RegisterStudent">
+        tools:context=".LoginRegister.RegisterStudent">
 
 
         <TextView
