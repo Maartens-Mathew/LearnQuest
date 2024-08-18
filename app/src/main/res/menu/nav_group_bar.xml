@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mi_groupQuiz"
+        android:icon="@drawable/baseline_quiz_24"
+        android:title="Quiz" />
+    <item
+        android:id="@+id/mi_groupAssessment"
+        android:icon="@drawable/baseline_assessment_24"
+        android:title="Assessment" />
+    <item
+        android:id="@+id/mi_groupDashboard"
+        android:icon="@drawable/baseline_space_dashboard_24"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/mi_GroupTools"
+        android:icon="@drawable/clock"
+        android:title="Study Tools" />
+    <item
+        android:id="@+id/mi_GroupResources"
+        android:icon="@drawable/resources"
+        android:title="Resources" />
+</menu>

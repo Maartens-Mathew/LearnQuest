@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -17,19 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LearnQuest"
-        tools:targetApi="31" >
+        tools:targetApi="31">
         <activity
-            android:name=".LoginRegister.Dashboard.Profile.ProfileActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".LoginRegister.LoginActivity"
-            android:exported="true" >
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,16 +29,7 @@
         </activity>
         <activity
             android:name=".LoginRegister.Dashboard.Dashboard"
-            android:exported="false" />
-        <activity
-            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ViewProgressActivity"
-            android:exported="true" />
-        <activity
-            android:name=".LoginRegister.Dashboard.SelectGroups.ManageGroupsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginRegister.RegisterStudent"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,11 +37,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.MainActivity"
-            android:exported="false" />
+            android:name=".LoginRegister.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.MainActivity"
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ViewProgressActivity"
             android:exported="true" />
+        <activity
+            android:name=".LoginRegister.RegisterActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity" />
     </application>
 
