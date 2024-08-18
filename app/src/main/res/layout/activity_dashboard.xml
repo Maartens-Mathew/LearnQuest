@@ -14,7 +14,7 @@
         tools:context=".LoginRegister.Dashboard.Dashboard">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fc_dashboard"
+            android:id="@+id/fcv_dashboard"
             android:name="com.example.learnquest.LoginRegister.Dashboard.SelectGroups.ManageGroupsFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
