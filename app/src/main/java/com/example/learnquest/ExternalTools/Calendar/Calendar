@@ -1,0 +1,5 @@
+This is the calendar code that I found online.
+
+The CalendarAdapter aims to take the CalendarVewHolder and populate the recyclerview in the MainActivity.
+
+The CalendarViewHolder aims to decide how each date entry looks: this is one we must customize and change.
