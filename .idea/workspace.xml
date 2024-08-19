@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_dashboard.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_group_view.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register_student.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_progess.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/calendar_view.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_assessment.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_calendar.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_group_dashboard.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_manage_groups.xml">
+        <config>
+          <theme>@android:style/Theme.Material.Light</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_quiz.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_resources.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_study_tools.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/nav_bar.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/nav_group_bar.xml">
+        <config>
+          <theme>@style/Theme.LearnQuest</theme>
+        </config>
+      </layout>
+    </layouts>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="dab609bf-400a-4b0f-9138-c38d77cdeabc" name="Changes" comment="Main branch - delete" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" show_ignored="true">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="module" />
+    </option>
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\maart\.android\avd\Test_Device_Pie_.avd)]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="resourceFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="ActToFragments" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MaartensMathew&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MaartensMathew/LearnQuest.git&quot;,
+    &quot;accountId&quot;: &quot;1c4f696b-175c-485e-9754-565c104756f1&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;MaartensMathew&quot;,
+    &quot;repository&quot;: &quot;LearnQuest&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2kVL4nbROdEEZt9Q07IuSJrlKVj" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.Dashboard.executor": "Run",
+    "Android App.RegisterStudent.executor": "Run",
+    "Android App.app.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "android.gradle.sync.needed": "true",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/maart/AndroidStudioProjects/LearnQuest3/app/src/main/res/anim"
+  },
+  "keyToStringList": {
+    "kotlin-gradle-user-dirs": [
+      "C:\\Users\\maart\\.gradle"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\maart\AndroidStudioProjects\LearnQuest3\app\src\main\res\anim" />
+      <recent name="C:\Users\maart\AndroidStudioProjects\LearnQuest3\app\src\main\res\drawable" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\maart\AndroidStudioProjects\LearnQuest3\app\src\main\java\com\example\learnquest\Dashboard\SelectGroups" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.learnquest.model.group" />
+      <recent name="com.example.learnquest.model.assessment" />
+      <recent name="com.example.learnquest.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments" />
+      <recent name="com.example.learnquest.Dashboard.SelectGroups.GroupDashboard.Assessments" />
+      <recent name="com.example.learnquest.model" />
+    </key>
+    <key name="android.template.929570108">
+      <recent name="com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard" />
+      <recent name="com.example.learnquest.LoginRegister.Dashboard.SelectGroups" />
+      <recent name="com.example.learnquest.LoginRegister.Dashboard.Calendar" />
+    </key>
+    <key name="android.template.1532525819">
+      <recent name="com.example.learnquest.Dashboard.Profile" />
+      <recent name="com.example.learnquest.LoginRegister" />
+      <recent name="com.example.learnquest" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.learnquest.database" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Dashboard" type="AndroidRunConfigurationType" factoryName="Android App" singleton="true">
+      <module name="LearnQuest.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="specific_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="com.example.learnquest.LoginRegister.Dashboard.Dashboard" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dab609bf-400a-4b0f-9138-c38d77cdeabc" name="Changes" comment="" />
+      <created>1723363608723</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1723363608723</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Added user class.&#10;Student, Moderator and Teacher extend User class.&#10;Added SupabaseClient and SupabaseApi files.&#10;Added functionality to add user to database.&#10;Corrected bindings in activity_">
+      <option name="closed" value="true" />
+      <created>1723410944861</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1723410944861</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fixed coding mistake on line 56 of RegisterStudent.java file">
+      <option name="closed" value="true" />
+      <created>1723411020115</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1723411020115</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Re-arranged the filing structure. &#10;I organized the packages and classes based on user navigation in the program. All the related activities are together, and since the entities can be re-used across multiple activities, they were moved to the model class.">
+      <option name="closed" value="true" />
+      <created>1723922557100</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1723922557100</updated>
+    </task>
+    <task id="LOCAL-00004" summary="I managed to integrate a lot of fragment functionality into our existing project. The navigation bar at the bottom is to allow navigation between the different fragments. Bottom sheet functionality can be added soon.">
+      <option name="closed" value="true" />
+      <created>1724006524719</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1724006524719</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added fragment navigation animations.&#10;Removed code to add fragments to stack. Back button now functions as intended.">
+      <option name="closed" value="true" />
+      <created>1724008141808</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1724008141808</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added baseline_groups_24.xml">
+      <option name="closed" value="true" />
+      <created>1724081615153</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1724081615154</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Main branch - delete">
+      <option name="closed" value="true" />
+      <created>1724081910607</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1724081910607</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added user class.&#10;Student, Moderator and Teacher extend User class.&#10;Added SupabaseClient and SupabaseApi files.&#10;Added functionality to add user to database." />
+    <MESSAGE value="Added user class.&#10;Student, Moderator and Teacher extend User class.&#10;Added SupabaseClient and SupabaseApi files.&#10;Added functionality to add user to database.&#10;Corrected bindings in activity_" />
+    <MESSAGE value="Fixed coding mistake on line 56 of RegisterStudent.java file" />
+    <MESSAGE value="Re-arranged the filing structure. &#10;I organized the packages and classes based on user navigation in the program. All the related activities are together, and since the entities can be re-used across multiple activities, they were moved to the model class." />
+    <MESSAGE value="I managed to integrate a lot of fragment functionality into our existing project. The navigation bar at the bottom is to allow navigation between the different fragments. Bottom sheet functionality can be added soon." />
+    <MESSAGE value="Added fragment navigation animations.&#10;Removed code to add fragments to stack. Back button now functions as intended." />
+    <MESSAGE value="Resolve conflit" />
+    <MESSAGE value="Added baseline_groups_24.xml" />
+    <MESSAGE value="Main branch - delete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Main branch - delete" />
+    <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
+  </component>
+</project>

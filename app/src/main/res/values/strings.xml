@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">LearnQuest</string>
-    <string name="back"><![CDATA[<-]]></string>
-    <string name="forward"><![CDATA[->]]></string>
-    <string name="current_mark">%s%%</string>
-    <string name="goal_mark">%s%%</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-</resources>
