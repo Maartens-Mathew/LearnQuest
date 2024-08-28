@@ -1,5 +1,6 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,7 +8,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.Assessment;
 import com.example.learnquest.R;
+import com.example.learnquest.Utils.database.SupabaseApi;
+import com.example.learnquest.Utils.database.SupabaseClient;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -17,73 +21,88 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ViewProgressActivity extends AppCompatActivity {
 
     private LineChart lineChart;
-
+    private LineData lineData;
+    private int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_progess);
-        try{
-            setUpChart();
-            LineData lineData = new LineData();
-            int size = 5;
-            DummyData dummyData = new DummyData();
-            DummyData[] values = dummyData.values;
-            float[] idealMarks = new float[size];
-            float[] weights = new float[size];
-            float[] marksObtained = new float[size];
-            float accumIdeal = 0f;
-            float accumCurr = 0f;
-            List<Entry> currProgressData = new ArrayList<>(11);
-            List<Entry> goalMarkData = new ArrayList<>(11);
-            for (int i = 0; i < values.length; i++) {
-                accumIdeal += values[i].markDesired*values[i].weight;
-                Entry markDesired = new Entry((float)i,accumIdeal);
-                if (i < 3){
-                    accumCurr += values[i].markObtained*values[i].weight;
-                    Entry actualMark = new Entry((float)i,accumCurr);
-                    currProgressData.add(actualMark);
+        //TODO: must get userID from login screen
+        Intent intent = getIntent();
+        userID = intent.getExtras().getInt("userID");
+        setUpChart();
+        lineData = new LineData();
+        interactingWithDatabase();
+    }
+
+    private void interactingWithDatabase(){
+        /*
+          I did all of this including the creation of the new classes to get the data from the database.
+          This way of doing it is the way shown to me by ChatGPT. Its very inefficient and there must be a better
+          way of doing this. I feel like we should just combine the Assessment and StudentAsssessment tables together
+          I don't really understand why they are separate. It's very difficult to get the relational data through a Select
+          query so had to just get all the data from both tables using api calls. I also added methods to the api interface
+          to better do that. I also added a @Query term which is the userID. I'm not sure if the api call will filter it
+          correctly so that it gets only the student assessments with that userID. I also had to get the weightings from
+          the Assessment table so I had to search the whole assessment table to get a specific weighting for each student
+          assesssment of hte specified user which is very inefficient.
+
+          This also relies on the activity being started with the userID of the user passed to it
+        */
+        SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
+        Call<List<StudentAssessment>> studentAssessmentsCall = api.getStudentAssessments(Integer.toString(userID));
+        studentAssessmentsCall.enqueue(new Callback<List<StudentAssessment>>() {
+            @Override
+            public void onResponse(Call<List<StudentAssessment>> call, Response<List<StudentAssessment>> response) {
+                if (response.isSuccessful() && response.body() != null){
+                    List<StudentAssessment> studentAssessments = response.body();
+                    Call<List<Assessment>> assessments = api.getAssessments();
+                    assessments.enqueue(new Callback<List<Assessment>>() {
+                        @Override
+                        public void onResponse(Call<List<Assessment>> call, Response<List<Assessment>> response) {
+                            if (response.isSuccessful() && response.body() != null){
+                                List<Assessment> assessments = response.body();
+                                List<ChartData> chartDataList = new ArrayList<>();
+                                for(StudentAssessment sa : studentAssessments){
+                                    ChartData cd = new ChartData();
+                                    cd.setIdealMark(sa.getIdealMark());
+                                    cd.setMarkObtained(sa.getMarkObtained());
+                                    for(Assessment assessment : assessments){
+                                        if (sa.getAssessmentID() == assessment.getAssessmentID()){
+                                            cd.setWeighting(assessment.getWeighting());
+                                            break;
+                                        }
+                                    }
+                                    chartDataList.add(cd);
+                                }
+                                addChartData(chartDataList);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Assessment>> call, Throwable throwable) {
+                            Log.e("ViewProgressActivity","Call 2: error getting a response from database");
+                        }
+                    });
                 }
                 else{
-                    accumCurr += values[i].markDesired*values[i].weight;
-                    Entry currProg = new Entry((float)i,accumCurr);
-                    currProgressData.add(currProg);
+                    Log.e("ViewProgressActivity","Call 1: error getting a response from database");
                 }
-                idealMarks[i] = values[i].markDesired;
-                marksObtained[i] = values[i].markObtained;
-                weights[i] = values[i].weight;
-                goalMarkData.add(markDesired);
             }
-            TextView lblCurrProgress = findViewById(R.id.lblCurrentProgress);
-            TextView lblGoalMark = findViewById(R.id.lblGoalMark);
-            lblCurrProgress.setText(getResources().getString(R.string.current_mark, String.format("%.0f",accumCurr*100.0f)));
-            lblGoalMark.setText(getResources().getString(R.string.goal_mark,String.format("%.0f",accumIdeal*100.0f)));
-            LineDataSet ds = new LineDataSet(currProgressData,"current");
-            LineDataSet dx = new LineDataSet(goalMarkData, "ideal");
-            dx.setColor(Color.RED);
-            ds.setColor(Color.BLUE);
-            dx.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-            ds.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-            ds.setDrawValues(false);
-            dx.setDrawValues(false);
-            lineData.addDataSet(ds);
-            lineData.addDataSet(dx);
-            lineChart.setData(lineData);
-            ds.setCubicIntensity(0.15f);
-            dx.setCubicIntensity(0.15f);
-            lineChart.invalidate();
-        }
-        catch (Exception e){
-            if (e.getMessage() != null){
-                Log.e("MainActivity", e.getMessage());
+
+            @Override
+            public void onFailure(Call<List<StudentAssessment>> call, Throwable throwable) {
+                throwable.printStackTrace();
             }
-            for (StackTraceElement element : e.getStackTrace()){
-                Log.e("MainActivity",e.toString());
-            }
-        }
+        });
     }
 
     private void setUpChart(){
@@ -91,50 +110,46 @@ public class ViewProgressActivity extends AppCompatActivity {
         lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         lineChart.getXAxis().setAxisMinimum(0f);
         lineChart.getAxisLeft().setAxisMinimum(0f);
-        lineChart.getAxisRight().setEnabled(false);
     }
 
-    private class DummyData {
-
-        private DummyData[] values;
-        private float markDesired, markObtained, weight;
-
-        public DummyData(float markDesired, float markObtained, float weight) {
-            this.markDesired = markDesired;
-            this.markObtained = markObtained;
-            this.weight = weight;
+    private void addChartData(List<ChartData> chartData){
+        List<Entry> currProgressData = new ArrayList<>();
+        List<Entry> goalMarkData = new ArrayList<>();
+        float accumIdeal = 0f;
+        float accumCurr = 0f;
+        for (int i = 0; i < chartData.size(); i++){
+            ChartData cd = chartData.get(i);
+            if (cd.getMarkObtained() != 0f){
+                accumCurr += cd.getMarkObtained();
+                currProgressData.add(new Entry(i*0f,accumCurr));
+                accumIdeal += cd.getIdealMark();
+                goalMarkData.add(new Entry(i*0f,accumIdeal));
+            }
+            else{
+                accumIdeal += cd.getIdealMark();
+                accumCurr += cd.getIdealMark();
+                currProgressData.add(new Entry(i*0f,accumCurr));
+                goalMarkData.add(new Entry(i*0f,accumIdeal));
+            }
         }
 
-        public DummyData(){
-            setValues();
-        }
-
-        public void setValues(){
-            values = new DummyData[5];
-            values[0] = new DummyData(0.7f,0.5f,0.2f*0.3f);
-            values[1] = new DummyData(0.7f,0.65f,0.35f*0.3f);
-            values[2] = new DummyData(0.7f,0.7f,0.35f*0.3f);
-            values[3] = new DummyData(0.7f,0.8f,0.1f*0.3f);
-            values[4] = new DummyData(0.7f,0.75f,0.7f);
-        }
-    }
-
-    public float calcCurrentProgress(float[] idealMark, float[] weights, float[] markObtained, int n){
-        float currProgress = 0.0f;
-        for (int i = 0; i < n; i++) {
-            currProgress += markObtained[i]*weights[i];
-        }
-        for (int i = n; i < idealMark.length; i++){
-            currProgress += idealMark[i]*weights[i];
-        }
-        return  currProgress;
-    }
-
-    public float calcIdealMark(float[] idealMark, float[] weights){
-        float totalIdealMark = 0.0f;
-        for (int i = 0; i < idealMark.length; i++) {
-            totalIdealMark += idealMark[i]*weights[i];
-        }
-        return totalIdealMark;
+        TextView lblCurrProgress = findViewById(R.id.lblCurrentProgress);
+        TextView lblGoalMark = findViewById(R.id.lblGoalMark);
+        lblCurrProgress.setText(getResources().getString(R.string.current_mark, String.format("%.0f",accumCurr*100.0f)));
+        lblGoalMark.setText(getResources().getString(R.string.goal_mark,String.format("%.0f",accumIdeal*100.0f)));
+        LineDataSet ds = new LineDataSet(currProgressData,"current");
+        LineDataSet dx = new LineDataSet(goalMarkData, "ideal");
+        dx.setColor(Color.RED);
+        ds.setColor(Color.BLUE);
+        dx.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        ds.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        ds.setDrawValues(false);
+        dx.setDrawValues(false);
+        lineData.addDataSet(ds);
+        lineData.addDataSet(dx);
+        lineChart.setData(lineData);
+        ds.setCubicIntensity(0.15f);
+        dx.setCubicIntensity(0.15f);
+        lineChart.invalidate();
     }
 }

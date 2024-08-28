@@ -1,5 +1,8 @@
 package com.example.learnquest.Utils.database;
 
+
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.Assessment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
 import com.example.learnquest.model.user.User;
 
 import java.util.List;
@@ -27,4 +30,12 @@ public interface SupabaseApi {
     @POST("/rest/v1/User")
     Call<User> addUser(@Body User user);
 
+    @GET("/rest/v1/StudentAssessment")
+    Call<List<StudentAssessment>> getStudentAssessments(@Query("userID") String userID);
+
+    @GET("/rest/v1/Assessment")
+    Call<List<Assessment>> getAssessments();
+
+
+    //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work
 }
