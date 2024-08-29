@@ -1,8 +1,10 @@
 import org.jetbrains.kotlin.gradle.plugin.kotlinToolingVersion
 
 plugins {
+
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
 }
 //val mysqlConnectorJavaVersion by extra(mysqlConnectorJavaVersion)
 
@@ -12,8 +14,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.learnquest"
-        minSdk = 26
-        targetSdk = 33
+        minSdk = 29
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -42,6 +44,8 @@ android {
 }
 
 dependencies {
+
+
 
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")

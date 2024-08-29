@@ -28,14 +28,10 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_student);
-
-
-
-
-
-
         binding = DataBindingUtil.setContentView(this,R.layout.activity_register_student);
+        setContentView(binding.getRoot());
+
+
         currentStudent = new User("Meghan","Maartens","0303025049000","maartens.test@gmail.com","Maartens.Meghan","qwerty");
         binding.setUser(currentStudent);
 
