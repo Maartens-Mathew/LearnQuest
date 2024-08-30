@@ -3,6 +3,9 @@ package com.example.learnquest.Utils.database;
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.Assessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
+import com.example.learnquest.QuizBank.QuizEntry;
+import com.example.learnquest.QuizBank.Tag;
+import com.example.learnquest.QuizBank.TaggedQuizEntry;
 import com.example.learnquest.model.user.User;
 
 import java.util.List;
@@ -12,7 +15,6 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -50,5 +52,14 @@ public interface SupabaseApi {
     Call<Void> deleteAssessmentsByGroupID(@Query("groupID") String groupID);
 
 
+    @GET("/rest/v1/QuizEntry")
+    Call<List<QuizEntry>> getAllQuizEntries();
+
+    @GET("/rest/v1/Tag")
+    Call<List<Tag>> getAllTags();
+
+
+    @GET("/rest/v1/TaggedQuizEntry")
+    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work
 }
