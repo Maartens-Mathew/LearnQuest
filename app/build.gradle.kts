@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.example.learnquest"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.learnquest"
@@ -63,4 +63,8 @@ dependencies {
     //MPAndroidChart library
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
+
+    // Retrofit for REST API calls
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }

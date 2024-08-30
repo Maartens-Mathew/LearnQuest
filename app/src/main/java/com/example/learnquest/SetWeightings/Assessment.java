@@ -3,13 +3,20 @@ import java.io.Serializable;
 
 public class Assessment implements Serializable {
     private String name;
-    private String date;
-    private int weighting;
+    private String dueDate;
+    private float weighting;
+    private int groupID;
 
-    public Assessment(String name, String date, int weighting) {
+   // private int assessmentID; // Add this field
+
+
+
+    public Assessment(String name, String date, float weighting) {
         this.name = name;
-        this.date = date;
+        this.dueDate = date;
         this.weighting = weighting;
+        this.groupID = 1; // Example default groupID for testing
+
     }
 
     public String getName() {
@@ -17,12 +24,13 @@ public class Assessment implements Serializable {
     }
 
     public String getDate() {
-        return date;
+        return dueDate;
     }
 
-    public int getWeighting() {
+    public float getWeighting() {
         return weighting;
     }
+
 
     @Override
     public String toString() {

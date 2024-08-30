@@ -9,8 +9,10 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -35,6 +37,17 @@ public interface SupabaseApi {
 
     @GET("/rest/v1/Assessment")
     Call<List<Assessment>> getAssessments();
+
+
+            //adding an assessment to the DB
+    @POST("/rest/v1/Assessment")
+    Call<com.example.learnquest.SetWeightings.Assessment> addAssessment(@Body com.example.learnquest.SetWeightings.Assessment assessment);
+
+
+
+
+    @DELETE("/rest/v1/Assessment")
+    Call<Void> deleteAssessmentsByGroupID(@Query("groupID") String groupID);
 
 
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work

@@ -2,6 +2,7 @@ package com.example.learnquest.SetWeightings;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,14 +14,24 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learnquest.R;
+import com.example.learnquest.Utils.database.SupabaseApi;
+import com.example.learnquest.Utils.database.SupabaseClient;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Call;
+
+
+
 
 public class ListViewActivity extends AppCompatActivity {
     private ArrayAdapter<Assessment> adapter;
@@ -42,7 +53,7 @@ public class ListViewActivity extends AppCompatActivity {
         lstAssessments.setOnItemClickListener((adapterView, view, index, id) -> {
             if (index >= 0) {
                 selectedIndex = index;
-                Toast.makeText(this, "Clicked on Assessment[" + index + "]", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Clicked on Assessment[" + (index+1) + "]", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Clicked, but no assessment selected.", Toast.LENGTH_LONG).show();
             }
@@ -59,7 +70,29 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
 
-
+//    public void deleteAssessment(Assessment assessment) {
+//        SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
+//
+//        // Call the delete endpoint with the assessment's ID
+//        Call<Void> call = api.deleteAssessment(assessment.getAssessmentID());
+//
+//        call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.isSuccessful()) {
+//                    Toast.makeText(ListViewActivity.this, "Assessment deleted successfully from DB!", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(ListViewActivity.this, "Failed to delete assessment from DB: " + response.message(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Toast.makeText(ListViewActivity.this, "Error deleting from DB: " + t.getMessage(), Toast.LENGTH_LONG).show();
+//                t.printStackTrace();
+//            }
+//        });
+//    }
 
 
     public void onDeleteClicked(View view) {
@@ -73,6 +106,7 @@ public class ListViewActivity extends AppCompatActivity {
         }
         selectedIndex = -1;
     }
+
 
     private void showAddAssessmentDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -160,8 +194,182 @@ public class ListViewActivity extends AppCompatActivity {
         return (0xff << 24) | (r << 16) | (g << 8) | b; // ARGB format
     }
 
-    public void onSaveClicked(View view) {
-        // Implement your save logic here (e.g., save assessments to a database or file)
-        Toast.makeText(this, "Save functionality not implemented yet.", Toast.LENGTH_SHORT).show();
-    }
+//    public void onSaveClicked(View view) {//tyhis was workinhhhhh
+//        List<Assessment> assessments = AssessmentManager.getInstance().getAssessments();
+//
+//        if (assessments.isEmpty()) {
+//            Toast.makeText(this, "No assessments to save.", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
+//
+//        for (Assessment assessment : assessments) {
+//            Call<Assessment> call = api.addAssessment(assessment);
+//
+//            call.enqueue(new Callback<Assessment>() {
+//                @Override
+//                public void onResponse(Call<Assessment> call, Response<Assessment> response) {
+//                    if (response.isSuccessful()) {
+//
+//
+//                        Toast.makeText(ListViewActivity.this, "Assessment saved successfully!", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(ListViewActivity.this, "Failed to save assessment: " + response.message(), Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Assessment> call, Throwable t) {
+//                    Toast.makeText(ListViewActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+//                    Log.e("SaveAssessment", "Failure: ", t);
+//                }
+//            });
+//        }
+//    }
+
+//    public void onSaveClicked(View view) {
+//        // Create a test assessment
+//        Assessment testAssessment = new Assessment("Test Assessment", "2024-08-29", 20.0f);
+//
+//        SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
+//        Call<Void> call = api.addAssessment(testAssessment);
+//
+//        call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.isSuccessful()) {
+//                    Toast.makeText(ListViewActivity.this, "Assessment saved successfully!", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    try {
+//                        String errorBody = response.errorBody().string();
+//                        Log.e("SaveAssessment", "Error body: " + errorBody);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    Toast.makeText(ListViewActivity.this, "Failed to save assessment: " + response.message(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Toast.makeText(ListViewActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+//                t.printStackTrace();
+//            }
+//        });
+//    }
+
+
+//    public void onDeleteAllClicked(View view) {         //deletes based on filter. WORKIGN
+//        // Specify the groupID you want to delete
+//        int groupIDToDelete = 1;
+//
+//        // Create the API client
+//        SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
+//
+//        // Log the groupID being used for deletion
+//        Log.d("DeleteAssessments", "Attempting to delete all assessments for groupID: " + groupIDToDelete);
+//
+//        // Make the API call to delete records with the correct filter syntax
+//        Call<Void> deleteCall = api.deleteAssessmentsByGroupID("eq." + groupIDToDelete);
+//
+//        deleteCall.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                Log.d("DeleteAssessments", "Delete response code: " + response.code());
+//                if (response.isSuccessful()) {
+//                    Log.d("DeleteAssessments", "Successfully deleted assessments.");
+//                    Toast.makeText(ListViewActivity.this, "All assessments for groupID " + groupIDToDelete + " deleted.", Toast.LENGTH_LONG).show();
+//                } else {
+//                    Log.e("DeleteAssessments", "Failed to delete assessments: " + response.message());
+//                    try {
+//                        String errorBody = response.errorBody().string();
+//                        Log.e("DeleteAssessments", "Error body: " + errorBody);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    Toast.makeText(ListViewActivity.this, "Failed to delete assessments: " + response.message(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Log.e("DeleteAssessments", "Error deleting assessments: " + t.getMessage());
+//                Toast.makeText(ListViewActivity.this, "Error deleting assessments: " + t.getMessage(), Toast.LENGTH_LONG).show();
+//                t.printStackTrace();
+//            }
+//        });
+//    }
+public void onSaveClicked(View view) {
+    int groupIDToDelete = 1; // Update this as needed
+
+    SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
+
+    // Step 1: Delete existing records for the specified group ID
+    Call<Void> deleteCall = api.deleteAssessmentsByGroupID("eq." + groupIDToDelete);
+
+    deleteCall.enqueue(new Callback<Void>() {
+        @Override
+        public void onResponse(Call<Void> call, Response<Void> response) {
+            Log.d("DeleteAssessments", "Delete response code: " + response.code());
+            if (response.isSuccessful()) {
+                Log.d("DeleteAssessments", "Successfully deleted assessments.");
+                Toast.makeText(ListViewActivity.this, "All assessments for groupID " + groupIDToDelete + " deleted.", Toast.LENGTH_LONG).show();
+
+                // Step 2: After successful deletion, proceed to save new assessments
+                saveAssessments(api);
+
+            } else {
+                Log.e("DeleteAssessments", "Failed to delete assessments: " + response.message());
+                try {
+                    String errorBody = response.errorBody().string();
+                    Log.e("DeleteAssessments", "Error body: " + errorBody);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(ListViewActivity.this, "Failed to delete assessments: " + response.message(), Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Void> call, Throwable t) {
+            Log.e("DeleteAssessments", "Error deleting assessments: " + t.getMessage());
+            Toast.makeText(ListViewActivity.this, "Error deleting assessments: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            t.printStackTrace();
+        }
+    });
 }
+
+    private void saveAssessments(SupabaseApi api) {
+        List<Assessment> assessments = AssessmentManager.getInstance().getAssessments();
+
+        if (assessments.isEmpty()) {
+            Toast.makeText(this, "No assessments to save.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        for (Assessment assessment : assessments) {
+            Call<Assessment> call = api.addAssessment(assessment);
+
+            call.enqueue(new Callback<Assessment>() {
+                @Override
+                public void onResponse(Call<Assessment> call, Response<Assessment> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(ListViewActivity.this, "Assessment saved successfully!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ListViewActivity.this, "Failed to save assessment: " + response.message(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Assessment> call, Throwable t) {
+                    Toast.makeText(ListViewActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.e("SaveAssessment", "Failure: ", t);
+                }
+            });
+        }
+    }
+
+
+
+    }
