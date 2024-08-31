@@ -10,42 +10,47 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.learnquest.R;
 import java.util.List;
 
-public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {
-
-    private List<QuizEntryWithTags> quizEntries;
+public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
+    private final List<QuizEntryWithTags> quizEntries;
 
     public QuizAdapter(List<QuizEntryWithTags> quizEntries) {
         this.quizEntries = quizEntries;
     }
 
-    @NonNull
     @Override
-    public QuizViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_quiz, parent, false);
-        return new QuizViewHolder(view);
+        return new ViewHolder(view);
     }
-
     @Override
-    public void onBindViewHolder(@NonNull QuizViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         QuizEntryWithTags entry = quizEntries.get(position);
+
         holder.questionTextView.setText(entry.getQuestion());
         holder.answerTextView.setText(entry.getAnswer());
         holder.descriptionTextView.setText(entry.getDescription());
 
-        // Display associated tags as a comma-separated string
-        String tagsText = TextUtils.join(", ", entry.getTags());
-        holder.tagsTextView.setText(tagsText);
+        List<String> tags = entry.getTags();
+        if (tags.isEmpty()) {
+            holder.tagsTextView.setText("No tags");
+        } else {
+            holder.tagsTextView.setText(String.join(", ", tags));
+        }
     }
+
 
     @Override
     public int getItemCount() {
         return quizEntries.size();
     }
 
-    public static class QuizViewHolder extends RecyclerView.ViewHolder {
-        TextView questionTextView, answerTextView, descriptionTextView, tagsTextView;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView questionTextView;
+        TextView answerTextView;
+        TextView descriptionTextView;
+        TextView tagsTextView;
 
-        public QuizViewHolder(@NonNull View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             questionTextView = itemView.findViewById(R.id.questionTextView);
             answerTextView = itemView.findViewById(R.id.answerTextView);
@@ -54,4 +59,3 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
         }
     }
 }
-
