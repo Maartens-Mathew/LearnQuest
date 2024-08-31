@@ -26,7 +26,8 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         QuizEntryWithTags entry = quizEntries.get(position);
 
-        holder.questionTextView.setText(entry.getQuestion());
+
+        holder.questionTextView.setText(entry.getQuestion() + "the quiz ID itself is: " + entry.getQuizEntryID());
         holder.answerTextView.setText(entry.getAnswer());
         holder.descriptionTextView.setText(entry.getDescription());
 
@@ -34,7 +35,8 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         if (tags.isEmpty()) {
             holder.tagsTextView.setText("No tags");
         } else {
-            holder.tagsTextView.setText(String.join(", ", tags));
+
+            holder.tagsTextView.setText(String.join(" |||||| ", tags));
         }
     }
 

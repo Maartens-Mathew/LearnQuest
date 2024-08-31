@@ -61,6 +61,14 @@ public interface SupabaseApi {
     Call<List<Tag>> getAllTags();
 
 
+//
+@GET("/rest/v1/Tag")
+Call<List<Tag>> getTagsByIds(@Query("id") String id);
+
+
+//    @GET("/rest/v1/Tag?select=*&id=tagID.({tagIds})")
+//    Call<List<Tag>> getTagsByIds(@Query("tagIds") String tagIds);
+
     @GET("/rest/v1/TaggedQuizEntry")
     Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work
