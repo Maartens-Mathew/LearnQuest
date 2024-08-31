@@ -31,6 +31,8 @@ public interface SupabaseApi {
     @GET("/rest/v1/notes") // Your table name is "Example"
     Call<List<User>> getItems(@Query("select") String select); //first part of your query (select, update, insert, etc.)
 
+    <T> Call<List<T>> getItems(@Query("select") String select);
+
     @POST("/rest/v1/User")
     Call<User> addUser(@Body User user);
 
