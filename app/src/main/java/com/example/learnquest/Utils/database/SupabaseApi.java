@@ -1,7 +1,7 @@
 package com.example.learnquest.Utils.database;
 
 
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.Assessment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
 import com.example.learnquest.model.user.User;
 

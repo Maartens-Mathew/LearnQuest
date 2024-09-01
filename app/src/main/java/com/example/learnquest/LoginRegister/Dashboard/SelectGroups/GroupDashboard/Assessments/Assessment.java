@@ -1,4 +1,4 @@
-package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments;
+package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments;
 
 public class Assessment {
     private int assessmentID, groupID;
