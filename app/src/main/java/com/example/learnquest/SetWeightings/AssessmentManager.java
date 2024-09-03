@@ -4,17 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AssessmentManager {
-    private static AssessmentManager instance;
-    private List<Assessment> assessments;
+    private List<Assessment> assessments = new ArrayList<>();
+    private static final AssessmentManager instance = new AssessmentManager();
 
-    private AssessmentManager() {
-        assessments = new ArrayList<>();
-    }
+    private AssessmentManager() {}
 
     public static AssessmentManager getInstance() {
-        if (instance == null) {
-            instance = new AssessmentManager();
-        }
         return instance;
     }
 
@@ -22,15 +17,19 @@ public class AssessmentManager {
         return assessments;
     }
 
+    public void setAssessments(List<Assessment> newAssessments) {
+        assessments.clear();
+        assessments.addAll(newAssessments);
+    }
+
     public void addAssessment(Assessment assessment) {
         assessments.add(assessment);
     }
 
     public void removeAssessment(int index) {
-        assessments.remove(index);
-    }
-
-    public void clearAssessments() {
-        assessments.clear();
+        if (index >= 0 && index < assessments.size()) {
+            assessments.remove(index);
+        }
     }
 }
+

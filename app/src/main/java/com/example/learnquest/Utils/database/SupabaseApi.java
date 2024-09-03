@@ -13,6 +13,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -44,6 +45,15 @@ public interface SupabaseApi {
             //adding an assessment to the DB
     @POST("/rest/v1/Assessment")
     Call<com.example.learnquest.SetWeightings.Assessment> addAssessment(@Body com.example.learnquest.SetWeightings.Assessment assessment);
+
+//    @POST("/rest/functions/v1/get_tagged")
+//    Call<List<Object>> getTaggedEntries( @Field(groupID) int groupID);
+
+    // In your SupabaseApi interface
+    @GET("assessments")
+    Call<List<Assessment>> getAssessments(@Query("groupID") String groupID);
+
+
 
 
 

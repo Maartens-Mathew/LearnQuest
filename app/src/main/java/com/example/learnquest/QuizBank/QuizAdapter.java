@@ -27,7 +27,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         QuizEntryWithTags entry = quizEntries.get(position);
 
 
-        holder.questionTextView.setText(entry.getQuestion() + "the quiz ID itself is: " + entry.getQuizEntryID());
+        holder.questionTextView.setText(entry.getQuestion());
         holder.answerTextView.setText(entry.getAnswer());
         holder.descriptionTextView.setText(entry.getDescription());
 
