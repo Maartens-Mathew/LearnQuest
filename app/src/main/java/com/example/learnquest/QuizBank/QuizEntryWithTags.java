@@ -10,16 +10,22 @@ public class QuizEntryWithTags {
     private String answer;
     private String description;
     private int groupID;
-    private List<String> tags; // Updated to a list of tags
+    private boolean isValid;
 
+    //wheres tags?
+//i remvboed it eish
+
+    //Okay what we can do is once we get the result set, each QuizEntry can have a list<Tag>? that fine
+
+    //For now, I have a TaggedQuiz class that is like a temporary class to hold the results
     // Constructors
-    public QuizEntryWithTags(int quizEntryID, String question, String answer, String description, int groupID, List<String> tags) {
+    public QuizEntryWithTags(int quizEntryID, String question, String answer, String description, Integer groupID ,boolean isV) {
         this.quizEntryID = quizEntryID;
         this.question = question;
         this.answer = answer;
         this.description = description;
-        this.groupID = groupID;
-        this.tags = tags;
+        this.groupID = 1;
+        this.isValid = isV;
     }
 
     // Getters and Setters
@@ -38,6 +44,5 @@ public class QuizEntryWithTags {
     public int getGroupID() { return groupID; }
     public void setGroupID(int groupID) { this.groupID = groupID; }
 
-    public List<String> getTags() { return tags; }
-    public void setTags(List<String> tags) { this.tags = tags; }
+
 }

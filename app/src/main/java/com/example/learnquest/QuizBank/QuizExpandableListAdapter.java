@@ -80,8 +80,6 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
 
         answerTextView.setText(quizEntry.getAnswer());
         descriptionTextView.setText(quizEntry.getDescription());
-        tagsTextView.setText(String.join(", ", quizEntry.getTags()));
-
         return convertView;
     }
 

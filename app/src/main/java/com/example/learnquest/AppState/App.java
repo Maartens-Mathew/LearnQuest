@@ -10,8 +10,8 @@ import com.example.learnquest.Utils.database.SupabaseClient;
  */
 public class App {
 
-    public static int userID;
-    public static int groupID;
+    public static short userID;
+    public static short groupID;
 
 
     public static SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
