@@ -6,4 +6,10 @@
     <string name="goal_mark">%s%%</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="viewprogress_adjust_goals_button">Adjust Goals</string>
+    <string name="adjust_goals_mark_desired">Mark Desired: %s%%</string>
+    <string name="adjust_goals_mark_obtained">Mark Obtained: %s%%</string>
+    <string name="adjust_goals_weighting">weighting: %s%%</string>
+    <string name="adjust_goals_fragment_hint">Enter new goal mark</string>
+    <string name="enterbutton">Enter</string>
 </resources>

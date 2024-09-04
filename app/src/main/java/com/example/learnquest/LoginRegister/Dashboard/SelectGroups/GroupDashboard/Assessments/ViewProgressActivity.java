@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class ViewProgressActivity extends AppCompatActivity {
     private LineChart lineChart;
     private LineData lineData;
     private int userID;
+    private ArrayList<AssessmentData> assessmentDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,20 +72,21 @@ public class ViewProgressActivity extends AppCompatActivity {
                         public void onResponse(Call<List<Assessment>> call, Response<List<Assessment>> response) {
                             if (response.isSuccessful() && response.body() != null){
                                 List<Assessment> assessments = response.body();
-                                List<ChartData> chartDataList = new ArrayList<>();
+                                assessmentDataList = new ArrayList<>();
                                 for(StudentAssessment sa : studentAssessments){
-                                    ChartData cd = new ChartData();
+                                    AssessmentData cd = new AssessmentData();
                                     cd.setIdealMark(sa.getIdealMark());
                                     cd.setMarkObtained(sa.getMarkObtained());
                                     for(Assessment assessment : assessments){
                                         if (sa.getAssessmentID() == assessment.getAssessmentID()){
                                             cd.setWeighting(assessment.getWeighting());
+                                            cd.setAssessmentName(assessment.getName());
                                             break;
                                         }
                                     }
-                                    chartDataList.add(cd);
+                                    assessmentDataList.add(cd);
                                 }
-                                addChartData(chartDataList);
+                                addChartData(assessmentDataList);
                             }
                         }
 
@@ -111,13 +115,20 @@ public class ViewProgressActivity extends AppCompatActivity {
         lineChart.getAxisLeft().setAxisMinimum(0f);
     }
 
-    private void addChartData(List<ChartData> chartData){
+    public void btnAdjustGoalsClicked(View view){
+        Intent intent = new Intent(this, AdjustGoalsActivity.class);
+        intent.putExtra("data", (Serializable) assessmentDataList);
+        startActivity(intent);
+    }
+
+
+    private void addChartData(List<AssessmentData> assessmentData){
         List<Entry> currProgressData = new ArrayList<>();
         List<Entry> goalMarkData = new ArrayList<>();
         float accumIdeal = 0f;
         float accumCurr = 0f;
-        for (int i = 0; i < chartData.size(); i++){
-            ChartData cd = chartData.get(i);
+        for (int i = 0; i < assessmentData.size(); i++){
+            AssessmentData cd = assessmentData.get(i);
             if (cd.getMarkObtained() != 0f){
                 accumCurr += cd.getMarkObtained();
                 currProgressData.add(new Entry(i*0f,accumCurr));
@@ -134,8 +145,8 @@ public class ViewProgressActivity extends AppCompatActivity {
 
         TextView lblCurrProgress = findViewById(R.id.lblCurrentProgress);
         TextView lblGoalMark = findViewById(R.id.lblGoalMark);
-        lblCurrProgress.setText(getResources().getString(R.string.current_mark, String.format("%.0f",accumCurr*100.0f)));
-        lblGoalMark.setText(getResources().getString(R.string.goal_mark,String.format("%.0f",accumIdeal*100.0f)));
+        lblCurrProgress.setText(getResources().getString(R.string.current_mark, String.format("%.0f",accumCurr)));
+        lblGoalMark.setText(getResources().getString(R.string.goal_mark,String.format("%.0f",accumIdeal)));
         LineDataSet ds = new LineDataSet(currProgressData,"current");
         LineDataSet dx = new LineDataSet(goalMarkData, "ideal");
         dx.setColor(Color.RED);

@@ -1,16 +1,30 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments;
 
 
+import java.io.Serializable;
+
 //class that will store the data from an SQL query that gets the weighting, ideal mark and mark obtained with a specific student id
-public class ChartData {
+public class AssessmentData implements Serializable {
+
+
     private float weighting, idealMark, markObtained;
+    private String assessmentName;
 
-    public ChartData(){}
+    public String getAssessmentName() {
+        return assessmentName;
+    }
 
-    public ChartData(float weighting, float idealMark, float markObtained) {
+    public void setAssessmentName(String assessmentName) {
+        this.assessmentName = assessmentName;
+    }
+
+    public AssessmentData(){}
+
+    public AssessmentData(float weighting, float idealMark, float markObtained, String assessmentName) {
         this.weighting = weighting;
         this.idealMark = idealMark;
         this.markObtained = markObtained;
+        this.assessmentName = assessmentName;
     }
 
     public float getWeighting() {

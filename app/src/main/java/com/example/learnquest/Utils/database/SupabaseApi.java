@@ -3,6 +3,8 @@ package com.example.learnquest.Utils.database;
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Role;
 import com.example.learnquest.model.user.User;
 
 import java.util.List;
@@ -36,6 +38,11 @@ public interface SupabaseApi {
     @GET("/rest/v1/Assessment")
     Call<List<Assessment>> getAssessments();
 
+    @GET("/rest/v1/Role")
+    Call<List<Role>> getRoles();
+
+    @GET("/rest/v1/GroupMembership")
+    Call<List<GroupMembership>> getGroupMembership(@Query("groupID") String groupID);
 
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work
 }

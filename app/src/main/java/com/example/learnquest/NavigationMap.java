@@ -4,9 +4,7 @@ package com.example.learnquest;
 /**
  * <h1>Project Navigation</h1>
  *  <h2>Granville use cases</h2>
- *  <p>{@link //name of java class}</p>
- *  <p>{@link //name of java class}</p>
- *  <p>{@link //name of java class}</p>
+ *  <p>B200: {@link com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ViewProgressActivity}</p>
  *
  *  <h2>Narsi use cases</h2>
  *  <p>{@link //name of java class}</p>

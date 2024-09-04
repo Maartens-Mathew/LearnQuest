@@ -19,6 +19,12 @@
         android:theme="@style/Theme.LearnQuest"
         tools:targetApi="31">
         <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroupAccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AdjustGoalsActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView"
             android:exported="true">
             <intent-filter>
