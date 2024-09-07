@@ -2,6 +2,8 @@ package com.example.learnquest.QuizBank;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ExpandableListView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +47,7 @@ public class quizBankHome extends AppCompatActivity {
             System.out.println("Thread was interrupted.");
         }
 
-        populateRecyclerView();
+        //populateRecyclerView();
     }
 
 
@@ -84,12 +86,5 @@ public class quizBankHome extends AppCompatActivity {
 
     // Fetch data from Supabase and populate RecyclerView
 
-    // Populate the RecyclerView with combined data
-    private void populateRecyclerView() {
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        QuizAdapter adapter = new QuizAdapter(new ArrayList<>(quizEntryMap.values()));
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
 }

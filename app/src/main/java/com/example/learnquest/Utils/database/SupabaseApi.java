@@ -5,7 +5,6 @@ import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboar
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
 import com.example.learnquest.QuizBank.QuizEntry;
 import com.example.learnquest.QuizBank.Tag;
-import com.example.learnquest.QuizBank.TaggedQuizEntry;
 import com.example.learnquest.model.user.User;
 import com.example.learnquest.model.wrappers.TaggedQuiz;
 
@@ -66,7 +65,7 @@ public interface SupabaseApi {
     Call<List<TaggedQuiz>> getQuizEntries(@Body GetQuizEntriesRequest groupid_input);
 
 
-    @GET("/rest/v1/TaggedQuizEntry")
-    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();
+//    @GET("/rest/v1/TaggedQuizEntry")
+//    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work
 }
