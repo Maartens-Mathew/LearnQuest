@@ -363,7 +363,7 @@ public void onSaveClicked(View view) {
 
                 @Override
                 public void onFailure(Call<Assessment> call, Throwable t) {
-                    Toast.makeText(ListViewActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+               //     Toast.makeText(ListViewActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
                     Log.e("SaveAssessment", "Failure: ", t);
                 }
             });
