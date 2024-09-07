@@ -1,11 +1,26 @@
 package com.example.learnquest.model.wrappers;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serial;
+
 public class TaggedQuiz {
 
+    @SerializedName("quizEntryID")
     Short quizEntryID;
+
+    @SerializedName("tagID")
     Short tagID;
+
+
+    @SerializedName("question")
     String question;
+
+    @SerializedName("answer")
     String answer;
+
+
+    @SerializedName("description")
     String description;
 
     public String getDescription() {

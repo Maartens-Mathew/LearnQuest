@@ -61,7 +61,7 @@ public interface SupabaseApi {
     Call<List<Tag>> getAllTags();
 
 
-    @POST("rpc/getQuizEntries")
+    @POST("rpc/GetQuizEntries")
     Call<List<TaggedQuiz>> getQuizEntries(@Body GetQuizEntriesRequest groupid_input);
 
 

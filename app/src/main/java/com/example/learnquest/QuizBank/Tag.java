@@ -7,6 +7,15 @@ public class Tag {
     private Short groupID;
     private String tagName;
 
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "groupID=" + groupID +
+                ", tagID=" + tagID +
+                ", tagName='" + tagName + '\'' +
+                '}';
+    }
+
     // Constructor
     public Tag(Short tagID, String tagName) {
         this.tagID = tagID;

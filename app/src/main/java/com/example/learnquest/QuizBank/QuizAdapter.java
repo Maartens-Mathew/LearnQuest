@@ -1,6 +1,5 @@
 package com.example.learnquest.QuizBank;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
         public QuizViewHolder(@NonNull View itemView) {
             super(itemView);
-            questionTextView = itemView.findViewById(R.id.questionTextView);
+            questionTextView = itemView.findViewById(R.id.txtQuestion);
             answerTextView = itemView.findViewById(R.id.answerTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
             tagsTextView = itemView.findViewById(R.id.tagsTextView);
