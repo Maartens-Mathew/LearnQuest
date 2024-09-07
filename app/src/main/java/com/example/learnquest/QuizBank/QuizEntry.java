@@ -1,15 +1,39 @@
 package com.example.learnquest.QuizBank;
 
+import android.text.TextUtils;
+
+import com.example.learnquest.AppState.App;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class QuizEntry {
-    private int quizEntryID;
+    private Short quizEntryID;
     private String question;
     private String answer;
     private String description;
-    private int groupID;
+    private HashMap<Integer, Tag> tags;
+
+
+    public void addTag(Tag tag){
+        tags.put(tag.getTagID(),tag);
+
+    }
+
+    public String getTags(){
+        List<String> tagNames = new ArrayList<>();
+        tags.forEach((tagID, tag) -> tagNames.add(tag.getTagName()));
+        return TextUtils.join(",",tagNames);
+    }
+
+    public void removeTag(Tag tag){
+        tags.remove(tag.getTagID());
+    }
 
     // Getters and Setters
-    public int getQuizEntryID() { return quizEntryID; }
-    public void setQuizEntryID(int quizEntryID) { this.quizEntryID = quizEntryID; }
+    public Short getQuizEntryID() { return quizEntryID; }
+    public void setQuizEntryID(Short quizEntryID) { this.quizEntryID = quizEntryID; }
 
     public String getQuestion() { return question; }
     public void setQuestion(String question) { this.question = question; }
@@ -20,6 +44,14 @@ public class QuizEntry {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public int getGroupID() { return groupID; }
-    public void setGroupID(int groupID) { this.groupID = groupID; }
+    public QuizEntry(Short quizEntryID,String question, String answer, String description ) {
+        this.quizEntryID = quizEntryID;
+        this.question = question;
+        this.answer = answer;
+        this.description = description;
+
+        tags = new HashMap<>();
+
+
+    }
 }

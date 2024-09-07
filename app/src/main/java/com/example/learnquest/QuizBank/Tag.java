@@ -1,14 +1,16 @@
 package com.example.learnquest.QuizBank;
 
+import com.example.learnquest.AppState.App;
+
 public class Tag {
-    private int tagID;
-    private int groupID;
+    private Short tagID;
+    private Short groupID;
     private String tagName;
 
     // Constructor
-    public Tag(int tagID, int groupID, String tagName) {
+    public Tag(Short tagID, String tagName) {
         this.tagID = tagID;
-        this.groupID = groupID;
+        this.groupID = App.groupID;
         this.tagName = tagName;
     }
 

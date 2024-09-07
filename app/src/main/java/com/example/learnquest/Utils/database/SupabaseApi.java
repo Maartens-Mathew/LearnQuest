@@ -7,6 +7,7 @@ import com.example.learnquest.QuizBank.QuizEntry;
 import com.example.learnquest.QuizBank.Tag;
 import com.example.learnquest.QuizBank.TaggedQuizEntry;
 import com.example.learnquest.model.user.User;
+import com.example.learnquest.model.wrappers.TaggedQuiz;
 
 import java.util.List;
 
@@ -29,36 +30,40 @@ import retrofit2.http.Query;
  */
 public interface SupabaseApi {
     @GET("/rest/v1/notes") // Your table name is "Example"
-    Call<List<User>> getItems(@Query("select") String select); //first part of your query (select, update, insert, etc.)
+  //  Call<List<User>> getItems(@Query("select") String select); //first part of your query (select, update, insert, etc.)
 
     <T> Call<List<T>> getItems(@Query("select") String select);
 
-    @POST("/rest/v1/User")
+    @POST("User")
     Call<User> addUser(@Body User user);
 
-    @GET("/rest/v1/StudentAssessment")
+    @GET("StudentAssessment")
     Call<List<StudentAssessment>> getStudentAssessments(@Query("userID") String userID);
 
-    @GET("/rest/v1/Assessment")
+    @GET("Assessment")
     Call<List<Assessment>> getAssessments();
 
 
             //adding an assessment to the DB
-    @POST("/rest/v1/Assessment")
+    @POST("Assessment")
     Call<com.example.learnquest.SetWeightings.Assessment> addAssessment(@Body com.example.learnquest.SetWeightings.Assessment assessment);
 
 
 
 
-    @DELETE("/rest/v1/Assessment")
+    @DELETE("Assessment")
     Call<Void> deleteAssessmentsByGroupID(@Query("groupID") String groupID);
 
 
-    @GET("/rest/v1/QuizEntry")
+    @GET("QuizEntry")
     Call<List<QuizEntry>> getAllQuizEntries();
 
-    @GET("/rest/v1/Tag")
+    @GET("Tag")
     Call<List<Tag>> getAllTags();
+
+
+    @POST("rpc/getQuizEntries")
+    Call<List<TaggedQuiz>> getQuizEntries(@Body GetQuizEntriesRequest groupid_input);
 
 
     @GET("/rest/v1/TaggedQuizEntry")

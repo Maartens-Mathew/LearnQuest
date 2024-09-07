@@ -12,9 +12,9 @@ import java.util.List;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder> {
 
-    private List<QuizEntryWithTags> quizEntries;
+    private List<QuizEntry> quizEntries;
 
-    public QuizAdapter(List<QuizEntryWithTags> quizEntries) {
+    public QuizAdapter(List<QuizEntry> quizEntries) {
         this.quizEntries = quizEntries;
     }
 
@@ -27,13 +27,13 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.QuizViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull QuizViewHolder holder, int position) {
-        QuizEntryWithTags entry = quizEntries.get(position);
+        QuizEntry entry = quizEntries.get(position);
         holder.questionTextView.setText(entry.getQuestion());
         holder.answerTextView.setText(entry.getAnswer());
         holder.descriptionTextView.setText(entry.getDescription());
 
         // Display associated tags as a comma-separated string
-        String tagsText = TextUtils.join(", ", entry.getTags());
+        String tagsText = entry.getTags();
         holder.tagsTextView.setText(tagsText);
     }
 
