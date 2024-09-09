@@ -5,6 +5,7 @@ import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboar
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Role;
+import com.example.learnquest.model.studyResource.StudyResource;
 import com.example.learnquest.model.user.User;
 
 import java.util.List;
@@ -26,23 +27,27 @@ import retrofit2.http.Query;
  *
  */
 public interface SupabaseApi {
-    @GET("/rest/v1/notes") // Your table name is "Example"
+    @GET("notes") // Your table name is "Example"
     Call<List<User>> getItems(@Query("select") String select); //first part of your query (select, update, insert, etc.)
 
-    @POST("/rest/v1/User")
+    @POST("User")
     Call<User> addUser(@Body User user);
 
-    @GET("/rest/v1/StudentAssessment")
+    @GET("StudentAssessment")
     Call<List<StudentAssessment>> getStudentAssessments(@Query("userID") String userID);
 
-    @GET("/rest/v1/Assessment")
+    @GET("Assessment")
     Call<List<Assessment>> getAssessments();
 
-    @GET("/rest/v1/Role")
+    @GET("Role")
     Call<List<Role>> getRoles();
 
-    @GET("/rest/v1/GroupMembership")
+    @GET("GroupMembership")
     Call<List<GroupMembership>> getGroupMembership(@Query("groupID") String groupID);
+
+
+    @POST("rpc/getStudyResources")
+    Call<List<StudyResource>> getStudyResources();
 
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work
 }

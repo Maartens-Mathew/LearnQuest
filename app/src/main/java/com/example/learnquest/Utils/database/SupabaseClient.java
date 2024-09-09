@@ -27,7 +27,7 @@ public class SupabaseClient {
 
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl(baseUrl)
+                    .baseUrl(baseUrl + "/rest/v1/")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
