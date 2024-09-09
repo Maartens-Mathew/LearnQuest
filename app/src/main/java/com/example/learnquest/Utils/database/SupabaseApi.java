@@ -5,6 +5,7 @@ import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboar
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Role;
+import com.example.learnquest.model.group.Group;
 import com.example.learnquest.model.studyResource.StudyResource;
 import com.example.learnquest.model.user.User;
 
@@ -46,8 +47,28 @@ public interface SupabaseApi {
     Call<List<GroupMembership>> getGroupMembership(@Query("groupID") String groupID);
 
 
+    //B200 : getStudentAssessments(Integer userID, Integer groupID) Replace Object with custom class to accommodate incoming data
+    @POST("rpc/getStudentAssessments")
+    Call<List<Object>> getStudentAssessments(@Query("userID") Integer userID, @Query("groupID") Integer groupID);
+
+    //B800 : getPendingUsers(Integer groupID)
+    @POST("rpc/getPendingUsers")
+    Call<List<Object>> getPendingUsers(@Query("groupID") Integer groupID);
+
+    //B400 : addStudyResource(StudyResource studyResource)
+    @POST("rpc/addStudyResource")
+    Call<Void> addStudyResource(@Body StudyResource studyResource);
+
+    //B700 : getGroupDetails()
+    @POST("rpc/getGroupDetails")
+    Call<List<Group>> getGroupDetails();
+
+    //B400 : getStudyResources(Integer groupID)
     @POST("rpc/getStudyResources")
-    Call<List<StudyResource>> getStudyResources();
+    Call<List<StudyResource>> getStudyResources(@Query("groupID") Integer groupID);
+
 
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work
+
+    //Answer : you need to create
 }
