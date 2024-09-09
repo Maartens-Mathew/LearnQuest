@@ -61,7 +61,18 @@ public interface SupabaseApi {
     Call<List<Tag>> getAllTags();
 
 
-    @POST("rpc/GetQuizEntries")
+    //SQL functions added by Mathew. Start...
+    @POST("rpc/hasPermission")
+    Call<Boolean> hasPermission(@Query("userID") Integer userID);
+
+    @POST("rpc/getWaitingQuizQuestions")
+    Call<List<TaggedQuiz>> getWaitingQuizQuestions(@Query("groupID") Integer groupID);
+
+    @POST("rpc/getValidQuizQuestions")
+    Call<List<TaggedQuiz>> getValidQuizQuestions(@Query("groupID") Integer groupID);
+    //...end
+
+    @POST("rpc/getQuizEntries")
     Call<List<TaggedQuiz>> getQuizEntries(@Body GetQuizEntriesRequest groupid_input);
 
 
