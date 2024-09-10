@@ -12,8 +12,8 @@ import com.example.learnquest.Utils.database.SupabaseClient;
  */
 public class App {
 
-    public static Short userID;
-    public static Short groupID;
+    public static Integer userID;
+    public static Integer groupID;
     public static Context applicationContext;
 
     public static void setApplicationContext(Context context){

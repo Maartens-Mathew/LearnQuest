@@ -1,13 +1,26 @@
 package com.example.learnquest.model.resultWrappers;
 
-public class TaggedQuiz{
-    public short quizEntryID;
-    public short tagID;
-    public String question;
-    public String answer;
-    public String description;
-    public boolean isValidated;
+import com.google.gson.annotations.SerializedName;
 
+public class TaggedQuiz{
+
+    @SerializedName("quizEntryID")
+    public Integer quizEntryID;
+
+    @SerializedName("tagID")
+    public Integer tagID;
+
+    @SerializedName("question")
+    public String question;
+
+    @SerializedName("answer")
+    public String answer;
+
+    @SerializedName("description")
+    public String description;
+
+
+    @SerializedName("tagName")
     public String tagName;
 
     @Override

@@ -14,10 +14,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class QuizEntry{
-    private Short quizEntryID;
+    private Integer quizEntryID;
     private String question;
     private String answer;
     private String description;
+
+    public QuizEntry(){
+        tags = new HashMap<>();
+    }
+
+    
     private HashMap<Integer, Tag> tags;
 
     @Override
@@ -42,13 +48,19 @@ public class QuizEntry{
         return TextUtils.join(",",tagNames);
     }
 
+    public void setTags(List<Tag> tags){
+        for(Tag tag: tags){
+            this.tags.put(tag.getTagID(),tag);
+        }
+    }
+
     public void removeTag(Tag tag){
         tags.remove(tag.getTagID());
     }
 
     // Getters and Setters
-    public Short getQuizEntryID() { return quizEntryID; }
-    public void setQuizEntryID(Short quizEntryID) { this.quizEntryID = quizEntryID; }
+    public Integer getQuizEntryID() { return quizEntryID; }
+    public void setQuizEntryID(Integer quizEntryID) { this.quizEntryID = quizEntryID; }
 
     public String getQuestion() { return question; }
     public void setQuestion(String question) { this.question = question; }
@@ -59,7 +71,7 @@ public class QuizEntry{
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public QuizEntry(Short quizEntryID,String question, String answer, String description ) {
+    public QuizEntry(Integer quizEntryID,String question, String answer, String description ) {
         this.quizEntryID = quizEntryID;
         this.question = question;
         this.answer = answer;

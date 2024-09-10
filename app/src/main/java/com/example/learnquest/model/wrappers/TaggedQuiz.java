@@ -7,10 +7,10 @@ import java.io.Serial;
 public class TaggedQuiz {
 
     @SerializedName("quizEntryID")
-    Short quizEntryID;
+    Integer quizEntryID;
 
     @SerializedName("tagID")
-    Short tagID;
+    Integer tagID;
 
 
     @SerializedName("question")
@@ -22,6 +22,9 @@ public class TaggedQuiz {
 
     @SerializedName("description")
     String description;
+
+    @SerializedName("tagName")
+    String tagName;
 
     public String getDescription() {
         return description;
@@ -43,7 +46,7 @@ public class TaggedQuiz {
         this.description = description;
     }
 
-    String tagName;
+
 
     public String getAnswer() {
         return answer;
@@ -61,19 +64,19 @@ public class TaggedQuiz {
         this.question = question;
     }
 
-    public Short getQuizEntryID() {
+    public Integer getQuizEntryID() {
         return quizEntryID;
     }
 
-    public void setQuizEntryID(Short quizEntryID) {
+    public void setQuizEntryID(Integer quizEntryID) {
         this.quizEntryID = quizEntryID;
     }
 
-    public Short getTagID() {
+    public Integer getTagID() {
         return tagID;
     }
 
-    public void setTagID(Short tagID) {
+    public void setTagID(Integer tagID) {
         this.tagID = tagID;
     }
 

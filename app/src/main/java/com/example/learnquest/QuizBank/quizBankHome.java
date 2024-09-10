@@ -21,6 +21,7 @@ import com.example.learnquest.model.wrappers.TaggedQuiz;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,10 +34,7 @@ import retrofit2.Response;
 
 public class quizBankHome extends AppCompatActivity {
 
-    Map<Short, QuizEntry> quizEntryMap = new ConcurrentHashMap<>();
-
-    public List<TaggedQuiz> entries;
-
+    public List<QuizEntry> entries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,75 +46,49 @@ public class quizBankHome extends AppCompatActivity {
         App.groupID = 1;
         App.setApplicationContext(getApplicationContext());
 
+
         Thread thread = new Thread(this::GetQuizQuestions);
+
 
         try {
             thread.start();
             thread.join();
-
-            Log.i("Custom",quizEntryMap.toString());
         }catch(InterruptedException e){
             System.out.println("Thread was interrupted.");
         }
 
         ExpandableListView expandableListView = findViewById(R.id.elvQuizEntries);
-        QuizExpandableListAdapter quizAdapter = new QuizExpandableListAdapter(new ArrayList<>(quizEntryMap.values()));
+        QuizExpandableListAdapter quizAdapter = new QuizExpandableListAdapter(entries);
         expandableListView.setAdapter(quizAdapter);
 
-
-
-
-
-
     }
 
 
-    private void GetQuizQuestions(){
-        Call<List<TaggedQuiz>> quizCall = App.api.getQuizEntries(new GetQuizEntriesRequest((short) App.groupID));
-        Response<List<TaggedQuiz>> quizResponse = null;
+    private void GetQuizQuestions()  {
+
+        Call<List<QuizEntry>> call = App.api.getQuizEntries4(1);
+        Response<List<QuizEntry>> response = null;
 
         try{
-            quizResponse = quizCall.execute();
+            response = call.execute();
         }catch(IOException e){
-            System.out.println("Error: " + e.getMessage());
-
+            e.printStackTrace();
+            return;
         }
 
-        if (quizResponse.isSuccessful() && quizResponse.body() != null)
+        if (response.isSuccessful())
         {
-            Response<List<TaggedQuiz>> finalQuizResponse = quizResponse;
-            finalQuizResponse.body().forEach(this::addToList);
-            Log.i("Custom",finalQuizResponse.body().toString());
+            entries = Collections.synchronizedList(response.body());
+            Log.i("Custom",entries.toString());
         }
         else{
-            Log.e("Custom", "Some error (don't know)");
+            Log.i("Custom", "Could not parse");
+            try {
+                Log.e("Custom", response.errorBody().string());
+            }catch(IOException ignored){}
         }
 
     }
-
-
-    public void addToList(TaggedQuiz taggedQuiz){
-       // Log.i("Custom",taggedQuiz.toString());
-        QuizEntry entry = quizEntryMap.get(taggedQuiz.getQuizEntryID());
-
-        if (entry == null)
-            entry = new QuizEntry(taggedQuiz.getQuizEntryID(), taggedQuiz.getQuestion(), taggedQuiz.getAnswer(), taggedQuiz.getDescription());
-
-
-       // Log.i("Custom",entry.toString());
-        Tag tag = new Tag(taggedQuiz.getTagID(), taggedQuiz.getTagName());
-        entry.addTag(tag);
-
-        quizEntryMap.put(entry.getQuizEntryID(), entry);
-      //  Log.i("Custom",quizEntryMap.toString());
-
-
-
-
-
-    }
-
-    // Fetch data from Supabase and populate RecyclerView
 
 
 }
