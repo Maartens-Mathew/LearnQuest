@@ -1,5 +1,6 @@
 package com.example.learnquest.QuizBank;
 
+import android.database.DataSetObservable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,12 +8,20 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListAdapter;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
     private List<QuizEntry> quizEntries;
@@ -24,6 +33,7 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public int getGroupCount() {
         return quizEntries.size();
+
     }
 
     @Override
@@ -78,26 +88,111 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.viewholder_questionbody, parent, false);
         }
 
+        bindChild(convertView, quizEntry);
+        return convertView;
+    }
+
+    public void bindChild(View convertView, QuizEntry quizEntry){
         EditText edtAnswer = convertView.findViewById(R.id.edtAnswer);
         EditText edtDescription = convertView.findViewById(R.id.edtDescription);
         TextView txtTags = convertView.findViewById(R.id.txtTags);
-        Button btnDelete;
+        Button btnDelete, btnEdit;
 
         edtAnswer.setText(quizEntry.getAnswer());
         edtDescription.setText(quizEntry.getDescription());
         txtTags.setText(quizEntry.getTags());
 
         btnDelete = convertView.findViewById(R.id.btnDelete); // Add a delete button
-//        btnDelete.setOnClickListener(v -> {
-//            ((quizBankHome) parent.getContext()).deleteQuizEntry(quizEntry.getQuizEntryID());
-//        });
+        btnDelete.setOnClickListener(deleteEntry(quizEntry));
 
-
-        return convertView;
+        btnEdit = convertView.findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(editEntry(convertView, quizEntry));
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    public View.OnClickListener deleteEntry(QuizEntry quizEntry) {
+
+        return (itemView) -> {
+
+            Thread thread = new Thread( () -> {
+                Call<Void> deleteCall = App.api.deleteQuizEntry("eq." + quizEntry.getQuizEntryID());
+                Response<Void> deleteResponse = null;
+
+                try {
+                    deleteResponse = deleteCall.execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (deleteResponse.isSuccessful())
+                    Log.i("Custom", "Entry deleted successfully");
+                else
+                    Log.e("Custom", "Failed to delete entry: HTTP " + deleteResponse.code() + " " + deleteResponse.message());
+
+                try{
+                    Log.e("Custom", deleteResponse.errorBody().string());
+                }catch(IOException e){};
+            });
+
+            thread.start();
+            //Remove quiz Entry from list
+            quizEntries.remove(quizEntry);
+
+            //Notify adapter
+            notifyDataSetChanged();
+        };
+
+
+
+    }
+
+
+    //Serves as way to edit quiz entries on the fly (Narsi, will you use a dialogue popup instead?)
+    public View.OnClickListener editEntry(View view, QuizEntry quizEntry){
+        return (itemView) -> {
+            Button btnEdit = (Button)itemView;
+            EditText edtAnswer = view.findViewById(R.id.edtAnswer);
+            EditText edtDescription = view.findViewById(R.id.edtDescription);
+
+            String tag = (String)btnEdit.getTag();
+            boolean editState = tag.equals("false");
+
+
+
+
+
+            if (editState)
+            {
+                btnEdit.setText("Save");
+                edtAnswer.setEnabled(true);
+                edtDescription.setEnabled(true);
+                btnEdit.setTag("true");
+                //How change tags?
+            }else {
+                btnEdit.setText("Edit");
+                edtAnswer.setEnabled(false);
+                edtDescription.setEnabled(false);
+                btnEdit.setTag("false");
+
+                quizEntry.setAnswer(edtAnswer.getText().toString());
+                quizEntry.setDescription(edtDescription.getText().toString());
+
+
+                //Update database??
+
+            }
+
+
+
+
+        };
+
+
+
+
     }
 }

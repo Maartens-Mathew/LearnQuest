@@ -2,6 +2,7 @@ package com.example.learnquest.QuizBank;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
@@ -66,39 +67,7 @@ public class quizBankHome extends AppCompatActivity {
 
     }
 
-    void deleteQuizEntry(Short quizEntryID) {
-        // Convert the ID to the correct filter format
-        String filterParam = "eq." + quizEntryID;
-        Call<Void> deleteCall = App.api.deleteQuizEntry(filterParam);
 
-        deleteCall.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.i("Custom", "Entry deleted successfully");
-                    // Remove entry from the local map and update the UI
-                    quizEntryMap.remove(quizEntryID);
-                    updateUI();
-                } else {
-                    // Log the error details
-                    Log.e("Custom", "Failed to delete entry: HTTP " + response.code() + " " + response.message());
-                    try {
-                        if (response.errorBody() != null) {
-                            Log.e("Custom", "Error body: " + response.errorBody().string());
-                        }
-                    } catch (IOException e) {
-                        Log.e("Custom", "Error reading error body: " + e.getMessage());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.e("Custom", "Error deleting entry: " + t.getMessage());
-                t.printStackTrace();  // Log the stack trace to help identify the issue
-            }
-        });
-    }
 
     private void GetQuizQuestions()  {
 
@@ -125,12 +94,7 @@ public class quizBankHome extends AppCompatActivity {
         }
 
     }
-// Update the UI after deleting
-    private void updateUI() {
-        QuizExpandableListAdapter quizAdapter = new QuizExpandableListAdapter(new ArrayList<>(quizEntryMap.values()));
-        ExpandableListView expandableListView = findViewById(R.id.elvQuizEntries);
-        expandableListView.setAdapter(quizAdapter);
-    }
+
 
 
 }

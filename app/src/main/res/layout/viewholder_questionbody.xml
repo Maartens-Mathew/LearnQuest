@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="295dp"
         android:layout_marginEnd="12dp"
+        android:tag="false"
         android:text="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
