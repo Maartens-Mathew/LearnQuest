@@ -60,6 +60,9 @@ public class quizBankHome extends AppCompatActivity {
         ExpandableListView expandableListView = findViewById(R.id.elvQuizEntries);
         QuizExpandableListAdapter quizAdapter = new QuizExpandableListAdapter(entries);
         expandableListView.setAdapter(quizAdapter);
+        // Test deleting quizEntryID = 4
+       // deleteQuizEntry((short) 4);
+
 
     }
 
@@ -121,6 +124,12 @@ public class quizBankHome extends AppCompatActivity {
             }catch(IOException ignored){}
         }
 
+    }
+// Update the UI after deleting
+    private void updateUI() {
+        QuizExpandableListAdapter quizAdapter = new QuizExpandableListAdapter(new ArrayList<>(quizEntryMap.values()));
+        ExpandableListView expandableListView = findViewById(R.id.elvQuizEntries);
+        expandableListView.setAdapter(quizAdapter);
     }
 
 
