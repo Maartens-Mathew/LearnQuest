@@ -15,6 +15,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -54,13 +55,8 @@ public interface SupabaseApi {
     Call<Void> deleteAssessmentsByGroupID(@Query("groupID") String groupID);
 
 
-    @GET("QuizEntry")
-    Call<List<QuizEntry>> getAllQuizEntries();
 
-    @GET("Tag")
-    Call<List<Tag>> getAllTags();
-
-
+//this gets all the quiz entries,
     //SQL functions added by Mathew. Start...
     @GET("rpc/hasPermission")
     Call<Boolean> hasPermission(@Query("userID_input") Integer userID);
@@ -77,6 +73,16 @@ public interface SupabaseApi {
 
     @GET("rpc/getQuizEntries4")
     Call<List<QuizEntry>> getQuizEntries4(@Query("groupID_input") Integer groupID_input);
+
+    @DELETE("QuizEntry")
+    Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)
+
+
+
+
+
+
+
 
 
 //    @GET("/rest/v1/TaggedQuizEntry")

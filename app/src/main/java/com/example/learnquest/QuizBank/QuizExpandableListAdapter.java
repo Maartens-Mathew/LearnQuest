@@ -1,14 +1,17 @@
 package com.example.learnquest.QuizBank;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.learnquest.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
@@ -34,10 +37,8 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-
     public Object getChild(int groupPosition, int childPosition) {
         return quizEntries.get(groupPosition);
-
     }
 
     @Override
@@ -57,33 +58,41 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-
-        //Get layout
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             convertView = inflater.inflate(R.layout.viewholder_questiontitle, parent, false);
         }
 
-        //Get textView and assign
         TextView questionTextView = convertView.findViewById(R.id.txtQuestion);
         questionTextView.setText(quizEntries.get(groupPosition).getQuestion());
+
         return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         QuizEntry quizEntry = (QuizEntry) getChild(groupPosition, childPosition);
+
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             convertView = inflater.inflate(R.layout.viewholder_questionbody, parent, false);
         }
+
         EditText edtAnswer = convertView.findViewById(R.id.edtAnswer);
         EditText edtDescription = convertView.findViewById(R.id.edtDescription);
         TextView txtTags = convertView.findViewById(R.id.txtTags);
+        Button btnDelete;
 
         edtAnswer.setText(quizEntry.getAnswer());
         edtDescription.setText(quizEntry.getDescription());
         txtTags.setText(quizEntry.getTags());
+
+        btnDelete = convertView.findViewById(R.id.btnDelete); // Add a delete button
+//        btnDelete.setOnClickListener(v -> {
+//            ((quizBankHome) parent.getContext()).deleteQuizEntry(quizEntry.getQuizEntryID());
+//        });
+
+
         return convertView;
     }
 
