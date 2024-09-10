@@ -18,11 +18,12 @@ public class QuizEntryDeserializer implements JsonDeserializer<QuizEntry> {
     public QuizEntry deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
 
+
         QuizEntry quizEntry = new QuizEntry();
-        quizEntry.setQuizEntryID(jsonObject.get("quizEntryID").getAsInt());
-        quizEntry.setQuestion(jsonObject.get("question").getAsString());
-        quizEntry.setAnswer(jsonObject.get("answer").getAsString());
-        quizEntry.setDescription(jsonObject.get("description").getAsString());
+        quizEntry.setQuizEntryID(jsonObject.get("quizEntryID").isJsonNull() ? null : jsonObject.get("quizEntryID").getAsInt());
+        quizEntry.setQuestion(jsonObject.get("question").isJsonNull() ? null : jsonObject.get("question").getAsString());
+        quizEntry.setAnswer(jsonObject.get("answer").isJsonNull() ? null : jsonObject.get("answer").getAsString());
+        quizEntry.setDescription(jsonObject.get("description").isJsonNull() ? null : jsonObject.get("description").getAsString());
 
         JsonArray tagsArray = jsonObject.getAsJsonArray("tags");
 

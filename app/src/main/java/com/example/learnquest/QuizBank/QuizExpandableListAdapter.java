@@ -9,6 +9,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -73,8 +74,19 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.viewholder_questiontitle, parent, false);
         }
 
+
+        ImageView indicator = convertView.findViewById(R.id.imgIndicator);
+
+            if (isExpanded) {
+                indicator.setImageResource(R.drawable.baseline_arrow_drop_up_24);
+            }else
+                indicator.setImageResource(R.drawable.baseline_arrow_drop_down_24);
+
+
         TextView questionTextView = convertView.findViewById(R.id.txtQuestion);
         questionTextView.setText(quizEntries.get(groupPosition).getQuestion());
+
+
 
         return convertView;
     }
@@ -107,6 +119,9 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
 
         btnEdit = convertView.findViewById(R.id.btnEdit);
         btnEdit.setOnClickListener(editEntry(convertView, quizEntry));
+
+        edtAnswer.setEnabled(false);
+        edtDescription.setEnabled(false);
     }
 
     @Override
@@ -133,9 +148,7 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
                 else
                     Log.e("Custom", "Failed to delete entry: HTTP " + deleteResponse.code() + " " + deleteResponse.message());
 
-                try{
-                    Log.e("Custom", deleteResponse.errorBody().string());
-                }catch(IOException e){};
+
             });
 
             thread.start();

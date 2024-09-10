@@ -65,6 +65,9 @@ public class quizBankHome extends AppCompatActivity {
        // deleteQuizEntry((short) 4);
 
 
+        expandableListView.setGroupIndicator(null);
+
+
     }
 
 
