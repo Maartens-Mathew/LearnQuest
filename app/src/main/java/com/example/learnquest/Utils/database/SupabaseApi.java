@@ -1,7 +1,7 @@
 package com.example.learnquest.Utils.database;
 
 
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.Assessment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
 import com.example.learnquest.QuizBank.QuizEntry;
 import com.example.learnquest.QuizBank.Tag;
@@ -70,6 +70,7 @@ public interface SupabaseApi {
 
     @GET("rpc/getQuizEntries")
     Call<List<TaggedQuiz>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
+
 
     @GET("rpc/getQuizEntries4")
     Call<List<QuizEntry>> getQuizEntries4(@Query("groupID_input") Integer groupID_input);
