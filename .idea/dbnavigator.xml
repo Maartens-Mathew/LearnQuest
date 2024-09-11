@@ -6,6 +6,9 @@
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
   </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$PROJECT_DIR$/app/src/main/java/com/example/learnquest" connection-id="1e900a44-855e-45a7-965b-4bd25245ae08" session-id="MAIN" current-schema="" />
+  </component>
   <component name="DBNavigator.Project.Settings">
     <connections />
     <browser-settings>
