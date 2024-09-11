@@ -1,6 +1,8 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,15 +21,16 @@ import retrofit2.Response;
 public class PendingUsersActivity extends AppCompatActivity {
 
     List<PendingUsersResult> entries;
+    private RecyclerView recyclerView;
+    private PendingAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pending_users);
-
+        recyclerView = findViewById(R.id.rwPendingUsers);
         App.groupID = 1;
         Thread thread = new Thread(this::getPendingUsers);
-
         try{
             thread.start();
             thread.join();
@@ -36,20 +39,20 @@ public class PendingUsersActivity extends AppCompatActivity {
         }
 
         List<String> names = entries.stream()
-                .map(pendingUsersResult ->  pendingUsersResult.getPendingUserLastName() + " " +  pendingUsersResult.getPendingUserLastName())
+                .map(pendingUsersResult ->  pendingUsersResult.getPendingUserFirstName() + " " +  pendingUsersResult.getPendingUserLastName())
                 .collect(Collectors.toList());
+        adapter = new PendingAdapter(entries);
+        setUpRecyclerView();
+    }
 
-
-
-
-
-
-        PendingAdapter adapter = new PendingAdapter(names);
+    public void setUpRecyclerView(){
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     public void getPendingUsers(){
-        Call<List<Object>> pendingCall = App.api.getPendingUsers(App.groupID);
-        Response<List<Object>> pendingResponse = null;
+        Call<List<PendingUsersResult>> pendingCall = App.api.getPendingUsers(App.groupID);
+        Response<List<PendingUsersResult>> pendingResponse = null;
 
         try{
             pendingResponse = pendingCall.execute();
@@ -58,7 +61,7 @@ public class PendingUsersActivity extends AppCompatActivity {
         }
 
         if (pendingResponse.isSuccessful())
-            pendingResponse.body().toString();
+            entries = Collections.synchronizedList(pendingResponse.body());
         else {
             try {
                 Log.e("Custom", pendingResponse.errorBody().string());

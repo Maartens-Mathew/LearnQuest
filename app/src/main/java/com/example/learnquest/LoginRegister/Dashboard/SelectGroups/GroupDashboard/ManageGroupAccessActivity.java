@@ -25,14 +25,13 @@ public class ManageGroupAccessActivity extends AppCompatActivity {
     private int roleID = 2;
     private List<PendingUsersResult> pending;
     private List<String> pendingNames = new ArrayList<>();
-    private RecyclerView recyclerView;
+
     private PendingAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_group_access);
-        recyclerView = findViewById(R.id.rwPendingUsers);
         interactWithDatabase();
     }
 
@@ -53,8 +52,8 @@ public class ManageGroupAccessActivity extends AppCompatActivity {
 
     private void interactWithDatabase(){
         SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
-        Call<List<Object>> groupMembershipCall = api.getPendingUsers(groupID);
-        Response<List<Object>> response = null;
+        Call<List<PendingUsersResult>> groupMembershipCall = api.getPendingUsers(groupID);
+        Response<List<PendingUsersResult>> response = null;
         try{
             response = groupMembershipCall.execute();
         }

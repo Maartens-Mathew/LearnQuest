@@ -1,6 +1,8 @@
 package com.example.learnquest.Utils.database;
 
 
+import android.provider.ContactsContract;
+
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
@@ -16,6 +18,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -50,12 +53,14 @@ public interface SupabaseApi {
     @POST("Assessment")
     Call<com.example.learnquest.SetWeightings.Assessment> addAssessment(@Body com.example.learnquest.SetWeightings.Assessment assessment);
 
+    @PATCH("GroupMembership")//method to potentially update table
+    Call<GroupMembership> setGroupMembership(@Query("userID")int userID, @Query("groupID") int groupID, @Body GroupMembership groupMembership);
 
-
+    @DELETE("GroupMembership")
+    Call<Void> deleteGroupMemberShip(@Query("userID") int userID, @Query("groupID") int groupID);
 
     @DELETE("Assessment")
     Call<Void> deleteAssessmentsByGroupID(@Query("groupID") String groupID);
-
 
 
 //this gets all the quiz entries,
@@ -71,7 +76,7 @@ public interface SupabaseApi {
     //...end
 
     @GET("rpc/getPendingUsers")
-    Call<List<Object>> getPendingUsers(@Query("groupID_input") Integer groupID_input);
+    Call<List<PendingUsersResult>> getPendingUsers(@Query("groupID_input") Integer groupID_input);
 
     @GET("rpc/getQuizEntries")
     Call<List<TaggedQuiz>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
