@@ -2,10 +2,12 @@ package com.example.learnquest.SetWeightings;
 import java.io.Serializable;
 
 public class Assessment implements Serializable {
+
+
     private String name;
     private String dueDate;
     private float weighting;
-    private int groupID;
+    private Integer groupID;
 
    // private int assessmentID; // Add this field
 

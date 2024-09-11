@@ -74,7 +74,7 @@ public class quizBankHome extends AppCompatActivity {
 
     private void GetQuizQuestions()  {
 
-        Call<List<QuizEntry>> call = App.api.getQuizEntries4(1);
+        Call<List<QuizEntry>> call = App.api.getQuizEntries(1);
         Response<List<QuizEntry>> response = null;
 
         try{

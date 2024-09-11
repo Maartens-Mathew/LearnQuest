@@ -58,7 +58,7 @@ public class ViewProgressActivity extends AppCompatActivity {
           This also relies on the activity being started with the userID of the user passed to it
         */
         SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
-        Call<List<StudentAssessment>> studentAssessmentsCall = api.getStudentAssessments(Integer.toString(userID));
+        /**Call<List<StudentAssessment>> studentAssessmentsCall = api.getStudentAssessments(Integer.toString(userID));
         studentAssessmentsCall.enqueue(new Callback<List<StudentAssessment>>() {
             @Override
             public void onResponse(Call<List<StudentAssessment>> call, Response<List<StudentAssessment>> response) {
@@ -102,7 +102,7 @@ public class ViewProgressActivity extends AppCompatActivity {
             public void onFailure(Call<List<StudentAssessment>> call, Throwable throwable) {
                 throwable.printStackTrace();
             }
-        });
+        }); **/
     }
 
     private void setUpChart(){
