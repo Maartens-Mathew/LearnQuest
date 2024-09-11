@@ -15,10 +15,14 @@ public class pomoDoroMain extends AppCompatActivity {
     private TextView timerText;
     private Button startButton;
     private Button pauseButton;
+    private Button startBreakButton;
+    private Button stopBreakButton;
     private CountDownTimer countDownTimer;
     private final long POMODORO_TIME = 25 * 60 * 1000; // 25 minutes
+    private final long BREAK_TIME = 5 * 60 * 1000; // 5 minutes
     private long timeLeftInMillis = POMODORO_TIME;
     private boolean isTimerRunning = false;
+    private boolean isBreakMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public class pomoDoroMain extends AppCompatActivity {
         timerText = findViewById(R.id.timerText);
         startButton = findViewById(R.id.startButton);
         pauseButton = findViewById(R.id.pauseButton);
+        startBreakButton = findViewById(R.id.btnBreak);
+        stopBreakButton = findViewById(R.id.btnStopBreak);
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +69,7 @@ public class pomoDoroMain extends AppCompatActivity {
                 circularProgressBar.setProgress(0);
                 isTimerRunning = false;
                 startButton.setEnabled(true); // Enable the start button again
+                handleBreakButtonsVisibility(false); // Reset button visibility after finishing
             }
         }.start();
 
@@ -81,6 +88,7 @@ public class pomoDoroMain extends AppCompatActivity {
         startButton.setEnabled(true); // Enable the start button
         pauseButton.setEnabled(false); // Disable the pause button
     }
+
     private void updateUI() {
         int progress = (int) ((timeLeftInMillis / (float) POMODORO_TIME) * 100);
         circularProgressBar.setProgress(progress);
@@ -94,12 +102,53 @@ public class pomoDoroMain extends AppCompatActivity {
         circularProgressBar.setTimerText(timeLeftFormatted);
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (countDownTimer != null) {
             countDownTimer.cancel();
+        }
+    }
+
+    public void StartBreakOnClick(View view) {
+        // Stop any current timer
+        if (isTimerRunning) {
+            countDownTimer.cancel();
+            isTimerRunning = false;
+        }
+
+        // Set the break time and start a new timer
+        timeLeftInMillis = BREAK_TIME;
+        startTimer();
+
+        // Set break mode to true and update UI
+        isBreakMode = true;
+        handleBreakButtonsVisibility(true);
+    }
+
+    public void stopBreakOnClick(View view) {
+        // Stop the break timer and start the pomodoro timer again
+        if (isTimerRunning) {
+            countDownTimer.cancel();
+            isTimerRunning = false;
+        }
+
+        // Reset the timer to the pomodoro time
+        timeLeftInMillis = POMODORO_TIME;
+        startTimer();
+
+        // Set break mode to false and update UI
+        isBreakMode = false;
+        handleBreakButtonsVisibility(false);
+    }
+
+    private void handleBreakButtonsVisibility(boolean inBreakMode) {
+        if (inBreakMode) {
+            startBreakButton.setVisibility(View.GONE); // Hide the Start Break button
+            stopBreakButton.setVisibility(View.VISIBLE); // Show the Stop Break button
+        } else {
+            startBreakButton.setVisibility(View.VISIBLE); // Show the Start Break button
+            stopBreakButton.setVisibility(View.GONE); // Hide the Stop Break button
         }
     }
 }
