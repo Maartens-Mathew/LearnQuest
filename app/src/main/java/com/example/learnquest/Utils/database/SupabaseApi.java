@@ -1,16 +1,9 @@
 package com.example.learnquest.Utils.database;
 
 
-import android.provider.ContactsContract;
-
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersResult;
-import com.example.learnquest.QuizBank.QuizEntry;
-import com.example.learnquest.QuizBank.Tag;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.model.user.User;
-import com.example.learnquest.model.wrappers.TaggedQuiz;
 
 import java.util.List;
 
@@ -18,9 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -42,8 +33,12 @@ public interface SupabaseApi {
     @POST("User")
     Call<User> addUser(@Body User user);
 
+
     @GET("StudentAssessment")
-    Call<List<StudentAssessment>> getStudentAssessments(@Query("userID") String userID);
+    Call<List<Assessment>> getStudentAssessments(@Query("userID") String userID);
+
+    @GET("Assessment")
+    Call<List<com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment>> getGroupAssessments(@Query("groupID") String groupID_input);
 
     @GET("Assessment")
     Call<List<Assessment>> getAssessments();
@@ -51,16 +46,14 @@ public interface SupabaseApi {
 
             //adding an assessment to the DB
     @POST("Assessment")
-    Call<com.example.learnquest.SetWeightings.Assessment> addAssessment(@Body com.example.learnquest.SetWeightings.Assessment assessment);
+    Call<com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment> addAssessment(@Body com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment assessment);
 
-    @PATCH("GroupMembership")//method to potentially update table
-    Call<GroupMembership> setGroupMembership(@Query("userID")int userID, @Query("groupID") int groupID, @Body GroupMembership groupMembership);
 
-    @DELETE("GroupMembership")
-    Call<Void> deleteGroupMemberShip(@Query("userID") int userID, @Query("groupID") int groupID);
+
 
     @DELETE("Assessment")
     Call<Void> deleteAssessmentsByGroupID(@Query("groupID") String groupID);
+
 
 
 //this gets all the quiz entries,
@@ -69,21 +62,14 @@ public interface SupabaseApi {
     Call<Boolean> hasPermission(@Query("userID_input") Integer userID);
 
     @GET("rpc/getWaitingQuizQuestions")
-    Call<List<TaggedQuiz>> getWaitingQuizQuestions(@Query("groupID_input") Integer groupID);
+    Call<List<QuizEntry>> getWaitingQuizQuestions(@Query("groupID_input") Integer groupID);
 
     @GET("rpc/getValidQuizQuestions")
-    Call<List<TaggedQuiz>> getValidQuizQuestions(@Query("groupID_input") Integer groupID);
+    Call<List<QuizEntry>> getValidQuizQuestions(@Query("groupID_input") Integer groupID);
     //...end
 
-    @GET("rpc/getPendingUsers")
-    Call<List<PendingUsersResult>> getPendingUsers(@Query("groupID_input") Integer groupID_input);
-
     @GET("rpc/getQuizEntries")
-    Call<List<TaggedQuiz>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
-
-
-    @GET("rpc/getQuizEntries4")
-    Call<List<QuizEntry>> getQuizEntries4(@Query("groupID_input") Integer groupID_input);
+    Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
 
     @DELETE("QuizEntry")
     Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)

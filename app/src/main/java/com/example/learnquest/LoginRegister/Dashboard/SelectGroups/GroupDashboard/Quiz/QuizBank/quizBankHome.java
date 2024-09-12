@@ -1,36 +1,21 @@
-package com.example.learnquest.QuizBank;
+package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.ExternalTools.ExpandableRecyclerView.models.ExpandableGroup;
 import com.example.learnquest.R;
-import com.example.learnquest.Utils.database.DatabaseRunnable;
-import com.example.learnquest.Utils.database.GetQuizEntriesRequest;
-import com.example.learnquest.Utils.database.QuizCallback;
-import com.example.learnquest.Utils.database.SupabaseApi;
-import com.example.learnquest.Utils.database.SupabaseClient;
-import com.example.learnquest.model.wrappers.TaggedQuiz;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class quizBankHome extends AppCompatActivity {
@@ -74,7 +59,7 @@ public class quizBankHome extends AppCompatActivity {
 
     private void GetQuizQuestions()  {
 
-        Call<List<QuizEntry>> call = App.api.getQuizEntries4(1);
+        Call<List<QuizEntry>> call = App.api.getQuizEntries(1);
         Response<List<QuizEntry>> response = null;
 
         try{
@@ -99,5 +84,12 @@ public class quizBankHome extends AppCompatActivity {
     }
 
 
+    public void pressOnClick(View view) {
 
+
+
+
+
+
+    }
 }
