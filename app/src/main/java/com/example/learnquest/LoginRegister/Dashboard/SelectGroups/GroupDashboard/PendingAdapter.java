@@ -1,5 +1,6 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +64,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
             btnAccept.setOnClickListener(view -> {
                 GroupMembership update = new GroupMembership(user.userID, App.groupID,1);
                 Call<GroupMembership> call = App.api.setGroupMembership(update.getUserID(),update.getGroupID(),update);
+                Log.i(PENDING_ADAPTER, "start of database call");
                 call.enqueue(new Callback<GroupMembership>() {
                     @Override
                     public void onResponse(Call<GroupMembership> call, Response<GroupMembership> response) {
@@ -82,6 +84,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
             btnReject = itemView.findViewById(R.id.btnRejectPending);
             btnReject.setOnClickListener(view ->{
                 Call<Void> rejectionCall = App.api.deleteGroupMemberShip(user.userID, App.groupID);
+                Log.i(PENDING_ADAPTER, "start of database call");
                 rejectionCall.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
@@ -100,6 +103,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
             });
         }
 
+        @SuppressLint("SetTextI18n")
         public void setData(PendingUsersResult pendingUser, int pos, PendingAdapter adapter){
             pendingName.setText(pendingUser.getPendingUserFirstName() + " " + pendingUser.getPendingUserLastName());
             user = pendingUser;
