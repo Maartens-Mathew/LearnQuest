@@ -58,9 +58,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity" />
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".SetWeightings.MainActivity"
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".SetWeightings.ListViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,13 +76,11 @@
             </intent-filter>
 
 
-            ></activity>
-         <activity android:name=".SetWeightings.ListViewActivity"></activity>
+            </activity>
 
 
-        <activity android:name=".Pomodoro.pomoDoroMain" android:exported="true"></activity>
 
-        <activity android:name=".QuizBank.quizBankHome" android:exported="true"></activity>
+
 
     </application>
 

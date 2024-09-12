@@ -11,13 +11,14 @@ public class QuizEntry{
     private String question;
     private String answer;
     private String description;
+    private HashMap<Integer, Tag> tags;
 
     public QuizEntry(){
         tags = new HashMap<>();
     }
 
     
-    private HashMap<Integer, Tag> tags;
+
 
     @Override
     public String toString() {

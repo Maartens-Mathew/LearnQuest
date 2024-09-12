@@ -50,6 +50,7 @@ public class ListViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
 
+
         // Initialize the adapter with assessments from AssessmentManager
         Thread thread = new Thread(this::getAssessments);
 
