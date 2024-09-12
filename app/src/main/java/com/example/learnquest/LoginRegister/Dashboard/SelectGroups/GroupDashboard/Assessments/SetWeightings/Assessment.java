@@ -1,4 +1,4 @@
-package com.example.learnquest.SetWeightings;
+package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings;
 import java.io.Serializable;
 
 public class Assessment implements Serializable {

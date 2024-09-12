@@ -2,11 +2,8 @@ package com.example.learnquest.Utils.database;
 
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
-import com.example.learnquest.QuizBank.QuizEntry;
-import com.example.learnquest.QuizBank.Tag;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.model.user.User;
-import com.example.learnquest.model.wrappers.TaggedQuiz;
 
 import java.util.List;
 
@@ -15,7 +12,6 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -42,7 +38,7 @@ public interface SupabaseApi {
     Call<List<Assessment>> getStudentAssessments(@Query("userID") String userID);
 
     @GET("Assessment")
-    Call<List<com.example.learnquest.SetWeightings.Assessment>> getGroupAssessments(@Query("groupID") String groupID_input);
+    Call<List<com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment>> getGroupAssessments(@Query("groupID") String groupID_input);
 
     @GET("Assessment")
     Call<List<Assessment>> getAssessments();
@@ -50,7 +46,7 @@ public interface SupabaseApi {
 
             //adding an assessment to the DB
     @POST("Assessment")
-    Call<com.example.learnquest.SetWeightings.Assessment> addAssessment(@Body com.example.learnquest.SetWeightings.Assessment assessment);
+    Call<com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment> addAssessment(@Body com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment assessment);
 
 
 
@@ -66,14 +62,14 @@ public interface SupabaseApi {
     Call<Boolean> hasPermission(@Query("userID_input") Integer userID);
 
     @GET("rpc/getWaitingQuizQuestions")
-    Call<List<TaggedQuiz>> getWaitingQuizQuestions(@Query("groupID_input") Integer groupID);
+    Call<List<QuizEntry>> getWaitingQuizQuestions(@Query("groupID_input") Integer groupID);
 
     @GET("rpc/getValidQuizQuestions")
-    Call<List<TaggedQuiz>> getValidQuizQuestions(@Query("groupID_input") Integer groupID);
+    Call<List<QuizEntry>> getValidQuizQuestions(@Query("groupID_input") Integer groupID);
     //...end
 
     @GET("rpc/getQuizEntries")
-    Call<List<TaggedQuiz>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
+    Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
 
     @DELETE("QuizEntry")
     Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 import com.example.learnquest.Utils.database.SupabaseApi;
 import com.example.learnquest.Utils.database.SupabaseClient;
@@ -34,8 +35,8 @@ public class ManageGroupAccessActivity extends AppCompatActivity {
     }
 
     private void interactWithDatabase(){
-        SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
-        Call<List<GroupMembership>> groupMembershipCall = api.getGroupMembership("1");
+       /* SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
+        Call<List<GroupMembership>> groupMembershipCall = App.api.getGroupMembership("1");
         groupMembershipCall.enqueue(new Callback<List<GroupMembership>>() {
             @Override
             public void onResponse(Call<List<GroupMembership>> call, Response<List<GroupMembership>> response) {
@@ -54,6 +55,6 @@ public class ManageGroupAccessActivity extends AppCompatActivity {
             public void onFailure(Call<List<GroupMembership>> call, Throwable throwable) {
 
             }
-        });
+        }); */
     }
 }

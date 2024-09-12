@@ -1,6 +1,6 @@
 package com.example.learnquest.Utils.database;
 
-import com.example.learnquest.QuizBank.QuizEntry;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.Utils.database.Serializers.QuizEntryDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

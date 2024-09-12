@@ -1,4 +1,4 @@
-package com.example.learnquest.QuizBank;
+package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank;
 
 public class GetQuizEntriesRequest {
     private short groupid_input;

@@ -1,4 +1,4 @@
-package com.example.learnquest.QuizBank;
+package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank;
 
 import android.view.View;
 import android.widget.TextView;
