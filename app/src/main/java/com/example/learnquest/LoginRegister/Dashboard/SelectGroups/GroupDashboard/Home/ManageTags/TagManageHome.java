@@ -33,7 +33,6 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.flexbox.FlexboxLayout;
 
 
-
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -42,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TagManageHome extends AppCompatActivity {
+public class TagManageHome extends AppCompatActivity implements OnTagsChangedListener {
 
     private RecyclerView recyclerView;
     private TagAdapter adapter;
@@ -77,7 +76,7 @@ public class TagManageHome extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Tag> tagList = response.body();
                     // Set up RecyclerView Adapter
-                    TagAdapter adapter = new TagAdapter(TagManageHome.this, tagList);
+                    adapter = new TagAdapter(TagManageHome.this, tagList,TagManageHome.this );
                     recyclerView.setAdapter(adapter);
 
                     // Display tags as pills
@@ -150,6 +149,27 @@ public class TagManageHome extends AppCompatActivity {
         Button btnPickColor = dialogView.findViewById(R.id.btnPickColor);
 
 
+        btnPickColor.setOnClickListener(v -> {
+            ColorPickerDialogBuilder
+                    .with(TagManageHome.this)
+                    .setTitle("Choose Color")
+                    .initialColor(Color.parseColor(selectedColorHex)) // Starting color
+                    .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                    .density(12) // Number of colors in the color picker
+                    .setOnColorSelectedListener(selectedColor ->
+                            Toast.makeText(getApplicationContext(), "Selected color: " + Integer.toHexString(selectedColor).toUpperCase(), Toast.LENGTH_SHORT).show()
+                    )
+                    .setPositiveButton("OK", (dialog, selectedColor, allColors) -> {
+                        // Convert the selected color to hex format
+                        selectedColorHex = String.format("#%06X", (0xFFFFFF & selectedColor));
+                        btnPickColor.setBackgroundColor(selectedColor); // Update button color as feedback
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                    .build()
+                    .show();
+        });
+
+
         builder.setPositiveButton("Add", (dialog, which) -> {
             String tagName = etName.getText().toString().trim();
             if (!tagName.isEmpty()) {
@@ -206,5 +226,14 @@ public class TagManageHome extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onTagsChanged() {
+        fetchTagsByGroup(App.groupID.toString());
+    }
+
+
+
+
 
 }

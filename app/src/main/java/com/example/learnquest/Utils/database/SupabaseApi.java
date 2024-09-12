@@ -88,7 +88,8 @@ public interface SupabaseApi {
     @POST("Tag")
     Call<Void> addTag(@Body Tag tag);
 
-
+    @DELETE("Tag")
+    Call<Void> deleteTag(@Query("tagID") String tagID);
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work

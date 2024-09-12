@@ -49,7 +49,7 @@ public class Tag {
     }
 
     // Getters
-    public int getTagID() {
+    public Integer getTagID() {
         return tagID;
     }
 
