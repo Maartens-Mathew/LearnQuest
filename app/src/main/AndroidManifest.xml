@@ -83,6 +83,10 @@
 
         <activity android:name=".QuizBank.quizBankHome" android:exported="true"></activity>
 
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome" android:exported="true"></activity>
+
+
+
     </application>
 
 </manifest>

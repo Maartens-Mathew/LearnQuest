@@ -25,6 +25,7 @@ public class QuizEntryDeserializer implements JsonDeserializer<QuizEntry> {
         quizEntry.setAnswer(jsonObject.get("answer").isJsonNull() ? null : jsonObject.get("answer").getAsString());
         quizEntry.setDescription(jsonObject.get("description").isJsonNull() ? null : jsonObject.get("description").getAsString());
 
+
         JsonArray tagsArray = jsonObject.getAsJsonArray("tags");
 
         JsonObject test = tagsArray.get(0).getAsJsonObject();
@@ -37,6 +38,7 @@ public class QuizEntryDeserializer implements JsonDeserializer<QuizEntry> {
                 Tag tag = new Tag();
                 tag.setTagID(tagObject.get("tagID").isJsonNull() ? null : tagObject.get("tagID").getAsInt());
                 tag.setTagName(tagObject.get("tagName").isJsonNull() ? null : tagObject.get("tagName").getAsString());
+                tag.setTagColour(tagObject.get("tagColour").isJsonNull() ? null : tagObject.get("tagColour").getAsString());
                 tags.add(tag);
             }
             quizEntry.setTags(tags);

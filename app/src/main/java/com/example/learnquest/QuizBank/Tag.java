@@ -6,6 +6,15 @@ public class Tag {
     private Integer tagID;
     private Integer groupID;
     private String tagName;
+    private String tagColour;
+
+    public String getTagColour() {
+        return tagColour;
+    }
+
+    public void setTagColour(String tagColour) {
+        this.tagColour = tagColour;
+    }
 
     @Override
     public String toString() {

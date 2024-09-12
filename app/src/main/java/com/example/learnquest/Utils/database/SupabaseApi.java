@@ -2,7 +2,6 @@ package com.example.learnquest.Utils.database;
 
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
 import com.example.learnquest.QuizBank.QuizEntry;
 import com.example.learnquest.QuizBank.Tag;
 import com.example.learnquest.model.user.User;
@@ -15,7 +14,6 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -73,7 +71,7 @@ public interface SupabaseApi {
     //...end
 
     @GET("rpc/getQuizEntries")
-    Call<List<TaggedQuiz>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
+    Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
 
     @DELETE("QuizEntry")
     Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)
@@ -83,7 +81,12 @@ public interface SupabaseApi {
 
 
 
+///////////////////////////////////////////////////////////////////////////////////A500
+    @GET("Tag") // Replace with your Supabase endpoint for getting tags
+    Call<List<Tag>> getTagsByGroup(@Query("groupID") String groupID);
 
+    @POST("Tag")
+    Call<Void> addTag(@Body Tag tag);
 
 
 //    @GET("/rest/v1/TaggedQuizEntry")
