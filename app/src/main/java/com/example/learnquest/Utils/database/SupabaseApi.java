@@ -37,8 +37,12 @@ public interface SupabaseApi {
     @POST("User")
     Call<User> addUser(@Body User user);
 
+
     @GET("StudentAssessment")
-    Call<List<StudentAssessment>> getStudentAssessments(@Query("userID") String userID);
+    Call<List<Assessment>> getStudentAssessments(@Query("userID") String userID);
+
+    @GET("Assessment")
+    Call<List<com.example.learnquest.SetWeightings.Assessment>> getGroupAssessments(@Query("groupID") String groupID_input);
 
     @GET("Assessment")
     Call<List<Assessment>> getAssessments();
@@ -70,10 +74,6 @@ public interface SupabaseApi {
 
     @GET("rpc/getQuizEntries")
     Call<List<TaggedQuiz>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
-
-
-    @GET("rpc/getQuizEntries4")
-    Call<List<QuizEntry>> getQuizEntries4(@Query("groupID_input") Integer groupID_input);
 
     @DELETE("QuizEntry")
     Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)

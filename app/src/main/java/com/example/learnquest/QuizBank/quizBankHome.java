@@ -2,10 +2,12 @@ package com.example.learnquest.QuizBank;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -74,7 +76,7 @@ public class quizBankHome extends AppCompatActivity {
 
     private void GetQuizQuestions()  {
 
-        Call<List<QuizEntry>> call = App.api.getQuizEntries4(1);
+        Call<List<QuizEntry>> call = App.api.getQuizEntries(1);
         Response<List<QuizEntry>> response = null;
 
         try{
@@ -99,5 +101,12 @@ public class quizBankHome extends AppCompatActivity {
     }
 
 
+    public void pressOnClick(View view) {
 
+
+
+
+
+
+    }
 }
