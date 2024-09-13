@@ -14,6 +14,8 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -90,6 +92,25 @@ public interface SupabaseApi {
 
     @DELETE("Tag")
     Call<Void> deleteTag(@Query("tagID") String tagID);
+
+    // Add the PUT method for updating a tag
+//    @PUT("Tag")
+//    Call<Void> updateTag(@Body Tag tag);
+
+//    @PUT("Tag")
+//    Call<Void> updateTagwID(@Body Tag tag);
+
+    @PUT("Tag")
+    Call<Void> updateTagwID(@Query("tagID") String idFilter, @Body Tag tag);
+
+
+//    @PUT("Tag")
+//    Call<Void> updateTag(@Path("id") String id, @Body Tag tag);
+
+//    @PUT("Tag")
+//    Call<Tag> updateTag(@Path("id") int id, @Body Tag tag);
+
+
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work

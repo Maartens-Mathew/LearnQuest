@@ -8,25 +8,27 @@
     tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome">
 
     <!-- TextView for title -->
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Quiz Tags"
-        android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- RecyclerView to display the main content -->
 
     <!-- FlexboxLayout to display tags as pill-shaped buttons -->
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Quiz Tags"
+        android:textColor="@color/teal_700"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tagRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="413dp"
+        android:layout_height="330dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@id/flexboxLayoutTags"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,8 +40,8 @@
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/flexboxLayoutTags"
-        android:layout_width="393dp"
-        android:layout_height="223dp"
+        android:layout_width="415dp"
+        android:layout_height="289dp"
         android:padding="8dp"
         app:alignContent="flex_start"
         app:flexWrap="wrap"
@@ -47,9 +49,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.864" />
+        app:layout_constraintVertical_bias="0.926" />
 
     <TextView
         android:id="@+id/textView7"
@@ -65,8 +68,8 @@
 
     <Button
         android:id="@+id/btnAddNewTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="132dp"
+        android:layout_height="40dp"
         android:onClick="addNew"
         android:text="Add new Tag"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -74,6 +77,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flexboxLayoutTags"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

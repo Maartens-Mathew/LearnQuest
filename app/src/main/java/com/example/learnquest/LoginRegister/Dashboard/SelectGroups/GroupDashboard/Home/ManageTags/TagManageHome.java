@@ -233,7 +233,32 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
     }
 
 
-
-
+//    public void edit(View view) {
+//        Tag tagToUpdate = new Tag();
+//        tagToUpdate.setTagName("New Name");
+//        tagToUpdate.setTagColour("#FF5733");
+//
+//        // Call the API
+//        Call<Void> call = App.api.updateTagwID(tagToUpdate);
+//        call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.isSuccessful()) {
+//                    Log.d("EditTag", "Tag updated successfully");
+//                    Toast.makeText(TagManageHome.this, "Tag updated successfully", Toast.LENGTH_SHORT).show();
+//                    fetchTagsByGroup(App.groupID.toString()); // Refresh the tag list
+//                } else {
+//                    Log.e("EditTag", "Failed to update tag. Response Code: " + response.code() + ", Message: " + response.message());
+//                    Toast.makeText(TagManageHome.this, "Failed to update tag", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Log.e("EditTag", "Error updating tag: " + t.getMessage(), t);
+//                Toast.makeText(TagManageHome.this, "Error updating tag", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
 }
