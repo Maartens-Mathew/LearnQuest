@@ -6,6 +6,7 @@ import com.example.learnquest.QuizBank.QuizEntry;
 import com.example.learnquest.QuizBank.Tag;
 import com.example.learnquest.model.user.User;
 import com.example.learnquest.model.wrappers.TaggedQuiz;
+import com.google.gson.internal.sql.SqlTypesSupport;
 
 import java.util.List;
 
@@ -65,15 +66,15 @@ public interface SupabaseApi {
     @GET("rpc/hasPermission")
     Call<Boolean> hasPermission(@Query("userID_input") Integer userID);
 
-    @GET("rpc/getWaitingQuizQuestions")
-    Call<List<TaggedQuiz>> getWaitingQuizQuestions(@Query("groupID_input") Integer groupID);
+    @GET("rpc/getWaitingQuizEntries")
+    Call<List<QuizEntry>> getWaitingQuizEntries(@Query("groupID_input") Integer groupID_input);
 
     @GET("rpc/getValidQuizQuestions")
-    Call<List<TaggedQuiz>> getValidQuizQuestions(@Query("groupID_input") Integer groupID);
+    Call<List<QuizEntry>> getValidQuizQuestions(@Query("groupID_input") Integer groupID_input);
     //...end
 
     @GET("rpc/getQuizEntries")
-    Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
+    Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID_input);    //working
 
     @DELETE("QuizEntry")
     Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)

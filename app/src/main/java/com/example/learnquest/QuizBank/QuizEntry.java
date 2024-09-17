@@ -11,6 +11,9 @@ public class QuizEntry{
     private String question;
     private String answer;
     private String description;
+    private Boolean inContention;
+    private Boolean isValidated;
+
 
     public QuizEntry(){
         tags = new HashMap<>();
@@ -64,11 +67,17 @@ public class QuizEntry{
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public QuizEntry(Integer quizEntryID,String question, String answer, String description ) {
+    public QuizEntry(Integer quizEntryID,String question, String answer, String description, Boolean inContention, Boolean isValidated ) {
         this.quizEntryID = quizEntryID;
         this.question = question;
         this.answer = answer;
+
         this.description = description;
+        this.isValidated = false;
+        this.inContention = false;
+
+
+
 
         tags = new HashMap<>();
 
