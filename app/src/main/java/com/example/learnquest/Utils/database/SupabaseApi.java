@@ -76,6 +76,7 @@ public interface SupabaseApi {
     Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)
 
 
+    @GET("rpc/get_assessment_data")
     Call<List<TrackProgressAssessmentData>> get_assessment_data(@Query("user_id") int userID, @Query("group_id") int groupID);
 
 

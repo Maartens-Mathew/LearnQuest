@@ -70,6 +70,7 @@ public class ViewProgressActivity extends AppCompatActivity {
 
     private void createDataSets(){
         List<Entry> desiredDataEntries = new ArrayList<>();
+        List<Entry> currentDataEntries = new ArrayList<>();
         List<Entry> projectedDataEntries = new ArrayList<>();
         accumProj = 0f;
         accumDesired = 0f;
@@ -77,30 +78,37 @@ public class ViewProgressActivity extends AppCompatActivity {
             TrackProgressAssessmentData entry = entries.get(i);
             if (entry.getMark_obtained() != null){
                 accumProj += entry.getMark_obtained()*(entry.getWeight()/100);
-                projectedDataEntries.add(new Entry(i*1f, accumProj));
+                currentDataEntries.add(new Entry(i*1f, accumProj));
                 accumDesired += entry.getIdeal_mark()*(entry.getWeight()/100);
                 desiredDataEntries.add(new Entry(i*1f, accumDesired));
             }
             else{
+                projectedDataEntries.add(new Entry((i-1)*1f,accumProj));
                 accumProj += entry.getIdeal_mark()*(entry.getWeight()/100);
                 accumDesired += entry.getIdeal_mark()*(entry.getWeight()/100);
                 projectedDataEntries.add(new Entry(i*1f, accumProj));
                 desiredDataEntries.add(new Entry(i*1f, accumDesired));
             }
         }
-        LineDataSet desiredData = new LineDataSet(desiredDataEntries, "Ideal marks");
-        LineDataSet projectedData = new LineDataSet(projectedDataEntries, "current marks");
-        desiredData.setColor(getResources().getColor(R.color.purple_200, getResources().newTheme()));
-        projectedData.setColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
-        projectedData.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        desiredData.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        projectedData.setCubicIntensity(0.15f);
-        desiredData.setCubicIntensity(0.15f);
-        lnChrtProgress.setData(new LineData(desiredData, projectedData));
+        LineDataSet desiredMarkData = new LineDataSet(desiredDataEntries, "Ideal marks");
+        LineDataSet currentMarkData = new LineDataSet(currentDataEntries, "current marks");
+        LineDataSet projectMarkData = new LineDataSet(projectedDataEntries, "project marks");
+        desiredMarkData.setColor(getResources().getColor(R.color.purple_200, getResources().newTheme()));
+        currentMarkData.setColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
+        projectMarkData.setColor(getResources().getColor(R.color.red, getTheme().getResources().newTheme()));
+        currentMarkData.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        desiredMarkData.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        projectMarkData.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        currentMarkData.setCubicIntensity(0.15f);
+        desiredMarkData.setCubicIntensity(0.15f);
+        projectMarkData.setCubicIntensity(0.15f);
+        projectMarkData.enableDashedLine(10f,5f,0f);
+        lnChrtProgress.setData(new LineData(desiredMarkData, currentMarkData, projectMarkData));
     }
 
     private void getDatabaseData(){
         //ensure we have the correct userID and groupID
+        //use userID & groupId
         Call<List<TrackProgressAssessmentData>> call = App.api.get_assessment_data(0, 1);
         Response<List<TrackProgressAssessmentData>> response = null;
         try{

@@ -14,4 +14,6 @@
     <string name="enterbutton">Enter</string>
     <string name="projected_final_mark">Projected Final Mark: %s%%</string>
     <string name="desired_final_mark">Desired Final Mark: %s%%</string>
+    <string name="view_progress_button_assessment_fragment">View Progress</string>
+    <string name="explanation_view_progress_activity">The project mark is calculated using the current marks available as well as the ideal marks given for future assessments. The mark updates with each actual mark obtained for an assessment or when ideal marks are updated</string>
 </resources>
