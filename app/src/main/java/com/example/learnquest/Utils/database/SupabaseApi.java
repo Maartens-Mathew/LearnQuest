@@ -2,6 +2,7 @@ package com.example.learnquest.Utils.database;
 
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.TrackProgressAssessmentData;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.model.user.User;
 
@@ -75,6 +76,8 @@ public interface SupabaseApi {
     Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)
 
 
+    @GET("rpc/get_assessment_data")
+    Call<List<TrackProgressAssessmentData>> get_assessment_data(@Query("user_id") int userID, @Query("group_id") int groupID);
 
 
 
