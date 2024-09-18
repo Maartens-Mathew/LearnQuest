@@ -12,4 +12,6 @@
     <string name="adjust_goals_weighting">weighting: %s%%</string>
     <string name="adjust_goals_fragment_hint">Enter new goal mark</string>
     <string name="enterbutton">Enter</string>
+    <string name="projected_final_mark">Projected Final Mark: %s%%</string>
+    <string name="desired_final_mark">Desired Final Mark: %s%%</string>
 </resources>
