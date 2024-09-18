@@ -30,7 +30,7 @@
         android:layout_width="413dp"
         android:layout_height="330dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@id/flexboxLayoutTags"
+        app:layout_constraintBottom_toTopOf="@id/flexboxForAddingQuizTags"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.5"
         app:layout_constraintHorizontal_bias="0.0"
@@ -39,7 +39,7 @@
         app:layout_constraintVertical_bias="0.169" />
 
     <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexboxLayoutTags"
+        android:id="@+id/flexboxForAddingQuizTags"
         android:layout_width="415dp"
         android:layout_height="289dp"
         android:padding="8dp"
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Overview of current tags:"
-        app:layout_constraintBottom_toTopOf="@+id/flexboxLayoutTags"
+        app:layout_constraintBottom_toTopOf="@+id/flexboxForAddingQuizTags"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +76,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flexboxLayoutTags"
+        app:layout_constraintTop_toBottomOf="@+id/flexboxForAddingQuizTags"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

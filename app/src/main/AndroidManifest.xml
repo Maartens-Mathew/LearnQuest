@@ -87,6 +87,9 @@
 
         <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome" android:exported="true"></activity>
 
+        <activity android:name=".QuizBank.quizNewInsertAct" android:exported="true"></activity>
+
+
 
     </application>
 

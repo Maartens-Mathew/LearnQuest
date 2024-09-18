@@ -80,8 +80,14 @@ public interface SupabaseApi {
     Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)
 
 
+    @POST("rpc/addQuizEntry")
+    Call<Void> addQuizEntry(@Body QuizEntry quizEntry);
 
+    @POST("rpc/updateQuizEntry")
+    Call<Void> updateQuizEntry(@Body QuizEntry quizEntry);
 
+//    @DELETE("QuizEntry")
+//    Call<Void> deleteQuizEntry(@Query("quizEntryID") String QuizEntryID);
 
 
 ///////////////////////////////////////////////////////////////////////////////////A500
@@ -110,6 +116,13 @@ public interface SupabaseApi {
 
 //    @PUT("Tag")
 //    Call<Tag> updateTag(@Path("id") int id, @Body Tag tag);
+
+
+
+
+
+
+
 
 
 //    @GET("/rest/v1/TaggedQuizEntry")

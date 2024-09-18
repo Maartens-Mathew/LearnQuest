@@ -1,11 +1,9 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags;
 
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,25 +15,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.QuizBank.Tag;
 import com.example.learnquest.R;
-import com.example.learnquest.Utils.database.SupabaseApi;
-import com.example.learnquest.Utils.database.SupabaseClient;
 import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.OnColorSelectedListener;
-import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.flexbox.FlexboxLayout;
 
 
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,7 +48,7 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize FlexboxLayout
-        flexboxLayout = findViewById(R.id.flexboxLayoutTags);
+        flexboxLayout = findViewById(R.id.flexboxForAddingQuizTags);
 
         // Assuming you set your group ID like this; adjust as needed
         App.groupID = 1;
@@ -100,11 +91,20 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
         for (Tag tag : tagList) {
             Button tagButton = new Button(this);
 
+
+            // Add double-tap listener to the button
+            tagButton.setOnClickListener(new DoubleTapListener(() -> {
+                // Double tap detected, delete the tag
+                deleteTag(tag);
+            }));
+
             // Set the text of the button to the tag name
             tagButton.setText(tag.getTagName());
 
             // Set the background shape drawable with the tag color
             tagButton.setBackground(getPillDrawableWithColor(tag.getTagColour()));
+
+
 
             // Set padding and text size
             tagButton.setPadding(20, 8, 20, 8); // Adjust padding values if needed
@@ -227,6 +227,28 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
         });
     }
 
+    // Helper class to detect double-tap
+    private class DoubleTapListener implements View.OnClickListener {
+        private static final long DOUBLE_TAP_DELAY = 300; // Milliseconds between taps for a valid double-tap
+        private long lastTapTime = 0;
+        private Runnable doubleTapAction;
+
+        public DoubleTapListener(Runnable doubleTapAction) {
+            this.doubleTapAction = doubleTapAction;
+        }
+
+        @Override
+        public void onClick(View v) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastTapTime < DOUBLE_TAP_DELAY) {
+                // Double tap detected
+                doubleTapAction.run();
+            }
+            lastTapTime = currentTime;
+        }
+    }
+
+
     @Override
     public void onTagsChanged() {
         fetchTagsByGroup(App.groupID.toString());
@@ -260,5 +282,80 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
 //            }
 //        });
 //    }
+
+
+
+    // Function to delete the tag and update the view
+    private void deleteTag(Tag tag) {
+        // Call the API to delete the tag
+
+        String filter = "eq." + tag.getTagID();
+
+
+        Call<Void> deleteTagCall = App.api.deleteTag(filter);
+        deleteTagCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(TagManageHome.this, "Tag deleted successfully", Toast.LENGTH_SHORT).show();
+                    // Refresh tags after deletion
+                    fetchTagsByGroup(App.groupID.toString());
+                } else {
+                    Toast.makeText(TagManageHome.this, "Failed to delete tag", Toast.LENGTH_SHORT).show();
+                    Log.e("DeleteTag", "Response Code: " + response.code() + ", Message: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(TagManageHome.this, "Error deleting tag", Toast.LENGTH_SHORT).show();
+                Log.e("DeleteTag", "Error: " + t.getMessage());
+            }
+        });
+    }
+
+
+//    private void deleteTag(String tagID, int position) {
+//        Log.d("TagAdapter", "Attempting to delete tag with ID: " + tagID);
+//
+//        // Use the correct format for the filter (e.g., "id=eq.<tagID>")
+//        String filter = "eq." + tagID;
+//
+//        // API call to delete the tag using the correct filter format
+//        Call<Void> call = App.api.deleteTag(filter);
+//
+//        call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.isSuccessful()) {
+//                    Log.d("TagAdapter", "Tag deleted successfully: " + tagID);
+//                    Toast.makeText(context, "Tag deleted successfully", Toast.LENGTH_SHORT).show();
+//
+//                    // Notify the listener to refresh the tag list
+//                    if (onTagsChangedListener != null) {
+//                        onTagsChangedListener.onTagsChanged();
+//                    }
+//                } else {
+//                    try {
+//                        String errorBody = response.errorBody().string();  // Convert error body to string
+//                        Log.e("TagAdapter", "Failed to delete tag: " + response.code() + ", message: " + response.message());
+//                        Log.e("TagAdapter", "Error body: " + errorBody);
+//                    } catch (Exception e) {
+//                        Log.e("TagAdapter", "Failed to parse error body", e);
+//                    }
+//                    Toast.makeText(context, "Failed to delete tag", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Log.e("TagAdapter", "Error deleting tag: " + t.getMessage(), t);
+//                Toast.makeText(context, "Error deleting tag: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
+//
+
+
 
 }

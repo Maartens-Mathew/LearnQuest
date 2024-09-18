@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.ExternalTools.ExpandableRecyclerView.models.ExpandableGroup;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome;
 import com.example.learnquest.R;
 import com.example.learnquest.Utils.database.DatabaseRunnable;
 import com.example.learnquest.Utils.database.GetQuizEntriesRequest;
@@ -38,6 +42,7 @@ import retrofit2.Response;
 public class quizBankHome extends AppCompatActivity {
 
     public List<QuizEntry> entries;
+ //   private Spinner spinnerTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,8 @@ public class quizBankHome extends AppCompatActivity {
         }catch(InterruptedException e){
             System.out.println("Thread was interrupted.");
         }
+
+      //  spinnerTags = findViewById(R.id.spinAddTags);
 
         ExpandableListView expandableListView = findViewById(R.id.elvQuizEntries);
         QuizExpandableListAdapter quizAdapter = new QuizExpandableListAdapter(entries);
@@ -109,4 +116,22 @@ public class quizBankHome extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
