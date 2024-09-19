@@ -18,11 +18,7 @@ public class Tag {
 
     @Override
     public String toString() {
-        return "Tag{" +
-                "groupID=" + groupID +
-                ", tagID=" + tagID +
-                ", tagName='" + tagName + '\'' +
-                '}';
+        return tagName;
     }
 
     // Constructor

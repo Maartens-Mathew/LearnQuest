@@ -7,6 +7,7 @@ import com.example.learnquest.AppState.App;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class QuizEntry{
     private Integer quizEntryID;
@@ -100,6 +101,10 @@ public class QuizEntry{
         tags = new HashMap<>();
 
 
+    }
+
+    public List<Integer> getTagsAsList(){
+        return tags.keySet().stream().collect(Collectors.toList());
     }
 
     public void setGroupID(Integer integer) {

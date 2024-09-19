@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboar
 import com.example.learnquest.R;
 import com.google.android.flexbox.FlexboxLayout;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +38,10 @@ public class quizNewInsertAct extends AppCompatActivity {
     private Spinner spinnerTags;
     private FlexboxLayout flexboxLayout;
     private List<Tag> tagList = new ArrayList<>(); // Store all tags
-    private Set<String> selectedTags = new HashSet<>(); // Store selected tag names to avoid duplicates
+    private Set<Tag> selectedTags = new HashSet<>(); // Store selected tag names to avoid duplicates
+    private EditText edtQuizQ;
+    private EditText edtQuizD;
+    private EditText edtQuizA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,9 @@ public class quizNewInsertAct extends AppCompatActivity {
 
         spinnerTags = findViewById(R.id.spinAddTags);
         flexboxLayout = findViewById(R.id.flexboxForAddingQuizTags);
+        edtQuizQ = findViewById(R.id.edtQuizQ);
+        edtQuizD = findViewById(R.id.edtQuizD);
+        edtQuizA = findViewById(R.id.edtQuizA);
 
         // Clear the FlexboxLayout when the activity is created
         flexboxLayout.removeAllViews();
@@ -61,11 +69,10 @@ public class quizNewInsertAct extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected tag based on the position
                 Tag selectedTag = tagList.get(position);
-                String selectedTagName = selectedTag.getTagName();
 
                 // Only add the tag to the Flexbox if it hasn't been selected before
-                if (!selectedTags.contains(selectedTagName)) {
-                    selectedTags.add(selectedTagName); // Track the selected tag
+                if (!selectedTags.contains(selectedTag)) {
+                    selectedTags.add(selectedTag); // Track the selected tag
                     addTagButton(selectedTag); // Add button for the selected tag
                 }
             }
@@ -163,6 +170,52 @@ public class quizNewInsertAct extends AppCompatActivity {
     }
 
     public void addNewQE(View view){
+
+        QuizEntry entry = new QuizEntry();
+        entry.setQuestion(edtQuizQ.getText().toString());
+        entry.setAnswer(edtQuizA.getText().toString());
+        entry.setDescription(edtQuizD.getText().toString());
+        entry.setGroupID(App.groupID);
+
+        for (Tag tag : selectedTags)
+            entry.addTag(tag);
+
+        //Just so it sends through something.
+        entry.setQuizEntryID(-1);
+        entry.setValidated(false);
+        entry.setInContention(false);
+
+        Thread thread = new Thread( () -> {
+
+        Call<Void> quizCall = App.api.addQuizEntry(entry);
+
+        Response<Void> quizResponse = null;
+
+
+
+            try {
+                quizResponse = quizCall.execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            if (quizResponse.isSuccessful()) {
+               runOnUiThread(() -> Toast.makeText(quizNewInsertAct.this, "Insertion successful.", Toast.LENGTH_SHORT).show());
+            } else {
+                try {
+                    Log.e("Custom", quizResponse.errorBody().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+
+        thread.start();
+
+
+
 
 
 

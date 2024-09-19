@@ -71,7 +71,7 @@ public interface SupabaseApi {
 
     @GET("rpc/getValidQuizQuestions")
     Call<List<QuizEntry>> getValidQuizQuestions(@Query("groupID_input") Integer groupID_input);
-    //...end
+    //...endQuer
 
     @GET("rpc/getQuizEntries")
     Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID_input);    //working
@@ -82,6 +82,8 @@ public interface SupabaseApi {
 
     @POST("rpc/addQuizEntry")
     Call<Void> addQuizEntry(@Body QuizEntry quizEntry);
+
+
 
     @POST("rpc/updateQuizEntry")
     Call<Void> updateQuizEntry(@Body QuizEntry quizEntry);
