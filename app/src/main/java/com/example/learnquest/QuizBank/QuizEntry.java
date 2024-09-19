@@ -2,6 +2,8 @@ package com.example.learnquest.QuizBank;
 
 import android.text.TextUtils;
 
+import com.example.learnquest.AppState.App;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +33,22 @@ public class QuizEntry{
                 ", description='" + description + '\'' +
                 ", tags=" + tags +
                 '}';
+    }
+
+    public Boolean getInContention() {
+        return inContention;
+    }
+
+    public void setInContention(Boolean inContention) {
+        this.inContention = inContention;
+    }
+
+    public Boolean getIsValid() {
+        return isValidated;
+    }
+
+    public void setValidated(Boolean validated) {
+        isValidated = validated;
     }
 
     public void addTag(Tag tag){
@@ -84,4 +102,15 @@ public class QuizEntry{
 
     }
 
+    public void setGroupID(Integer integer) {
+
+    }
+
+    public String getGroupID() {
+        return App.groupID.toString();//hmmmmmm
+    }
+
+//    public Integer[] getTagsAsList() {
+//        return tags;
+//    }
 }
