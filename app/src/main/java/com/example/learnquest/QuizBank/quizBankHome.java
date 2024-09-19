@@ -1,137 +1,100 @@
 package com.example.learnquest.QuizBank;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.ExternalTools.ExpandableRecyclerView.models.ExpandableGroup;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome;
 import com.example.learnquest.R;
-import com.example.learnquest.Utils.database.DatabaseRunnable;
-import com.example.learnquest.Utils.database.GetQuizEntriesRequest;
 import com.example.learnquest.Utils.database.QuizCallback;
-import com.example.learnquest.Utils.database.SupabaseApi;
-import com.example.learnquest.Utils.database.SupabaseClient;
-import com.example.learnquest.model.wrappers.TaggedQuiz;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class quizBankHome extends AppCompatActivity {
 
     public List<QuizEntry> entries;
- //   private Spinner spinnerTags;
+    private QuizExpandableListAdapter quizAdapter;
+    private ExpandableListView expandableListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_bank);
-        entries = new ArrayList<>();
 
-        //For dummy testing purposes, this should be set when a group is selected in the dashboard.
+        entries = new ArrayList<>();
         App.groupID = 1;
         App.setApplicationContext(getApplicationContext());
 
+        expandableListView = findViewById(R.id.elvQuizEntries);
+        quizAdapter = new QuizExpandableListAdapter(entries);
+        expandableListView.setAdapter(quizAdapter);
 
+        loadQuizQuestions();
+
+        expandableListView.setGroupIndicator(null);
+    }
+
+    // Method to load quiz questions
+    private void loadQuizQuestions() {
         Thread thread = new Thread(this::GetQuizQuestions);
-
-
         try {
             thread.start();
             thread.join();
-        }catch(InterruptedException e){
-            System.out.println("Thread was interrupted.");
+        } catch (InterruptedException e) {
+            Log.e("ThreadError", "Thread was interrupted.");
         }
-
-      //  spinnerTags = findViewById(R.id.spinAddTags);
-
-        ExpandableListView expandableListView = findViewById(R.id.elvQuizEntries);
-        QuizExpandableListAdapter quizAdapter = new QuizExpandableListAdapter(entries);
-        expandableListView.setAdapter(quizAdapter);
-        // Test deleting quizEntryID = 4
-       // deleteQuizEntry((short) 4);
-
-
-        expandableListView.setGroupIndicator(null);
-
-
     }
 
+    private void GetQuizQuestions() {
+        Call<List<QuizEntry>> call = App.api.getQuizEntries(App.groupID); // Replace 1 with actual groupID
+        Response<List<QuizEntry>> response;
 
-
-    private void GetQuizQuestions()  {
-
-        Call<List<QuizEntry>> call = App.api.getQuizEntries(1);
-        Response<List<QuizEntry>> response = null;
-
-        try{
+        try {
             response = call.execute();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return;
         }
 
-        if (response.isSuccessful())
-        {
+        if (response.isSuccessful()) {
             entries = Collections.synchronizedList(response.body());
-            Log.i("Custom",entries.toString());
-        }
-        else{
+            runOnUiThread(() -> {
+                quizAdapter.updateData(entries);
+                quizAdapter.notifyDataSetChanged();
+            });
+            Log.i("Custom", entries.toString());
+        } else {
             Log.i("Custom", "Could not parse");
             try {
                 Log.e("Custom", response.errorBody().string());
-            }catch(IOException ignored){}
+            } catch (IOException ignored) {
+            }
         }
-
     }
-
 
     public void pressOnClick(View view) {
-
-
-
-
-
-
+        Intent intent = new Intent(this, quizNewInsertAct.class);
+        startActivityForResult(intent, 1);  // Use startActivityForResult to listen for a result
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            // Reload quiz questions after a new entry is added
+            Toast.makeText(this, "New quiz entry added. Refreshing data.", Toast.LENGTH_SHORT).show();
+            loadQuizQuestions();
+        }
+    }
 }

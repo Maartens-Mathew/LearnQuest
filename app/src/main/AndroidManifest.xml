@@ -89,6 +89,7 @@
 
         <activity android:name=".QuizBank.quizNewInsertAct" android:exported="true"></activity>
 
+        <activity android:name=".QuizBank.EditQuizActivity" android:exported="true"></activity>
 
 
     </application>

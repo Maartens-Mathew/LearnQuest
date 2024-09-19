@@ -1,5 +1,6 @@
 package com.example.learnquest.QuizBank;
 
+import android.content.Intent;
 import android.database.DataSetObservable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,10 +32,16 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
         this.quizEntries = quizEntries;
     }
 
+    // Add the updateData method to refresh the list
+    public void updateData(List<QuizEntry> newQuizEntries) {
+        this.quizEntries.clear(); // Clear the old data
+        this.quizEntries.addAll(newQuizEntries); // Add the new data
+        notifyDataSetChanged(); // Notify the adapter that the data has changed
+    }
+
     @Override
     public int getGroupCount() {
         return quizEntries.size();
-
     }
 
     @Override
@@ -74,19 +81,15 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.viewholder_questiontitle, parent, false);
         }
 
-
         ImageView indicator = convertView.findViewById(R.id.imgIndicator);
-
-            if (isExpanded) {
-                indicator.setImageResource(R.drawable.baseline_arrow_drop_up_24);
-            }else
-                indicator.setImageResource(R.drawable.baseline_arrow_drop_down_24);
-
+        if (isExpanded) {
+            indicator.setImageResource(R.drawable.baseline_arrow_drop_up_24);
+        } else {
+            indicator.setImageResource(R.drawable.baseline_arrow_drop_down_24);
+        }
 
         TextView questionTextView = convertView.findViewById(R.id.txtQuestion);
         questionTextView.setText(quizEntries.get(groupPosition).getQuestion());
-
-
 
         return convertView;
     }
@@ -104,24 +107,24 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    public void bindChild(View convertView, QuizEntry quizEntry){
-        EditText edtAnswer = convertView.findViewById(R.id.edtAnswer);
-        EditText edtDescription = convertView.findViewById(R.id.edtDescription);
+    public void bindChild(View convertView, QuizEntry quizEntry) {
+        TextView edtAnswer = convertView.findViewById(R.id.edtAnswer);
+        TextView edtDescription = convertView.findViewById(R.id.edtDescription);
         TextView txtTags = convertView.findViewById(R.id.txtTags);
-        Button btnDelete, btnEdit;
+        Button btnDelete;
+        Button btnEdit;
 
-        edtAnswer.setText(quizEntry.getAnswer());
-        edtDescription.setText(quizEntry.getDescription());
+
+
+        edtAnswer.setText("Answer: " + quizEntry.getAnswer());
+        edtDescription.setText("Desc: " + quizEntry.getDescription());
         txtTags.setText(quizEntry.getTags());
 
         btnDelete = convertView.findViewById(R.id.btnDelete); // Add a delete button
+        btnEdit = convertView.findViewById(R.id.btnEdit); // Add a delete button
+
         btnDelete.setOnClickListener(deleteEntry(quizEntry));
-
-        btnEdit = convertView.findViewById(R.id.btnEdit);
-        btnEdit.setOnClickListener(editEntry(convertView, quizEntry));
-
-        edtAnswer.setEnabled(false);
-        edtDescription.setEnabled(false);
+        btnEdit.setOnClickListener(editEntry(quizEntry));
     }
 
     @Override
@@ -130,10 +133,8 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public View.OnClickListener deleteEntry(QuizEntry quizEntry) {
-
         return (itemView) -> {
-
-            Thread thread = new Thread( () -> {
+            Thread thread = new Thread(() -> {
                 Call<Void> deleteCall = App.api.deleteQuizEntry("eq." + quizEntry.getQuizEntryID());
                 Response<Void> deleteResponse = null;
 
@@ -143,69 +144,51 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
                     e.printStackTrace();
                 }
 
-                if (deleteResponse.isSuccessful())
+                if (deleteResponse.isSuccessful()) {
                     Log.i("Custom", "Entry deleted successfully");
-                else
+                } else {
                     Log.e("Custom", "Failed to delete entry: HTTP " + deleteResponse.code() + " " + deleteResponse.message());
-
-
+                }
             });
 
             thread.start();
-            //Remove quiz Entry from list
+            // Remove quiz entry from list
             quizEntries.remove(quizEntry);
 
-            //Notify adapter
+            // Notify adapter
             notifyDataSetChanged();
         };
-
-
-
     }
+    public View.OnClickListener editEntry(QuizEntry quizEntry) {
+        return (view) -> {
+            // Create an intent to launch the EditQuizActivity
+            Intent intent = new Intent(view.getContext(), EditQuizActivity.class);
+
+            // Pass the quiz entry's data to the new activity
+            intent.putExtra("quizEntryID", quizEntry.getQuizEntryID());
+            intent.putExtra("question", quizEntry.getQuestion());
+            intent.putExtra("description", quizEntry.getDescription());
+            intent.putExtra("answer", quizEntry.getAnswer());
+            intent.putExtra("tags", quizEntry.getTags()); // Pass tags if necessary
+            intent.putExtra("inContention", quizEntry.getInContention());
 
 
-    //Serves as way to edit quiz entries on the fly (Narsi, will you use a dialogue popup instead?)
-    public View.OnClickListener editEntry(View view, QuizEntry quizEntry){
-        return (itemView) -> {
-            Button btnEdit = (Button)itemView;
-            EditText edtAnswer = view.findViewById(R.id.edtAnswer);
-            EditText edtDescription = view.findViewById(R.id.edtDescription);
-
-            String tag = (String)btnEdit.getTag();
-            boolean editState = tag.equals("false");
-
-
-
-
-
-            if (editState)
-            {
-                btnEdit.setText("Save");
-                edtAnswer.setEnabled(true);
-                edtDescription.setEnabled(true);
-                btnEdit.setTag("true");
-                //How change tags?
-            }else {
-                btnEdit.setText("Edit");
-                edtAnswer.setEnabled(false);
-                edtDescription.setEnabled(false);
-                btnEdit.setTag("false");
-
-                quizEntry.setAnswer(edtAnswer.getText().toString());
-                quizEntry.setDescription(edtDescription.getText().toString());
-
-
-                //Update database??
-
-            }
-
-
-
-
+            // Start the activity
+            view.getContext().startActivity(intent);
         };
-
-
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

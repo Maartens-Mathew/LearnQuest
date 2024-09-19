@@ -1,5 +1,6 @@
 package com.example.learnquest.QuizBank;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -7,20 +8,20 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.ObservableList;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagAdapter;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
 import com.example.learnquest.R;
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -34,37 +35,62 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class quizNewInsertAct extends AppCompatActivity {
-    private Spinner spinnerTags;
-    private FlexboxLayout flexboxLayout;
-    private List<Tag> tagList = new ArrayList<>(); // Store all tags
-    private Set<Tag> selectedTags = new HashSet<>(); // Store selected tag names to avoid duplicates
-    private EditText edtQuizQ;
-    private EditText edtQuizD;
-    private EditText edtQuizA;
+public class EditQuizActivity extends AppCompatActivity {
 
+    private EditText edtQuestion, edtDescription, edtAnswer;
+    private Spinner spinAddTags;
+    private Button btnSave;
+    private FlexboxLayout flexboxLayout;
+    private Switch switchInContention;
+
+    private List<Tag> tagList = new ArrayList<>();
+    private Set<Tag> selectedTags = new HashSet<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.quiz_new_insert);
+        setContentView(R.layout.quiz_edit_insert);
 
-        App.groupID = 1;
-
-        spinnerTags = findViewById(R.id.spinAddTags);
+        // Initialize views
+        edtQuestion = findViewById(R.id.edtQuizQ);
+        edtDescription = findViewById(R.id.edtQuizD);
+        edtAnswer = findViewById(R.id.edtQuizA);
+        spinAddTags = findViewById(R.id.spinAddTags);
+        btnSave = findViewById(R.id.btnAddQuizEntry);
         flexboxLayout = findViewById(R.id.flexboxForAddingQuizTags);
-        edtQuizQ = findViewById(R.id.edtQuizQ);
-        edtQuizD = findViewById(R.id.edtQuizD);
-        edtQuizA = findViewById(R.id.edtQuizA);
+        switchInContention = findViewById(R.id.switchInContention);
 
-        // Clear the FlexboxLayout when the activity is created
-        flexboxLayout.removeAllViews();
-        selectedTags.clear();
+        // Get the passed data
+        Intent intent = getIntent();
+        int quizEntryID = intent.getIntExtra("quizEntryID", -1);
+        String question = intent.getStringExtra("question");
+        String description = intent.getStringExtra("description");
+        String answer = intent.getStringExtra("answer");
+        List<String> tags = intent.getStringArrayListExtra("tags"); // Use getStringArrayListExtra for List<String>
+        boolean inContention = intent.getBooleanExtra("inContention", false);
 
-        // Fetch tags by group ID (for Spinner)
+        // Set the data to the EditTexts
+        edtQuestion.setText(question);
+        edtDescription.setText(description);
+        edtAnswer.setText(answer);
+        switchInContention.setChecked(inContention);
+
+        // Fetch tags by group ID to populate Spinner
         fetchTagsByGroup(App.groupID.toString());
 
+        // Handle save button click
+        btnSave.setOnClickListener(view -> {
+            // Get the edited values
+            String updatedQuestion = edtQuestion.getText().toString();
+            String updatedDescription = edtDescription.getText().toString();
+            String updatedAnswer = edtAnswer.getText().toString();
+            boolean updatedInContention = switchInContention.isChecked();
+
+            // Update the quiz entry
+            updateQuizEntry(quizEntryID, updatedQuestion, updatedDescription, updatedAnswer, updatedInContention);
+        });
+
         // Set listener to handle spinner selections
-        spinnerTags.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinAddTags.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected tag based on the position
@@ -84,18 +110,32 @@ public class quizNewInsertAct extends AppCompatActivity {
         });
     }
 
-    private void populateSpinner(List<Tag> tagList) {
-        // Populate the spinner with tag names
-        List<String> tagNames = new ArrayList<>();
-        for (Tag tag : tagList) {
-            tagNames.add(tag.getTagName());
-        }
+    private void initializeSelectedTags(List<String> tags) {
+        // Ensure FlexboxLayout is cleared
+        flexboxLayout.removeAllViews();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tagNames);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTags.setAdapter(adapter);
+        for (String tagName : tags) {
+            Tag tag = getTagByName(tagName);
+            if (tag != null) {
+                selectedTags.add(tag);
+                addTagButton(tag); // Add button for the tag to the FlexboxLayout
+            }
+        }
     }
 
+
+
+
+
+    private Tag getTagByName(String tagName) {
+        // Implement this method to retrieve a Tag object by its name
+        for (Tag tag : tagList) {
+            if (tag.getTagName().equals(tagName)) {
+                return tag;
+            }
+        }
+        return null;
+    }
     private void fetchTagsByGroup(String groupID) {
         Call<List<Tag>> tagsCall = App.api.getTagsByGroup("eq." + groupID);
 
@@ -107,16 +147,32 @@ public class quizNewInsertAct extends AppCompatActivity {
                     populateSpinner(tagList);
                 } else {
                     Log.e("API Error", "Response Code: " + response.code() + ", Message: " + response.message());
-                    Toast.makeText(quizNewInsertAct.this, "Failed to load tags", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditQuizActivity.this, "Failed to load tags", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Tag>> call, Throwable t) {
                 Log.e("API Error", "onFailure: " + t.getMessage());
-                Toast.makeText(quizNewInsertAct.this, "Error loading tags", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditQuizActivity.this, "Error loading tags", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void populateTags(List<String> tags) {
+        flexboxLayout.removeAllViews(); // Clear existing views
+
+        for (String tag : tags) {
+            // Create a new TextView or Chip for each tag
+            TextView tagView = new TextView(this);
+            tagView.setText(tag);
+            tagView.setPadding(16, 8, 16, 8);
+            tagView.setBackgroundResource(R.drawable.pill_button); // Custom background drawable for tag
+            tagView.setTextColor(Color.WHITE); // Set text color
+            tagView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+
+            // Add tag view to FlexboxLayout
+            flexboxLayout.addView(tagView);
+        }
     }
 
     private void addTagButton(Tag tag) {
@@ -157,7 +213,6 @@ public class quizNewInsertAct extends AppCompatActivity {
             // Remove the actual tag object from the selectedTags set
             selectedTags.remove(tag); // This removes the actual Tag object, not just the tag name
         });
-
     }
 
     private Drawable getPillDrawableWithColor(String colorHex) {
@@ -172,51 +227,52 @@ public class quizNewInsertAct extends AppCompatActivity {
         return drawable;
     }
 
-    public void addNewQE(View view) {
+    private void updateQuizEntry(int quizEntryID, String question, String description, String answer, boolean inContention) {
         QuizEntry entry = new QuizEntry();
-        entry.setQuestion(edtQuizQ.getText().toString());
-        entry.setAnswer(edtQuizA.getText().toString());
-        entry.setDescription(edtQuizD.getText().toString());
+        entry.setQuizEntryID(quizEntryID);
+        entry.setQuestion(question);
+        entry.setDescription(description);
+        entry.setAnswer(answer);
         entry.setGroupID(App.groupID);
+        entry.setInContention(inContention);
 
         for (Tag tag : selectedTags) {
             entry.addTag(tag);
         }
 
-        entry.setQuizEntryID(-1);
-        entry.setValidated(false);
-        entry.setInContention(false);
-
         Thread thread = new Thread(() -> {
-            Call<Void> quizCall = App.api.addQuizEntry(entry);
-            Response<Void> quizResponse;
+            Call<Void> updateCall = App.api.updateQuizEntry(entry);
+            Response<Void> response;
 
             try {
-                quizResponse = quizCall.execute();
+                response = updateCall.execute();
+                if (response.isSuccessful()) {
+                    runOnUiThread(() -> {
+                        Toast.makeText(EditQuizActivity.this, "Entry updated!", Toast.LENGTH_SHORT).show();
+                        finish(); // Close activity and return to the previous one
+                    });
+                } else {
+                    Log.e("EditQuizActivity", "Failed to update entry: " + response.code());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-                return;
-            }
-
-            if (quizResponse.isSuccessful()) {
-                runOnUiThread(() -> {
-                    Toast.makeText(quizNewInsertAct.this, "Insertion successful.", Toast.LENGTH_SHORT).show();
-
-                    // Set the result to RESULT_OK and finish the activity
-                    setResult(RESULT_OK);
-                    finish();
-                });
-            } else {
-                try {
-                    Log.e("Custom", quizResponse.errorBody().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         });
 
         thread.start();
     }
 
+
+    private void populateSpinner(List<Tag> tagList) {
+        // Populate the spinner with tag names
+        List<String> tagNames = new ArrayList<>();
+        for (Tag tag : tagList) {
+            tagNames.add(tag.getTagName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tagNames);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinAddTags.setAdapter(adapter);
+    }
 
 }

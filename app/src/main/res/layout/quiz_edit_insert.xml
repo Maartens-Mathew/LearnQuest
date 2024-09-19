@@ -10,7 +10,7 @@
         android:layout_width="235dp"
         android:layout_height="41dp"
         android:layout_marginTop="32dp"
-        android:text="Insert New Quiz Entry"
+        android:text="Edit Quiz Entry"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:ems="10"
-        android:hint="Question"
         android:inputType="text"
+        android:text="Question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +36,8 @@
         android:layout_marginTop="33dp"
         android:layout_marginBottom="72dp"
         android:ems="10"
-        android:hint="Description"
         android:inputType="text"
+        android:text="Description"
         app:layout_constraintBottom_toTopOf="@+id/edtQuizA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -51,8 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="400dp"
         android:ems="10"
-        android:hint="Answer"
         android:inputType="text"
+        android:text="Answer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -67,7 +67,7 @@
         app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtQuizA"
-        app:layout_constraintVertical_bias="0.127" />
+        app:layout_constraintVertical_bias="0.051" />
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/flexboxForAddingQuizTags"
@@ -91,11 +91,24 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:onClick="addNewQE"
-        android:text="Insert"
+        android:text="Update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flexboxForAddingQuizTags" />
+
+    <Switch
+        android:id="@+id/switchInContention"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Add to Quiz Pool Queue"
+        app:layout_constraintBottom_toTopOf="@+id/flexboxForAddingQuizTags"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinAddTags"
+        app:layout_constraintVertical_bias="0.142" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
