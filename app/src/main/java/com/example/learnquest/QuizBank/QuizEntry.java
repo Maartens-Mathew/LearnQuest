@@ -1,6 +1,7 @@
 package com.example.learnquest.QuizBank;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.learnquest.AppState.App;
 
@@ -41,6 +42,8 @@ public class QuizEntry{
     }
 
     public void setInContention(Boolean inContention) {
+        Log.d("QuizEntry", "Setting inContention: " + inContention);
+
         this.inContention = inContention;
     }
 
@@ -92,8 +95,9 @@ public class QuizEntry{
         this.answer = answer;
 
         this.description = description;
-        this.isValidated = false;
-        this.inContention = false;
+        this.isValidated = isValidated != null ? isValidated : false; // Use the passed value or default to false
+        this.inContention = inContention != null ? inContention : false; // Use the passed value or default to false
+
 
 
 

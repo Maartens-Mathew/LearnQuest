@@ -70,7 +70,7 @@
         app:layout_constraintVertical_bias="0.051" />
 
     <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexboxForAddingQuizTags"
+        android:id="@+id/flexboxForEditingQuizTags"
         android:layout_width="381dp"
         android:layout_height="226dp"
         android:padding="8dp"

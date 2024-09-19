@@ -111,10 +111,12 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
         TextView edtAnswer = convertView.findViewById(R.id.edtAnswer);
         TextView edtDescription = convertView.findViewById(R.id.edtDescription);
         TextView txtTags = convertView.findViewById(R.id.txtTags);
+        TextView txtInCon = convertView.findViewById(R.id.txtinContention);
         Button btnDelete;
         Button btnEdit;
+        Boolean inContention = quizEntry.getInContention();
 
-
+        txtInCon.setText("The status is: " + (inContention != null ? inContention.toString() : "Not Set"));
 
         edtAnswer.setText("Answer: " + quizEntry.getAnswer());
         edtDescription.setText("Desc: " + quizEntry.getDescription());
@@ -172,6 +174,7 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
             intent.putExtra("tags", quizEntry.getTags()); // Pass tags if necessary
             intent.putExtra("inContention", quizEntry.getInContention());
 
+            Log.d("EditEntryIntent", "Passing inContention: " + quizEntry.getInContention());
 
             // Start the activity
             view.getContext().startActivity(intent);
