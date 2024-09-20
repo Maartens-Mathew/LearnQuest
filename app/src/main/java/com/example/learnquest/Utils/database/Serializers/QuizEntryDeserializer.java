@@ -24,6 +24,8 @@ public class QuizEntryDeserializer implements JsonDeserializer<QuizEntry> {
         quizEntry.setQuestion(jsonObject.get("question").isJsonNull() ? null : jsonObject.get("question").getAsString());
         quizEntry.setAnswer(jsonObject.get("answer").isJsonNull() ? null : jsonObject.get("answer").getAsString());
         quizEntry.setDescription(jsonObject.get("description").isJsonNull() ? null : jsonObject.get("description").getAsString());
+        quizEntry.setInContention(jsonObject.get("inContention").isJsonNull() ? null : jsonObject.get("inContention").getAsBoolean());
+        quizEntry.setInContention(jsonObject.get("isValidated").isJsonNull() ? null : jsonObject.get("isValidated").getAsBoolean());
 
 
         JsonArray tagsArray = jsonObject.getAsJsonArray("tags");
