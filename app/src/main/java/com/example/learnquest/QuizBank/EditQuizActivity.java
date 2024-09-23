@@ -62,7 +62,7 @@ public class EditQuizActivity extends AppCompatActivity {
         edtDescription = findViewById(R.id.edtQuizD);
         edtAnswer = findViewById(R.id.edtQuizA);
         btnSave = findViewById(R.id.btnAddEditedQuizEntry);
-        flexboxLayout = findViewById(R.id.flexboxForEditingQuizTags);
+        flexboxLayout = findViewById(R.id.flexboxForshowingTagsToFil);
         switchInContention = findViewById(R.id.switchInContention);
         spinnerForAddNewTags = findViewById(R.id.spinAddTagsE);
 

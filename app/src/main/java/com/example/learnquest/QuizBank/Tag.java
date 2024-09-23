@@ -2,7 +2,9 @@ package com.example.learnquest.QuizBank;
 
 import com.example.learnquest.AppState.App;
 
-public class Tag {
+import java.io.Serializable;
+
+public class Tag implements Serializable {
     private Integer tagID;
     private Integer groupID;
     private String tagName;

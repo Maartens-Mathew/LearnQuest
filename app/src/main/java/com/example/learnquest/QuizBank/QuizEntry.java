@@ -5,12 +5,13 @@ import android.util.Log;
 
 import com.example.learnquest.AppState.App;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class QuizEntry{
+public class QuizEntry implements Serializable {
     private Integer quizEntryID;
     private String question;
     private String answer;

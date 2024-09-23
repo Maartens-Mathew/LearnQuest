@@ -160,9 +160,15 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
                             Toast.makeText(getApplicationContext(), "Selected color: " + Integer.toHexString(selectedColor).toUpperCase(), Toast.LENGTH_SHORT).show()
                     )
                     .setPositiveButton("OK", (dialog, selectedColor, allColors) -> {
-                        // Convert the selected color to hex format
-                        selectedColorHex = String.format("#%06X", (0xFFFFFF & selectedColor));
-                        btnPickColor.setBackgroundColor(selectedColor); // Update button color as feedback
+                        if (selectedColor == Color.WHITE) {
+                            Toast.makeText(getApplicationContext(), "White color is not allowed. Please choose another color.", Toast.LENGTH_SHORT).show();
+                            // Optionally: Set button background to a default color (e.g., gray) to indicate invalid selection
+                            btnPickColor.setBackgroundColor(Color.GRAY);
+                        } else {
+                            // Convert the selected color to hex format
+                            selectedColorHex = String.format("#%06X", (0xFFFFFF & selectedColor));
+                            btnPickColor.setBackgroundColor(selectedColor); // Update button color
+                        }
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
                     .build()
@@ -206,12 +212,12 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
 
                     } else {
                         Log.e("AddTag", "Response body is null");
-                        Toast.makeText(TagManageHome.this, "Failed to add tag: No response body", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(TagManageHome.this, "Failed to add tag: No response body", Toast.LENGTH_SHORT).show();
                         fetchTagsByGroup(App.groupID.toString()); // Refresh the tag list
 
                     }
                 } else {
-                    Log.e("AddTag", "Failed to add tag. Response Code: " + response.code() + ", Message: " + response.message());
+                //    Log.e("AddTag", "Failed to add tag. Response Code: " + response.code() + ", Message: " + response.message());
                     Toast.makeText(TagManageHome.this, "Failed to add tag", Toast.LENGTH_SHORT).show();
                     fetchTagsByGroup(App.groupID.toString()); // Refresh the tag list
 
@@ -308,7 +314,7 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(TagManageHome.this, "Error deleting tag", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TagManageHome.this, "Error deleting tag as it is likely in use", Toast.LENGTH_SHORT).show();
                 Log.e("DeleteTag", "Error: " + t.getMessage());
             }
         });

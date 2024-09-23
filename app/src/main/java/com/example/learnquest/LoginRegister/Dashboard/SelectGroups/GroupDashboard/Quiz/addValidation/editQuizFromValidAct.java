@@ -18,47 +18,11 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RoundRectShape;
-import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.QuizBank.QuizEntry;
 import com.example.learnquest.QuizBank.Tag;
-import com.example.learnquest.R;
-import com.google.android.flexbox.FlexboxLayout;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -100,7 +64,7 @@ public class editQuizFromValidAct extends AppCompatActivity {
         edtDescription = findViewById(R.id.edtQuizD);
         edtAnswer = findViewById(R.id.edtQuizA);
         btnSave = findViewById(R.id.btnAddEditedQuizEntry);
-        flexboxLayout = findViewById(R.id.flexboxForEditingQuizTags);
+        flexboxLayout = findViewById(R.id.flexboxForshowingTagsToFil);
         switchInContention = findViewById(R.id.switchInContention);
         spinnerForAddNewTags = findViewById(R.id.spinAddTagsE);
 

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/skyBlueGreenBackGround">
 
     <TextView
         android:id="@+id/txtInsertNew"
@@ -11,6 +12,7 @@
         android:layout_height="41dp"
         android:layout_marginTop="32dp"
         android:text="Insert New Quiz Entry"
+        android:textColor="@color/greenTint"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,21 +36,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="33dp"
-        android:layout_marginBottom="72dp"
         android:ems="10"
         android:hint="Description"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/edtQuizA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtQuizQ"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/edtQuizQ" />
 
     <EditText
         android:id="@+id/edtQuizA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
         android:layout_marginBottom="400dp"
         android:ems="10"
         android:hint="Answer"
@@ -56,18 +56,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtQuizD" />
 
     <Spinner
         android:id="@+id/spinAddTagsE"
         android:layout_width="240dp"
         android:layout_height="31dp"
+        android:layout_marginTop="33dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtQuizA"
-        app:layout_constraintVertical_bias="0.127" />
+        app:layout_constraintVertical_bias="0.061" />
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/flexboxForAddingQuizTags"
@@ -90,6 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:backgroundTint="@color/greenTint"
         android:onClick="addNewQE"
         android:text="Insert"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- item_quiz_entry.xml -->
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/skyBlueGreenBackGround"
+    android:backgroundTint="@color/skyBlueGreenBackGround"
     android:orientation="vertical"
     android:padding="8dp">
 
@@ -77,6 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="72dp"
+        android:backgroundTint="@color/greenTint"
         android:onClick="editAInCon"
         android:text="Edit"
         app:layout_constraintBottom_toTopOf="@+id/ValidSwitch"
