@@ -59,7 +59,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/spinAddTags"
+        android:id="@+id/spinAddTagsE"
         android:layout_width="240dp"
         android:layout_height="31dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,16 +86,16 @@
         app:layout_constraintVertical_bias="0.881" />
 
     <Button
-        android:id="@+id/btnAddQuizEntry"
+        android:id="@+id/btnAddEditedQuizEntry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:onClick="addNewQE"
+        android:onClick="ConfirmEdit"
         android:text="Update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flexboxForAddingQuizTags" />
+        app:layout_constraintTop_toBottomOf="@+id/flexboxForEditingQuizTags" />
 
     <Switch
         android:id="@+id/switchInContention"
@@ -103,11 +103,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Add to Quiz Pool Queue"
-        app:layout_constraintBottom_toTopOf="@+id/flexboxForAddingQuizTags"
+        app:layout_constraintBottom_toTopOf="@+id/flexboxForEditingQuizTags"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinAddTags"
+        app:layout_constraintTop_toBottomOf="@+id/spinAddTagsE"
         app:layout_constraintVertical_bias="0.142" />
 
 

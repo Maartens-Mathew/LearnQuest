@@ -25,6 +25,9 @@ public class QuizEntry_JSONConverter implements JsonDeserializer<QuizEntry> , Js
         quizEntry.setAnswer(jsonObject.get("answer").isJsonNull() ? null : jsonObject.get("answer").getAsString());
         quizEntry.setDescription(jsonObject.get("description").isJsonNull() ? null : jsonObject.get("description").getAsString());
         quizEntry.setGroupID(jsonObject.get("groupID").isJsonNull() ? null : jsonObject.get("groupID").getAsInt());
+        quizEntry.setInContention(jsonObject.get("inContention").isJsonNull() ? null : jsonObject.get("inContention").getAsBoolean());
+        quizEntry.setValidated(jsonObject.get("isValidated").isJsonNull() ? null : jsonObject.get("isValidated").getAsBoolean());
+
         JsonArray tagsArray = jsonObject.getAsJsonArray("tags");
 
         JsonObject test = tagsArray.get(0).getAsJsonObject();

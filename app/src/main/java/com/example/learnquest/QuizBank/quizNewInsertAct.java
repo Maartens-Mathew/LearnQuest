@@ -16,11 +16,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.ObservableList;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagAdapter;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
 import com.example.learnquest.R;
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -50,7 +47,7 @@ public class quizNewInsertAct extends AppCompatActivity {
 
         App.groupID = 1;
 
-        spinnerTags = findViewById(R.id.spinAddTags);
+        spinnerTags = findViewById(R.id.spinAddTagsE);
         flexboxLayout = findViewById(R.id.flexboxForAddingQuizTags);
         edtQuizQ = findViewById(R.id.edtQuizQ);
         edtQuizD = findViewById(R.id.edtQuizD);

@@ -116,7 +116,7 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
         Button btnEdit;
         Boolean inContention = quizEntry.getInContention();
 
-        txtInCon.setText("The status is: " + (inContention != null ? inContention.toString() : "Not Set"));
+        txtInCon.setText("The status is: " + inContention.toString());
 
         edtAnswer.setText("Answer: " + quizEntry.getAnswer());
         edtDescription.setText("Desc: " + quizEntry.getDescription());

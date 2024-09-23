@@ -39,13 +39,14 @@ public class QuizRecyclerViewAdapter extends RecyclerView.Adapter<QuizRecyclerVi
     }
 
     public static class QuizViewHolder extends RecyclerView.ViewHolder {
-        TextView txtQuestion, txtAnswer, txtTags;
+        TextView txtQuestion, txtAnswer, txtTags, txtValid;
 
         public QuizViewHolder(View itemView) {
             super(itemView);
             txtQuestion = itemView.findViewById(R.id.txtQuestion);
             txtAnswer = itemView.findViewById(R.id.answerTextView);
             txtTags = itemView.findViewById(R.id.txtTags1);
+            txtValid = itemView.findViewById(R.id.txtIsValid);
 
         }
 
@@ -53,7 +54,7 @@ public class QuizRecyclerViewAdapter extends RecyclerView.Adapter<QuizRecyclerVi
             txtQuestion.setText(quizEntry.getQuestion());
             txtAnswer.setText(quizEntry.getAnswer());
             txtTags.setText(quizEntry.getTags());
-
+            txtValid.setText(quizEntry.getIsValid().toString());
         }
     }
 }

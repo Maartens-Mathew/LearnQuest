@@ -68,8 +68,8 @@ public interface SupabaseApi {
 
     @GET("rpc/getWaitingQuizEntries")
     Call<List<QuizEntry>> getWaitingQuizEntries(@Query("groupID_input") Integer groupID_input);
-
-    @GET("rpc/getValidQuizQuestions")
+//getWaitingQuizEntries
+    @GET("rpc/getValidQuizEntries")
     Call<List<QuizEntry>> getValidQuizQuestions(@Query("groupID_input") Integer groupID_input);
     //...endQuer
 

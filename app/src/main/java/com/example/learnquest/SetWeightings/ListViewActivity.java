@@ -1,6 +1,7 @@
 package com.example.learnquest.SetWeightings;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,6 +50,17 @@ public class ListViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
+        // Retrieve the groupID from the Intent
+        int groupIDPassedIn = getIntent().getIntExtra("groupID", -1); // Default value -1 if not passed
+
+        if (groupIDPassedIn != -1) {
+            App.groupID = groupIDPassedIn; // Update App.groupID with passed value
+        } else {
+            // Handle error: groupID was not properly passed
+            Log.e("ListViewActivity", "No groupID passed in the intent!");
+            Toast.makeText(this, "Error: No groupID passed.", Toast.LENGTH_LONG).show();
+            finish(); // Exit activity if groupID is invalid
+        }
 
         // Initialize the adapter with assessments from AssessmentManager
         Thread thread = new Thread(this::getAssessments);
@@ -80,8 +92,9 @@ public class ListViewActivity extends AppCompatActivity {
         updatePieChart();
     }
 
+
     public void getAssessments(){
-        App.groupID = 1;
+        //App.groupID = 1;
         Call<List<Assessment>> assessmentsCall = App.api.getGroupAssessments("eq." + App.groupID);
         Response<List<Assessment>> assessmentsResponse = null;
 
@@ -145,6 +158,8 @@ public class ListViewActivity extends AppCompatActivity {
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+
+
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     (view, year1, month1, dayOfMonth) -> etDate.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
                     year, month, day);
@@ -180,7 +195,7 @@ public class ListViewActivity extends AppCompatActivity {
                 }
 
                 // Use formattedDate in Assessment object
-                Assessment assessment = new Assessment(name, formattedDate, weighting);
+                Assessment assessment = new Assessment(name, formattedDate, weighting , App.groupID);
                 assessments.add(assessment);
                 adapter.notifyDataSetChanged();
                 updatePieChart();
@@ -232,7 +247,7 @@ public class ListViewActivity extends AppCompatActivity {
 
 
     public void onSaveClicked(View view) {
-        int groupIDToDelete = 1; // Update this as needed
+        int groupIDToDelete = App.groupID; // Update this as needed
 
         SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
 
@@ -290,14 +305,15 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     private void saveAssessments(SupabaseApi api) {
-
-
         if (assessments.isEmpty()) {
             Toast.makeText(this, "No assessments to save.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         for (Assessment assessment : assessments) {
+            // Ensure groupID is set for the current assessment
+            assessment.setGroupID(App.groupID);  // Use the locally stored groupID
+
             Call<Assessment> call = api.addAssessment(assessment);
 
             call.enqueue(new Callback<Assessment>() {
@@ -317,7 +333,6 @@ public class ListViewActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Assessment> call, Throwable t) {
-               //     Toast.makeText(ListViewActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
                     Log.e("SaveAssessment", "Failure: ", t);
                 }
             });

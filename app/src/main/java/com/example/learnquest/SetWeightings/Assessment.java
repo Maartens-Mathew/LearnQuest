@@ -13,11 +13,11 @@ public class Assessment implements Serializable {
 
 
 
-    public Assessment(String name, String date, float weighting) {
+    public Assessment(String name, String date, float weighting, Integer groupID) {
         this.name = name;
         this.dueDate = date;
         this.weighting = weighting;
-        this.groupID = 1; // Example default groupID for testing
+        this.groupID = groupID; // Example default groupID for testing
 
     }
 
@@ -33,6 +33,29 @@ public class Assessment implements Serializable {
         return weighting;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setWeighting(float weighting) {
+        this.weighting = weighting;
+    }
+
+    public Integer getGroupID() {
+        return groupID;
+    }
+
+    public void setGroupID(Integer groupID) {
+        this.groupID = groupID;
+    }
 
     @Override
     public String toString() {

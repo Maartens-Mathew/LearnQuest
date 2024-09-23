@@ -95,8 +95,8 @@ public class QuizEntry{
         this.answer = answer;
 
         this.description = description;
-        this.isValidated = isValidated != null ? isValidated : false; // Use the passed value or default to false
-        this.inContention = inContention != null ? inContention : false; // Use the passed value or default to false
+        this.isValidated = isValidated ; // Use the passed value or default to false
+        this.inContention = inContention ; // Use the passed value or default to false
 
 
 

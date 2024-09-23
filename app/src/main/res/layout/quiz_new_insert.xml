@@ -59,7 +59,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/spinAddTags"
+        android:id="@+id/spinAddTagsE"
         android:layout_width="240dp"
         android:layout_height="31dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,7 +86,7 @@
         app:layout_constraintVertical_bias="0.881" />
 
     <Button
-        android:id="@+id/btnAddQuizEntry"
+        android:id="@+id/btnAddEditedQuizEntry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"

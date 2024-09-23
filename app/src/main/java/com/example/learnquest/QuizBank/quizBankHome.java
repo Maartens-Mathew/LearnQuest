@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learnquest.AppState.App;
@@ -88,13 +89,21 @@ public class quizBankHome extends AppCompatActivity {
         startActivityForResult(intent, 1);  // Use startActivityForResult to listen for a result
     }
 
+
+
+
+
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            // Reload quiz questions after a new entry is added
-            Toast.makeText(this, "New quiz entry added. Refreshing data.", Toast.LENGTH_SHORT).show();
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode,
+                resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            // Edit successful, refresh quiz list
             loadQuizQuestions();
         }
     }
+
+
 }

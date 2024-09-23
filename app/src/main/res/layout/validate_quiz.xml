@@ -15,12 +15,6 @@
         android:text="        Validate Quizzes"
         android:textSize="34sp" />
 
-    <Spinner
-        android:id="@+id/spinner_tags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:spinnerMode="dropdown" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_quiz_entries"
         android:layout_width="match_parent"

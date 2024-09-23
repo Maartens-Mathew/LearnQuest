@@ -49,13 +49,15 @@ public class QuizEntryAdapter extends RecyclerView.Adapter<QuizEntryAdapter.Quiz
         TextView answerTextView;
         TextView descriptionTextView;
         TextView tagsTextView;
+        TextView isValidTextView;
 
         public QuizEntryViewHolder(@NonNull View itemView) {
             super(itemView);
             questionTextView = itemView.findViewById(R.id.txtQuestion);
             answerTextView = itemView.findViewById(R.id.answerTextView);
-            descriptionTextView = itemView.findViewById(R.id.answerTextView);
+            descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
             tagsTextView = itemView.findViewById(R.id.txtTags1);
+            isValidTextView = itemView.findViewById(R.id.txtIsValid);
         }
     }
 }
