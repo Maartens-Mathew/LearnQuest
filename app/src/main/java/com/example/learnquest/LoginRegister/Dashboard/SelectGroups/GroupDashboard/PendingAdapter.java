@@ -83,7 +83,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
             });
             btnReject = itemView.findViewById(R.id.btnRejectPending);
             btnReject.setOnClickListener(view ->{
-                Call<Void> rejectionCall = App.api.deleteGroupMemberShip(user.userID, App.groupID);
+                Call<Void> rejectionCall = App.api.deleteGroupMembership("eq" + user.userID, "eq"+App.groupID);
                 Log.i(PENDING_ADAPTER, "start of database call");
                 rejectionCall.enqueue(new Callback<Void>() {
                     @Override
