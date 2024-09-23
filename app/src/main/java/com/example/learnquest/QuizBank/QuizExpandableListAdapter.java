@@ -1,25 +1,19 @@
 package com.example.learnquest.QuizBank;
 
 import android.content.Intent;
-import android.database.DataSetObservable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -88,7 +82,7 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
             indicator.setImageResource(R.drawable.baseline_arrow_drop_down_24);
         }
 
-        TextView questionTextView = convertView.findViewById(R.id.txtQuestion);
+        TextView questionTextView = convertView.findViewById(R.id.txtQuestionV);
         questionTextView.setText(quizEntries.get(groupPosition).getQuestion());
 
         return convertView;

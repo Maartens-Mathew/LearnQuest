@@ -7,26 +7,26 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/txtQuestion"
+        android:id="@+id/txtQuestionV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Question"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/answerTextView"
+        android:id="@+id/answerTextViewV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Answer" />
 
     <TextView
-        android:id="@+id/descriptionTextView"
+        android:id="@+id/descriptionTextViewV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Description" />
 
     <TextView
-        android:id="@+id/txtTags1"
+        android:id="@+id/txtTags1V"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tags" />
