@@ -89,8 +89,8 @@ public interface SupabaseApi {
     @DELETE("groupMembership")
     Call<Void> deleteGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID);
 
-    @GET("rpc/getPendingUsers")
-    Call<List<PendingUsersResult>> getPendingUsers(@Query("groupID_input") int groupID);
+    @GET("rpc/get_pending_users")
+    Call<List<PendingUsersResult>> getPendingUsers(@Query("group_id") int groupID);
 
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();

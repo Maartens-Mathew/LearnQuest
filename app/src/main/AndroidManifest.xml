@@ -55,6 +55,8 @@
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ViewProgressActivity"
             android:exported="true" />
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersActivity"
+            android:exported="true"/>
         <activity
             android:name=".LoginRegister.RegisterActivity"
             android:exported="true">

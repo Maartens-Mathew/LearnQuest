@@ -51,7 +51,7 @@ public class PendingUsersActivity extends AppCompatActivity {
     }
 
     public void getPendingUsers(){
-        Call<List<PendingUsersResult>> pendingCall = App.api.getPendingUsers(App.groupID);
+        Call<List<PendingUsersResult>> pendingCall = App.api.getPendingUsers(1);
         Response<List<PendingUsersResult>> pendingResponse = null;
 
         try{
