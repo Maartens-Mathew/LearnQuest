@@ -2,17 +2,15 @@ package com.example.learnquest.Utils.database;
 
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Role;
-import com.example.learnquest.model.group.Group;
-import com.example.learnquest.model.studyResource.StudyResource;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.TrackProgressAssessmentData;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.model.user.User;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -28,47 +26,66 @@ import retrofit2.http.Query;
  *
  */
 public interface SupabaseApi {
-    @GET("notes") // Your table name is "Example"
-    Call<List<User>> getItems(@Query("select") String select); //first part of your query (select, update, insert, etc.)
+    @GET("/rest/v1/notes") // Your table name is "Example"
+  //  Call<List<User>> getItems(@Query("select") String select); //first part of your query (select, update, insert, etc.)
+
+    <T> Call<List<T>> getItems(@Query("select") String select);
 
     @POST("User")
     Call<User> addUser(@Body User user);
 
+
     @GET("StudentAssessment")
-    Call<List<StudentAssessment>> getStudentAssessments(@Query("userID") String userID);
+    Call<List<Assessment>> getStudentAssessments(@Query("userID") String userID);
+
+    @GET("Assessment")
+    Call<List<com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment>> getGroupAssessments(@Query("groupID") String groupID_input);
 
     @GET("Assessment")
     Call<List<Assessment>> getAssessments();
 
-    @GET("Role")
-    Call<List<Role>> getRoles();
 
-    @GET("GroupMembership")
-    Call<List<GroupMembership>> getGroupMembership(@Query("groupID") String groupID);
-
-
-    //B200 : getStudentAssessments(Integer userID, Integer groupID) Replace Object with custom class to accommodate incoming data
-    @POST("rpc/getStudentAssessments")
-    Call<List<Object>> getStudentAssessments(@Query("userID") Integer userID, @Query("groupID") Integer groupID);
-
-    //B800 : getPendingUsers(Integer groupID)
-    @POST("rpc/getPendingUsers")
-    Call<List<Object>> getPendingUsers(@Query("groupID") Integer groupID);
-
-    //B400 : addStudyResource(StudyResource studyResource)
-    @POST("rpc/addStudyResource")
-    Call<Void> addStudyResource(@Body StudyResource studyResource);
-
-    //B700 : getGroupDetails()
-    @POST("rpc/getGroupDetails")
-    Call<List<Group>> getGroupDetails();
-
-    //B400 : getStudyResources(Integer groupID)
-    @POST("rpc/getStudyResources")
-    Call<List<StudyResource>> getStudyResources(@Query("groupID") Integer groupID);
+            //adding an assessment to the DB
+    @POST("Assessment")
+    Call<com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment> addAssessment(@Body com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment assessment);
 
 
+
+
+    @DELETE("Assessment")
+    Call<Void> deleteAssessmentsByGroupID(@Query("groupID") String groupID);
+
+
+
+//this gets all the quiz entries,
+    //SQL functions added by Mathew. Start...
+    @GET("rpc/hasPermission")
+    Call<Boolean> hasPermission(@Query("userID_input") Integer userID);
+
+    @GET("rpc/getWaitingQuizQuestions")
+    Call<List<QuizEntry>> getWaitingQuizQuestions(@Query("groupID_input") Integer groupID);
+
+    @GET("rpc/getValidQuizQuestions")
+    Call<List<QuizEntry>> getValidQuizQuestions(@Query("groupID_input") Integer groupID);
+    //...end
+
+    @GET("rpc/getQuizEntries")
+    Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
+
+    @DELETE("QuizEntry")
+    Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)
+
+
+    @GET("rpc/get_assessment_data")
+    Call<List<TrackProgressAssessmentData>> get_assessment_data(@Query("user_id") int userID, @Query("group_id") int groupID);
+
+
+
+
+
+
+
+//    @GET("/rest/v1/TaggedQuizEntry")
+//    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work
-
-    //Answer : you need to create
 }

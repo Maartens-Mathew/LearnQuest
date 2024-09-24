@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/teal_700"
-    tools:context="com.example.learnquest.SetWeightings.ListViewActivity">
+    tools:context="com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity">
 
     <TextView
         android:id="@+id/textView4"
@@ -48,34 +48,37 @@
     <Button
         android:id="@+id/btnSaveAssessment"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="39dp"
+        android:layout_marginTop="8dp"
         android:onClick="onSaveClicked"
         android:text="Save Assessment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAddAssessment" />
 
     <Button
         android:id="@+id/btnDeleteAssessment"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="409dp"
+        android:layout_height="43dp"
         android:layout_marginTop="8dp"
         android:onClick="onDeleteClicked"
         android:text="Delete Assessment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSaveAssessment"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="406dp"
+        android:layout_height="314dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDeleteAssessment" />
+        app:layout_constraintTop_toBottomOf="@+id/btnDeleteAssessment"
+        app:layout_constraintVertical_bias="0.238" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.example.learnquest.Pomodoro.CircularProgressBar
+    <com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.Pomodoro.CircularProgressBar
         android:id="@+id/circularProgressBar"
         android:layout_width="200dp"
         android:layout_height="200dp"
@@ -49,5 +49,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.765"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnBreak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="StartBreakOnClick"
+        android:text="Start Break"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timerText"
+        app:layout_constraintVertical_bias="0.231" />
+
+    <Button
+        android:id="@+id/btnStopBreak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="stopBreakOnClick"
+        android:text="Stop Break"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timerText"
+        app:layout_constraintVertical_bias="0.231" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
