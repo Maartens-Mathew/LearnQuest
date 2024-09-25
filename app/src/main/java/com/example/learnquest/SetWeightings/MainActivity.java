@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToWeights(View view) {
         Intent showIntent = new Intent(this, ListViewActivity.class);
-        int groupID = 2; // CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE
+        int groupID = 1; // CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE
         App.groupID = groupID;
         showIntent.putExtra("groupID", groupID);
         startActivity(showIntent);

@@ -109,12 +109,17 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
         Button btnDelete;
         Button btnEdit;
         Boolean inContention = quizEntry.getInContention();
+String status ="" ;
+        if (inContention.toString() == "false") {
+            status = "no";
+        }
+        else status = "yes";
 
-        txtInCon.setText("The status is: " + inContention.toString());
+        txtInCon.setText("In pool queue? " + status);
 
         edtAnswer.setText("Answer: " + quizEntry.getAnswer());
         edtDescription.setText("Desc: " + quizEntry.getDescription());
-        txtTags.setText(quizEntry.getTags());
+        txtTags.setText("The Tags are: " + quizEntry.getTags());
 
         btnDelete = convertView.findViewById(R.id.btnDelete); // Add a delete button
         btnEdit = convertView.findViewById(R.id.btnEdit); // Add a delete button
