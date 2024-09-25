@@ -92,6 +92,12 @@ public interface SupabaseApi {
     @GET("rpc/get_pending_users")
     Call<List<PendingUsersResult>> getPendingUsers(@Query("group_id") int groupID);
 
+    @GET("rpc/getPendingUsers")
+    Call<List<PendingUsersResult>> getPendingUsers(@Query("groupID_input") Integer groupID_input);
+
+    @PATCH("StudentAssessment")
+    Call<Void> updateGoal(@Query("userID") int userID, @Query("assessmentID")int assessmentID, @Body TrackProgressAssessmentData body);
+
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work

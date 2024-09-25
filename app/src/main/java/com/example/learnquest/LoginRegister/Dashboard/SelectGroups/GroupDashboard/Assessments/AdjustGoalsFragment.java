@@ -15,7 +15,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,6 +84,24 @@ public class AdjustGoalsFragment extends Fragment {
         TrackProgressAssessmentData data = GoalLogic.data.get(pos);
         data.setIdeal_mark(markDesired);
         GoalLogic.goalList.getAdapter().notifyItemChanged(pos);
+        Call<Void> updateCall = App.api.updateGoal(App.userID, data.getAssessment_id(), data);
+        updateCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()){
+                    Log.i("AdjustGoalsFragment", "Update successful");
+                }
+                else{
+                    Log.e("AdjustGoalsFragment", "Update error: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+                Log.e("AdjustGoalsFragment", "Error: "+ throwable.getMessage());
+                throwable.printStackTrace();
+            }
+        });
         listener.onClick(v);
     }
     private View.OnClickListener listener;
