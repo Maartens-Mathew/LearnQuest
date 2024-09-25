@@ -76,5 +76,9 @@ public class AssessmentFragment extends Fragment {
             Intent intent = new Intent(getContext(), ViewProgressActivity.class);
             startActivity(intent);
         });
+        Button btnManageGoals = view.findViewById(R.id.btnManageGoals);
+        btnManageGoals.setOnClickListener(v ->{
+            startActivity(new Intent(getContext(), ManageGoalsActivity.class));
+        });
     }
 }

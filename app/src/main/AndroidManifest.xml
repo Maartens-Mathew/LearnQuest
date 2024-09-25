@@ -20,6 +20,9 @@
         android:theme="@style/Theme.LearnQuest"
         tools:targetApi="31">
         <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoalsActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroupAccessActivity"
             android:exported="false" />
         <activity
@@ -55,8 +58,9 @@
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ViewProgressActivity"
             android:exported="true" />
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersActivity"
+            android:exported="true" />
         <activity
             android:name=".LoginRegister.RegisterActivity"
             android:exported="true">
@@ -67,30 +71,31 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity" />
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.MainActivity"
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            >
+        </activity>
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-            ></activity>
-         <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity"
-             android:exported="true">            <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-             <category android:name="android.intent.category.LAUNCHER" />
-         </intent-filter></activity>
-
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.Pomodoro.pomoDoroMain" android:exported="true"></activity>
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome" android:exported="true"></activity>
-
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.Pomodoro.pomoDoroMain"
+            android:exported="true" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome"
+            android:exported="true" />
     </application>
 
 </manifest>
