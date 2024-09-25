@@ -62,7 +62,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
             pendingName = itemView.findViewById(R.id.lblNamePending);//might not be the right R imported
             btnAccept = itemView.findViewById(R.id.btnAcceptPending);
             btnAccept.setOnClickListener(view -> {
-                GroupMembership update = new GroupMembership(user.userID, App.groupID,1);
+                GroupMembership update = new GroupMembership(user.userid, App.groupID,1);
                 Call<GroupMembership> call = App.api.setGroupMembership(update.getUserID(),update.getGroupID(),update);
                 Log.i(PENDING_ADAPTER, "start of database call");
                 call.enqueue(new Callback<GroupMembership>() {
@@ -83,7 +83,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
             });
             btnReject = itemView.findViewById(R.id.btnRejectPending);
             btnReject.setOnClickListener(view ->{
-                Call<Void> rejectionCall = App.api.deleteGroupMembership("eq" + user.userID, "eq"+App.groupID);
+                Call<Void> rejectionCall = App.api.deleteGroupMembership("eq" + user.userid, "eq"+App.groupID);
                 Log.i(PENDING_ADAPTER, "start of database call");
                 rejectionCall.enqueue(new Callback<Void>() {
                     @Override
