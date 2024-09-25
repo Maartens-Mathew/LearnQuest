@@ -1,13 +1,18 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersActivity;
 import com.example.learnquest.R;
 
 /**
@@ -55,6 +60,16 @@ public class GroupHomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button btnJoinRequest = view.findViewById(R.id.join_requests_button_group_home_fragment);
+        btnJoinRequest.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), PendingUsersActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override

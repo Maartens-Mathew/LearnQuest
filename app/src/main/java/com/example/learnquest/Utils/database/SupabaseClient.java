@@ -19,6 +19,7 @@ public class SupabaseClient {
     private static Retrofit retrofit = null;
     private static String baseUrl = "https://hddpqiabofrxxyptexff.supabase.co"; //add your url
     private static String apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhkZHBxaWFib2ZyeHh5cHRleGZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjMwNTQwMDEsImV4cCI6MjAzODYzMDAwMX0.RRmQ6stCuLek1yzwLMB1GRnH9gPN9_FNkGwJCYTUcHU";
+
     public static Retrofit getClient() {
         if (retrofit == null) {
             OkHttpClient client = new OkHttpClient.Builder().addInterceptor(chain -> {

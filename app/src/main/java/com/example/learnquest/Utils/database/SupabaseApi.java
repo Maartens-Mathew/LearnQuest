@@ -3,6 +3,8 @@ package com.example.learnquest.Utils.database;
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.TrackProgressAssessmentData;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersResult;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.model.user.User;
 
@@ -12,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -80,10 +83,14 @@ public interface SupabaseApi {
     Call<List<TrackProgressAssessmentData>> get_assessment_data(@Query("user_id") int userID, @Query("group_id") int groupID);
 
 
+    @PATCH("groupMembership")
+    Call<GroupMembership> setGroupMembership(@Query("userID") int userID, @Query("groupID") int groupID, @Body GroupMembership update);
 
+    @DELETE("groupMembership")
+    Call<Void> deleteGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID);
 
-
-
+    @GET("rpc/get_pending_users")
+    Call<List<PendingUsersResult>> getPendingUsers(@Query("group_id") int groupID);
 
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();
