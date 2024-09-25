@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/narsi_background">
 
         <TextView
             android:id="@+id/adjust_goals_fragment_assessmentname"
@@ -45,32 +46,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/adjust_goals_fragment_assessmentname" />
 
-        <TextView
-            android:id="@+id/adjust_goals_fragment_markobtained"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/adjust_goals_mark_obtained"
-            tools:layout_editor_absoluteX="120dp"
-            tools:layout_editor_absoluteY="138dp" />
-
         <EditText
             android:id="@+id/edtMarkDesired"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="24dp"
             android:ems="10"
             android:hint="@string/adjust_goals_fragment_hint"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/adjust_goals_fragment_markobtained" />
+            app:layout_constraintTop_toBottomOf="@+id/adjust_goals_fragment_weighting" />
 
-        <Button
-            android:id="@+id/button5"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnEnter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@color/narsi_teal"
             android:text="@string/enterbutton"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

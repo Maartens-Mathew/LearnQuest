@@ -59,6 +59,8 @@ public class ViewProgressActivity extends AppCompatActivity {
         lblProjectedFinal.setText(getResources().getString(R.string.projected_final_mark,
                 String.format("%.0f",accumProj)));
         setUpChart();
+        btnAdjustGoals.setOnClickListener(
+                v -> startActivity(new Intent(this, AdjustGoalsActivity.class)));
     }
 
     private void setUpChart(){

@@ -1,5 +1,6 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,27 +27,21 @@ public class GoalsListFragment extends Fragment {
 
     private RecyclerView rwGoalsList;
     private GoalAdapter adapter;
+    private View.OnClickListener listener;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ASSESSMENT_DATA = "assessmentData";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private List<AssessmentData> asssessmentData = new ArrayList<>();
+    private List<TrackProgressAssessmentData> asssessmentData;
     private String mParam2;
 
     public GoalsListFragment() {
         // Required empty public constructor
     }
 
-    public static GoalsListFragment newInstance(String param1, String param2) {
-        GoalsListFragment fragment = new GoalsListFragment();
-        Bundle args = new Bundle();
-        args.putString(ASSESSMENT_DATA, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static GoalsListFragment newInstance() {
+        return new GoalsListFragment();
     }
 
     @Override
@@ -62,9 +57,26 @@ public class GoalsListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            asssessmentData = (List<AssessmentData>) getArguments().getSerializable(ASSESSMENT_DATA);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            asssessmentData = GoalLogic.data;
         }
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof View.OnClickListener){
+            listener = (View.OnClickListener) context;
+        }
+        else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnClickListener");
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        listener = null;
     }
 
     @Override

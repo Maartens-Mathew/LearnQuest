@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/narsi_background"
     tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GoalsListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
