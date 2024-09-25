@@ -86,6 +86,6 @@ public class StudyToolsFragment extends Fragment {
 
 
         SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
-        Call<List<StudyResource>> studyCall = api.getStudyResources(1);
+        //Call<List<StudyResource>> studyCall = api.getStudyResources(1);
     }
 }

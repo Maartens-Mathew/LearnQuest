@@ -1,34 +1,26 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
-import com.example.learnquest.Utils.database.SupabaseApi;
-import com.example.learnquest.Utils.database.SupabaseClient;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ViewProgressActivity extends AppCompatActivity {
@@ -60,7 +52,11 @@ public class ViewProgressActivity extends AppCompatActivity {
                 String.format("%.0f",accumProj)));
         setUpChart();
         btnAdjustGoals.setOnClickListener(
-                v -> startActivity(new Intent(this, AdjustGoalsActivity.class)));
+                v -> {
+                    Intent intent = new Intent(this, GoalsListActivity.class);
+                    intent.putExtra("stateType",0);
+                    startActivity(intent);
+                });
     }
 
     private void setUpChart(){

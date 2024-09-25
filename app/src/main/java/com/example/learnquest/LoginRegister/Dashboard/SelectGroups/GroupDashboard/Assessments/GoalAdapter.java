@@ -25,8 +25,9 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
     }
 
 
-    public GoalAdapter(List<TrackProgressAssessmentData> assessments){
+    public GoalAdapter(List<TrackProgressAssessmentData> assessments, Context context){
         this.assessments = assessments;
+        this.context = context;
     }
 
 

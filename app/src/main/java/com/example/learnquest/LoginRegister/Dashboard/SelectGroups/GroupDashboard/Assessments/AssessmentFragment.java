@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroupAccessActivity;
 import com.example.learnquest.R;
 
 /**
@@ -76,5 +77,7 @@ public class AssessmentFragment extends Fragment {
             Intent intent = new Intent(getContext(), ViewProgressActivity.class);
             startActivity(intent);
         });
+        Button btnManageGoals = view.findViewById(R.id.btnManageGoals);
+        btnManageGoals.setOnClickListener(v -> startActivity(new Intent(getContext(), ManageGroupAccessActivity.class)));
     }
 }

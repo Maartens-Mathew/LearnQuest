@@ -98,6 +98,10 @@ public interface SupabaseApi {
     @PATCH("StudentAssessment")
     Call<Void> updateGoal(@Query("userID") int userID, @Query("assessmentID")int assessmentID, @Body TrackProgressAssessmentData body);
 
+
+    @POST("groupMembership")
+    Call<GroupMembership> updateGroupMembership(@Query("userID") int userID, @Query("groupID") int groupID, @Body GroupMembership body);
+
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work

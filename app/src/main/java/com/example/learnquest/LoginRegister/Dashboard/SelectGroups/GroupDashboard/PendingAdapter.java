@@ -62,8 +62,10 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
             pendingName = itemView.findViewById(R.id.lblNamePending);//might not be the right R imported
             btnAccept = itemView.findViewById(R.id.btnAcceptPending);
             btnAccept.setOnClickListener(view -> {
-                GroupMembership update = new GroupMembership(user.userID, App.groupID,1);
-                Call<GroupMembership> call = App.api.setGroupMembership(update.getUserID(),update.getGroupID(),update);
+                //TODO:remember to make this not hardcoded
+                //TODO:PendingActivity Approve/Reject doesn't work
+                GroupMembership update = new GroupMembership(user.userID, 1,1);
+                /*Call<GroupMembership> call = App.api.setGroupMembership(update.getUserID(),update.getGroupID(),update);
                 Log.i(PENDING_ADAPTER, "start of database call");
                 call.enqueue(new Callback<GroupMembership>() {
                     @Override
@@ -77,6 +79,23 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
                     public void onFailure(Call<GroupMembership> call, Throwable throwable) {
                         Log.e(PENDING_ADAPTER,"Did not update");
                         throwable.printStackTrace();
+                    }
+                });*/
+                Call<GroupMembership> updateCall = App.api.updateGroupMembership(update.getUserID(), update.getGroupID(), update);
+                updateCall.enqueue(new Callback<GroupMembership>() {
+                    @Override
+                    public void onResponse(Call<GroupMembership> call, Response<GroupMembership> response) {
+                        if (response.isSuccessful()){
+                            Log.i(PENDING_ADAPTER,"Update Successful");
+                        }
+                        else{
+                            Log.e(PENDING_ADAPTER,"Update failed: " + response.errorBody());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GroupMembership> call, Throwable throwable) {
+                        Log.e(PENDING_ADAPTER,"Error: " + throwable.getStackTrace().toString());
                     }
                 });
                 adapter.remove(pos);
