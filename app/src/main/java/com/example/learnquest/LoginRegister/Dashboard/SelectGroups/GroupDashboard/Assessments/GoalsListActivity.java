@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
@@ -18,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GoalsListActivity extends AppCompatActivity{
@@ -33,8 +35,9 @@ public class GoalsListActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goals_list);
-        if (savedInstanceState != null && savedInstanceState.containsKey("stateType")){
-            stateType = savedInstanceState.getInt("stateType");
+        Intent intent = getIntent();
+        if (intent != null && intent.getExtras() != null && intent.getExtras().containsKey("stateType")){
+            stateType = intent.getExtras().getInt("stateType");
             if (stateType == 0){
                 Thread thread = new Thread(this::getDatabaseData);
                 try{
@@ -49,14 +52,26 @@ public class GoalsListActivity extends AppCompatActivity{
                 btnUpdate = findViewById(R.id.btnUpdateGoal);
                 btnDelete = findViewById(R.id.btnDeleteGoal);
                 btnUpdate.setOnClickListener(this::btnUpdateClicked);
-                setUpRecyclerView(v -> selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v));
+                setUpRecyclerView(v -> {
+                    if (selected == null){
+                        selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
+                        v.setBackgroundColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
+                    }
+                    else{
+                        selected.cardView.setBackgroundColor(getResources().getColor(R.color.narsi_teal, getResources().newTheme()));
+                        selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
+                        v.setBackgroundColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
+                    }
+                });
             }
             else{
+                LinearLayout controls = findViewById(R.id.aga_controls);
+                controls.setVisibility(View.INVISIBLE);
                 setUpRecyclerView(v ->{
                     int pos = rwGoalsList.findContainingViewHolder(v).getAdapterPosition();
-                    Intent intent = new Intent(this, AdjustGoalActivity.class);
-                    intent.putExtra("pos",pos);
-                    startActivity(intent);
+                    Intent newIntent = new Intent(this, AdjustGoalActivity.class);
+                    newIntent.putExtra("pos",pos);
+                    startActivity(newIntent);
                 });
             }
         }
@@ -68,15 +83,36 @@ public class GoalsListActivity extends AppCompatActivity{
     }
 
     public void btnDeleteClicked(View v){
-        if (selected == null) return;
+        if (selected == null){
+            Toast.makeText(this,"Please select a goal", Toast.LENGTH_LONG).show();
+        };
         int pos = selected.getAdapterPosition();
         TrackProgressAssessmentData data = GoalLogic.data.remove(pos);
         rwGoalsList.getAdapter().notifyItemRemoved(pos);
+        Call<Void> deleteCall = App.api.deleteGoal("eq." + 0, "eq." + data.getAssessment_id());
+        deleteCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()){
+                    Log.i("GoalListActivity", "Delete worked successfully");
+                }
+                else{
+                    Log.e("GoalListActivity","Update Failed: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+                Log.e("GoalListActivity","Error: "+ throwable.getStackTrace());
+            }
+        });
         //TODO:delete data from database
     }
 
     public void btnUpdateClicked(View v){
-        if (selected == null) return;
+        if (selected == null){
+            Toast.makeText(this,"Please select a goal", Toast.LENGTH_LONG).show();
+        }
         int pos = selected.getAdapterPosition();
         Intent intent = new Intent(this, AdjustGoalActivity.class);
         intent.putExtra("pos",pos);
@@ -86,7 +122,7 @@ public class GoalsListActivity extends AppCompatActivity{
 
     public void setUpRecyclerView(View.OnClickListener listener){
         rwGoalsList = findViewById(R.id.aga_goal_recyclerview);
-        GoalAdapter adapter = new GoalAdapter(GoalLogic.data, this);
+        GoalAdapter adapter = new GoalAdapter(GoalLogic.data, this, listener);
         rwGoalsList.setAdapter(adapter);
         rwGoalsList.setLayoutManager(new LinearLayoutManager(this));
     }

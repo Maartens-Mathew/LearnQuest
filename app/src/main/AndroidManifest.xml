@@ -77,10 +77,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
-            >
         </activity>
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AdjustGoalActivity"
+            android:exported="true"/>
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity"
             android:exported="true">

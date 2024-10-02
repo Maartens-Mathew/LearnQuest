@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,29 +66,14 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
             btnAccept.setOnClickListener(view -> {
                 //TODO:remember to make this not hardcoded
                 //TODO:PendingActivity Approve/Reject doesn't work
-                GroupMembership update = new GroupMembership(user.userID, 1,1);
-                /*Call<GroupMembership> call = App.api.setGroupMembership(update.getUserID(),update.getGroupID(),update);
-                Log.i(PENDING_ADAPTER, "start of database call");
-                call.enqueue(new Callback<GroupMembership>() {
+                Map<String, Object> body = new HashMap<>();
+                body.put("roleID",4);
+                Call<Void> updateCall = App.api.updateGroupMembership("eq." + user.userID,"eq." + 1, body);
+                updateCall.enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Call<GroupMembership> call, Response<GroupMembership> response) {
+                    public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.isSuccessful()){
-                            Log.i(PENDING_ADAPTER,"updated successfully");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<GroupMembership> call, Throwable throwable) {
-                        Log.e(PENDING_ADAPTER,"Did not update");
-                        throwable.printStackTrace();
-                    }
-                });*/
-                Call<GroupMembership> updateCall = App.api.updateGroupMembership(update.getUserID(), update.getGroupID(), update);
-                updateCall.enqueue(new Callback<GroupMembership>() {
-                    @Override
-                    public void onResponse(Call<GroupMembership> call, Response<GroupMembership> response) {
-                        if (response.isSuccessful()){
-                            Log.i(PENDING_ADAPTER,"Update Successful");
+                            Log.i(PENDING_ADAPTER,"Update Successful: "+ call.request().body().toString());
                         }
                         else{
                             Log.e(PENDING_ADAPTER,"Update failed: " + response.errorBody());
@@ -94,7 +81,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
                     }
 
                     @Override
-                    public void onFailure(Call<GroupMembership> call, Throwable throwable) {
+                    public void onFailure(Call<Void> call, Throwable throwable) {
                         Log.e(PENDING_ADAPTER,"Error: " + throwable.getStackTrace().toString());
                     }
                 });
@@ -102,7 +89,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
             });
             btnReject = itemView.findViewById(R.id.btnRejectPending);
             btnReject.setOnClickListener(view ->{
-                Call<Void> rejectionCall = App.api.deleteGroupMembership("eq" + user.userID, "eq"+App.groupID);
+                Call<Void> rejectionCall = App.api.deleteGroupMembership("eq." + user.userID, "eq."+ 1);
                 Log.i(PENDING_ADAPTER, "start of database call");
                 rejectionCall.enqueue(new Callback<Void>() {
                     @Override

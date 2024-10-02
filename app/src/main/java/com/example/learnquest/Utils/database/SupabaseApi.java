@@ -9,6 +9,7 @@ import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboar
 import com.example.learnquest.model.user.User;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -96,11 +97,14 @@ public interface SupabaseApi {
     Call<List<PendingUsersResult>> getPendingUsers(@Query("groupID_input") Integer groupID_input);
 
     @PATCH("StudentAssessment")
-    Call<Void> updateGoal(@Query("userID") int userID, @Query("assessmentID")int assessmentID, @Body TrackProgressAssessmentData body);
+    Call<Void> updateGoal(@Query("userID") String userID, @Query("assessmentID")String assessmentID, @Body Map<String, Object> body);
+
+    @DELETE("StudentAssessment")
+    Call<Void> deleteGoal(@Query("userID") String userID, @Query("assessmentID") String assessmentID);
 
 
-    @POST("groupMembership")
-    Call<GroupMembership> updateGroupMembership(@Query("userID") int userID, @Query("groupID") int groupID, @Body GroupMembership body);
+    @PATCH("groupMembership")
+    Call<Void> updateGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID, @Body Map<String, Object> body);
 
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();

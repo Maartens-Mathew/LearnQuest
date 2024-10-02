@@ -25,9 +25,10 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
     }
 
 
-    public GoalAdapter(List<TrackProgressAssessmentData> assessments, Context context){
+    public GoalAdapter(List<TrackProgressAssessmentData> assessments, Context context, View.OnClickListener listener){
         this.assessments = assessments;
         this.context = context;
+        this.listener = listener;
     }
 
 
@@ -64,13 +65,21 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
             lblMarkDesired = itemView.findViewById(R.id.lblMarkDesired1);
             lblMarkObtained = itemView.findViewById(R.id.lblMarkObtained1);
             lblWeighting = itemView.findViewById(R.id.lblWeighting1);
+            cardView = itemView.findViewById(R.id.card_goal);
         }
         public void setData(TrackProgressAssessmentData data, Context context){
             lblAssessmentName.setText(data.getName());
+            if (data.getMark_obtained() == null){
+                lblMarkObtained.setVisibility(View.GONE);
+            }
+            else{
+                lblMarkObtained.setVisibility(View.VISIBLE);
+                lblMarkObtained.setText(context.getResources().getString(R.string.adjust_goals_mark_obtained, String.format("%.0f",data.getMark_obtained())));
+            }
             lblMarkDesired.setText(context.getResources().getString(R.string.adjust_goals_mark_desired, String.format("%.0f",data.getIdeal_mark())));
-            lblMarkObtained.setText(context.getResources().getString(R.string.adjust_goals_mark_obtained, String.format("%.0f",data.getMark_obtained())));
             lblWeighting.setText(context.getResources().getString(R.string.adjust_goals_weighting, String.format("%.0f",data.getWeight())));
             this.data = data;
+            cardView.setOnClickListener(listener);
         }
     }
 }

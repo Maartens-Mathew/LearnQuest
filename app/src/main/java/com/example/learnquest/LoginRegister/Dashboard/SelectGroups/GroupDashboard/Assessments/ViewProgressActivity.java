@@ -51,10 +51,11 @@ public class ViewProgressActivity extends AppCompatActivity {
         lblProjectedFinal.setText(getResources().getString(R.string.projected_final_mark,
                 String.format("%.0f",accumProj)));
         setUpChart();
+        GoalLogic.data = entries;
         btnAdjustGoals.setOnClickListener(
                 v -> {
                     Intent intent = new Intent(this, GoalsListActivity.class);
-                    intent.putExtra("stateType",0);
+                    intent.putExtra("stateType",1);
                     startActivity(intent);
                 });
     }
@@ -81,7 +82,9 @@ public class ViewProgressActivity extends AppCompatActivity {
                 desiredDataEntries.add(new Entry(i*1f, accumDesired));
             }
             else{
-                projectedDataEntries.add(new Entry((i-1)*1f,accumProj));
+                if (projectedDataEntries.size() == 0){
+                    projectedDataEntries.add(new Entry((i-1)*1f,accumProj));
+                }
                 accumProj += entry.getIdeal_mark()*(entry.getWeight()/100);
                 accumDesired += entry.getIdeal_mark()*(entry.getWeight()/100);
                 projectedDataEntries.add(new Entry(i*1f, accumProj));
@@ -90,7 +93,7 @@ public class ViewProgressActivity extends AppCompatActivity {
         }
         LineDataSet desiredMarkData = new LineDataSet(desiredDataEntries, "Ideal marks");
         LineDataSet currentMarkData = new LineDataSet(currentDataEntries, "current marks");
-        LineDataSet projectMarkData = new LineDataSet(projectedDataEntries, "project marks");
+        LineDataSet projectMarkData = new LineDataSet(projectedDataEntries, "projected marks");
         desiredMarkData.setColor(getResources().getColor(R.color.purple_200, getResources().newTheme()));
         currentMarkData.setColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
         projectMarkData.setColor(getResources().getColor(R.color.red, getTheme().getResources().newTheme()));
