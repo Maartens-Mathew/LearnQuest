@@ -2,7 +2,6 @@ package com.example.learnquest.LoginRegister.Dashboard.SelectGroups;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.learnquest.R;
 import com.example.learnquest.model.group.Group;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
 
-    private final ArrayList<Group> groups;
+    private final List<Group> groups;
     private View.OnClickListener onClickListener;
 
-    public GroupAdapter(ArrayList<Group> groups){
+    public GroupAdapter(List<Group> groups){
         this.groups = groups;
     }
 
@@ -39,18 +38,19 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     }
 
     public static class GroupViewHolder extends RecyclerView.ViewHolder{
-        TextView lblGroupTopic;
-        ImageView imgGroupIcon;
+        TextView txtGroupTopic;
+        View view;
         public Group group;
         public GroupViewHolder(@NonNull View itemView) {
             super(itemView);
-            lblGroupTopic = itemView.findViewById(R.id.lblGroupTopic);
-            imgGroupIcon  = itemView.findViewById(R.id.imgGroupIcon);
+            this.view = itemView;
+            txtGroupTopic = itemView.findViewById(R.id.txtGroupTopic);
+
         }
         public void setGroup(Group group){
             this.group = group;
-            lblGroupTopic.setText(group.topic);
-            imgGroupIcon.setImageResource(R.drawable.test_image);
+            txtGroupTopic.setText(group.topic);
+            view.setBackgroundColor(Color.parseColor(group))
         }
     }
 }

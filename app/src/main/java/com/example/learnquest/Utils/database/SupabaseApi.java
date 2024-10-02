@@ -1,11 +1,14 @@
 package com.example.learnquest.Utils.database;
 
 
+import static com.example.learnquest.AppState.App.groupID;
+
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.TrackProgressAssessmentData;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersResult;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
+import com.example.learnquest.model.group.Group;
 import com.example.learnquest.model.user.User;
 
 import java.util.List;
@@ -55,6 +58,8 @@ public interface SupabaseApi {
 
 
 
+    @GET("rpc/getUserGroups")
+    Call<List<Group>> getUserGroups(@Query("userID_input") Integer userID_input);
 
     @DELETE("Assessment")
     Call<Void> deleteAssessmentsByGroupID(@Query("groupID") String groupID);

@@ -1,6 +1,6 @@
 package com.example.learnquest.databinding;
 import com.example.learnquest.R;
-import com.example.learnquest.BR;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.View;
@@ -15,7 +15,7 @@ public class FragmentManageGroupsBindingImpl extends FragmentManageGroupsBinding
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.guideline2, 1);
-        sViewsWithIds.put(R.id.rwGroupList, 2);
+        sViewsWithIds.put(R.id.recyclerView_groups, 2);
         sViewsWithIds.put(R.id.edtSearchTerm, 3);
         sViewsWithIds.put(R.id.btnSearch, 4);
     }

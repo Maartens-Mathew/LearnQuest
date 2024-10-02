@@ -6,16 +6,27 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.Dashboard;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView;
 import com.example.learnquest.R;
 import com.example.learnquest.databinding.FragmentManageGroupsBinding;
+import com.example.learnquest.model.group.Group;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,6 +78,7 @@ public class ManageGroupsFragment extends Fragment {
     Context context;
     FragmentManageGroupsBinding binding;
 
+    List<Group> groups;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,9 +87,51 @@ public class ManageGroupsFragment extends Fragment {
         View view = binding.getRoot();
 
         binding.btnSearch.setOnClickListener(this::selectGroup);
+        RecyclerView groupRecyclerView = binding.recyclerViewGroups;
+
+        Thread thread = new Thread(this::getGroupsFromDatabase);
+
+        try {
+            thread.start();
+            thread.join();
+        }
+            catch(InterruptedException e){
+                e.printStackTrace();
+            }
+
+
+
+
+        GroupAdapter adapter = new GroupAdapter(groups);
+        groupRecyclerView.setAdapter(adapter);
 
         // Inflate the layout for this fragment
         return view;
+
+    }
+
+    public void getGroupsFromDatabase(){
+        Call<List<Group>> groupCall = App.api.getUserGroups(App.userID);
+        Response<List<Group>> groupResponse = null;
+
+        try{
+            groupResponse = groupCall.execute();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        if (groupResponse.isSuccessful())
+        {
+            groups = Collections.synchronizedList(groupResponse.body());
+        }else{
+            try {
+                Log.e("Custom", "Database error: error message " + groupResponse.errorBody().string());
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+
+
 
     }
 
