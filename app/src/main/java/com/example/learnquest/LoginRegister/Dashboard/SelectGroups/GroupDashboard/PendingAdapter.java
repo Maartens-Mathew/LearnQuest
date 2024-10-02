@@ -67,13 +67,14 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
                 //TODO:remember to make this not hardcoded
                 //TODO:PendingActivity Approve/Reject doesn't work
                 Map<String, Object> body = new HashMap<>();
-                body.put("roleID",4);
+                body.put("roleID",1);
                 Call<Void> updateCall = App.api.updateGroupMembership("eq." + user.userID,"eq." + 1, body);
                 updateCall.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.isSuccessful()){
                             Log.i(PENDING_ADAPTER,"Update Successful: "+ call.request().body().toString());
+                            Log.i(PENDING_ADAPTER,"Response: "+ response.message().toString());
                         }
                         else{
                             Log.e(PENDING_ADAPTER,"Update failed: " + response.errorBody());
