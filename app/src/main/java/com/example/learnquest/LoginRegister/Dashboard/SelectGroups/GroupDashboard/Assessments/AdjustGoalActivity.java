@@ -27,7 +27,7 @@ public class AdjustGoalActivity extends AppCompatActivity {
     private TextView lblAssessmentName;
     private AppCompatButton btnUpdateConfirm;
     private int pos;
-
+    private int state;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +43,20 @@ public class AdjustGoalActivity extends AppCompatActivity {
             edtMarkDesired.setText(data.getIdeal_mark().toString());
             edtMarkObtained.setText(data.getMark_obtained().toString());
             btnUpdateConfirm.setOnClickListener(this::btnUpdateConfirmClicked);
+            if (getIntent().getExtras().containsKey("stateType")){
+                state = getIntent().getExtras().getInt("stateType");
+            }
+            else{
+                state = 0;
+            }
+        }
+    }
+
+    public void onBtnBackPressed(View view){
+        if (state == 0){
+            Intent intent = new Intent(this, ViewProgressActivity.class);
+            intent.putExtra("stateType",1);
+            startActivity(intent);
         }
     }
 

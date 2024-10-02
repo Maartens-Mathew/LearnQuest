@@ -7,6 +7,17 @@
     android:background="@color/narsi_background"
     tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AdjustGoalActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="36dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="?attr/homeAsUpIndicator" />
+
     <TextView
         android:id="@+id/lblAssessmentName"
         android:layout_width="0dp"

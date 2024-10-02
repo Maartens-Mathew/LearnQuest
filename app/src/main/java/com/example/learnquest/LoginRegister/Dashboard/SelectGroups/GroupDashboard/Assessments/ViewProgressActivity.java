@@ -29,6 +29,7 @@ public class ViewProgressActivity extends AppCompatActivity {
     private List<TrackProgressAssessmentData> entries;
     private float accumProj;
     private float accumDesired;
+    private int stateType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,26 +39,44 @@ public class ViewProgressActivity extends AppCompatActivity {
         TextView lblProjectedFinal = findViewById(R.id.avp_projected_final);
         Button btnAdjustGoals = findViewById(R.id.avp_adjust_goals);
         lnChrtProgress = findViewById(R.id.avp_progress_chart);
-        Thread thread = new Thread(this::getDatabaseData);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
+        if (getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().containsKey("stateType")){
+            stateType = getIntent().getExtras().getInt("stateType");
+            createDataSets();
+            lblDesiredFinal.setText(getResources().getString(R.string.desired_final_mark,
+                    String.format("%.0f",accumDesired)));
+            lblProjectedFinal.setText(getResources().getString(R.string.projected_final_mark,
+                    String.format("%.0f",accumProj)));
+            setUpChart();
+            btnAdjustGoals.setOnClickListener(
+                    v -> {
+                        Intent intent = new Intent(this, GoalsListActivity.class);
+                        intent.putExtra("stateType",1);
+                        startActivity(intent);
+                    });
         }
-        createDataSets();
-        lblDesiredFinal.setText(getResources().getString(R.string.desired_final_mark,
-                String.format("%.0f",accumDesired)));
-        lblProjectedFinal.setText(getResources().getString(R.string.projected_final_mark,
-                String.format("%.0f",accumProj)));
-        setUpChart();
-        GoalLogic.data = entries;
-        btnAdjustGoals.setOnClickListener(
-                v -> {
-                    Intent intent = new Intent(this, GoalsListActivity.class);
-                    intent.putExtra("stateType",1);
-                    startActivity(intent);
-                });
+
+        else{
+            Thread thread = new Thread(this::getDatabaseData);
+            try{
+                thread.start();
+                thread.join();
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            GoalLogic.data = entries;
+            createDataSets();
+            lblDesiredFinal.setText(getResources().getString(R.string.desired_final_mark,
+                    String.format("%.0f",accumDesired)));
+            lblProjectedFinal.setText(getResources().getString(R.string.projected_final_mark,
+                    String.format("%.0f",accumProj)));
+            setUpChart();
+            btnAdjustGoals.setOnClickListener(
+                    v -> {
+                        Intent intent = new Intent(this, GoalsListActivity.class);
+                        intent.putExtra("stateType",1);
+                        startActivity(intent);
+                    });
+        }
     }
 
     private void setUpChart(){
@@ -73,8 +92,8 @@ public class ViewProgressActivity extends AppCompatActivity {
         List<Entry> projectedDataEntries = new ArrayList<>();
         accumProj = 0f;
         accumDesired = 0f;
-        for (int i = 0; i < entries.size(); i++){
-            TrackProgressAssessmentData entry = entries.get(i);
+        for (int i = 0; i < GoalLogic.data.size(); i++){
+            TrackProgressAssessmentData entry = GoalLogic.data.get(i);
             if (entry.getMark_obtained() != null){
                 accumProj += entry.getMark_obtained()*(entry.getWeight()/100);
                 currentDataEntries.add(new Entry(i*1f, accumProj));
