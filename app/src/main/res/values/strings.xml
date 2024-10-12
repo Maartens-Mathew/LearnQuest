@@ -11,5 +11,11 @@
     <string name="adjust_goals_mark_obtained">Mark Obtained: %s%%</string>
     <string name="adjust_goals_weighting">weighting: %s%%</string>
     <string name="adjust_goals_fragment_hint">Enter new goal mark</string>
+
     <string name="enterbutton">Enter</string>
+
+    <!-- Login Page Strings -->
+    <string name="LoginDescription">Hello, fellow student! Please enter your details below to log in.</string>
+    <string name="LoginTitle">Login</string>
+    <string name="LoginForgotPassword">Forgot Password?</string>
 </resources>
