@@ -12,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -76,9 +77,20 @@ public interface SupabaseApi {
 
 
 
+    @GET("rpc/isUserValid")
+    Call<Integer> isUserValid(@Query("username_input") String username_input, @Query("password_input") String password);
+
+    @GET("rpc/getUser")
+    Call<List<User>> getUser(@Query("username_input") String username_input);
+
+
+    @GET("rpc/getUserWithID")
+    Call<List<User>> getUserWithID(@Query("userID_input") String userID);
 
 
 
+    @PUT("User")
+    Call<Void> updateUser(@Query("userID") String userID, @Body User user);
 
 
 
