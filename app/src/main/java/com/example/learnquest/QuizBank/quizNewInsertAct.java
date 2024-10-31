@@ -170,14 +170,32 @@ public class quizNewInsertAct extends AppCompatActivity {
     }
 
     public void addNewQE(View view) {
+        // Get the text from the EditText fields
+        String question = edtQuizQ.getText().toString().trim();
+        String answer = edtQuizA.getText().toString().trim();
+        String description = edtQuizD.getText().toString().trim();
+
+        // Check if all fields are blank
+        if (question.isEmpty() || answer.isEmpty() || description.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields.", Toast.LENGTH_SHORT).show();
+            return; // Exit the method without proceeding
+        }
+
+        // Proceed with creating the QuizEntry
         QuizEntry entry = new QuizEntry();
-        entry.setQuestion(edtQuizQ.getText().toString());
-        entry.setAnswer(edtQuizA.getText().toString());
-        entry.setDescription(edtQuizD.getText().toString());
+        entry.setQuestion(question);
+        entry.setAnswer(answer);
+        entry.setDescription(description);
         entry.setGroupID(App.groupID);
 
+        // Add selected tags to the entry
         for (Tag tag : selectedTags) {
             entry.addTag(tag);
+        }
+
+        if (selectedTags.isEmpty()) {
+            Toast.makeText(this, "Ensure 1 tag is selected.", Toast.LENGTH_SHORT).show();
+            return; // Exit the method without proceeding
         }
 
         entry.setQuizEntryID(-1);
@@ -198,8 +216,6 @@ public class quizNewInsertAct extends AppCompatActivity {
             if (quizResponse.isSuccessful()) {
                 runOnUiThread(() -> {
                     Toast.makeText(quizNewInsertAct.this, "Insertion successful.", Toast.LENGTH_SHORT).show();
-
-                    // Set the result to RESULT_OK and finish the activity
                     setResult(RESULT_OK);
                     finish();
                 });

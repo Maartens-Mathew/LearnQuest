@@ -27,6 +27,7 @@ public class quizBankHome extends AppCompatActivity {
     public List<QuizEntry> entries;
     private QuizExpandableListAdapter quizAdapter;
     private ExpandableListView expandableListView;
+    private static final int REQUEST_CODE_EDIT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +100,26 @@ public class quizBankHome extends AppCompatActivity {
         super.onActivityResult(requestCode,
                 resultCode, data);
 
+
+        if (requestCode == REQUEST_CODE_EDIT) {
+            if (resultCode == RESULT_OK) {
+                // Handle the successful edit here, if necessary
+                // You might want to refresh the data in your adapter
+                loadQuizQuestions();
+
+            } else {
+                // Handle cancellation or error
+                Toast.makeText(this, "Unsuccessful", Toast.LENGTH_SHORT);
+            }
+        }
+
         if (resultCode == RESULT_OK) {
             // Edit successful, refresh quiz list
             loadQuizQuestions();
         }
+
     }
+
 
 
 }

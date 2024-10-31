@@ -262,8 +262,7 @@ public class EditQuizActivity extends AppCompatActivity {
                     Toast.makeText(EditQuizActivity.this, "Update successful.", Toast.LENGTH_SHORT).show();
 
                     // When updating or finishing the edit
-                    Intent resultIntent = new Intent();
-                    setResult(RESULT_OK, resultIntent);
+                    setResult(RESULT_OK);
                     finish();
                 });
             } else {

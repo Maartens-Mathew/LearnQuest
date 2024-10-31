@@ -1,5 +1,8 @@
 package com.example.learnquest.QuizBank;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +24,7 @@ import retrofit2.Response;
 
 public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
     private List<QuizEntry> quizEntries;
+    private static final int REQUEST_CODE_EDIT = 2;
 
     public QuizExpandableListAdapter(List<QuizEntry> quizEntries) {
         this.quizEntries = quizEntries;
@@ -160,36 +164,34 @@ String status ="" ;
             notifyDataSetChanged();
         };
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public View.OnClickListener editEntry(QuizEntry quizEntry) {
         return (view) -> {
             // Create an intent to launch the EditQuizActivity
-            Intent intent = new Intent(view.getContext(), EditQuizActivity.class);
-
-            // Pass the quiz entry's data to the new activity
-            intent.putExtra("quizEntryID", quizEntry.getQuizEntryID());
-            intent.putExtra("question", quizEntry.getQuestion());
-            intent.putExtra("description", quizEntry.getDescription());
-            intent.putExtra("answer", quizEntry.getAnswer());
-            intent.putExtra("tags", quizEntry.getTags()); // Pass tags if necessary
-            intent.putExtra("inContention", quizEntry.getInContention());
-
-            Log.d("EditEntryIntent", "Passing inContention: " + quizEntry.getInContention());
 
             // Start the activity
-            view.getContext().startActivity(intent);
+
+            Intent intent2 = new Intent(view.getContext(), EditQuizActivity.class);
+            intent2.putExtra("quizEntryID", quizEntry.getQuizEntryID());
+            intent2.putExtra("question", quizEntry.getQuestion());
+            intent2.putExtra("description", quizEntry.getDescription());
+            intent2.putExtra("answer", quizEntry.getAnswer());
+            intent2.putExtra("tags", quizEntry.getTags()); // Method to convert tags to a string
+            intent2.putExtra("inContention", quizEntry.getInContention());
+            ((Activity) view.getContext()).startActivityForResult(intent2, REQUEST_CODE_EDIT);
+
+
+
+
+
+
+
+
+
+
+
         };
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
