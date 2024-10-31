@@ -39,6 +39,7 @@ import retrofit2.Response;
 
 
 import java.lang.reflect.Field;
+import java.util.stream.Collectors;
 
 public class editQuizFromValidAct extends AppCompatActivity {
 
@@ -52,6 +53,7 @@ public class editQuizFromValidAct extends AppCompatActivity {
     private List<Tag> foundTags; // New list for found tags
 
     private Spinner spinnerForAddNewTags ;
+    private QuizEntry currentQuizEntry;
 
 
     @Override
@@ -229,55 +231,49 @@ public class editQuizFromValidAct extends AppCompatActivity {
     }
 
     public void ConfirmEdit(View view) {
-        // Create and populate QuizEntry object
         QuizEntry entry = new QuizEntry();
+        currentQuizEntry = entry;
         entry.setQuestion(edtQuestion.getText().toString());
         entry.setAnswer(edtAnswer.getText().toString());
         entry.setDescription(edtDescription.getText().toString());
-        entry.setInContention(switchInContention.isChecked()); // Use isChecked() instead of isSelected()
+        entry.setInContention(switchInContention.isChecked());
         entry.setGroupID(App.groupID);
 
-        // Add selected tags
         for (Tag tag : selectedTags) {
             entry.addTag(tag);
         }
 
-        // You need to pass the actual QuizEntry ID if editing, not always set to -1
-        entry.setQuizEntryID(getIntent().getIntExtra("quizEntryID", -1)); // Retrieve the quiz entry ID from the intent
+        entry.setQuizEntryID(getIntent().getIntExtra("quizEntryID", -1));
+        entry.setValidated(false);
 
-        // If you're editing, this should reflect the actual state
-        entry.setValidated(false);  // Assuming false for validation unless otherwise
-        //entry.setInContention(switchInContention.isChecked()); // Again, use isChecked() for Switch
-
-        // Run the network call in a background thread
         new Thread(() -> {
             Call<Void> quizCall = App.api.updateQuizEntry(entry);
-            Response<Void> quizResponse;
-
             try {
-                // Execute the API call
-                quizResponse = quizCall.execute();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
+                Response<Void> quizResponse = quizCall.execute();
+                if (quizResponse.isSuccessful()) {
+                    runOnUiThread(() -> {
+                        Toast.makeText(editQuizFromValidAct.this, "Update successful.", Toast.LENGTH_SHORT).show();
+//                        setResult(RESULT_OK, new Intent());//this should pass back the updated data right????
 
-            // Handle the response
-            if (quizResponse.isSuccessful()) {
-                runOnUiThread(() -> {
-                    Toast.makeText(editQuizFromValidAct.this, "Update successful.", Toast.LENGTH_SHORT).show();
+                        // Prepare the intent to send the edited data back
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("quizEntry",currentQuizEntry);
 
-                    // When updating or finishing the edit
-                    Intent resultIntent = new Intent();
-                    setResult(RESULT_OK, resultIntent);
-                    finish();
-                });
-            } else {
-                try {
-                    Log.e("API Error", quizResponse.errorBody().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        // Set result as RESULT_OK to indicate a successful edit
+                        setResult(RESULT_OK, resultIntent);
+
+                        // Finish this activity and return to the calling activity
+
+
+                        finish();
+                    });
+                } else {
+                    Log.e("API Error", "Error updating quiz entry: " + quizResponse.code());
+                    runOnUiThread(() -> Toast.makeText(editQuizFromValidAct.this, "Update failed", Toast.LENGTH_SHORT).show());
                 }
+            } catch (IOException e) {
+                Log.e("API Exception", "Failed to update quiz entry", e);
+                runOnUiThread(() -> Toast.makeText(editQuizFromValidAct.this, "Error updating entry", Toast.LENGTH_SHORT).show());
             }
         }).start();
     }

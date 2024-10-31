@@ -18,6 +18,7 @@ public class QuizEntry implements Serializable {
     private String description;
     private Boolean inContention;
     private Boolean isValidated;
+    private HashMap<Integer, Tag> tags;
 
 
     public QuizEntry(){
@@ -25,7 +26,7 @@ public class QuizEntry implements Serializable {
     }
 
     
-    private HashMap<Integer, Tag> tags;
+
 
     @Override
     public String toString() {

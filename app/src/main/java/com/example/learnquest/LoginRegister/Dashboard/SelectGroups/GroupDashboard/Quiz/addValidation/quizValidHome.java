@@ -1,5 +1,6 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.learnquest.QuizBank.Tag;
 import com.example.learnquest.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -51,6 +53,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -64,6 +67,12 @@ public class quizValidHome extends AppCompatActivity {
     private List<QuizEntry> entries; // Data for RecyclerView
     private QuizRecyclerViewAdapter recyclerAdapter; // Adapter for RecyclerView
     private int selectedGroupId = 1; // Default selected group ID
+
+
+
+    private static final int REQUEST_CODE_EDIT = 2;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,7 +123,32 @@ public class quizValidHome extends AppCompatActivity {
         recyclerView.setAdapter(recyclerAdapter);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == REQUEST_CODE_EDIT && resultCode == RESULT_OK && data != null) {
+            QuizEntry updatedEntry = (QuizEntry) data.getSerializableExtra("quizEntry");
+            if (updatedEntry != null) {
+                updateEntryInList(updatedEntry);
+            } else {
+                Toast.makeText(this, "No data received", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void updateEntryInList(QuizEntry updatedEntry) {
+        for (int i = 0; i < entries.size(); i++) {
+            Log.d("Debug", "Comparing IDs: " + entries.get(i).getQuizEntryID() + " and " + updatedEntry.getQuizEntryID());
+            if (entries.get(i).getQuizEntryID().equals(updatedEntry.getQuizEntryID()) ) {
+                entries.set(i, updatedEntry);
+                recyclerAdapter.notifyItemChanged(i);
+                Toast.makeText(quizValidHome.this, "WE FOUND ONE " + i, Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        Log.d("Debug", "No matching quizEntryID found");
+    }
 
 
 

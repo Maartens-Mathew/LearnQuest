@@ -97,6 +97,7 @@ public class QuizRecyclerViewAdapter extends RecyclerView.Adapter<QuizRecyclerVi
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(itemView.getContext(), "Update successful.", Toast.LENGTH_SHORT).show();
+                        ///does the refresh code go here?
                     } else {
                         Toast.makeText(itemView.getContext(), "Update failed. Please try again.", Toast.LENGTH_SHORT).show();
                         Log.e("QuizRecyclerViewAdapter", "API error: " + response.code());
