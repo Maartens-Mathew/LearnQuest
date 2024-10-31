@@ -1,0 +1,120 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0F7FA"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/skyBlueGreenBackGround"
+        android:elevation="4dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Quiz Pool"
+        android:textColor="@color/greenTint"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium" android:maxLines="2" android:ellipsize="end" />
+
+    <!-- Question Box -->
+    <LinearLayout
+        android:id="@+id/questionBox"
+        android:layout_width="277dp"
+        android:layout_height="460dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/border_question_box"
+        android:elevation="6dp"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+
+        <!-- Question counter like: Question n of m -->
+        <TextView
+            android:id="@+id/questionCounterTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Question 2 of 31"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Question text -->
+        <TextView
+            android:id="@+id/questionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="72dp"
+            android:layout_gravity="center"
+            android:paddingTop="16dp"
+            android:text="What is a DBMS?"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <!-- Answer label -->
+        <TextView
+            android:id="@+id/answerLabelTextView"
+            android:layout_width="162dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Answer:"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Answer input box -->
+        <TextView
+            android:id="@+id/answerEditText"
+            android:layout_width="200dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Answer appears here"
+            android:padding="12dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnUnhide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/greenTint"
+            android:text="Show Answer" />
+
+    </LinearLayout>
+
+    <!-- Left button (previous) -->
+    <ImageButton
+        android:id="@+id/prevButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="Previous question"
+        android:src="@drawable/ic_arrow_left"
+        app:tint="#00796B" />
+
+    <!-- Right button (next) -->
+    <ImageButton
+        android:id="@+id/nextButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5dp"
+        android:background="?android:selectableItemBackground"
+        android:contentDescription="Next question"
+        android:src="@drawable/ic_arrow_right"
+        app:tint="#00796B" />
+
+</RelativeLayout>

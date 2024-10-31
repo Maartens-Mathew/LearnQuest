@@ -1,12 +1,13 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,15 +22,22 @@ import retrofit2.Response;
 
 public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
     private List<QuizEntry> quizEntries;
+    private static final int REQUEST_CODE_EDIT = 2;
 
     public QuizExpandableListAdapter(List<QuizEntry> quizEntries) {
         this.quizEntries = quizEntries;
     }
 
+    // Add the updateData method to refresh the list
+    public void updateData(List<QuizEntry> newQuizEntries) {
+        this.quizEntries.clear(); // Clear the old data
+        this.quizEntries.addAll(newQuizEntries); // Add the new data
+        notifyDataSetChanged(); // Notify the adapter that the data has changed
+    }
+
     @Override
     public int getGroupCount() {
         return quizEntries.size();
-
     }
 
     @Override
@@ -69,19 +77,15 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.viewholder_questiontitle, parent, false);
         }
 
-
         ImageView indicator = convertView.findViewById(R.id.imgIndicator);
+        if (isExpanded) {
+            indicator.setImageResource(R.drawable.baseline_arrow_drop_up_24);
+        } else {
+            indicator.setImageResource(R.drawable.baseline_arrow_drop_down_24);
+        }
 
-            if (isExpanded) {
-                indicator.setImageResource(R.drawable.baseline_arrow_drop_up_24);
-            }else
-                indicator.setImageResource(R.drawable.baseline_arrow_drop_down_24);
-
-
-        TextView questionTextView = convertView.findViewById(R.id.txtQuestion);
+        TextView questionTextView = convertView.findViewById(R.id.txtQuestionV);
         questionTextView.setText(quizEntries.get(groupPosition).getQuestion());
-
-
 
         return convertView;
     }
@@ -99,24 +103,31 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    public void bindChild(View convertView, QuizEntry quizEntry){
-        EditText edtAnswer = convertView.findViewById(R.id.edtAnswer);
-        EditText edtDescription = convertView.findViewById(R.id.edtDescription);
+    public void bindChild(View convertView, QuizEntry quizEntry) {
+        TextView edtAnswer = convertView.findViewById(R.id.edtAnswer);
+        TextView edtDescription = convertView.findViewById(R.id.edtDescription);
         TextView txtTags = convertView.findViewById(R.id.txtTags);
-        Button btnDelete, btnEdit;
+        TextView txtInCon = convertView.findViewById(R.id.txtinContention);
+        Button btnDelete;
+        Button btnEdit;
+        Boolean inContention = quizEntry.getInContention();
+String status ="" ;
+        if (inContention.toString() == "false") {
+            status = "no";
+        }
+        else status = "yes";
 
-        edtAnswer.setText(quizEntry.getAnswer());
-        edtDescription.setText(quizEntry.getDescription());
-        txtTags.setText(quizEntry.getTags());
+        txtInCon.setText("In pool queue? " + status);
+
+        edtAnswer.setText("Answer: " + quizEntry.getAnswer());
+        edtDescription.setText("Desc: " + quizEntry.getDescription());
+        txtTags.setText("The Tags are: " + quizEntry.getTags());
 
         btnDelete = convertView.findViewById(R.id.btnDelete); // Add a delete button
+        btnEdit = convertView.findViewById(R.id.btnEdit); // Add a delete button
+
         btnDelete.setOnClickListener(deleteEntry(quizEntry));
-
-        btnEdit = convertView.findViewById(R.id.btnEdit);
-        btnEdit.setOnClickListener(editEntry(convertView, quizEntry));
-
-        edtAnswer.setEnabled(false);
-        edtDescription.setEnabled(false);
+        btnEdit.setOnClickListener(editEntry(quizEntry));
     }
 
     @Override
@@ -125,10 +136,8 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public View.OnClickListener deleteEntry(QuizEntry quizEntry) {
-
         return (itemView) -> {
-
-            Thread thread = new Thread( () -> {
+            Thread thread = new Thread(() -> {
                 Call<Void> deleteCall = App.api.deleteQuizEntry("eq." + quizEntry.getQuizEntryID());
                 Response<Void> deleteResponse = null;
 
@@ -138,69 +147,50 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
                     e.printStackTrace();
                 }
 
-                if (deleteResponse.isSuccessful())
+                if (deleteResponse.isSuccessful()) {
                     Log.i("Custom", "Entry deleted successfully");
-                else
+                } else {
                     Log.e("Custom", "Failed to delete entry: HTTP " + deleteResponse.code() + " " + deleteResponse.message());
-
-
+                }
             });
 
             thread.start();
-            //Remove quiz Entry from list
+            // Remove quiz entry from list
             quizEntries.remove(quizEntry);
 
-            //Notify adapter
+            // Notify adapter
             notifyDataSetChanged();
         };
-
-
-
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public View.OnClickListener editEntry(QuizEntry quizEntry) {
+        return (view) -> {
+            // Create an intent to launch the EditQuizActivity
+
+            // Start the activity
+
+            Intent intent2 = new Intent(view.getContext(), EditQuizActivity.class);
+            intent2.putExtra("quizEntryID", quizEntry.getQuizEntryID());
+            intent2.putExtra("question", quizEntry.getQuestion());
+            intent2.putExtra("description", quizEntry.getDescription());
+            intent2.putExtra("answer", quizEntry.getAnswer());
+            intent2.putExtra("tags", quizEntry.getTags()); // Method to convert tags to a string
+            intent2.putExtra("inContention", quizEntry.getInContention());
+            ((Activity) view.getContext()).startActivityForResult(intent2, REQUEST_CODE_EDIT);
 
 
-    //Serves as way to edit quiz entries on the fly (Narsi, will you use a dialogue popup instead?)
-    public View.OnClickListener editEntry(View view, QuizEntry quizEntry){
-        return (itemView) -> {
-            Button btnEdit = (Button)itemView;
-            EditText edtAnswer = view.findViewById(R.id.edtAnswer);
-            EditText edtDescription = view.findViewById(R.id.edtDescription);
-
-            String tag = (String)btnEdit.getTag();
-            boolean editState = tag.equals("false");
 
 
 
 
 
-            if (editState)
-            {
-                btnEdit.setText("Save");
-                edtAnswer.setEnabled(true);
-                edtDescription.setEnabled(true);
-                btnEdit.setTag("true");
-                //How change tags?
-            }else {
-                btnEdit.setText("Edit");
-                edtAnswer.setEnabled(false);
-                edtDescription.setEnabled(false);
-                btnEdit.setTag("false");
-
-                quizEntry.setAnswer(edtAnswer.getText().toString());
-                quizEntry.setDescription(edtDescription.getText().toString());
-
-
-                //Update database??
-
-            }
 
 
 
 
         };
-
-
-
-
     }
+
+
+
 }

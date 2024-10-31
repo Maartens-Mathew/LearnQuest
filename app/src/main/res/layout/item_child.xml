@@ -6,19 +6,19 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/answerTextView"
+        android:id="@+id/answerTextViewV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Answer" />
 
     <TextView
-        android:id="@+id/descriptionTextView"
+        android:id="@+id/descriptionTextViewV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Description" />
 
     <TextView
-        android:id="@+id/tagsTextView"
+        android:id="@+id/txtTags1V"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tags" />

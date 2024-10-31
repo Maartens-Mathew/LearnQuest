@@ -1,0 +1,25 @@
+<!-- res/layout/activity_tag_manage_home.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/skyBlueGreenBackGround"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Spinner for displaying tags -->
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:backgroundTint="@color/greenTint"
+        android:text="        Validate Quizzes"
+        android:textColor="@color/greenTint"
+        android:textSize="34sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_quiz_entries"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

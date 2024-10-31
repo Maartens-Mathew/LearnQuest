@@ -21,6 +21,8 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -48,6 +50,17 @@ public class ListViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
+        // Retrieve the groupID from the Intent
+        int groupIDPassedIn = getIntent().getIntExtra("groupID", -1); // Default value -1 if not passed
+
+        if (groupIDPassedIn != -1) {
+            App.groupID = groupIDPassedIn; // Update App.groupID with passed value
+        } else {
+            // Handle error: groupID was not properly passed
+            Log.e("ListViewActivity", "No groupID passed in the intent!");
+            Toast.makeText(this, "Error: No groupID passed.", Toast.LENGTH_LONG).show();
+            finish(); // Exit activity if groupID is invalid
+        }
 
         // Initialize the adapter with assessments from AssessmentManager
         Thread thread = new Thread(this::getAssessments);
@@ -79,8 +92,9 @@ public class ListViewActivity extends AppCompatActivity {
         updatePieChart();
     }
 
+
     public void getAssessments(){
-        App.groupID = 1;
+        //App.groupID = 1;
         Call<List<Assessment>> assessmentsCall = App.api.getGroupAssessments("eq." + App.groupID);
         Response<List<Assessment>> assessmentsResponse = null;
 
@@ -144,6 +158,8 @@ public class ListViewActivity extends AppCompatActivity {
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+
+
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     (view, year1, month1, dayOfMonth) -> etDate.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
                     year, month, day);
@@ -154,6 +170,13 @@ public class ListViewActivity extends AppCompatActivity {
             String name = etName.getText().toString();
             String dateInput = etDate.getText().toString();
             int weighting;
+
+
+            // Validate name length
+            if (name.length() < 1) {
+                Toast.makeText(this, "Name cannot be empty.", Toast.LENGTH_LONG).show();
+                return;
+            }
 
             try {
                 weighting = Integer.parseInt(etWeighting.getText().toString());
@@ -179,7 +202,7 @@ public class ListViewActivity extends AppCompatActivity {
                 }
 
                 // Use formattedDate in Assessment object
-                Assessment assessment = new Assessment(name, formattedDate, weighting);
+                Assessment assessment = new Assessment(name, formattedDate, weighting , App.groupID);
                 assessments.add(assessment);
                 adapter.notifyDataSetChanged();
                 updatePieChart();
@@ -214,10 +237,37 @@ public class ListViewActivity extends AppCompatActivity {
             colors.add(getRandomColor());
         }
         dataSet.setColors(colors);
+        pieChart.getLegend().setTextSize(13f); // Set the legend text size to 14f (or any desired size)
 
         PieData data = new PieData(dataSet);
+
+
+        pieChart.getDescription().setText("Assessments Legend"); // Set a custom label text
+        pieChart.getDescription().setTextSize(14f); // Set the font size
+        pieChart.getDescription().setPosition(360f, 750f); // Set custom position (x, y)
+
+
+
+
         pieChart.setData(data);
         pieChart.invalidate();
+
+
+        pieChart.setUsePercentValues(true);
+        pieChart.setDrawEntryLabels(false);
+        pieChart.setUsePercentValues(true);
+        pieChart.setDrawEntryLabels(false);
+        dataSet.setValueTextSize(16f); // Set font size to 16f (or any desired size)
+
+        dataSet.setValueFormatter(new PercentFormatter(pieChart));
+// or for custom format
+        dataSet.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return String.format("%.0f%%", value); // Show whole numbers as percentage
+            }
+        });
+
     }
 
     // Method to generate a random color
@@ -231,7 +281,7 @@ public class ListViewActivity extends AppCompatActivity {
 
 
     public void onSaveClicked(View view) {
-        int groupIDToDelete = 1; // Update this as needed
+        int groupIDToDelete = App.groupID; // Update this as needed
 
         SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
 
@@ -289,14 +339,15 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     private void saveAssessments(SupabaseApi api) {
-
-
         if (assessments.isEmpty()) {
             Toast.makeText(this, "No assessments to save.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         for (Assessment assessment : assessments) {
+            // Ensure groupID is set for the current assessment
+            assessment.setGroupID(App.groupID);  // Use the locally stored groupID
+
             Call<Assessment> call = api.addAssessment(assessment);
 
             call.enqueue(new Callback<Assessment>() {
@@ -316,7 +367,6 @@ public class ListViewActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Assessment> call, Throwable t) {
-               //     Toast.makeText(ListViewActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
                     Log.e("SaveAssessment", "Failure: ", t);
                 }
             });

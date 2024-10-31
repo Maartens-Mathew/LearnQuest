@@ -4,6 +4,8 @@ package com.example.learnquest.Utils.database;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.model.group.Group;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
 import com.example.learnquest.model.user.User;
 
 import java.util.List;
@@ -63,18 +65,59 @@ public interface SupabaseApi {
     @GET("rpc/hasPermission")
     Call<Boolean> hasPermission(@Query("userID_input") Integer userID);
 
+    @GET("rpc/getWaitingQuizEntries")
+    Call<List<QuizEntry>> getWaitingQuizEntries(@Query("groupID_input") Integer groupID_input);
+//getWaitingQuizEntries
+    @GET("rpc/getValidQuizEntries")
+    Call<List<QuizEntry>> getValidQuizQuestions(@Query("groupID_input") Integer groupID_input);
+    //...endQuer
     @GET("rpc/getWaitingQuizQuestions")
     Call<List<QuizEntry>> getWaitingQuizQuestions(@Query("groupID_input") Integer groupID);
 
-    @GET("rpc/getValidQuizQuestions")
-    Call<List<QuizEntry>> getValidQuizQuestions(@Query("groupID_input") Integer groupID);
-    //...end
 
-    @GET("rpc/getQuizEntries")
-    Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
 
     @DELETE("QuizEntry")
     Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)
+
+
+    @POST("rpc/addQuizEntry")
+    Call<Void> addQuizEntry(@Body QuizEntry quizEntry);
+
+
+
+    @POST("rpc/updateQuizEntry")
+    Call<Void> updateQuizEntry(@Body QuizEntry quizEntry);
+
+//    @DELETE("QuizEntry")
+//    Call<Void> deleteQuizEntry(@Query("quizEntryID") String QuizEntryID);
+
+
+///////////////////////////////////////////////////////////////////////////////////A500
+    @GET("Tag") // Replace with your Supabase endpoint for getting tags
+    Call<List<Tag>> getTagsByGroup(@Query("groupID") String groupID);
+
+    @POST("Tag")
+    Call<Void> addTag(@Body Tag tag);
+
+    @DELETE("Tag")
+    Call<Void> deleteTag(@Query("tagID") String tagID);
+
+    // Add the PUT method for updating a tag
+//    @PUT("Tag")
+//    Call<Void> updateTag(@Body Tag tag);
+
+//    @PUT("Tag")
+//    Call<Void> updateTagwID(@Body Tag tag);
+
+    @PUT("Tag")
+    Call<Void> updateTagwID(@Query("tagID") String idFilter, @Body Tag tag);
+
+
+//    @PUT("Tag")
+//    Call<Void> updateTag(@Path("id") String id, @Body Tag tag);
+
+//    @PUT("Tag")
+//    Call<Tag> updateTag(@Path("id") int id, @Body Tag tag);
 
 
 

@@ -84,9 +84,23 @@
          </intent-filter></activity>
 
 
+
         <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.Pomodoro.pomoDoroMain" android:exported="true"></activity>
 
         <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome" android:exported="true"></activity>
+
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome" android:exported="true"></activity>
+
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome" android:exported="true"></activity>
+
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizNewInsertAct" android:exported="true"></activity>
+
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.EditQuizActivity" android:exported="true"></activity>
+
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.editQuizFromValidAct" android:exported="true"></activity>
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.takingQuiz.QuizNavigationActivity" android:exported="true"></activity>
+
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.takingQuiz.takeQuizSplasha" android:exported="true"></activity>
 
 
     </application>
