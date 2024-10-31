@@ -74,13 +74,7 @@ public interface SupabaseApi {
     @GET("rpc/getWaitingQuizQuestions")
     Call<List<QuizEntry>> getWaitingQuizQuestions(@Query("groupID_input") Integer groupID);
 
-    @GET("rpc/getValidQuizQuestions")
-    Call<List<QuizEntry>> getValidQuizQuestions(@Query("groupID_input") Integer groupID);
-    //...end
 
-    @GET("rpc/getQuizEntries")
-    Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID_input);    //working
-    Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID_input);
 
     @DELETE("QuizEntry")
     Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)

@@ -58,7 +58,7 @@ public class quizBankHome extends AppCompatActivity {
     }
 
     private void GetQuizQuestions() {
-        Call<List<QuizEntry>> call = App.api.getQuizEntries(App.groupID); // Replace 1 with actual groupID
+        Call<List<QuizEntry>> call = App.api.getWaitingQuizEntries(App.groupID); // Replace 1 with actual groupID
         Response<List<QuizEntry>> response;
 
         try {
