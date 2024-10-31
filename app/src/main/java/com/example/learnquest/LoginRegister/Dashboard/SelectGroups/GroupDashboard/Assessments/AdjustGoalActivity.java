@@ -52,12 +52,12 @@ public class AdjustGoalActivity extends AppCompatActivity {
         }
     }
 
+
+
     public void onBtnBackPressed(View view){
-        if (state == 0){
-            Intent intent = new Intent(this, ViewProgressActivity.class);
-            intent.putExtra("stateType",1);
-            startActivity(intent);
-        }
+        Intent intent = new Intent(this, GoalsListActivity.class);
+        intent.putExtra("stateType",1);
+        startActivity(intent);
     }
 
     public void btnUpdateConfirmClicked(View view){

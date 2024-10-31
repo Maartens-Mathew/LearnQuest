@@ -129,7 +129,7 @@ public class ViewProgressActivity extends AppCompatActivity {
     private void getDatabaseData(){
         //ensure we have the correct userID and groupID
         //use userID & groupId
-        Call<List<TrackProgressAssessmentData>> call = App.api.get_assessment_data(0, 1);
+        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(0, 1);
         Response<List<TrackProgressAssessmentData>> response = null;
         try{
             response = call.execute();

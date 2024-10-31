@@ -1,5 +1,6 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups;
 
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -50,7 +51,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         public void setGroup(Group group){
             this.group = group;
             txtGroupTopic.setText(group.topic);
-            view.setBackgroundColor(Color.parseColor(group))
+            view.setBackgroundColor(Color.parseColor(group.getGroupColour()));
         }
     }
 }

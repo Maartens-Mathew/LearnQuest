@@ -5,6 +5,7 @@ import static com.example.learnquest.AppState.App.groupID;
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.TrackProgressAssessmentData;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMemberUserName;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersResult;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
@@ -85,9 +86,18 @@ public interface SupabaseApi {
     Call<Void> deleteQuizEntry(@Query("quizEntryID") String quizEntryID);//narsi delete eq for a given id (working)
 
 
-    @GET("rpc/get_assessment_data")
-    Call<List<TrackProgressAssessmentData>> get_assessment_data(@Query("user_id") int userID, @Query("group_id") int groupID);
+    @GET("rpc/getAssessmentData")
+    Call<List<TrackProgressAssessmentData>> getAssessmentData(@Query("UserID_input") int userID, @Query("GroupID_input") int groupID);
 
+
+    @GET("rpc/getGroupMembers")
+    Call<List<GroupMemberUserName>> getGroupMembers(@Query("GroupID_input") int groupID);
+
+    @GET("Group")
+    Call<Group> getGroup(@Query("groupID") int groupID);
+
+    @POST("groupMembership")
+    Call<Void> addGroupMembership(@Body GroupMembership newJoin);
 
     @PATCH("groupMembership")
     Call<GroupMembership> setGroupMembership(@Query("userID") int userID, @Query("groupID") int groupID, @Body GroupMembership update);
@@ -95,18 +105,14 @@ public interface SupabaseApi {
     @DELETE("groupMembership")
     Call<Void> deleteGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID);
 
-    @GET("rpc/get_pending_users")
-    Call<List<PendingUsersResult>> getPendingUsers(@Query("group_id") int groupID);
-
     @GET("rpc/getPendingUsers")
-    Call<List<PendingUsersResult>> getPendingUsers(@Query("groupID_input") Integer groupID_input);
+    Call<List<PendingUsersResult>> getPendingUsers(@Query("GroupID_input") Integer GroupID_input);
 
     @PATCH("StudentAssessment")
     Call<Void> updateGoal(@Query("userID") String userID, @Query("assessmentID")String assessmentID, @Body Map<String, Object> body);
 
     @DELETE("StudentAssessment")
     Call<Void> deleteGoal(@Query("userID") String userID, @Query("assessmentID") String assessmentID);
-
 
     @PATCH("groupMembership")
     Call<Void> updateGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID, @Body Map<String, Object> body);

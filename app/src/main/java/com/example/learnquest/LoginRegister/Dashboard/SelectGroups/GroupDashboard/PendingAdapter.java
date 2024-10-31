@@ -34,8 +34,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
     @Override
     public PendingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rw_pending_viewholder,parent,false);
-        PendingViewHolder pvh = new PendingViewHolder(view);
-        return pvh;
+        return new PendingViewHolder(view);
     }
 
     @Override

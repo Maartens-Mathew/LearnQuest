@@ -7,13 +7,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ViewGroupMembersActivity;
 import com.example.learnquest.R;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +33,7 @@ public class GroupHomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public static final String GROUP_HOME_FRAGMENT = "GroupHomeFragment";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -70,6 +78,38 @@ public class GroupHomeFragment extends Fragment {
             Intent intent = new Intent(getContext(), PendingUsersActivity.class);
             startActivity(intent);
         });
+        Button btnLeaveGroup = view.findViewById(R.id.btnLeaveGroup);
+        btnLeaveGroup.setOnClickListener(this::btnLeaveGroupClicked);
+    }
+
+    public void btnLeaveGroupClicked(View v){
+        Call<Void> leaveGroupCall = App.api.deleteGroupMembership(Integer.toString(App.userID), Integer.toString(App.groupID));
+        leaveGroupCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()){
+                    Log.i(GROUP_HOME_FRAGMENT,"response is successful");
+                }
+                else{
+                    Log.e(GROUP_HOME_FRAGMENT, response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+                Log.e(GROUP_HOME_FRAGMENT, throwable.getStackTrace().toString());
+            }
+        });
+    }
+
+    public void btnViewMembersClicked(View v){
+        Intent intent = new Intent(getContext(), ViewGroupMembersActivity.class);
+        intent.putExtra("isModerator",false);
+        startActivity(intent);
+    }
+
+    public void btnRemoveMemberClicked(View v){
+
     }
 
     @Override

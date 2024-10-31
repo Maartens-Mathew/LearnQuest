@@ -20,6 +20,18 @@
         android:theme="@style/Theme.LearnQuest"
         tools:targetApi="31">
         <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.CreateGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.RemoveGroupMemberActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ViewGroupMembersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.JoinGroupActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroupAccessActivity"
             android:exported="false" />
         <activity
@@ -68,7 +80,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity" />
-
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.MainActivity"
             android:exported="true">
@@ -78,8 +89,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AdjustGoalActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AdjustGoalActivity"
+            android:exported="true" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity"
             android:exported="true">
@@ -89,17 +101,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.Pomodoro.pomoDoroMain"
-            android:exported="true"></activity>
-
+            android:exported="true" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome"
-            android:exported="true"></activity>
-
-
+            android:exported="true" />
     </application>
 
 </manifest>

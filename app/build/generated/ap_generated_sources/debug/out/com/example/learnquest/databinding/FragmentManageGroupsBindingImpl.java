@@ -1,6 +1,6 @@
 package com.example.learnquest.databinding;
 import com.example.learnquest.R;
-
+import com.example.learnquest.BR;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.View;
