@@ -2,18 +2,25 @@ package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboa
 
 import com.example.learnquest.AppState.App;
 
-public class Tag {
+import java.io.Serializable;
+
+public class Tag implements Serializable {
     private Integer tagID;
     private Integer groupID;
     private String tagName;
+    private String tagColour;
+
+    public String getTagColour() {
+        return tagColour;
+    }
+
+    public void setTagColour(String tagColour) {
+        this.tagColour = tagColour;
+    }
 
     @Override
     public String toString() {
-        return "Tag{" +
-                "groupID=" + groupID +
-                ", tagID=" + tagID +
-                ", tagName='" + tagName + '\'' +
-                '}';
+        return tagName;
     }
 
     // Constructor
@@ -40,7 +47,7 @@ public class Tag {
     }
 
     // Getters
-    public int getTagID() {
+    public Integer getTagID() {
         return tagID;
     }
 

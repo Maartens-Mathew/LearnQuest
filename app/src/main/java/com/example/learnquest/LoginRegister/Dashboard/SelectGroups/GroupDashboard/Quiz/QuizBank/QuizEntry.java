@@ -1,23 +1,32 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.example.learnquest.AppState.App;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class QuizEntry{
+public class QuizEntry implements Serializable {
     private Integer quizEntryID;
     private String question;
     private String answer;
     private String description;
+    private Boolean inContention;
+    private Boolean isValidated;
+    private HashMap<Integer, Tag> tags;
+
 
     public QuizEntry(){
         tags = new HashMap<>();
     }
 
     
-    private HashMap<Integer, Tag> tags;
+
 
     @Override
     public String toString() {
@@ -28,6 +37,24 @@ public class QuizEntry{
                 ", description='" + description + '\'' +
                 ", tags=" + tags +
                 '}';
+    }
+
+    public Boolean getInContention() {
+        return inContention;
+    }
+
+    public void setInContention(Boolean inContention) {
+        Log.d("QuizEntry", "Setting inContention: " + inContention);
+
+        this.inContention = inContention;
+    }
+
+    public Boolean getIsValid() {
+        return isValidated;
+    }
+
+    public void setValidated(Boolean validated) {
+        isValidated = validated;
     }
 
     public void addTag(Tag tag){
@@ -64,15 +91,37 @@ public class QuizEntry{
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public QuizEntry(Integer quizEntryID,String question, String answer, String description ) {
+    public QuizEntry(Integer quizEntryID,String question, String answer, String description, Boolean inContention, Boolean isValidated ) {
         this.quizEntryID = quizEntryID;
         this.question = question;
         this.answer = answer;
+
         this.description = description;
+        this.isValidated = isValidated ; // Use the passed value or default to false
+        this.inContention = inContention ; // Use the passed value or default to false
+
+
+
+
 
         tags = new HashMap<>();
 
 
     }
 
+    public List<Integer> getTagsAsList(){
+        return tags.keySet().stream().collect(Collectors.toList());
+    }
+
+    public void setGroupID(Integer integer) {
+
+    }
+
+    public String getGroupID() {
+        return App.groupID.toString();//hmmmmmm
+    }
+
+//    public Integer[] getTagsAsList() {
+//        return tags;
+//    }
 }

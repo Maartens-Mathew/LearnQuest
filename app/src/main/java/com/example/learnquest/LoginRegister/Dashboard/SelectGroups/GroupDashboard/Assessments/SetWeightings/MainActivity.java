@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 //import com.example.learnquest.Utils.database.SupabaseClient1;
 
@@ -17,12 +18,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       // SupabaseClient1 client = new SupabaseClient1();
-
     }
 
     public void goToWeights(View view) {
         Intent showIntent = new Intent(this, ListViewActivity.class);
+        int groupID = 1; // CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE  CHANGE
+        App.groupID = groupID;
+        showIntent.putExtra("groupID", groupID);
         startActivity(showIntent);
     }
 }
