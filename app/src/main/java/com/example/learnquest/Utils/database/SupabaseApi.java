@@ -3,6 +3,7 @@ package com.example.learnquest.Utils.database;
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
+import com.example.learnquest.model.group.Group;
 import com.example.learnquest.model.user.User;
 
 import java.util.List;
@@ -91,6 +92,10 @@ public interface SupabaseApi {
 
     @PUT("User")
     Call<Void> updateUser(@Query("userID") String userID, @Body User user);
+
+
+    @GET("rpc/getUserGroups")
+    Call<List<Group>> getUserGroups(@Query("userID_input") String userID_input);
 
 
 
