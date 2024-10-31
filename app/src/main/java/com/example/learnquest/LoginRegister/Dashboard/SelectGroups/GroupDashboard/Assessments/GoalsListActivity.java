@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ import retrofit2.Response;
 
 public class GoalsListActivity extends AppCompatActivity{
 
+    public static final String GOAL_LIST_ACTIVITY = "GoalListActivity";
     private RecyclerView rwGoalsList;
     private GoalAdapter adapter;
 
@@ -56,6 +58,7 @@ public class GoalsListActivity extends AppCompatActivity{
                     if (selected == null){
                         selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
                         v.setBackgroundColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
+                        //v.setBackgroundColor(Color.BLUE);
                     }
                     else{
                         selected.cardView.setBackgroundColor(getResources().getColor(R.color.narsi_teal, getResources().newTheme()));
@@ -94,16 +97,16 @@ public class GoalsListActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()){
-                    Log.i("GoalListActivity", "Delete worked successfully");
+                    Log.i(GOAL_LIST_ACTIVITY, "Delete worked successfully");
                 }
                 else{
-                    Log.e("GoalListActivity","Update Failed: " + response.errorBody());
+                    Log.e(GOAL_LIST_ACTIVITY,"Update Failed: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable throwable) {
-                Log.e("GoalListActivity","Error: "+ throwable.getStackTrace());
+                Log.e(GOAL_LIST_ACTIVITY,"Error: "+ throwable.getStackTrace());
             }
         });
         //TODO:delete data from database
@@ -130,7 +133,7 @@ public class GoalsListActivity extends AppCompatActivity{
     private void getDatabaseData(){
         //ensure we have the correct userID and groupID
         //use userID & groupId
-        Call<List<TrackProgressAssessmentData>> call = App.api.get_assessment_data(0, 1);
+        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(0, 1);
         Response<List<TrackProgressAssessmentData>> response = null;
         try{
             response = call.execute();

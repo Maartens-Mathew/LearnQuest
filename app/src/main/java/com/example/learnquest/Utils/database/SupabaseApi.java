@@ -132,6 +132,8 @@ public interface SupabaseApi {
 
     @DELETE("Group")
     Call<Void> deleteGroup(@Query("groupID") String groupID);
+    @POST("Group")
+    Call<Void> addGroup(@Body Group newGroup);
 
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();

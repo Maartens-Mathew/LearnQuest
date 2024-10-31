@@ -1,4 +1,4 @@
-package com.example.learnquest.LoginRegister.Dashboard.SelectGroups;
+package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;

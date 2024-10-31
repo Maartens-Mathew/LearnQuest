@@ -57,7 +57,7 @@ public class ManageGroupsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_manage_groups, container, false);
         View view = binding.getRoot();
-        groupView = binding.rwGroupList;
+        groupView = binding.recyclerViewGroups;
         App.setApplicationContext(getActivity());
 
         GridLayoutManager manager = new GridLayoutManager(getActivity(),3);

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
@@ -27,7 +28,6 @@ public class AdjustGoalActivity extends AppCompatActivity {
     private TextView lblAssessmentName;
     private AppCompatButton btnUpdateConfirm;
     private int pos;
-    private int state;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,21 +43,13 @@ public class AdjustGoalActivity extends AppCompatActivity {
             edtMarkDesired.setText(data.getIdeal_mark().toString());
             edtMarkObtained.setText(data.getMark_obtained().toString());
             btnUpdateConfirm.setOnClickListener(this::btnUpdateConfirmClicked);
-            if (getIntent().getExtras().containsKey("stateType")){
-                state = getIntent().getExtras().getInt("stateType");
-            }
-            else{
-                state = 0;
-            }
         }
     }
 
 
-
+//TODO: Update data in the GoalLogic as well
     public void onBtnBackPressed(View view){
-        Intent intent = new Intent(this, GoalsListActivity.class);
-        intent.putExtra("stateType",1);
-        startActivity(intent);
+        getOnBackPressedDispatcher().onBackPressed();
     }
 
     public void btnUpdateConfirmClicked(View view){
@@ -89,9 +81,7 @@ public class AdjustGoalActivity extends AppCompatActivity {
                 Log.e("AdjustGoalActivity","Error: "+ throwable.getStackTrace());
             }
         });
-        Intent intent = new Intent(this, GoalsListActivity.class);
-        intent.putExtra("stateType",1);
-        startActivity(intent);
+        Toast.makeText(this,"Updated successfully",Toast.LENGTH_LONG);
         //TODO:Update this info to database
     }
 }

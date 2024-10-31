@@ -13,10 +13,10 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="41dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtGroupDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/edtCreateGroupDescription" />
 
     <EditText
-        android:id="@+id/edtGroupTopic"
+        android:id="@+id/edtCreateGroupTopic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edtGroupDescription"
+        android:id="@+id/edtCreateGroupDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -38,7 +38,7 @@
         android:hint="Enter Group Description"
         android:inputType="textMultiLine"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtGroupTopic" />
+        app:layout_constraintTop_toBottomOf="@+id/edtCreateGroupTopic" />
 
     <Button
         android:id="@+id/btnPickColor"
@@ -59,5 +59,14 @@
         android:text="Create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewCreateGroupColor"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPickColor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
