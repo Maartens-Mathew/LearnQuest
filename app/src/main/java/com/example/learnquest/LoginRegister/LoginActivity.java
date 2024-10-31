@@ -18,6 +18,7 @@ import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.Dashboard;
 import com.example.learnquest.R;
 import com.example.learnquest.model.user.User;
+import com.kennyc.bottomsheet.BottomSheetMenuDialogFragment;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
 
         edtUsername = findViewById(R.id.edt_login_username);
         edtPassword = findViewById(R.id.edt_login_password);

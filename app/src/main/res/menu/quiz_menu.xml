@@ -2,9 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/quizBank"
+
         android:icon="@drawable/quiz_bank"
+        android:orderInCategory="0"
+        android:foreground="?attr/selectableItemBackground"
         android:title="Quiz Bank" />
-    <item android:title="Quiz Pool" />
-    <item android:title="Manage Tags" />
-    <item android:title="Take Quiz" />
+    <item
+        android:id="@+id/quizPool"
+        android:icon="@drawable/quiz_pool"
+        android:orderInCategory="1"
+        android:foreground="?attr/selectableItemBackground"
+        android:title="Quiz Pool" />
+    <item
+        android:id="@+id/manageTags"
+        android:icon="@drawable/tags"
+        android:orderInCategory="2"
+        android:foreground="?attr/selectableItemBackground"
+        android:title="Manage Tags" />
+    <item
+        android:id="@+id/takeQuiz"
+        android:icon="@drawable/take_quiz"
+        android:orderInCategory="3"
+        android:foreground="?attr/selectableItemBackground"
+        android:title="Take Quiz" />
 </menu>

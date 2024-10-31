@@ -27,6 +27,8 @@ import com.example.learnquest.databinding.FragmentItemListDialogListDialogBindin
  */
 public class ItemListDialogFragment extends BottomSheetDialogFragment {
 
+
+
     // TODO: Customize parameter argument names
     private static final String ARG_ITEM_COUNT = "item_count";
     private FragmentItemListDialogListDialogBinding binding;

@@ -18,6 +18,7 @@ import com.example.learnquest.LoginRegister.Dashboard.Profile.ProfileFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.ManageGroupsFragment;
 import com.example.learnquest.R;
 import com.example.learnquest.databinding.ActivityDashboardBinding;
+import com.kennyc.bottomsheet.BottomSheetMenuDialogFragment;
 
 public class Dashboard extends AppCompatActivity {
     ActivityDashboardBinding binding;
@@ -41,6 +42,8 @@ public class Dashboard extends AppCompatActivity {
 
 
 
+
+
         //Navigation logic
         binding.navBarDash.setOnItemSelectedListener(view ->{
             Fragment fragment = null;
@@ -52,6 +55,7 @@ public class Dashboard extends AppCompatActivity {
             if (view.getItemId() == R.id.selectGroups) {
                 fragment = new ManageGroupsFragment();
                 newTab = 0;
+
             }
 
             if (view.getItemId() == R.id.calendar) {

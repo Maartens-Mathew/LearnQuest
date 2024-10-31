@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -14,13 +15,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.learnquest.LoginRegister.Dashboard.Dashboard;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AssessmentFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.GroupHomeFragment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.tagHome;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ResourcesFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.StudyToolsFragment;
+import com.example.learnquest.LoginRegister.LoginActivity;
 import com.example.learnquest.R;
+import com.example.learnquest.Utils.BottomSheet;
 import com.example.learnquest.databinding.ActivityGroupViewBinding;
+import com.google.android.material.navigation.NavigationBarView;
+import com.kennyc.bottomsheet.BottomSheetListener;
 
 public class GroupView extends AppCompatActivity {
     ActivityGroupViewBinding binding;
@@ -40,11 +48,28 @@ public class GroupView extends AppCompatActivity {
         });
 
         binding.groupBottomNavigation.setOnItemSelectedListener(this::onItemSelectedListener);
+        binding.groupBottomNavigation.setOnItemReselectedListener(this::onLongClick);
 
 
 
 
     }
+
+    public void onLongClick(MenuItem menuItem){
+
+
+        FragmentManager manager = getSupportFragmentManager();
+        new BottomSheet.Builder()
+                .with(GroupView.this)
+                .getItemTitles("Quiz Bank","Quiz Pool","Manage Tags","Take Quiz")
+                .andClasses(quizBankHome.class, LoginActivity.class, tagHome.class, Dashboard.class)
+                .build()
+                .show(manager,"This is a tag");
+
+
+    }
+
+
 
     public boolean onItemSelectedListener(MenuItem item){
         Fragment fragment = null;
