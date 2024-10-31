@@ -123,6 +123,10 @@ public interface SupabaseApi {
     @DELETE("StudentAssessment")
     Call<Void> deleteGoal(@Query("userID") String userID, @Query("assessmentID") String assessmentID);
 
+    @GET("rpc/getUserGroups")
+    Call<List<Group>> getUserGroups(@Query("userID_input") String userID_input);
+
+
     @PATCH("groupMembership")
     Call<Void> updateGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID, @Body Map<String, Object> body);
 

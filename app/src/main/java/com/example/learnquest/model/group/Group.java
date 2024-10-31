@@ -1,20 +1,81 @@
 package com.example.learnquest.model.group;
 
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
+
+import com.example.learnquest.AppState.App;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 public class Group {
-    //change these to private later when have all necessary attributes
 
     Integer groupID;
-    public String topic;
-    public String description;
-    public GroupType groupType;
-
+    String topic;
+    String description;
+    Integer typeID;
+    String groupType;
     String groupColour;
 
-    public Group(){
+    static Bitmap peerToPeer;
+    static Bitmap studentTeacher;
+
+    public Integer getTypeID() {
+        return typeID;
+    }
+
+    public void setTypeID(Integer typeID) {
+        this.typeID = typeID;
     }
 
     public Integer getGroupID() {
         return groupID;
+    }
+
+    public Group() {
+        loadImages();
+    }
+
+    public static void loadImages(){
+        AssetManager manager = App.applicationContext.getAssets();
+
+
+        try {
+            InputStream P2P_is = manager.open("Group/PeerToPeer.png");
+            InputStream ST_is = manager.open("Group/Teacher.png");
+
+            peerToPeer = BitmapFactory.decodeStream(P2P_is);
+            studentTeacher = BitmapFactory.decodeStream(ST_is);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public Bitmap getImage(){
+        if (typeID == 2)
+            return peerToPeer;
+
+        if (typeID == 3)
+            return studentTeacher;
+
+        else
+            return null;
+    }
+
+
+
+
+    public Group(Integer groupID, String topic, String description, String groupType, String groupColour) {
+        this();
+        this.groupID = groupID;
+        this.topic = topic;
+        this.description = description;
+        this.groupType = groupType;
+        this.groupColour = groupColour;
     }
 
     public void setGroupID(Integer groupID) {
@@ -37,11 +98,11 @@ public class Group {
         this.description = description;
     }
 
-    public GroupType getGroupType() {
+    public String getGroupType() {
         return groupType;
     }
 
-    public void setGroupType(GroupType groupType) {
+    public void setGroupType(String groupType) {
         this.groupType = groupType;
     }
 

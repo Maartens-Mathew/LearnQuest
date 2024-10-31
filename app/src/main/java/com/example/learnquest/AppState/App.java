@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.learnquest.Utils.database.SupabaseApi;
 import com.example.learnquest.Utils.database.SupabaseClient;
+import com.example.learnquest.model.group.Group;
 import com.example.learnquest.model.user.User;
 
 import java.io.IOException;
@@ -25,9 +26,11 @@ public class App {
     public static Context applicationContext;
 
     public static User user;
+    public static Group group;
 
     public static void setApplicationContext(Context context){
         applicationContext = context;
+        Group.loadImages();
     }
 
     public static SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);

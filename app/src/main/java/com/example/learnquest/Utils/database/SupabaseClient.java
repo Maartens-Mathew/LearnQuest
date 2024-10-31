@@ -1,7 +1,9 @@
 package com.example.learnquest.Utils.database;
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
+import com.example.learnquest.Utils.database.JsonConverters.Group_JSONConverter;
 import com.example.learnquest.Utils.database.Serializers.QuizEntryDeserializer;
+import com.example.learnquest.model.group.Group;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -32,6 +34,7 @@ public class SupabaseClient {
 
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(QuizEntry.class, new QuizEntryDeserializer())
+                    .registerTypeAdapter(Group.class, new Group_JSONConverter())
                     .create();
 
 
