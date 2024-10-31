@@ -99,9 +99,6 @@ public interface SupabaseApi {
     @POST("groupMembership")
     Call<Void> addGroupMembership(@Body GroupMembership newJoin);
 
-    @PATCH("groupMembership")
-    Call<GroupMembership> setGroupMembership(@Query("userID") int userID, @Query("groupID") int groupID, @Body GroupMembership update);
-
     @DELETE("groupMembership")
     Call<Void> deleteGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID);
 
@@ -116,6 +113,9 @@ public interface SupabaseApi {
 
     @PATCH("groupMembership")
     Call<Void> updateGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID, @Body Map<String, Object> body);
+
+    @DELETE("Group")
+    Call<Void> deleteGroup(@Query("groupID") String groupID);
 
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();

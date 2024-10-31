@@ -83,7 +83,7 @@ public class GroupHomeFragment extends Fragment {
     }
 
     public void btnLeaveGroupClicked(View v){
-        Call<Void> leaveGroupCall = App.api.deleteGroupMembership(Integer.toString(App.userID), Integer.toString(App.groupID));
+        Call<Void> leaveGroupCall = App.api.deleteGroupMembership("eq" + App.userID, "eq" + App.groupID);
         leaveGroupCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
