@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.learnquest.AppState.App;
+import com.example.learnquest.ItemListDialogFragment;
 import com.example.learnquest.LoginRegister.Dashboard.Dashboard;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView;
 import com.example.learnquest.R;
@@ -85,8 +87,7 @@ public class ManageGroupsFragment extends Fragment {
 
     public void selectGroup(View view) {
 
-        Intent intent = new Intent(getActivity(), GroupView.class);
-        startActivity(intent);
+        ItemListDialogFragment. newInstance(5).show(getActivity().getSupportFragmentManager(), "dialog");
 
     }
 
