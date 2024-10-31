@@ -9,8 +9,9 @@ import com.example.learnquest.AppState.App;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 
-public class Group {
+public class Group implements Serializable {
 
     Integer groupID;
     String topic;
