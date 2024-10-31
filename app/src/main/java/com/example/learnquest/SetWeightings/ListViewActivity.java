@@ -23,6 +23,8 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -171,6 +173,13 @@ public class ListViewActivity extends AppCompatActivity {
             String dateInput = etDate.getText().toString();
             int weighting;
 
+
+            // Validate name length
+            if (name.length() < 1) {
+                Toast.makeText(this, "Name cannot be empty.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             try {
                 weighting = Integer.parseInt(etWeighting.getText().toString());
             } catch (NumberFormatException e) {
@@ -230,10 +239,37 @@ public class ListViewActivity extends AppCompatActivity {
             colors.add(getRandomColor());
         }
         dataSet.setColors(colors);
+        pieChart.getLegend().setTextSize(13f); // Set the legend text size to 14f (or any desired size)
 
         PieData data = new PieData(dataSet);
+
+
+        pieChart.getDescription().setText("Assessments Legend"); // Set a custom label text
+        pieChart.getDescription().setTextSize(14f); // Set the font size
+        pieChart.getDescription().setPosition(360f, 750f); // Set custom position (x, y)
+
+
+
+
         pieChart.setData(data);
         pieChart.invalidate();
+
+
+        pieChart.setUsePercentValues(true);
+        pieChart.setDrawEntryLabels(false);
+        pieChart.setUsePercentValues(true);
+        pieChart.setDrawEntryLabels(false);
+        dataSet.setValueTextSize(16f); // Set font size to 16f (or any desired size)
+
+        dataSet.setValueFormatter(new PercentFormatter(pieChart));
+// or for custom format
+        dataSet.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return String.format("%.0f%%", value); // Show whole numbers as percentage
+            }
+        });
+
     }
 
     // Method to generate a random color
