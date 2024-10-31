@@ -2,6 +2,16 @@ package com.example.learnquest.model.user;
 
 public class User {
 
+    String userID;
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
     String firstName;
     String lastName;
     String nationalID;

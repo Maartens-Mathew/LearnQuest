@@ -21,6 +21,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -96,15 +97,26 @@ public interface SupabaseApi {
     @GET("Group")
     Call<Group> getGroup(@Query("groupID") int groupID);
 
+    @GET("rpc/isUserValid")
+    Call<Integer> isUserValid(@Query("username_input") String username_input, @Query("password_input") String password);
+
+    @GET("rpc/getUser")
+    Call<List<User>> getUser(@Query("username_input") String username_input);
     @POST("groupMembership")
     Call<Void> addGroupMembership(@Body GroupMembership newJoin);
 
     @DELETE("groupMembership")
     Call<Void> deleteGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID);
 
+    @GET("rpc/getUserWithID")
+    Call<List<User>> getUserWithID(@Query("userID_input") String userID);
     @GET("rpc/getPendingUsers")
     Call<List<PendingUsersResult>> getPendingUsers(@Query("GroupID_input") Integer GroupID_input);
 
+
+
+    @PUT("User")
+    Call<Void> updateUser(@Query("userID") String userID, @Body User user);
     @PATCH("StudentAssessment")
     Call<Void> updateGoal(@Query("userID") String userID, @Query("assessmentID")String assessmentID, @Body Map<String, Object> body);
 
