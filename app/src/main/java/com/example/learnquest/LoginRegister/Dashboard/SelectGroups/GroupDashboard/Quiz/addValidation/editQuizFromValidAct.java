@@ -21,8 +21,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.QuizBank.QuizEntry;
-import com.example.learnquest.QuizBank.Tag;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
 import com.example.learnquest.R;
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -39,7 +39,6 @@ import retrofit2.Response;
 
 
 import java.lang.reflect.Field;
-import java.util.stream.Collectors;
 
 public class editQuizFromValidAct extends AppCompatActivity {
 
@@ -239,9 +238,23 @@ public class editQuizFromValidAct extends AppCompatActivity {
         entry.setInContention(switchInContention.isChecked());
         entry.setGroupID(App.groupID);
 
+        if (entry.getQuestion().isEmpty() || entry.getAnswer().isEmpty() || entry.getDescription().isEmpty() ) {
+            Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+            return; // Exit the method without proceeding
+        }
+
+
+
         for (Tag tag : selectedTags) {
             entry.addTag(tag);
         }
+
+
+        if (selectedTags.isEmpty()) {
+            Toast.makeText(this, "Ensure 1 tag is selected.", Toast.LENGTH_SHORT).show();
+            return; // Exit the method without proceeding
+        }
+
 
         entry.setQuizEntryID(getIntent().getIntExtra("quizEntryID", -1));
         entry.setValidated(false);

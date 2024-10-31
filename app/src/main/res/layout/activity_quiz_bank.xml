@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/skyBlueGreenBackGround"
-    tools:context=".QuizBank.quizBankHome">
+    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome">
 
     <!-- ExpandableListView to display QuizEntry items -->
     <ExpandableListView

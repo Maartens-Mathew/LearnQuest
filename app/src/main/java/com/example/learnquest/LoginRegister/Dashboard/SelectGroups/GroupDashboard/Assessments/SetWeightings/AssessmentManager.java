@@ -1,4 +1,4 @@
-package com.example.learnquest.SetWeightings;
+package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings;
 
 import java.util.ArrayList;
 import java.util.List;

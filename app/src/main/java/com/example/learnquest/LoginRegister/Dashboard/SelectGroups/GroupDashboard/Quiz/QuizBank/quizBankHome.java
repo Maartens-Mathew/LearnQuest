@@ -1,4 +1,4 @@
-package com.example.learnquest.QuizBank;
+package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
-import com.example.learnquest.Utils.database.QuizCallback;
 
 import java.io.IOException;
 import java.util.ArrayList;

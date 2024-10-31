@@ -3,8 +3,8 @@ import com.google.gson.*;
 //import org.javengers.learnquest.Settings.App;
 //import org.javengers.learnquest.model.quizEntry.QuizEntry;
 //import org.javengers.learnquest.model.quizEntry.Tag;
-import com.example.learnquest.QuizBank.Tag;
-import com.example.learnquest.QuizBank.QuizEntry;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 
 
 import java.lang.reflect.Type;

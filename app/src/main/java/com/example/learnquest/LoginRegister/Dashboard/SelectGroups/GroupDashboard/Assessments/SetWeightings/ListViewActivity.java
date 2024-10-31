@@ -1,8 +1,6 @@
-package com.example.learnquest.SetWeightings;
+package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;

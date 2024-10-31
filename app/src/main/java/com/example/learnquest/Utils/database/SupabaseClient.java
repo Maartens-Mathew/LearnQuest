@@ -1,7 +1,7 @@
 package com.example.learnquest.Utils.database;
 
-import com.example.learnquest.QuizBank.QuizEntry;
-import com.example.learnquest.QuizBank.Tag;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
 //import com.example.learnquest.Utils.database.Serializers.QuizEntryDeserializer;
 import com.example.learnquest.Utils.database.Serializers.QuizEntry_JSONConverter;
 import com.example.learnquest.Utils.database.Serializers.Tag_JSONConverter;

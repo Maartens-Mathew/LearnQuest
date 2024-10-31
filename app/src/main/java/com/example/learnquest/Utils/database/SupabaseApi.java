@@ -2,11 +2,9 @@ package com.example.learnquest.Utils.database;
 
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
-import com.example.learnquest.QuizBank.QuizEntry;
-import com.example.learnquest.QuizBank.Tag;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
 import com.example.learnquest.model.user.User;
-import com.example.learnquest.model.wrappers.TaggedQuiz;
-import com.google.gson.internal.sql.SqlTypesSupport;
 
 import java.util.List;
 
@@ -16,7 +14,6 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -43,7 +40,7 @@ public interface SupabaseApi {
     Call<List<Assessment>> getStudentAssessments(@Query("userID") String userID);
 
     @GET("Assessment")
-    Call<List<com.example.learnquest.SetWeightings.Assessment>> getGroupAssessments(@Query("groupID") String groupID_input);
+    Call<List<com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment>> getGroupAssessments(@Query("groupID") String groupID_input);
 
     @GET("Assessment")
     Call<List<Assessment>> getAssessments();
@@ -51,7 +48,7 @@ public interface SupabaseApi {
 
             //adding an assessment to the DB
     @POST("Assessment")
-    Call<com.example.learnquest.SetWeightings.Assessment> addAssessment(@Body com.example.learnquest.SetWeightings.Assessment assessment);
+    Call<com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment> addAssessment(@Body com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.Assessment assessment);
 
 
 

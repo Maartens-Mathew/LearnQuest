@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/skyBlueGreenBackGround"
-    tools:context=".SetWeightings.MainActivity">
+    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.MainActivity">
 
     <Button
         android:id="@+id/button_go_to_weights"
