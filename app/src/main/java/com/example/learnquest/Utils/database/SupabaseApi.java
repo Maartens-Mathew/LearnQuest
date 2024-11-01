@@ -4,7 +4,6 @@ package com.example.learnquest.Utils.database;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.model.group.Group;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
 import com.example.learnquest.model.user.User;
 
@@ -58,6 +57,9 @@ public interface SupabaseApi {
     @DELETE("Assessment")
     Call<Void> deleteAssessmentsByGroupID(@Query("groupID") String groupID);
 
+    @GET("rpc/getQuizEntries")
+    Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID);
+
 
 
 //this gets all the quiz entries,
@@ -69,7 +71,7 @@ public interface SupabaseApi {
     Call<List<QuizEntry>> getWaitingQuizEntries(@Query("groupID_input") Integer groupID_input);
 //getWaitingQuizEntries
     @GET("rpc/getValidQuizEntries")
-    Call<List<QuizEntry>> getValidQuizQuestions(@Query("groupID_input") Integer groupID_input);
+    Call<List<QuizEntry>> getValidQuizEntries(@Query("groupID_input") Integer groupID_input);
     //...endQuer
     @GET("rpc/getWaitingQuizQuestions")
     Call<List<QuizEntry>> getWaitingQuizQuestions(@Query("groupID_input") Integer groupID);
