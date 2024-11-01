@@ -18,9 +18,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.learnquest.LoginRegister.Dashboard.Dashboard;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AssessmentFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.GroupHomeFragment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.tagHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizFragment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.takingQuiz.takeQuizSplasha;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ResourcesFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.StudyToolsFragment;
 import com.example.learnquest.LoginRegister.LoginActivity;
@@ -53,6 +56,7 @@ public class GroupView extends AppCompatActivity {
 
 
 
+
     }
 
     public void onLongClick(MenuItem menuItem){
@@ -62,9 +66,11 @@ public class GroupView extends AppCompatActivity {
         new BottomSheet.Builder()
                 .with(GroupView.this)
                 .getItemTitles("Quiz Bank","Quiz Pool","Manage Tags","Take Quiz")
-                .andClasses(quizBankHome.class, LoginActivity.class, tagHome.class, Dashboard.class)
+                .andClasses(quizBankHome.class, quizValidHome.class, TagManageHome.class, takeQuizSplasha.class)
                 .build()
                 .show(manager,"This is a tag");
+
+
 
 
     }

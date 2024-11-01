@@ -57,6 +57,7 @@ public class BottomSheet {
 
                 @Override
                 public void onSheetItemSelected(@NonNull BottomSheetMenuDialogFragment bottomSheetMenuDialogFragment, @NonNull MenuItem menuItem, @Nullable Object o) {
+                    
                     String title = itemTitles.get(menuItem.getOrder());
                     if (title.contentEquals(menuItem.getTitle())){
                         Intent intent = new Intent(activity, classes.get(menuItem.getOrder()));
