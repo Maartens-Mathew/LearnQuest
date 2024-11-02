@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.viewbinding.ViewBinding;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.Dashboard;

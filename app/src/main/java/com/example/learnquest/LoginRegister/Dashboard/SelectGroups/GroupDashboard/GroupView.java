@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,26 +19,32 @@ import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboar
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ResourcesFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.StudyToolsFragment;
 import com.example.learnquest.R;
-import com.example.learnquest.databinding.ActivityGroupViewBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class GroupView extends AppCompatActivity {
-    ActivityGroupViewBinding binding;
     int currentTab = 0;
+
+    BottomNavigationView groupBottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_group_view);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_group_view);
-        setContentView(binding.getRoot());
+        groupBottomNavigation = findViewById(R.id.group_bottom_navigation);
+
+
+
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        binding.groupBottomNavigation.setOnItemSelectedListener(this::onItemSelectedListener);
+        groupBottomNavigation.setOnItemSelectedListener(this::onItemSelectedListener);
 
 
 
