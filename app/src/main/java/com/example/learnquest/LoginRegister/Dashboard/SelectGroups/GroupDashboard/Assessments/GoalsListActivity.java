@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -28,56 +28,37 @@ public class GoalsListActivity extends AppCompatActivity{
     public static final String GOAL_LIST_ACTIVITY = "GoalListActivity";
     private RecyclerView rwGoalsList;
     private GoalAdapter adapter;
-
-    private int stateType;
+    private List<TrackProgressAssessmentData> entries;
     private GoalAdapter.GoalViewHolder selected;
-    private AppCompatButton btnUpdate, btnAdd, btnDelete;
+    private Button btnUpdate, btnAdd, btnDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goals_list);
-        Intent intent = getIntent();
-        if (intent != null && intent.getExtras() != null && intent.getExtras().containsKey("stateType")){
-            stateType = intent.getExtras().getInt("stateType");
-            if (stateType == 0){
-                Thread thread = new Thread(this::getDatabaseData);
-                try{
-                    thread.start();
-                    thread.join();
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }
-                LinearLayout controls = findViewById(R.id.aga_controls);
-                controls.setVisibility(View.VISIBLE);
-                btnAdd = findViewById(R.id.btnAddGoal);
-                btnUpdate = findViewById(R.id.btnUpdateGoal);
-                btnDelete = findViewById(R.id.btnDeleteGoal);
-                btnUpdate.setOnClickListener(this::btnUpdateClicked);
-                setUpRecyclerView(v -> {
-                    if (selected == null){
-                        selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
-                        v.setBackgroundColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
-                        //v.setBackgroundColor(Color.BLUE);
-                    }
-                    else{
-                        selected.cardView.setBackgroundColor(getResources().getColor(R.color.narsi_teal, getResources().newTheme()));
-                        selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
-                        v.setBackgroundColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
-                    }
-                });
+        Thread thread = new Thread(this::getDatabaseData);
+        try{
+            thread.start();
+            thread.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        btnAdd = findViewById(R.id.btnAddGoal);
+        btnUpdate = findViewById(R.id.btnUpdateGoal);
+        btnDelete = findViewById(R.id.btnDeleteGoal);
+        btnUpdate.setOnClickListener(this::btnUpdateClicked);
+        btnDelete.setOnClickListener(this::btnDeleteClicked);
+        setUpRecyclerView(v -> {
+            if (selected == null){
+                selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
+                v.setBackgroundColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
             }
             else{
-                LinearLayout controls = findViewById(R.id.aga_controls);
-                controls.setVisibility(View.INVISIBLE);
-                setUpRecyclerView(v ->{
-                    int pos = rwGoalsList.findContainingViewHolder(v).getAdapterPosition();
-                    Intent newIntent = new Intent(this, AdjustGoalActivity.class);
-                    newIntent.putExtra("pos",pos);
-                    startActivity(newIntent);
-                });
+                selected.cardView.setBackgroundColor(getResources().getColor(R.color.narsi_teal, getResources().newTheme()));
+                selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
+                v.setBackgroundColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
             }
-        }
+        });
 
     }
 
@@ -90,7 +71,7 @@ public class GoalsListActivity extends AppCompatActivity{
             Toast.makeText(this,"Please select a goal", Toast.LENGTH_LONG).show();
         };
         int pos = selected.getAdapterPosition();
-        TrackProgressAssessmentData data = GoalLogic.data.remove(pos);
+        TrackProgressAssessmentData data = entries.remove(pos);
         rwGoalsList.getAdapter().notifyItemRemoved(pos);
         Call<Void> deleteCall = App.api.deleteGoal("eq." + 0, "eq." + data.getAssessment_id());
         deleteCall.enqueue(new Callback<Void>() {
@@ -119,13 +100,13 @@ public class GoalsListActivity extends AppCompatActivity{
         int pos = selected.getAdapterPosition();
         Intent intent = new Intent(this, AdjustGoalActivity.class);
         intent.putExtra("pos",pos);
-        TrackProgressAssessmentData data = GoalLogic.data.get(pos);
+        TrackProgressAssessmentData data = entries.get(pos);
         startActivity(intent);
     }
 
     public void setUpRecyclerView(View.OnClickListener listener){
         rwGoalsList = findViewById(R.id.aga_goal_recyclerview);
-        GoalAdapter adapter = new GoalAdapter(GoalLogic.data, this, listener);
+        GoalAdapter adapter = new GoalAdapter(entries, this, listener);
         rwGoalsList.setAdapter(adapter);
         rwGoalsList.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -142,7 +123,7 @@ public class GoalsListActivity extends AppCompatActivity{
             e.printStackTrace();
         }
         if (response.isSuccessful()){
-            GoalLogic.data = Collections.synchronizedList(response.body());
+            entries = Collections.synchronizedList(response.body());
         }
         else{
             try{

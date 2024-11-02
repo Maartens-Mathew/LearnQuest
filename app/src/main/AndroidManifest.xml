@@ -20,6 +20,12 @@
         android:theme="@style/Theme.LearnQuest"
         tools:targetApi="31">
         <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GroupAssessmentListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AdjustGoalsListActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.DeleteGroupActivity"
             android:exported="false" />
         <activity

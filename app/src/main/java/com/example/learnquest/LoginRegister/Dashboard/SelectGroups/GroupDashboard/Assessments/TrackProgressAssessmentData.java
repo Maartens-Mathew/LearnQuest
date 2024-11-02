@@ -1,8 +1,9 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TrackProgressAssessmentData {
+public class TrackProgressAssessmentData implements Serializable {
     private int assessment_id;
     private String name;
     private Double mark_obtained, ideal_mark;

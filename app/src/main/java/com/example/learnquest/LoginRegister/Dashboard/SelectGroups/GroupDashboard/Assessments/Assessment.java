@@ -1,11 +1,14 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments;
 
+import java.util.Date;
+
 public class Assessment {
     private int assessmentID, groupID;
-    private String name, dueDate;
+    private String name;
+    private Date dueDate;
     private float weighting;
 
-    public Assessment(int assessmentID, int groupID, String name, String dueDate, float weighting) {
+    public Assessment(int assessmentID, int groupID, String name, Date dueDate, float weighting) {
         this.assessmentID = assessmentID;
         this.groupID = groupID;
         this.name = name;
@@ -37,11 +40,11 @@ public class Assessment {
         this.name = name;
     }
 
-    public String getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 

@@ -135,6 +135,9 @@ public interface SupabaseApi {
     @POST("Group")
     Call<Void> addGroup(@Body Group newGroup);
 
+    @GET("Assessment")
+    Call<List<Assessment>> getGroupAssessments(@Query("groupID") int groupID);
+
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();
     //StudentAssessment class does not have all the fields like the table in the database so I don't know if api will work or how it will work

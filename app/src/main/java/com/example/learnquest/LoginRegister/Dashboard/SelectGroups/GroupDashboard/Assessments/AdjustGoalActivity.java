@@ -32,9 +32,8 @@ public class AdjustGoalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adjust_goal);
-        if (getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().containsKey("pos")){
-            pos = getIntent().getExtras().getInt("pos");
-            data = GoalLogic.data.get(pos);
+        if (getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().containsKey("data")){
+            data = (TrackProgressAssessmentData) getIntent().getExtras().get("data");
             edtMarkDesired = findViewById(R.id.edtDesiredMark);
             edtMarkObtained = findViewById(R.id.edtMarkObtained);
             btnUpdateConfirm = findViewById(R.id.btnConfirmUpdateGoal);
