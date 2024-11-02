@@ -13,12 +13,12 @@ plugins {
 
 android {
     namespace = "com.example.learnquest"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.learnquest"
         minSdk = 29
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -41,8 +41,7 @@ android {
     }
 
     buildFeatures{
-        dataBinding = true
-        viewBinding = true
+
 
     }
 }
@@ -53,13 +52,9 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:gotrue-kt")
     implementation("io.github.jan-tennert.supabase:realtime-kt")
     implementation("io.ktor:ktor-client-android:2.3.12")
-    implementation ("com.github.Kennyc1012:BottomSheetMenu:5.1")
+    implementation("com.github.QuadFlask:colorpicker:0.0.15")
 
 
-
-
-
-    implementation ("com.google.android.flexbox:flexbox:3.0.0")
 
 
 
@@ -75,11 +70,9 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.0")
     implementation("androidx.activity:activity-ktx:1.9.3")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation ("com.google.android.flexbox:flexbox:3.0.0")//pill overview of tags A500
     implementation ("com.github.QuadFlask:colorpicker:0.0.15")
-
-
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

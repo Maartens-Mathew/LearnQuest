@@ -89,4 +89,13 @@ public class User {
                 ", password='" + password + '\'' +
                 '}';
     }
+
+    public void clear(){
+        firstName = "";
+        lastName = "";
+        email = "";
+        nationalID = "";
+        username = "";
+        password = "";
+    }
 }

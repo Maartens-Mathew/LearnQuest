@@ -1,8 +1,6 @@
 package com.example.learnquest.LoginRegister;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +11,6 @@ import com.example.learnquest.R;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.MainActivity;
 import com.example.learnquest.Utils.database.SupabaseApi;
 import com.example.learnquest.Utils.database.SupabaseClient;
-import com.example.learnquest.databinding.ActivityRegisterStudentBinding;
 import com.example.learnquest.model.user.User;
 
 import retrofit2.Call;
@@ -22,18 +19,25 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
     User currentStudent;
-    ActivityRegisterStudentBinding binding;
+    EditText edtFirstName, edtLastName, edtNationalID, edtEmail, edtUsername, edtPassword;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_register_student);
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_register_student);
+        edtFirstName = findViewById(R.id.txt_FirstName);
+        edtLastName = findViewById(R.id.txt_Surname);
+        edtNationalID = findViewById(R.id.txt_ID);
+        edtEmail = findViewById(R.id.txt_EmailAddress);
+        edtUsername = findViewById(R.id.txt_Username);
+        edtPassword = findViewById(R.id.txt_Password);
+
 
 
         currentStudent = new User("Meghan","Maartens","0303025049000","maartens.test@gmail.com","Maartens.Meghan","qwerty");
-        binding.setUser(currentStudent);
+
 
 
 
@@ -45,6 +49,14 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
     public void ConfirmStudent(View view) {
+
+
+        currentStudent.setFirstName(edtFirstName.getText().toString());
+        currentStudent.setLastName(edtLastName.getText().toString());
+        currentStudent.setNationalID(edtNationalID.getText().toString());
+        currentStudent.setEmail(edtEmail.getText().toString());
+        currentStudent.setUsername(edtUsername.getText().toString());
+        currentStudent.setPassword(edtPassword.getText().toString());
 
         EditText rePassword = findViewById(R.id.txt_RePassword);
 
@@ -89,11 +101,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void ResetFields(View view) {
-        binding.setUser(new User());
-        currentStudent = binding.getUser();
-        binding.txtID.setText("");
-        binding.txtRePassword.setText("");
-        binding.txtFirstName.requestFocus();
+        currentStudent.clear();
+        edtFirstName.setText("");
+        edtLastName.setText("");
+        edtNationalID.setText("");
+        edtEmail.setText("");
+        edtUsername.setText("");
+        edtPassword.setText("");
 
     }
 }
