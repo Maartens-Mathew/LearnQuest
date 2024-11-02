@@ -17,6 +17,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="4dp"
         android:text="Question"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.022"
@@ -47,29 +48,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descriptionTextViewV" />
 
-    <TextView
-        android:id="@+id/txtTags1V"
-        android:layout_width="270dp"
-        android:layout_height="103dp"
-        android:layout_marginTop="8dp"
-        android:text="Tags"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.078"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answerTextViewV"
-        app:layout_constraintVertical_bias="0.0" />
-
     <Switch
         android:id="@+id/ValidSwitch"
         android:layout_width="96dp"
         android:layout_height="31dp"
         android:layout_marginTop="128dp"
-        android:layout_marginBottom="40dp"
         android:text="Valid"
-        app:layout_constraintBottom_toBottomOf="@+id/txtTags1V"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.99"
+        app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,4 +74,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexboxForValidatingQuizs"
+        android:layout_width="275dp"
+        android:layout_height="165dp"
+        android:layout_marginTop="17dp"
+        android:padding="8dp"
+        app:alignContent="flex_start"
+        app:flexWrap="wrap"
+        app:justifyContent="flex_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answerTextViewV" />
 </androidx.constraintlayout.widget.ConstraintLayout>

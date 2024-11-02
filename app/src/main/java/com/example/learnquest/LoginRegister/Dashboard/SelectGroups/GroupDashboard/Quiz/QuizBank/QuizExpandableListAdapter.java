@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
 import com.example.learnquest.R;
 import com.google.android.flexbox.FlexboxLayout;
 
@@ -116,7 +115,7 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
         TextView edtDescription = convertView.findViewById(R.id.edtDescription);
 
         TextView txtInCon = convertView.findViewById(R.id.txtinContention);
-        FlexboxLayout fbl = convertView.findViewById(R.id.flexboxForViewingQuizs);
+        FlexboxLayout fbl = convertView.findViewById(R.id.flexboxForValidatingQuizs);
         Button btnDelete;
         Button btnEdit;
         Boolean inContention = quizEntry.getInContention();
@@ -152,9 +151,9 @@ String status ="" ;
     private void displayTagsAsPills(List<Tag> tagList, FlexboxLayout flb, Context context) {
         FlexboxLayout fbl = flb;
         fbl.removeAllViews(); // Clear any existing views to avoid duplication
+
         for (Tag tag : tagList) {
             Button tagButton = new Button(context);
-
 
             // Set the text of the button to the tag name
             tagButton.setText(tag.getTagName());
@@ -162,11 +161,9 @@ String status ="" ;
             // Set the background shape drawable with the tag color
             tagButton.setBackground(getPillDrawableWithColor(tag.getTagColour()));
 
-            // Set padding and text size
-            tagButton.setPadding(20, 8, 20, 8); // Adjust padding values if needed
-            tagButton.setTextSize(12);
-            tagButton.setWidth(20);  // Width in pixels, adjust as needed
-            tagButton.setHeight(20); // Height in pixels, adjust as needed
+            // Set padding and text size for smaller appearance
+            tagButton.setPadding(12, 4, 12, 4); // Reduced padding
+            tagButton.setTextSize(10); // Smaller text size
 
             tagButton.setTextColor(Color.WHITE);
             tagButton.setAllCaps(false); // Optional: to avoid all caps text
@@ -176,13 +173,14 @@ String status ="" ;
                     FlexboxLayout.LayoutParams.WRAP_CONTENT,
                     FlexboxLayout.LayoutParams.WRAP_CONTENT
             );
-            params.setMargins(8, 8, 8, 8);
+            params.setMargins(4, 4, 4, 4); // Reduced margin for more compact layout
             tagButton.setLayoutParams(params);
 
             // Add the button to the FlexboxLayout
             fbl.addView(tagButton);
         }
     }
+
 
 
     private Drawable getPillDrawableWithColor(String colorHex) {

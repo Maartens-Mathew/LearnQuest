@@ -1,6 +1,9 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -33,56 +37,56 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Call;
-
-
-
 
 public class ListViewActivity extends AppCompatActivity {
     private ArrayAdapter<Assessment> adapter;
     private int selectedIndex = -1;
     private PieChart pieChart;
+    private ProgressBar progressBar;
     List<Assessment> assessments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
-        // Retrieve the groupID from the Intent
-        int groupIDPassedIn = getIntent().getIntExtra("groupID", -1); // Default value -1 if not passed
 
+        int groupIDPassedIn = getIntent().getIntExtra("groupID", -1);
         if (groupIDPassedIn != -1) {
-            App.groupID = groupIDPassedIn; // Update App.groupID with passed value
+            App.groupID = groupIDPassedIn;
         } else {
-            // Handle error: groupID was not properly passed
             Log.e("ListViewActivity", "No groupID passed in the intent!");
             Toast.makeText(this, "Error: No groupID passed.", Toast.LENGTH_LONG).show();
-            finish(); // Exit activity if groupID is invalid
+            finish();
         }
 
-        // Initialize the adapter with assessments from AssessmentManager
-        Thread thread = new Thread(this::getAssessments);
 
-        try{
+        Thread thread = new Thread(this::getAssessments);
+        try {
             thread.start();
             thread.join();
-        }catch(InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, assessments);
-
-
-
         ListView lstAssessments = findViewById(R.id.lstAssessments);
         lstAssessments.setAdapter(adapter);
 
         lstAssessments.setOnItemClickListener((adapterView, view, index, id) -> {
             if (index >= 0) {
                 selectedIndex = index;
-                Toast.makeText(this, "Clicked on Assessment[" + (index+1) + "]", Toast.LENGTH_LONG).show();
+                // Add a quick scale animation on click
+                ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 1.1f, 1.0f);
+                ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 1.1f, 1.0f);
+                AnimatorSet scaleSet = new AnimatorSet();
+                scaleSet.playTogether(scaleX, scaleY);
+                scaleSet.setDuration(150);
+                scaleSet.start();
+                String name =assessments.get(index).toString();
+                Toast.makeText(this, "Selected Assessment is: " +name+ "", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Clicked, but no assessment selected.", Toast.LENGTH_LONG).show();
             }
@@ -92,45 +96,38 @@ public class ListViewActivity extends AppCompatActivity {
         updatePieChart();
     }
 
-
-    public void getAssessments(){
-        //App.groupID = 1;
+    public void getAssessments() {
         Call<List<Assessment>> assessmentsCall = App.api.getGroupAssessments("eq." + App.groupID);
         Response<List<Assessment>> assessmentsResponse = null;
-
-        try{
+        try {
             assessmentsResponse = assessmentsCall.execute();
-        }catch(IOException e){
+        } catch (IOException e) {
             Log.e("Custom", "Did not connect successfully. ");
             return;
         }
-
-        if (assessmentsResponse.isSuccessful()){
+        if (assessmentsResponse.isSuccessful()) {
             assessments = Collections.synchronizedList(assessmentsResponse.body());
-        }
-        else {
+        } else {
             Log.e("Custom", "Something went wrong.");
             try {
                 Log.e("Custom", assessmentsResponse.errorBody().string());
             } catch (IOException e) {
-               e.printStackTrace();
+                e.printStackTrace();
             }
-
         }
-
-
-
     }
 
     public void onAddClicked(View view) {
         showAddAssessmentDialog();
-
-
     }
 
 
     public void onDeleteClicked(View view) {
         if (selectedIndex >= 0) {
+            View listItem = adapter.getView(selectedIndex, null, null);
+            listItem.animate().translationX(-listItem.getWidth()).alpha(0).setDuration(300);
+
+
             assessments.remove(selectedIndex);
             adapter.notifyDataSetChanged();
             updatePieChart();
@@ -140,6 +137,9 @@ public class ListViewActivity extends AppCompatActivity {
         }
         selectedIndex = -1;
     }
+
+
+
 
 
     private void showAddAssessmentDialog() {
@@ -158,8 +158,6 @@ public class ListViewActivity extends AppCompatActivity {
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-
-
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     (view, year1, month1, dayOfMonth) -> etDate.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
                     year, month, day);
@@ -170,29 +168,22 @@ public class ListViewActivity extends AppCompatActivity {
             String name = etName.getText().toString();
             String dateInput = etDate.getText().toString();
             int weighting;
-
-
-            // Validate name length
-            if (name.length() < 1) {
+            if (name.isEmpty()) {
                 Toast.makeText(this, "Name cannot be empty.", Toast.LENGTH_LONG).show();
                 return;
             }
-
             try {
                 weighting = Integer.parseInt(etWeighting.getText().toString());
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "Please enter a valid weighting.", Toast.LENGTH_LONG).show();
                 return;
             }
-
             if (getTotalWeighting() + weighting > 100) {
                 Toast.makeText(this, "Total weighting exceeds 100.", Toast.LENGTH_LONG).show();
             } else {
-                // Convert date format from "dd/MM/yyyy" to "yyyy-MM-dd"
                 SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
                 SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = "";
-
                 try {
                     Date date = inputFormat.parse(dateInput);
                     formattedDate = outputFormat.format(date);
@@ -200,19 +191,17 @@ public class ListViewActivity extends AppCompatActivity {
                     Toast.makeText(this, "Invalid date format.", Toast.LENGTH_LONG).show();
                     return;
                 }
-
-                // Use formattedDate in Assessment object
-                Assessment assessment = new Assessment(name, formattedDate, weighting , App.groupID);
+                Assessment assessment = new Assessment(name, formattedDate, weighting, App.groupID);
                 assessments.add(assessment);
                 adapter.notifyDataSetChanged();
                 updatePieChart();
                 Toast.makeText(this, "Added assessment.", Toast.LENGTH_LONG).show();
             }
         });
-
-
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
-        builder.create().show();
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; // Custom dialog animation
+        dialog.show();
     }
 
     private int getTotalWeighting() {
@@ -228,60 +217,46 @@ public class ListViewActivity extends AppCompatActivity {
         for (Assessment assessment : assessments) {
             pieEntries.add(new PieEntry(assessment.getWeighting(), assessment.getName()));
         }
-
         PieDataSet dataSet = new PieDataSet(pieEntries, "Assessments");
 
-        // Generate random colors for each entry
         List<Integer> colors = new ArrayList<>();
         for (int i = 0; i < pieEntries.size(); i++) {
             colors.add(getRandomColor());
         }
         dataSet.setColors(colors);
-        pieChart.getLegend().setTextSize(13f); // Set the legend text size to 14f (or any desired size)
+        pieChart.getLegend().setTextSize(13f);
 
         PieData data = new PieData(dataSet);
-
-
-        pieChart.getDescription().setText("Assessments Legend"); // Set a custom label text
-        pieChart.getDescription().setTextSize(14f); // Set the font size
-        pieChart.getDescription().setPosition(360f, 750f); // Set custom position (x, y)
-
-
-
+        pieChart.getDescription().setText("Assessments Legend");
+        pieChart.getDescription().setTextSize(14f);
+        pieChart.getDescription().setPosition(360f, 750f);
 
         pieChart.setData(data);
         pieChart.invalidate();
-
-
         pieChart.setUsePercentValues(true);
         pieChart.setDrawEntryLabels(false);
-        pieChart.setUsePercentValues(true);
-        pieChart.setDrawEntryLabels(false);
-        dataSet.setValueTextSize(16f); // Set font size to 16f (or any desired size)
-
+        dataSet.setValueTextSize(16f);
         dataSet.setValueFormatter(new PercentFormatter(pieChart));
-// or for custom format
+        pieChart.animateY(1000); // Animate the pie chart on update
+
         dataSet.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return String.format("%.0f%%", value); // Show whole numbers as percentage
+                return String.format("%.0f%%", value);
             }
         });
-
     }
 
-    // Method to generate a random color
     private int getRandomColor() {
-        // Generate random RGB values
         int r = (int) (Math.random() * 256);
         int g = (int) (Math.random() * 256);
         int b = (int) (Math.random() * 256);
-        return (0xff << 24) | (r << 16) | (g << 8) | b; // ARGB format
+        return 0xff000000 | (r << 16) | (g << 8) | b;
     }
 
 
     public void onSaveClicked(View view) {
-        int groupIDToDelete = App.groupID; // Update this as needed
+        int groupIDToDelete = 1; // Update this as needed
 
         SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
 
@@ -303,10 +278,11 @@ public class ListViewActivity extends AppCompatActivity {
                 Log.d("DeleteAssessments", "Delete response code: " + response.code());
                 if (response.isSuccessful()) {
                     Log.d("DeleteAssessments", "Successfully deleted assessments.");
-                    Toast.makeText(ListViewActivity.this, "All assessments for groupID " + groupIDToDelete + " deleted.", Toast.LENGTH_LONG).show();
+                 //   Toast.makeText(ListViewActivity.this, "All assessments for groupID " + groupIDToDelete + " deleted.", Toast.LENGTH_LONG).show();
 
                     // Step 2: After successful deletion, proceed to save new assessments
                     saveAssessments(api);
+                    Toast.makeText(ListViewActivity.this, "Assessment saved successfully!", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Log.e("DeleteAssessments", "Failed to delete assessments: " + response.message());
@@ -339,15 +315,14 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     private void saveAssessments(SupabaseApi api) {
+
+
         if (assessments.isEmpty()) {
             Toast.makeText(this, "No assessments to save.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         for (Assessment assessment : assessments) {
-            // Ensure groupID is set for the current assessment
-            assessment.setGroupID(App.groupID);  // Use the locally stored groupID
-
             Call<Assessment> call = api.addAssessment(assessment);
 
             call.enqueue(new Callback<Assessment>() {
@@ -367,6 +342,7 @@ public class ListViewActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Assessment> call, Throwable t) {
+               //     Toast.makeText(ListViewActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
                     Log.e("SaveAssessment", "Failure: ", t);
                 }
             });

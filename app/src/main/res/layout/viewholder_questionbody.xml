@@ -90,7 +90,7 @@
         app:layout_constraintGuide_percent="0.71" />
 
     <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexboxForViewingQuizs"
+        android:id="@+id/flexboxForValidatingQuizs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -110,7 +110,7 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="#CCCCCC"
-        app:layout_constraintBottom_toTopOf="@+id/flexboxForViewingQuizs"
+        app:layout_constraintBottom_toTopOf="@+id/flexboxForValidatingQuizs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

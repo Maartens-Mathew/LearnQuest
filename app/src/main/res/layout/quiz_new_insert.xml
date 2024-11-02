@@ -72,7 +72,7 @@
         app:layout_constraintVertical_bias="0.061" />
 
     <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexboxForViewingQuizs"
+        android:id="@+id/flexboxForValidatingQuizs"
         android:layout_width="381dp"
         android:layout_height="226dp"
         android:padding="8dp"
@@ -98,7 +98,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flexboxForViewingQuizs" />
+        app:layout_constraintTop_toBottomOf="@+id/flexboxForValidatingQuizs" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
