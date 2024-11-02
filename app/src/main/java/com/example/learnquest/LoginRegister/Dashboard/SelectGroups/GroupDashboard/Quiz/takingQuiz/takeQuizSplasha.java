@@ -207,7 +207,7 @@ public class takeQuizSplasha extends AppCompatActivity {
         return drawable;
     }
     private void fetchQuizQuestions() {
-        Call<List<QuizEntry>> call = App.api.getWaitingQuizEntries(App.groupID);
+        Call<List<QuizEntry>> call = App.api.getValidQuizEntries(App.groupID);
         Response<List<QuizEntry>> response = null;
 
 
