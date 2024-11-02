@@ -53,6 +53,7 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:realtime-kt")
     implementation("io.ktor:ktor-client-android:2.3.12")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
+    implementation ("com.github.Kennyc1012:BottomSheetMenu:5.1")
 
 
 

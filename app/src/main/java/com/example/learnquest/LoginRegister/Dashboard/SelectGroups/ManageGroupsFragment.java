@@ -5,31 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
+
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.ItemListDialogFragment;
-import com.example.learnquest.LoginRegister.Dashboard.Dashboard;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome;
 import com.example.learnquest.R;
-import com.example.learnquest.databinding.FragmentManageGroupsBinding;
+
 import com.example.learnquest.model.group.Group;
-import com.kennyc.bottomsheet.BottomSheetListener;
-import com.kennyc.bottomsheet.BottomSheetMenuDialogFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,8 +37,8 @@ public class ManageGroupsFragment extends Fragment {
     }
 
     Context context;
-    FragmentManageGroupsBinding binding;
     RecyclerView groupView;
+    Button btnSearch;
 
     List<Group> groups;
 
@@ -55,9 +46,10 @@ public class ManageGroupsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_manage_groups, container, false);
-        View view = binding.getRoot();
-        groupView = binding.rwGroupList;
+        View view = inflater.inflate(R.layout.fragment_manage_groups, container, false);
+
+        groupView = view.findViewById(R.id.recyclerView_groups);
+        btnSearch = view.findViewById(R.id.btnSearch);
         App.setApplicationContext(getActivity());
 
         GridLayoutManager manager = new GridLayoutManager(getActivity(),3);
@@ -76,7 +68,7 @@ public class ManageGroupsFragment extends Fragment {
         GroupAdapter adapter = new GroupAdapter(groups, this::onGroupClick);
         groupView.setAdapter(adapter);
 
-        binding.btnSearch.setOnClickListener(this::selectGroup);
+        btnSearch.setOnClickListener(this::selectGroup);
 
         // Inflate the layout for this fragment
         return view;

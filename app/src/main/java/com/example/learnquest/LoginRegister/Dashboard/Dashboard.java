@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,23 +16,26 @@ import com.example.learnquest.LoginRegister.Dashboard.Calendar.CalendarFragment;
 import com.example.learnquest.LoginRegister.Dashboard.Profile.ProfileFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.ManageGroupsFragment;
 import com.example.learnquest.R;
-import com.example.learnquest.databinding.ActivityDashboardBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kennyc.bottomsheet.BottomSheetMenuDialogFragment;
 
 public class Dashboard extends AppCompatActivity {
-    ActivityDashboardBinding binding;
+
     int currentItem = 0;
     FragmentManager manager;
     int currentTab = 0;
+    BottomNavigationView navBarDash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
+
         manager = getSupportFragmentManager();
 
+        navBarDash = findViewById(R.id.navBarDash);
+
         EdgeToEdge.enable(this);
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_dashboard);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -45,7 +47,7 @@ public class Dashboard extends AppCompatActivity {
 
 
         //Navigation logic
-        binding.navBarDash.setOnItemSelectedListener(view ->{
+        navBarDash.setOnItemSelectedListener(view ->{
             Fragment fragment = null;
             int newTab = 0;
 

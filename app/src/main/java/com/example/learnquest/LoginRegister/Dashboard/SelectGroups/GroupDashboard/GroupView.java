@@ -10,13 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.databinding.DataBindingUtil;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.learnquest.LoginRegister.Dashboard.Dashboard;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AssessmentFragment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GoalsListActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.GroupHomeFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
@@ -30,30 +31,33 @@ import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboar
 import com.example.learnquest.LoginRegister.LoginActivity;
 import com.example.learnquest.R;
 import com.example.learnquest.Utils.BottomSheet;
-import com.example.learnquest.databinding.ActivityGroupViewBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.kennyc.bottomsheet.BottomSheetListener;
 
 
 public class GroupView extends AppCompatActivity {
-    ActivityGroupViewBinding binding;
+
     int currentTab = 0;
+    BottomNavigationView groupBottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_group_view);
-        setContentView(binding.getRoot());
+       setContentView(R.layout.activity_group_view);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        binding.groupBottomNavigation.setOnItemSelectedListener(this::onItemSelectedListener);
-        binding.groupBottomNavigation.setOnItemReselectedListener(this::onLongClick);
+        groupBottomNavigation = findViewById(R.id.group_bottom_navigation);
+
+        groupBottomNavigation.setOnItemSelectedListener(this::onItemSelectedListener);
+        groupBottomNavigation.setOnItemReselectedListener(this::onLongClick);
 
 
 
@@ -61,34 +65,35 @@ public class GroupView extends AppCompatActivity {
 
     }
 
-    public void onLongClick(MenuItem menuItem){
+    public void onLongClick(MenuItem menuItem) {
         FragmentManager manager = getSupportFragmentManager();
 
-        switch(menuItem.getTitle().toString()){
 
-            case "Quiz":{
+        switch (menuItem.getTitle().toString()) {
+
+
+            case "Quiz": {
 
                 new BottomSheet.Builder()
                         .with(GroupView.this)
-                        .getItemTitles("Quiz Bank","Quiz Pool","Manage Tags","Take Quiz")
+                        .getItemTitles("Quiz Bank", "Quiz Pool", "Manage Tags", "Take Quiz")
                         .andClasses(quizBankHome.class, quizValidHome.class, TagManageHome.class, takeQuizSplasha.class)
                         .build()
-                        .show(manager,"This is a tag");
-                    }break;
+                        .show(manager, "This is a tag");
+            }
+            break;
 
-            case "Assessment":{
+            case "Assessment": {
 
                 new BottomSheet.Builder()
                         .with(this)
-                        .getItemTitles("Set Weightings","Manage Goals")
-                        .andClasses(ListViewActivity.class,ManageGoalsActivity.class);
-            }break;
-
-            case "Dashboard":
-
+                        .getItemTitles("Set Weightings", "Manage Goals")
+                        .andClasses(ListViewActivity.class, GoalsListActivity.class);
+            }
+            break;
 
 
-
+        }
     }
 
 
