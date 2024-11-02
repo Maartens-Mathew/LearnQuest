@@ -31,7 +31,7 @@
         android:layout_width="413dp"
         android:layout_height="330dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@id/flexboxForAddingQuizTags"
+        app:layout_constraintBottom_toTopOf="@id/flexboxForViewingQuizs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.5"
         app:layout_constraintHorizontal_bias="0.0"
@@ -40,7 +40,7 @@
         app:layout_constraintVertical_bias="0.169" />
 
     <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexboxForAddingQuizTags"
+        android:id="@+id/flexboxForViewingQuizs"
         android:layout_width="415dp"
         android:layout_height="289dp"
         android:padding="8dp"
@@ -63,7 +63,7 @@
         android:textColor="@color/teal_700"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/flexboxForAddingQuizTags"
+        app:layout_constraintBottom_toTopOf="@+id/flexboxForViewingQuizs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flexboxForAddingQuizTags"
+        app:layout_constraintTop_toBottomOf="@+id/flexboxForViewingQuizs"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
