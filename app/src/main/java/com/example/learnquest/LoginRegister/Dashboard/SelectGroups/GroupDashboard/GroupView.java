@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.learnquest.LoginRegister.Dashboard.Dashboard;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AssessmentFragment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.GroupHomeFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.tagHome;
@@ -32,6 +33,7 @@ import com.example.learnquest.Utils.BottomSheet;
 import com.example.learnquest.databinding.ActivityGroupViewBinding;
 import com.google.android.material.navigation.NavigationBarView;
 import com.kennyc.bottomsheet.BottomSheetListener;
+
 
 public class GroupView extends AppCompatActivity {
     ActivityGroupViewBinding binding;
@@ -60,15 +62,29 @@ public class GroupView extends AppCompatActivity {
     }
 
     public void onLongClick(MenuItem menuItem){
-
-
         FragmentManager manager = getSupportFragmentManager();
-        new BottomSheet.Builder()
-                .with(GroupView.this)
-                .getItemTitles("Quiz Bank","Quiz Pool","Manage Tags","Take Quiz")
-                .andClasses(quizBankHome.class, quizValidHome.class, TagManageHome.class, takeQuizSplasha.class)
-                .build()
-                .show(manager,"This is a tag");
+
+        switch(menuItem.getTitle().toString()){
+
+            case "Quiz":{
+
+                new BottomSheet.Builder()
+                        .with(GroupView.this)
+                        .getItemTitles("Quiz Bank","Quiz Pool","Manage Tags","Take Quiz")
+                        .andClasses(quizBankHome.class, quizValidHome.class, TagManageHome.class, takeQuizSplasha.class)
+                        .build()
+                        .show(manager,"This is a tag");
+                    }break;
+
+            case "Assessment":{
+
+                new BottomSheet.Builder()
+                        .with(this)
+                        .getItemTitles("Set Weightings","Manage Goals")
+                        .andClasses(ListViewActivity.class,ManageGoalsActivity.class);
+            }break;
+
+            case "Dashboard":
 
 
 
