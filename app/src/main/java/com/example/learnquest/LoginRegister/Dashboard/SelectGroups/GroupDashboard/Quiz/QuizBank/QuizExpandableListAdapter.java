@@ -1,7 +1,13 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.learnquest.AppState.App;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
 import com.example.learnquest.R;
+import com.google.android.flexbox.FlexboxLayout;
 
 import java.io.IOException;
 import java.util.List;
@@ -106,8 +114,9 @@ public class QuizExpandableListAdapter extends BaseExpandableListAdapter {
     public void bindChild(View convertView, QuizEntry quizEntry) {
         TextView edtAnswer = convertView.findViewById(R.id.edtAnswer);
         TextView edtDescription = convertView.findViewById(R.id.edtDescription);
-        TextView txtTags = convertView.findViewById(R.id.txtTags);
+
         TextView txtInCon = convertView.findViewById(R.id.txtinContention);
+        FlexboxLayout fbl = convertView.findViewById(R.id.flexboxForViewingQuizs);
         Button btnDelete;
         Button btnEdit;
         Boolean inContention = quizEntry.getInContention();
@@ -121,14 +130,74 @@ String status ="" ;
 
         edtAnswer.setText("Answer: " + quizEntry.getAnswer());
         edtDescription.setText("Desc: " + quizEntry.getDescription());
-        txtTags.setText("The Tags are: " + quizEntry.getTags());
+
 
         btnDelete = convertView.findViewById(R.id.btnDelete); // Add a delete button
         btnEdit = convertView.findViewById(R.id.btnEdit); // Add a delete button
 
         btnDelete.setOnClickListener(deleteEntry(quizEntry));
         btnEdit.setOnClickListener(editEntry(quizEntry));
+
+
+        displayTagsAsPills(quizEntry.getTagsAsObjectList(), fbl,convertView.getContext() );
+
+
+
+
+
+
+
     }
+
+    private void displayTagsAsPills(List<Tag> tagList, FlexboxLayout flb, Context context) {
+        FlexboxLayout fbl = flb;
+        fbl.removeAllViews(); // Clear any existing views to avoid duplication
+        for (Tag tag : tagList) {
+            Button tagButton = new Button(context);
+
+
+            // Set the text of the button to the tag name
+            tagButton.setText(tag.getTagName());
+
+            // Set the background shape drawable with the tag color
+            tagButton.setBackground(getPillDrawableWithColor(tag.getTagColour()));
+
+            // Set padding and text size
+            tagButton.setPadding(20, 8, 20, 8); // Adjust padding values if needed
+            tagButton.setTextSize(12);
+            tagButton.setWidth(20);  // Width in pixels, adjust as needed
+            tagButton.setHeight(20); // Height in pixels, adjust as needed
+
+            tagButton.setTextColor(Color.WHITE);
+            tagButton.setAllCaps(false); // Optional: to avoid all caps text
+
+            // Set layout params for the button
+            FlexboxLayout.LayoutParams params = new FlexboxLayout.LayoutParams(
+                    FlexboxLayout.LayoutParams.WRAP_CONTENT,
+                    FlexboxLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(8, 8, 8, 8);
+            tagButton.setLayoutParams(params);
+
+            // Add the button to the FlexboxLayout
+            fbl.addView(tagButton);
+        }
+    }
+
+
+    private Drawable getPillDrawableWithColor(String colorHex) {
+        int color = Color.parseColor(colorHex); // Convert hex string to color
+        ShapeDrawable drawable = new ShapeDrawable(new RoundRectShape(
+                new float[]{50, 50, 50, 50, 50, 50, 50, 50}, // corner radii
+                null, // inner radius
+                null  // border radius
+        ));
+        drawable.getPaint().setColor(color);
+        drawable.getPaint().setStyle(Paint.Style.FILL_AND_STROKE);
+        return drawable;
+    }
+
+
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

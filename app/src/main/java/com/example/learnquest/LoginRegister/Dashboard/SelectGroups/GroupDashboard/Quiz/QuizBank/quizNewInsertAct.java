@@ -48,7 +48,7 @@ public class quizNewInsertAct extends AppCompatActivity {
         App.groupID = 1;
 
         spinnerTags = findViewById(R.id.spinAddTagsE);
-        flexboxLayout = findViewById(R.id.flexboxForAddingQuizTags);
+        flexboxLayout = findViewById(R.id.flexboxForViewingQuizs);
         edtQuizQ = findViewById(R.id.edtQuizQ);
         edtQuizD = findViewById(R.id.edtQuizD);
         edtQuizA = findViewById(R.id.edtQuizA);

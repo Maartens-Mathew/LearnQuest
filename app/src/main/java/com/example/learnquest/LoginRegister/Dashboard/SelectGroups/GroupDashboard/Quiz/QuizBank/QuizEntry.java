@@ -67,6 +67,16 @@ public class QuizEntry implements Serializable {
         tags.forEach((tagID, tag) -> tagNames.add(tag.getTagName()));
         return TextUtils.join(",",tagNames);
     }
+//    public List<Tag> getTagsAsLista(){
+//        List<Tag> tagNames = new ArrayList<>();
+//        tags.forEach((tagID, tag) -> tagNames.add(tag.getTagName()));
+//        return tagNames;
+//
+//    }
+//
+
+
+
 
     public void setTags(List<Tag> tags){
         for(Tag tag: tags){
@@ -121,7 +131,7 @@ public class QuizEntry implements Serializable {
         return App.groupID.toString();//hmmmmmm
     }
 
-//    public Integer[] getTagsAsList() {
-//        return tags;
-//    }
+public List<Tag> getTagsAsObjectList() {
+        return new ArrayList<>(tags.values());
+    }
 }

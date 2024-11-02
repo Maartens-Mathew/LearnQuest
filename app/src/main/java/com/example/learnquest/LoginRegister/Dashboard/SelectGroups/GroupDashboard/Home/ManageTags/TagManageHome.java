@@ -48,7 +48,7 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize FlexboxLayout
-        flexboxLayout = findViewById(R.id.flexboxForAddingQuizTags);
+        flexboxLayout = findViewById(R.id.flexboxForViewingQuizs);
 
         // Assuming you set your group ID like this; adjust as needed
         App.groupID = 1;
