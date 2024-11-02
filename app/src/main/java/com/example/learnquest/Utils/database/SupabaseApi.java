@@ -1,18 +1,26 @@
 package com.example.learnquest.Utils.database;
 
 
+import static com.example.learnquest.AppState.App.groupID;
+
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.TrackProgressAssessmentData;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMemberUserName;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersResult;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.model.group.Group;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
 import com.example.learnquest.model.user.User;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -53,6 +61,8 @@ public interface SupabaseApi {
 
 
 
+    @GET("rpc/getUserGroups")
+    Call<List<Group>> getUserGroups(@Query("userID_input") Integer userID_input);
 
     @DELETE("Assessment")
     Call<Void> deleteAssessmentsByGroupID(@Query("groupID") String groupID);
@@ -122,27 +132,56 @@ public interface SupabaseApi {
 //    Call<Tag> updateTag(@Path("id") int id, @Body Tag tag);
 
 
+    @GET("rpc/getAssessmentData")
+    Call<List<TrackProgressAssessmentData>> getAssessmentData(@Query("UserID_input") int userID, @Query("GroupID_input") int groupID);
+
+
+    @GET("rpc/getGroupMembers")
+    Call<List<GroupMemberUserName>> getGroupMembers(@Query("GroupID_input") int groupID);
+
+    @GET("Group")
+    Call<Group> getGroup(@Query("groupID") int groupID);
 
     @GET("rpc/isUserValid")
     Call<Integer> isUserValid(@Query("username_input") String username_input, @Query("password_input") String password);
 
     @GET("rpc/getUser")
     Call<List<User>> getUser(@Query("username_input") String username_input);
+    @POST("groupMembership")
+    Call<Void> addGroupMembership(@Body GroupMembership newJoin);
 
+    @DELETE("groupMembership")
+    Call<Void> deleteGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID);
 
     @GET("rpc/getUserWithID")
     Call<List<User>> getUserWithID(@Query("userID_input") String userID);
+    @GET("rpc/getPendingUsers")
+    Call<List<PendingUsersResult>> getPendingUsers(@Query("GroupID_input") Integer GroupID_input);
 
 
 
     @PUT("User")
     Call<Void> updateUser(@Query("userID") String userID, @Body User user);
+    @PATCH("StudentAssessment")
+    Call<Void> updateGoal(@Query("userID") String userID, @Query("assessmentID")String assessmentID, @Body Map<String, Object> body);
 
+    @DELETE("StudentAssessment")
+    Call<Void> deleteGoal(@Query("userID") String userID, @Query("assessmentID") String assessmentID);
 
     @GET("rpc/getUserGroups")
     Call<List<Group>> getUserGroups(@Query("userID_input") String userID_input);
 
 
+    @PATCH("groupMembership")
+    Call<Void> updateGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID, @Body Map<String, Object> body);
+
+    @DELETE("Group")
+    Call<Void> deleteGroup(@Query("groupID") String groupID);
+    @POST("Group")
+    Call<Void> addGroup(@Body Group newGroup);
+
+    @GET("Assessment")
+    Call<List<Assessment>> getGroupAssessments(@Query("groupID") int groupID);
 
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();

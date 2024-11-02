@@ -13,12 +13,12 @@ plugins {
 
 android {
     namespace = "com.example.learnquest"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.learnquest"
         minSdk = 29
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -52,7 +52,7 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:gotrue-kt")
     implementation("io.github.jan-tennert.supabase:realtime-kt")
     implementation("io.ktor:ktor-client-android:2.3.12")
-
+    implementation("com.github.QuadFlask:colorpicker:0.0.15")
 
 
 

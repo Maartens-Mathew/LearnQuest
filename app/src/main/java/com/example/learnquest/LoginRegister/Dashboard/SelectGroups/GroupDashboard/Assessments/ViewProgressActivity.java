@@ -1,165 +1,143 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
-import com.example.learnquest.Utils.database.SupabaseApi;
-import com.example.learnquest.Utils.database.SupabaseClient;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ViewProgressActivity extends AppCompatActivity {
 
-    private LineChart lineChart;
-    private LineData lineData;
-    private int userID;
-    private ArrayList<AssessmentData> assessmentDataList;
+    private LineChart lnChrtProgress;
+    private List<TrackProgressAssessmentData> entries;
+    private float accumProj;
+    private float accumDesired;
+    private int stateType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_progess);
-        //TODO: must get userID from login screen
-        Intent intent = getIntent();
-        userID = intent.getExtras().getInt("userID");
+        TextView lblDesiredFinal = findViewById(R.id.avp_desired_final);
+        TextView lblProjectedFinal = findViewById(R.id.avp_projected_final);
+        Button btnAdjustGoals = findViewById(R.id.avp_adjust_goals);
+        lnChrtProgress = findViewById(R.id.avp_progress_chart);
+        Thread thread = new Thread(this::getDatabaseData);
+        try{
+            thread.start();
+            thread.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        createDataSets();
+        lblDesiredFinal.setText(getResources().getString(R.string.desired_final_mark,
+                String.format("%.0f",accumDesired)));
+        lblProjectedFinal.setText(getResources().getString(R.string.projected_final_mark,
+                String.format("%.0f",accumProj)));
         setUpChart();
-        lineData = new LineData();
-        interactingWithDatabase();
-    }
-
-    private void interactingWithDatabase(){
-        /*
-          I did all of this including the creation of the new classes to get the data from the database.
-          This way of doing it is the way shown to me by ChatGPT. Its very inefficient and there must be a better
-          way of doing this. I feel like we should just combine the Assessment and StudentAsssessment tables together
-          I don't really understand why they are separate. It's very difficult to get the relational data through a Select
-          query so had to just get all the data from both tables using api calls. I also added methods to the api interface
-          to better do that. I also added a @Query term which is the userID. I'm not sure if the api call will filter it
-          correctly so that it gets only the student assessments with that userID. I also had to get the weightings from
-          the Assessment table so I had to search the whole assessment table to get a specific weighting for each student
-          assesssment of hte specified user which is very inefficient.
-
-          This also relies on the activity being started with the userID of the user passed to it
-        */
-        SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
-        /**Call<List<StudentAssessment>> studentAssessmentsCall = api.getStudentAssessments(Integer.toString(userID));
-        studentAssessmentsCall.enqueue(new Callback<List<StudentAssessment>>() {
-            @Override
-            public void onResponse(Call<List<StudentAssessment>> call, Response<List<StudentAssessment>> response) {
-                if (response.isSuccessful() && response.body() != null){
-                    List<StudentAssessment> studentAssessments = response.body();
-                    Call<List<Assessment>> assessments = api.getAssessments();
-                    assessments.enqueue(new Callback<List<Assessment>>() {
-                        @Override
-                        public void onResponse(Call<List<Assessment>> call, Response<List<Assessment>> response) {
-                            if (response.isSuccessful() && response.body() != null){
-                                List<Assessment> assessments = response.body();
-                                assessmentDataList = new ArrayList<>();
-                                for(StudentAssessment sa : studentAssessments){
-                                    AssessmentData cd = new AssessmentData();
-                                    cd.setIdealMark(sa.getIdealMark());
-                                    cd.setMarkObtained(sa.getMarkObtained());
-                                    for(Assessment assessment : assessments){
-                                        if (sa.getAssessmentID() == assessment.getAssessmentID()){
-                                            cd.setWeighting(assessment.getWeighting());
-                                            cd.setAssessmentName(assessment.getName());
-                                            break;
-                                        }
-                                    }
-                                    assessmentDataList.add(cd);
-                                }
-                                addChartData(assessmentDataList);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<Assessment>> call, Throwable throwable) {
-                            Log.e("ViewProgressActivity","Call 2: error getting a response from database");
-                        }
-                    });
-                }
-                else{
-                    Log.e("ViewProgressActivity","Call 1: error getting a response from database");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<StudentAssessment>> call, Throwable throwable) {
-                throwable.printStackTrace();
-            }
-        }); **/
+        btnAdjustGoals.setOnClickListener(
+                v -> {
+                    Intent intent = new Intent(this, GoalsListActivity.class);
+                    intent.putExtra("isViewProgress",true);
+                    startActivity(intent);
+                });
     }
 
     private void setUpChart(){
-        lineChart = findViewById(R.id.lineChart);
-        lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        lineChart.getXAxis().setAxisMinimum(0f);
-        lineChart.getAxisLeft().setAxisMinimum(0f);
+        lnChrtProgress.getXAxis().setAxisMinimum(0f);
+        lnChrtProgress.getAxisLeft().setAxisMinimum(0f);
+        lnChrtProgress.getAxisRight().setAxisMinimum(0f);
+        lnChrtProgress.invalidate();
     }
 
-    public void btnAdjustGoalsClicked(View view){
-        Intent intent = new Intent(this, AdjustGoalsActivity.class);
-        intent.putExtra("data", (Serializable) assessmentDataList);
-        startActivity(intent);
-    }
-
-
-    private void addChartData(List<AssessmentData> assessmentData){
-        List<Entry> currProgressData = new ArrayList<>();
-        List<Entry> goalMarkData = new ArrayList<>();
-        float accumIdeal = 0f;
-        float accumCurr = 0f;
-        for (int i = 0; i < assessmentData.size(); i++){
-            AssessmentData cd = assessmentData.get(i);
-            if (cd.getMarkObtained() != 0f){
-                accumCurr += cd.getMarkObtained();
-                currProgressData.add(new Entry(i*0f,accumCurr));
-                accumIdeal += cd.getIdealMark();
-                goalMarkData.add(new Entry(i*0f,accumIdeal));
+    private void createDataSets(){
+        List<Entry> desiredDataEntries = new ArrayList<>();
+        List<Entry> currentDataEntries = new ArrayList<>();
+        List<Entry> projectedDataEntries = new ArrayList<>();
+        accumProj = 0f;
+        accumDesired = 0f;
+        for (int i = 0; i < entries.size(); i++){
+            TrackProgressAssessmentData entry = entries.get(i);
+            if (entry.getMark_obtained() != null){
+                accumProj += entry.getMark_obtained()*(entry.getWeight()/100);
+                currentDataEntries.add(new Entry(i*1f, accumProj));
+                accumDesired += entry.getIdeal_mark()*(entry.getWeight()/100);
+                desiredDataEntries.add(new Entry(i*1f, accumDesired));
             }
             else{
-                accumIdeal += cd.getIdealMark();
-                accumCurr += cd.getIdealMark();
-                currProgressData.add(new Entry(i*0f,accumCurr));
-                goalMarkData.add(new Entry(i*0f,accumIdeal));
+                if (projectedDataEntries.size() == 0){
+                    projectedDataEntries.add(new Entry((i-1)*1f,accumProj));
+                }
+                accumProj += entry.getIdeal_mark()*(entry.getWeight()/100);
+                accumDesired += entry.getIdeal_mark()*(entry.getWeight()/100);
+                projectedDataEntries.add(new Entry(i*1f, accumProj));
+                desiredDataEntries.add(new Entry(i*1f, accumDesired));
             }
         }
-
-        TextView lblCurrProgress = findViewById(R.id.lblCurrentProgress);
-        TextView lblGoalMark = findViewById(R.id.lblGoalMark);
-        lblCurrProgress.setText(getResources().getString(R.string.current_mark, String.format("%.0f",accumCurr)));
-        lblGoalMark.setText(getResources().getString(R.string.goal_mark,String.format("%.0f",accumIdeal)));
-        LineDataSet ds = new LineDataSet(currProgressData,"current");
-        LineDataSet dx = new LineDataSet(goalMarkData, "ideal");
-        dx.setColor(Color.RED);
-        ds.setColor(Color.BLUE);
-        dx.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        ds.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        ds.setDrawValues(false);
-        dx.setDrawValues(false);
-        lineData.addDataSet(ds);
-        lineData.addDataSet(dx);
-        lineChart.setData(lineData);
-        ds.setCubicIntensity(0.15f);
-        dx.setCubicIntensity(0.15f);
-        lineChart.invalidate();
+        LineDataSet desiredMarkData = new LineDataSet(desiredDataEntries, "Ideal marks");
+        LineDataSet currentMarkData = new LineDataSet(currentDataEntries, "current marks");
+        LineDataSet projectMarkData = new LineDataSet(projectedDataEntries, "projected marks");
+        desiredMarkData.setColor(getResources().getColor(R.color.purple_200, getResources().newTheme()));
+        currentMarkData.setColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
+        projectMarkData.setColor(getResources().getColor(R.color.red, getTheme().getResources().newTheme()));
+        currentMarkData.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        desiredMarkData.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        projectMarkData.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        currentMarkData.setCubicIntensity(0.15f);
+        desiredMarkData.setCubicIntensity(0.15f);
+        projectMarkData.setCubicIntensity(0.15f);
+        projectMarkData.enableDashedLine(10f,5f,0f);
+        lnChrtProgress.setData(new LineData(desiredMarkData, currentMarkData, projectMarkData));
     }
+
+    private void getDatabaseData(){
+        //ensure we have the correct userID and groupID
+        //use userID & groupId
+        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(0, 1);
+        Response<List<TrackProgressAssessmentData>> response = null;
+        try{
+            response = call.execute();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        if (response.isSuccessful()){
+            entries = Collections.synchronizedList(response.body());
+            entries.sort(comparator);
+        }
+        else{
+            try{
+                Log.e("TrackProgressFragment",response.errorBody().string());
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private final Comparator<TrackProgressAssessmentData> comparator = new Comparator<TrackProgressAssessmentData>() {
+        @Override
+        public int compare(TrackProgressAssessmentData o1, TrackProgressAssessmentData o2) {
+            java.util.Date d1 = o1.getDate_due();
+            java.util.Date d2 = o2.getDate_due();
+            return d1.compareTo(d2);
+        }
+    };
 }

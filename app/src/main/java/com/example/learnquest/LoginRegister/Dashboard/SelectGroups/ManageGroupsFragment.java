@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +21,14 @@ import com.example.learnquest.LoginRegister.Dashboard.Dashboard;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView;
 import com.example.learnquest.R;
 import com.example.learnquest.databinding.FragmentManageGroupsBinding;
+import com.example.learnquest.model.group.Group;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 import com.example.learnquest.model.group.Group;
 
 import java.io.IOException;
@@ -48,7 +57,7 @@ public class ManageGroupsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.fragment_manage_groups, container, false);
         View view = binding.getRoot();
-        groupView = binding.rwGroupList;
+        groupView = binding.recyclerViewGroups;
         App.setApplicationContext(getActivity());
 
         GridLayoutManager manager = new GridLayoutManager(getActivity(),3);

@@ -20,10 +20,28 @@
         android:theme="@style/Theme.LearnQuest"
         tools:targetApi="31">
         <activity
-            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroupAccessActivity"
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GroupAssessmentListActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AdjustGoalsActivity"
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AdjustGoalsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.DeleteGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.CreateGroupActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.RemoveGroupMemberActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ViewGroupMembersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.JoinGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GoalsListActivity"
             android:exported="false" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView"
@@ -56,6 +74,9 @@
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ViewProgressActivity"
             android:exported="true" />
         <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersActivity"
+            android:exported="true" />
+        <activity
             android:name=".LoginRegister.RegisterActivity"
             android:exported="true">
             <intent-filter>
@@ -65,20 +86,23 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity" />
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.MainActivity"
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
-            ></activity>
-         <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity"
-             android:exported="true">            <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+        </activity>
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AdjustGoalActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
              <category android:name="android.intent.category.LAUNCHER" />
          </intent-filter></activity>
