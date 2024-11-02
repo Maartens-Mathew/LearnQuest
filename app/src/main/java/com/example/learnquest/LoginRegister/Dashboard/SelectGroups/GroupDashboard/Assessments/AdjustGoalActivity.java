@@ -69,6 +69,7 @@ public class AdjustGoalActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()){
                     Log.i("AdjustGoalActivity","Update Successful");
+                    Toast.makeText(AdjustGoalActivity.this,"Updated successfully",Toast.LENGTH_LONG).show();
                 }
                 else{
                     Log.e("AdjustGoalActivity","Update Failed: " + response.errorBody());
@@ -80,7 +81,6 @@ public class AdjustGoalActivity extends AppCompatActivity {
                 Log.e("AdjustGoalActivity","Error: "+ throwable.getStackTrace());
             }
         });
-        Toast.makeText(this,"Updated successfully",Toast.LENGTH_LONG);
         //TODO:Update this info to database
     }
 }

@@ -30,14 +30,17 @@ public class ViewProgressActivity extends AppCompatActivity {
     private float accumProj;
     private float accumDesired;
     private int stateType;
+    private TextView lblDesiredFinal;
+    private TextView lblProjectedFinal;
+    private Button btnAdjustGoals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_progess);
-        TextView lblDesiredFinal = findViewById(R.id.avp_desired_final);
-        TextView lblProjectedFinal = findViewById(R.id.avp_projected_final);
-        Button btnAdjustGoals = findViewById(R.id.avp_adjust_goals);
+        lblDesiredFinal = findViewById(R.id.avp_desired_final);
+        lblProjectedFinal = findViewById(R.id.avp_projected_final);
+        btnAdjustGoals = findViewById(R.id.avp_adjust_goals);
         lnChrtProgress = findViewById(R.id.avp_progress_chart);
         Thread thread = new Thread(this::getDatabaseData);
         try{
@@ -54,7 +57,7 @@ public class ViewProgressActivity extends AppCompatActivity {
         setUpChart();
         btnAdjustGoals.setOnClickListener(
                 v -> {
-                    Intent intent = new Intent(this, GoalsListActivity.class);
+                    Intent intent = new Intent(this, AdjustGoalsListActivity.class);
                     intent.putExtra("isViewProgress",true);
                     startActivity(intent);
                 });
@@ -65,6 +68,54 @@ public class ViewProgressActivity extends AppCompatActivity {
         lnChrtProgress.getAxisLeft().setAxisMinimum(0f);
         lnChrtProgress.getAxisRight().setAxisMinimum(0f);
         lnChrtProgress.invalidate();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Thread thread = new Thread(this::getDatabaseData);
+        try{
+            thread.start();
+            thread.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        createDataSets();
+        lblDesiredFinal.setText(getResources().getString(R.string.desired_final_mark,
+                String.format("%.0f",accumDesired)));
+        lblProjectedFinal.setText(getResources().getString(R.string.projected_final_mark,
+                String.format("%.0f",accumProj)));
+        setUpChart();
+        btnAdjustGoals.setOnClickListener(
+                v -> {
+                    Intent intent = new Intent(this, AdjustGoalsListActivity.class);
+                    intent.putExtra("isViewProgress",true);
+                    startActivity(intent);
+                });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Thread thread = new Thread(this::getDatabaseData);
+        try{
+            thread.start();
+            thread.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        createDataSets();
+        lblDesiredFinal.setText(getResources().getString(R.string.desired_final_mark,
+                String.format("%.0f",accumDesired)));
+        lblProjectedFinal.setText(getResources().getString(R.string.projected_final_mark,
+                String.format("%.0f",accumProj)));
+        setUpChart();
+        btnAdjustGoals.setOnClickListener(
+                v -> {
+                    Intent intent = new Intent(this, AdjustGoalsListActivity.class);
+                    intent.putExtra("isViewProgress",true);
+                    startActivity(intent);
+                });
     }
 
     private void createDataSets(){

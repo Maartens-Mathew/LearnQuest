@@ -46,6 +46,7 @@ public class GoalsListActivity extends AppCompatActivity{
         btnAdd = findViewById(R.id.btnAddGoal);
         btnUpdate = findViewById(R.id.btnUpdateGoal);
         btnDelete = findViewById(R.id.btnDeleteGoal);
+        btnAdd.setOnClickListener(this::btnAddClicked);
         btnUpdate.setOnClickListener(this::btnUpdateClicked);
         btnDelete.setOnClickListener(this::btnDeleteClicked);
         setUpRecyclerView(v -> {
@@ -62,15 +63,67 @@ public class GoalsListActivity extends AppCompatActivity{
 
     }
 
-    public void btnAddClicked(View v){
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Thread thread = new Thread(this::getDatabaseData);
+        try{
+            thread.start();
+            thread.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        btnAdd.setOnClickListener(this::btnAddClicked);
+        btnUpdate.setOnClickListener(this::btnUpdateClicked);
+        btnDelete.setOnClickListener(this::btnDeleteClicked);
+        setUpRecyclerView(v -> {
+            if (selected == null){
+                selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
+                v.setBackgroundColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
+            }
+            else{
+                selected.cardView.setBackgroundColor(getResources().getColor(R.color.narsi_teal, getResources().newTheme()));
+                selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
+                v.setBackgroundColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
+            }
+        });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Thread thread = new Thread(this::getDatabaseData);
+        try{
+            thread.start();
+            thread.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        btnAdd.setOnClickListener(this::btnAddClicked);
+        btnUpdate.setOnClickListener(this::btnUpdateClicked);
+        btnDelete.setOnClickListener(this::btnDeleteClicked);
+        setUpRecyclerView(v -> {
+            if (selected == null){
+                selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
+                v.setBackgroundColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
+            }
+            else{
+                selected.cardView.setBackgroundColor(getResources().getColor(R.color.narsi_teal, getResources().newTheme()));
+                selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
+                v.setBackgroundColor(getResources().getColor(R.color.teal_200, getResources().newTheme()));
+            }
+        });
+    }
+
+    public void btnAddClicked(View v){
+        startActivity(new Intent(this, GroupAssessmentListActivity.class));
     }
 
     public void btnDeleteClicked(View v){
         if (selected == null){
             Toast.makeText(this,"Please select a goal", Toast.LENGTH_LONG).show();
         };
-        int pos = selected.getAdapterPosition();
+        int pos = selected.getBindingAdapterPosition();
         TrackProgressAssessmentData data = entries.remove(pos);
         rwGoalsList.getAdapter().notifyItemRemoved(pos);
         Call<Void> deleteCall = App.api.deleteGoal("eq." + 0, "eq." + data.getAssessment_id());
