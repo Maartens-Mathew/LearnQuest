@@ -1,6 +1,5 @@
 package com.example.learnquest.LoginRegister.Dashboard;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -17,7 +16,6 @@ import com.example.learnquest.LoginRegister.Dashboard.Profile.ProfileFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.ManageGroupsFragment;
 import com.example.learnquest.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.kennyc.bottomsheet.BottomSheetMenuDialogFragment;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -29,14 +27,15 @@ public class Dashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_dashboard);
         manager = getSupportFragmentManager();
 
-        navBarDash = findViewById(R.id.navBarDash);
+
 
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_dashboard);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+
+        navBarDash = findViewById(R.id.navBarDash);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.resources_constraint), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;

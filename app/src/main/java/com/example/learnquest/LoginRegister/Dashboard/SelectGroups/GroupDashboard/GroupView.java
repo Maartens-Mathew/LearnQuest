@@ -2,10 +2,8 @@ package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboa
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -15,25 +13,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.learnquest.LoginRegister.Dashboard.Dashboard;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AssessmentFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GoalsListActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.GroupHomeFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.tagHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.takingQuiz.takeQuizSplasha;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ResourcesFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.StudyToolsFragment;
-import com.example.learnquest.LoginRegister.LoginActivity;
 import com.example.learnquest.R;
 import com.example.learnquest.Utils.BottomSheet;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.kennyc.bottomsheet.BottomSheetListener;
 
 
 public class GroupView extends AppCompatActivity {
@@ -48,7 +41,7 @@ public class GroupView extends AppCompatActivity {
 
        setContentView(R.layout.activity_group_view);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.resources_constraint), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -64,6 +57,8 @@ public class GroupView extends AppCompatActivity {
 
 
     }
+
+
 
     public void onLongClick(MenuItem menuItem) {
         FragmentManager manager = getSupportFragmentManager();

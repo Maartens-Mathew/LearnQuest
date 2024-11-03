@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -16,15 +18,40 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.LearnQuest"
         tools:targetApi="31">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+
+            android:resource="@xml/file_paths" />
+        </provider>
+
+        <service android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.DownloadService"
+            android:exported="false" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GroupAssessmentListActivity"
             android:exported="false" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AdjustGoalsListActivity"
             android:exported="false" />
+
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ManageResourcesActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.DeleteGroupActivity"
             android:exported="false" />
@@ -104,29 +131,36 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-             <category android:name="android.intent.category.LAUNCHER" />
-         </intent-filter></activity>
-
-
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.Pomodoro.pomoDoroMain" android:exported="true"></activity>
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome" android:exported="true"></activity>
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome" android:exported="true"></activity>
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome" android:exported="true"></activity>
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizNewInsertAct" android:exported="true"></activity>
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.EditQuizActivity" android:exported="true"></activity>
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.editQuizFromValidAct" android:exported="true"></activity>
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.takingQuiz.QuizNavigationActivity" android:exported="true"></activity>
-
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.takingQuiz.takeQuizSplasha" android:exported="true"></activity>
-
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.Pomodoro.pomoDoroMain"
+            android:exported="true" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome"
+            android:exported="true" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome"
+            android:exported="true" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome"
+            android:exported="true" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizNewInsertAct"
+            android:exported="true" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.EditQuizActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.editQuizFromValidAct"
+            android:exported="true" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.takingQuiz.QuizNavigationActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.takingQuiz.takeQuizSplasha"
+            android:exported="true" />
     </application>
 
 </manifest>
