@@ -53,6 +53,7 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:realtime-kt")
     implementation("io.ktor:ktor-client-android:2.3.12")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
+    implementation ("com.github.Kennyc1012:BottomSheetMenu:5.1")
 
 
 
@@ -73,9 +74,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation ("com.google.android.flexbox:flexbox:3.0.0")//pill overview of tags A500
     implementation ("com.github.QuadFlask:colorpicker:0.0.15")
-   // implementation ("com.junaidpk1:fab-options:1.1.0")
-
-
+    implementation("androidx.activity:activity:1.9.3")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

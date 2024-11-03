@@ -1,6 +1,5 @@
 package com.example.learnquest.LoginRegister.Dashboard;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -31,15 +30,18 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         manager = getSupportFragmentManager();
 
+
+
         EdgeToEdge.enable(this);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        navBarDash = findViewById(R.id.navBarDash);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.resources_constraint), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        navBarDash = findViewById(R.id.navBarDash);
+
 
 
 
@@ -54,6 +56,7 @@ public class Dashboard extends AppCompatActivity {
             if (view.getItemId() == R.id.selectGroups) {
                 fragment = new ManageGroupsFragment();
                 newTab = 0;
+
             }
 
             if (view.getItemId() == R.id.calendar) {
