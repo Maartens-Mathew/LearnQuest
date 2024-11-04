@@ -59,7 +59,7 @@
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flexboxForshowingTagsToFil"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.192" />
 
     <Button
         android:id="@+id/btnStartQuiz"
@@ -101,4 +101,17 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtNumOfQuestions" />
+
+    <Button
+        android:id="@+id/btnSetTagsforQuizz"
+        android:layout_width="201dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="38dp"
+        android:backgroundTint="@color/greenTint"
+        android:text="Set Tags"
+        app:layout_constraintBottom_toTopOf="@+id/edtNumOfQuestions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flexboxForshowingTagsToFil" />
 </androidx.constraintlayout.widget.ConstraintLayout>

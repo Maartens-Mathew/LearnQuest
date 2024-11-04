@@ -120,6 +120,9 @@ public class takeQuizSplasha extends AppCompatActivity {
         txtRecNum.setText("Ideally a quiz of: " + seventyPOfSize);
 
     }
+
+
+
     private void populateSpinner(List<Tag> tagList) {
         // Populate the spinner with tag names
         List<String> tagNames = new ArrayList<>();
