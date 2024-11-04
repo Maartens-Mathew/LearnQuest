@@ -60,7 +60,7 @@ public class takeQuizSplasha extends AppCompatActivity {
         entries = new ArrayList<>();
        // filteredEntries = new ArrayList<>();
         reducedEntriesToIntentOver = new ArrayList<>();
-        App.groupID = 1;
+        App.group.setGroupID(1);
 
         spinnerForTarget = findViewById(R.id.spinAddTagsToFIlter);
         flexboxLayoutTT = findViewById(R.id.flexboxForshowingTagsToFil);
@@ -71,7 +71,7 @@ public class takeQuizSplasha extends AppCompatActivity {
         selectedTags.clear();
 
         // Fetch tags by group ID (for Spinner)
-        fetchTagsByGroup(App.groupID.toString());
+        fetchTagsByGroup(App.group.getGroupID().toString());
 
 
         // Set listener to handle spinner selections
@@ -210,7 +210,7 @@ public class takeQuizSplasha extends AppCompatActivity {
         return drawable;
     }
     private void fetchQuizQuestions() {
-        Call<List<QuizEntry>> call = App.api.getValidQuizEntries(App.groupID);
+        Call<List<QuizEntry>> call = App.api.getValidQuizEntries(App.group.getGroupID());
         Response<List<QuizEntry>> response = null;
 
 

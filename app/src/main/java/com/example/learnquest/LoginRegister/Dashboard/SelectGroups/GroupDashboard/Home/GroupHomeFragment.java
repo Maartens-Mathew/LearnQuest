@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersActivity;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ViewGroupMembersActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.PendingUsersActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.ViewGroupMembersActivity;
 import com.example.learnquest.R;
 
 import retrofit2.Call;
@@ -83,7 +83,7 @@ public class GroupHomeFragment extends Fragment {
     }
 
     public void btnLeaveGroupClicked(View v){
-        Call<Void> leaveGroupCall = App.api.deleteGroupMembership("eq" + App.userID, "eq" + App.groupID);
+        Call<Void> leaveGroupCall = App.api.deleteGroupMembership("eq" + App.user.getUserID(), "eq" + App.group.getGroupID());
         leaveGroupCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

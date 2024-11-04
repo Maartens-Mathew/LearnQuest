@@ -47,7 +47,7 @@ public class QuizNavigationActivity extends AppCompatActivity {
         prevButton = findViewById(R.id.prevButton);
         nextButton = findViewById(R.id.nextButton);
 
-        App.groupID = 1; // Set group ID as needed
+        App.group.setGroupID(1); // Set group ID as needed
 
         quizEntries = (List<QuizEntry>) getIntent().getSerializableExtra("quizEntries");
 

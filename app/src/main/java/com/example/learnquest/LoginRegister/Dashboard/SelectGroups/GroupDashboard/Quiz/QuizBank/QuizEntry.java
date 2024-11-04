@@ -128,7 +128,7 @@ public class QuizEntry implements Serializable {
     }
 
     public String getGroupID() {
-        return App.groupID.toString();//hmmmmmm
+        return App.group.getGroupID().toString();//hmmmmmm
     }
 
 public List<Tag> getTagsAsObjectList() {

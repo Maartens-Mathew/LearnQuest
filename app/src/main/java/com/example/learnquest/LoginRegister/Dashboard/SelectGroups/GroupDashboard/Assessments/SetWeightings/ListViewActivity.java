@@ -55,7 +55,7 @@ public class ListViewActivity extends AppCompatActivity {
 
         int groupIDPassedIn = getIntent().getIntExtra("groupID", -1);
         if (groupIDPassedIn != -1) {
-            App.groupID = groupIDPassedIn;
+            App.group.setGroupID(groupIDPassedIn);
         } else {
             Log.e("ListViewActivity", "No groupID passed in the intent!");
             Toast.makeText(this, "Error: No groupID passed.", Toast.LENGTH_LONG).show();
@@ -97,7 +97,7 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     public void getAssessments() {
-        Call<List<Assessment>> assessmentsCall = App.api.getGroupAssessments("eq." + App.groupID);
+        Call<List<Assessment>> assessmentsCall = App.api.getGroupAssessments("eq." + App.group.getGroupID());
         Response<List<Assessment>> assessmentsResponse = null;
         try {
             assessmentsResponse = assessmentsCall.execute();
@@ -191,7 +191,7 @@ public class ListViewActivity extends AppCompatActivity {
                     Toast.makeText(this, "Invalid date format.", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Assessment assessment = new Assessment(name, formattedDate, weighting, App.groupID);
+                Assessment assessment = new Assessment(name, formattedDate, weighting, App.group.getGroupID());
                 assessments.add(assessment);
                 adapter.notifyDataSetChanged();
                 updatePieChart();

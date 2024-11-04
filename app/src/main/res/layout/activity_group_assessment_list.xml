@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GroupAssessmentListActivity">
+    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.GroupAssessmentListActivity">
 
     <TextView
         android:id="@+id/lblInfoDisplay"

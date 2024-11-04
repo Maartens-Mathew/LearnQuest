@@ -1,14 +1,6 @@
 package com.example.learnquest.Utils.database;
 
 
-import static com.example.learnquest.AppState.App.groupID;
-
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.TrackProgressAssessmentData;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMemberUserName;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.PendingUsersResult;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.model.group.Group;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
@@ -159,7 +151,7 @@ public interface SupabaseApi {
     Call<Void> deleteGroupMembership(@Query("userID") String userID, @Query("groupID") String groupID);
 
     @GET("rpc/getUserWithID")
-    Call<List<User>> getUserWithID(@Query("userID_input") String userID);
+    Call<List<User>> getUserWithID(@Query("userID_input") Integer userID);
     @GET("rpc/getPendingUsers")
     Call<List<PendingUsersResult>> getPendingUsers(@Query("GroupID_input") Integer GroupID_input);
 

@@ -2,13 +2,13 @@ package com.example.learnquest.model.user;
 
 public class User {
 
-    String userID;
+    Integer userID;
 
-    public String getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 

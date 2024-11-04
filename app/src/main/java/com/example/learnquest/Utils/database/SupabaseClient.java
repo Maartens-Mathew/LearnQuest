@@ -4,9 +4,8 @@ import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboar
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
 //import com.example.learnquest.Utils.database.Serializers.QuizEntryDeserializer;
 import com.example.learnquest.Utils.database.JsonConverters.StudyResource_JSONConverter;
-import com.example.learnquest.Utils.database.Serializers.QuizEntry_JSONConverter;
-import com.example.learnquest.Utils.database.Serializers.Tag_JSONConverter;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
+import com.example.learnquest.Utils.database.JsonConverters.QuizEntry_JSONConverter;
+import com.example.learnquest.Utils.database.JsonConverters.Tag_JSONConverter;
 import com.example.learnquest.Utils.database.JsonConverters.Group_JSONConverter;
 
 import com.example.learnquest.model.group.Group;

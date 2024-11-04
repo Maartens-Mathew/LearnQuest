@@ -16,9 +16,6 @@ import java.util.List;
 
 public class BottomSheet {
 
-
-
-
     public static class Builder{
         List<String> itemTitles;
         List<Class<?>> classes;

@@ -51,10 +51,10 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
         flexboxLayout = findViewById(R.id.flexboxForValidatingQuizs);
 
         // Assuming you set your group ID like this; adjust as needed
-        App.groupID = 1;
+        App.group.setGroupID(1);
 
         // Fetch tags by group ID
-        fetchTagsByGroup(App.groupID.toString());
+        fetchTagsByGroup(App.group.getGroupID().toString());
     }
 
     private void fetchTagsByGroup(String groupID) {
@@ -195,7 +195,7 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
         Tag newTag = new Tag();
         newTag.setTagName(tagName);
         newTag.setTagColour(colorHex);
-        newTag.setGroupID(App.groupID); // Assuming groupID is a String
+        newTag.setGroupID(App.group.getGroupID()); // Assuming groupID is a String
 
         Log.d("AddTag", "Attempting to add tag with name: " + tagName + " and color: " + colorHex);
 
@@ -207,19 +207,19 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
                     if (response.body() != null) {
                         Log.d("AddTag", "Tag added successfully: " + response.body());
                         Toast.makeText(TagManageHome.this, "Tag added successfully", Toast.LENGTH_SHORT).show();
-                        fetchTagsByGroup(App.groupID.toString()); // Refresh the tag list
+                        fetchTagsByGroup(App.group.getGroupID().toString()); // Refresh the tag list
                        // runOnUiThread(() -> TagManageHome.this.recyclerView.on);
 
                     } else {
                         Log.e("AddTag", "Response body is null");
                       //  Toast.makeText(TagManageHome.this, "Failed to add tag: No response body", Toast.LENGTH_SHORT).show();
-                        fetchTagsByGroup(App.groupID.toString()); // Refresh the tag list
+                        fetchTagsByGroup(App.group.getGroupID().toString()); // Refresh the tag list
 
                     }
                 } else {
                 //    Log.e("AddTag", "Failed to add tag. Response Code: " + response.code() + ", Message: " + response.message());
                     Toast.makeText(TagManageHome.this, "Failed to add tag", Toast.LENGTH_SHORT).show();
-                    fetchTagsByGroup(App.groupID.toString()); // Refresh the tag list
+                    fetchTagsByGroup(App.group.getGroupID().toString()); // Refresh the tag list
 
                 }
             }
@@ -257,7 +257,7 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
 
     @Override
     public void onTagsChanged() {
-        fetchTagsByGroup(App.groupID.toString());
+        fetchTagsByGroup(App.group.getGroupID().toString());
     }
 
 
@@ -305,7 +305,7 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
                 if (response.isSuccessful()) {
                     Toast.makeText(TagManageHome.this, "Tag deleted successfully", Toast.LENGTH_SHORT).show();
                     // Refresh tags after deletion
-                    fetchTagsByGroup(App.groupID.toString());
+                    fetchTagsByGroup(App.group.getGroupID().toString());
                 } else {
                     Toast.makeText(TagManageHome.this, "Failed to delete tag", Toast.LENGTH_SHORT).show();
                     Log.e("DeleteTag", "Response Code: " + response.code() + ", Message: " + response.message());
