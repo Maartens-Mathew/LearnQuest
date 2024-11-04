@@ -48,15 +48,21 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     @Override
     public void onBindViewHolder(@NonNull AssessmentViewHolder holder, int position) {
         holder.setData(assessments.get(position));
+        holder.setListener(listener);
     }
 
     public AssessmentAdapter(List<Assessment> assessments) {
         this.assessments = assessments;
     }
 
+    public void remove(int p){
+        assessments.remove(p);
+        notifyItemRemoved(p);
+    }
+
     @Override
     public int getItemCount() {
-        return 0;
+        return assessments.size();
     }
 
     public static class AssessmentViewHolder extends RecyclerView.ViewHolder {
@@ -77,6 +83,10 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             lblWeighting.setText("Weighting: " + data.getWeighting());
             lblDueDate.setText("Due Date: "+ data.getDueDate());
         };
+
+        public void setListener(View.OnClickListener listener) {
+            cardView.setOnClickListener(listener);
+        }
     }
 
 }

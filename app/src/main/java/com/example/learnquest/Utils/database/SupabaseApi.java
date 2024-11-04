@@ -4,6 +4,7 @@ package com.example.learnquest.Utils.database;
 import static com.example.learnquest.AppState.App.groupID;
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.Assessment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.StudentAssessment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.TrackProgressAssessmentData;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMemberUserName;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupMembership;
@@ -186,6 +187,13 @@ public interface SupabaseApi {
 
     @GET("Assessment")
     Call<List<Assessment>> getGroupAssessments(@Query("groupID") int groupID);
+
+    @GET("StudentAssessment")
+    Call<List<StudentAssessment>> getStudentAssessments(@Query("userID")int userID);
+
+    @POST("StudentAssessment")
+    Call<Void> addGoal(@Body StudentAssessment assessment);
+
 
 //    @GET("/rest/v1/TaggedQuizEntry")
 //    Call<List<TaggedQuizEntry>> getAllTaggedQuizEntries();

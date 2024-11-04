@@ -37,6 +37,9 @@
         <service android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.DownloadService"
             android:exported="false" />
         <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AddGoalActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GroupAssessmentListActivity"
             android:exported="false" />
         <activity
@@ -69,7 +72,7 @@
             android:exported="false" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GoalsListActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView"
             android:exported="true">
