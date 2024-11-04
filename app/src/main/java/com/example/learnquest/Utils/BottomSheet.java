@@ -20,6 +20,7 @@ public class BottomSheet {
         List<String> itemTitles;
         List<Class<?>> classes;
         Activity activity;
+        int layout_menu;
 
         public Builder with(Activity activity){
             this.activity = activity;
@@ -37,9 +38,15 @@ public class BottomSheet {
             return this;
         }
 
+        public Builder andLastly_theLayout(int layout_menu){
+            this.layout_menu = layout_menu;
+            return this;
+
+        }
+
         public BottomSheetMenuDialogFragment build(){
             return new BottomSheetMenuDialogFragment.Builder(activity)
-                    .setSheet(R.menu.quiz_menu)
+                    .setSheet(layout_menu)
                     .setTitle("Options:")
                     .setListener(getListener(classes))
                     .create();

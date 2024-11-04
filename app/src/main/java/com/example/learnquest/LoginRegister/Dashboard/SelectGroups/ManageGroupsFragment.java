@@ -21,6 +21,7 @@ import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboar
 import com.example.learnquest.R;
 
 import com.example.learnquest.model.group.Group;
+import com.example.learnquest.model.user.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class ManageGroupsFragment extends Fragment {
         groupView = view.findViewById(R.id.recyclerView_groups);
         btnSearch = view.findViewById(R.id.btnSearch);
         App.setApplicationContext(getActivity());
+        App.user = User.demoUser();
 
         GridLayoutManager manager = new GridLayoutManager(getActivity(),3);
         groupView.setLayoutManager(manager);

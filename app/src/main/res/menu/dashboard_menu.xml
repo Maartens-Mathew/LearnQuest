@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/group"
+        android:orderInCategory="0"
+        android:title="View members" />
+    <item
+        android:icon="@drawable/request"
+        android:orderInCategory="1"
+        android:title="Join requests" />
+    <item
+        android:icon="@drawable/remove_member"
+        android:orderInCategory="2"
+        android:title="Remove member" />
+    <item
+        android:icon="@drawable/exit"
+        android:orderInCategory="3"
+        android:title="Leave group" />
+</menu>

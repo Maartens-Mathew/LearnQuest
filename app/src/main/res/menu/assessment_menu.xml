@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/balance"
+        android:orderInCategory="0"
+        android:title="Set Weightings" />
+    <item
+        android:icon="@drawable/bar_graph"
+        android:orderInCategory="1"
+        android:title="View Progress" />
+    <item
+        android:icon="@drawable/goals"
+        android:orderInCategory="2"
+        android:title="Manage Goals" />
+</menu>
