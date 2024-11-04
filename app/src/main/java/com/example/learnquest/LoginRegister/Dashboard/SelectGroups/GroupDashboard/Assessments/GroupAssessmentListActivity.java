@@ -34,13 +34,7 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_assessment_list);
-        Thread thread = new Thread(this::databaseCall);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
+        databaseCall();
         filter();
         rwAssessmentList = findViewById(R.id.rwAssessmentList);
         lblAssesmentAddInfo = findViewById(R.id.lblInfoDisplay);
@@ -67,13 +61,7 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Thread thread = new Thread(this::databaseCall);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
+        databaseCall();
         filter();
         if (assessments == null){
             lblAssesmentAddInfo.setText("No assessment to add as Goal");
@@ -87,14 +75,7 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
-        super.onRestart();
-        Thread thread = new Thread(this::databaseCall);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
+        databaseCall();
         filter();
         if (assessments == null){
             lblAssesmentAddInfo.setText("No assessment to add as Goal");
@@ -120,7 +101,8 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
 
     public void databaseCall(){
         Call<List<Assessment>> assessmentCall = App.api.getAssessments();
-        Call<List<StudentAssessment>> studentAssessmentCall = App.api.getStudentAssessments(App.userID);
+        Log.i(GROUP_ASSESSMENT_ACTIVITY, "LOGCAT IS WORKING!!!!");
+        Call<List<StudentAssessment>> studentAssessmentCall = App.api.getStudentAssessments(0);
         studentAssessmentCall.enqueue(new Callback<List<StudentAssessment>>() {
             @Override
             public void onResponse(Call<List<StudentAssessment>> call, Response<List<StudentAssessment>> response) {

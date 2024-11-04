@@ -13,6 +13,7 @@ import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,24 +27,98 @@ public class AdjustGoalsListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adjust_goals_list);
-        setUpRecyclerView(v ->{
-            int pos = rwGoalsList.findContainingViewHolder(v).getAdapterPosition();
-            GoalAdapter.GoalViewHolder gvh = (GoalAdapter.GoalViewHolder)rwGoalsList.findContainingViewHolder(v);
-            TrackProgressAssessmentData selected = gvh.data;
-            Intent newIntent = new Intent(this, AdjustGoalActivity.class);
-            newIntent.putExtra("data",selected);
-            startActivity(newIntent);
-        });
+        rwGoalsList = findViewById(R.id.rwAdjustGoalsList);
+        Thread thread = new Thread(this::databaseCall);
+        try{
+            thread.start();
+            thread.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        setUpRecyclerView(this::Listener);
+
+//        setUpRecyclerView(v ->{
+//            int pos = rwGoalsList.findContainingViewHolder(v).getBindingAdapterPosition();
+//            GoalAdapter.GoalViewHolder gvh = (GoalAdapter.GoalViewHolder)rwGoalsList.findContainingViewHolder(v);
+//            TrackProgressAssessmentData selected = gvh.data;
+//            Intent newIntent = new Intent(this, AdjustGoalActivity.class);
+//            newIntent.putExtra("data",selected);
+//            startActivity(newIntent);
+//        });
     }
 
+    private void databaseCall(){
+        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(0, 1);
+        Response<List<TrackProgressAssessmentData>> response = null;
+        try{
+            response = call.execute();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        if (response.isSuccessful()){
+            entries = Collections.synchronizedList(response.body());
+            entries.sort(comparator);
+        }
+        else{
+            try{
+                Log.e("TrackProgressFragment",response.errorBody().string());
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private final Comparator<TrackProgressAssessmentData> comparator = new Comparator<TrackProgressAssessmentData>() {
+        @Override
+        public int compare(TrackProgressAssessmentData o1, TrackProgressAssessmentData o2) {
+            java.util.Date d1 = o1.getDate_due();
+            java.util.Date d2 = o2.getDate_due();
+            return d1.compareTo(d2);
+        }
+    };
+
+    public void Listener(View v){
+        int pos = rwGoalsList.findContainingViewHolder(v).getBindingAdapterPosition();
+        GoalAdapter.GoalViewHolder gvh = (GoalAdapter.GoalViewHolder)rwGoalsList.findContainingViewHolder(v);
+        TrackProgressAssessmentData selected = gvh.data;
+        Intent newIntent = new Intent(this, AdjustGoalActivity.class);
+        newIntent.putExtra("data",selected);
+        startActivity(newIntent);
+    }
 
     public void setUpRecyclerView(View.OnClickListener listener){
-        rwGoalsList = findViewById(R.id.aga_goal_recyclerview);
         GoalAdapter adapter = new GoalAdapter(entries, this, listener);
         rwGoalsList.setAdapter(adapter);
-        rwGoalsList.setLayoutManager(new LinearLayoutManager(this));
+        rwGoalsList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Thread thread = new Thread(this::databaseCall);
+        try{
+            thread.start();
+            thread.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        setUpRecyclerView(this::Listener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Thread thread = new Thread(this::databaseCall);
+        try{
+            thread.start();
+            thread.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        setUpRecyclerView(this::Listener);
+    }
 
     private void getDatabaseData(){
         //ensure we have the correct userID and groupID

@@ -46,7 +46,6 @@ public class AdjustGoalActivity extends AppCompatActivity {
     }
 
 
-//TODO: Update data in the GoalLogic as well
     public void onBtnBackPressed(View view){
         getOnBackPressedDispatcher().onBackPressed();
     }
@@ -81,6 +80,6 @@ public class AdjustGoalActivity extends AppCompatActivity {
                 Log.e("AdjustGoalActivity","Error: "+ throwable.getStackTrace());
             }
         });
-        //TODO:Update this info to database
+        getOnBackPressedDispatcher().onBackPressed();
     }
 }
