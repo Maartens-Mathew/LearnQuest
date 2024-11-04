@@ -5,12 +5,14 @@ import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboar
 //import com.example.learnquest.Utils.database.Serializers.QuizEntryDeserializer;
 import com.example.learnquest.Utils.database.JsonConverters.Assessment_JSONConverter;
 import com.example.learnquest.Utils.database.JsonConverters.PendingResponse_JSONConverter;
+import com.example.learnquest.Utils.database.JsonConverters.StudentAssessment_JSONConverter;
 import com.example.learnquest.Utils.database.JsonConverters.StudyResource_JSONConverter;
 import com.example.learnquest.Utils.database.JsonConverters.QuizEntry_JSONConverter;
 import com.example.learnquest.Utils.database.JsonConverters.Tag_JSONConverter;
 import com.example.learnquest.Utils.database.JsonConverters.Group_JSONConverter;
 
 import com.example.learnquest.model.assessment.Assessment;
+import com.example.learnquest.model.assessment.StudentAssessment;
 import com.example.learnquest.model.group.Group;
 import com.example.learnquest.model.group.PendingResponse;
 import com.example.learnquest.model.studyResource.StudyResource;
@@ -46,6 +48,7 @@ public class SupabaseClient {
                     .registerTypeAdapter(QuizEntry.class, new QuizEntry_JSONConverter())
                     .registerTypeAdapter(Tag.class, new Tag_JSONConverter())
                     .registerTypeAdapter(Group.class, new Group_JSONConverter())
+                    .registerTypeAdapter(StudentAssessment.class, new StudentAssessment_JSONConverter())
                     .registerTypeAdapter(PendingResponse.class, new PendingResponse_JSONConverter())
                     .registerTypeAdapter(Assessment.class, new Assessment_JSONConverter())
                     .registerTypeAdapter(StudyResource.class, new StudyResource_JSONConverter())

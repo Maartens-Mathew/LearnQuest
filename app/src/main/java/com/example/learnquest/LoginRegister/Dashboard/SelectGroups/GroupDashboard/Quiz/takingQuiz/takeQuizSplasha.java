@@ -71,7 +71,7 @@ public class takeQuizSplasha extends AppCompatActivity {
         selectedTags.clear();
 
         // Fetch tags by group ID (for Spinner)
-        fetchTagsByGroup(App.group.getGroupID().toString());
+        fetchTagsByGroup(App.group.getGroupID());
 
 
         // Set listener to handle spinner selections
@@ -135,8 +135,8 @@ public class takeQuizSplasha extends AppCompatActivity {
         spinnerForTarget.setAdapter(adapter);
     }
 
-    private void fetchTagsByGroup(String groupID) {
-        Call<List<Tag>> tagsCall = App.api.getTagsByGroup("eq." + groupID);
+    private void fetchTagsByGroup(Integer groupID) {
+        Call<List<Tag>> tagsCall = App.api.getTagsByGroup(groupID);
 
         tagsCall.enqueue(new Callback<List<Tag>>() {
             @Override

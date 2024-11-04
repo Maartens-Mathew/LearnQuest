@@ -109,14 +109,14 @@ public interface SupabaseApi {
 
 
 ///////////////////////////////////////////////////////////////////////////////////A500
-    @GET("Tag") // Replace with your Supabase endpoint for getting tags
-    Call<List<Tag>> getTagsByGroup(@Query("groupID") String groupID);
+    @GET("rpc/getTagsByGroup") // Replace with your Supabase endpoint for getting tags
+    Call<List<Tag>> getTagsByGroup(@Query("groupID_input") Integer groupID);
 
     @POST("rpc/addTag")
     Call<Tag> addTag(@Body Tag tag);
 
-    @DELETE("Tag")
-    Call<Void> deleteTag(@Query("tagID") String tagID);
+    @POST("rpc/deleteTag")
+    Call<Void> deleteTag(@Body Tag tag);
 
     // Add the PUT method for updating a tag
 //    @PUT("Tag")

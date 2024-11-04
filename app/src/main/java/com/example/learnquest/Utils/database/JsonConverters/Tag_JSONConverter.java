@@ -32,10 +32,10 @@ public class Tag_JSONConverter implements JsonDeserializer<Tag>, JsonSerializer<
         JsonObject jsonObject = new JsonObject();
 
         // Convert fields to JSON
-        jsonObject.addProperty("tagID", tag.getTagID());
-        jsonObject.addProperty("groupID", tag.getGroupID());
-        jsonObject.addProperty("tagName", tag.getTagName());
-        jsonObject.addProperty("tagColour", tag.getTagColour());
+        jsonObject.addProperty("tagID_input", tag.getTagID());
+        jsonObject.addProperty("groupID_input", tag.getGroupID());
+        jsonObject.addProperty("tagName_input", tag.getTagName());
+        jsonObject.addProperty("tagColour_input", tag.getTagColour());
 
         return jsonObject;
     }

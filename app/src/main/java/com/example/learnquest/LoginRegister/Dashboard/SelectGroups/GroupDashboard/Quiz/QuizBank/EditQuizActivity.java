@@ -111,7 +111,7 @@ public class EditQuizActivity extends AppCompatActivity {
         List<String> tagsList = tagsString != null ? Arrays.asList(tagsString.split(",")) : new ArrayList<>();
 
         App.group.setGroupID(1);
-        fetchTagsByGroup(String.valueOf(App.group.getGroupID()), tagsList);
+        fetchTagsByGroup(App.group.getGroupID(), tagsList);
     }
 
     private void populateSpinner(List<Tag> tagList) {
@@ -198,8 +198,8 @@ public class EditQuizActivity extends AppCompatActivity {
         return drawable;
     }
 
-    private void fetchTagsByGroup(String groupID, List<String> tagsList) {
-        Call<List<Tag>> tagsCall = App.api.getTagsByGroup("eq." + groupID);
+    private void fetchTagsByGroup(Integer groupID, List<String> tagsList) {
+        Call<List<Tag>> tagsCall = App.api.getTagsByGroup(groupID);
 
         tagsCall.enqueue(new Callback<List<Tag>>() {
             @Override
