@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/narsi_background"
-    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ViewProgressActivity">
+    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.ViewProgressActivity">
 
     <FrameLayout
         android:id="@+id/frameLayout"

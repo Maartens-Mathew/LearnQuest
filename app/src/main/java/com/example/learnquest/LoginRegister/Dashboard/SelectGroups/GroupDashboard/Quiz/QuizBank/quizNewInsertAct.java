@@ -45,7 +45,7 @@ public class quizNewInsertAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_new_insert);
 
-        App.groupID = 1;
+        App.group.setGroupID(1);
 
         spinnerTags = findViewById(R.id.spinAddTagsE);
         flexboxLayout = findViewById(R.id.flexboxForValidatingQuizs);
@@ -58,7 +58,7 @@ public class quizNewInsertAct extends AppCompatActivity {
         selectedTags.clear();
 
         // Fetch tags by group ID (for Spinner)
-        fetchTagsByGroup(App.groupID.toString());
+        fetchTagsByGroup(App.group.getGroupID());
 
         // Set listener to handle spinner selections
         spinnerTags.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -93,8 +93,8 @@ public class quizNewInsertAct extends AppCompatActivity {
         spinnerTags.setAdapter(adapter);
     }
 
-    private void fetchTagsByGroup(String groupID) {
-        Call<List<Tag>> tagsCall = App.api.getTagsByGroup("eq." + groupID);
+    private void fetchTagsByGroup(Integer groupID) {
+        Call<List<Tag>> tagsCall = App.api.getTagsByGroup(groupID);
 
         tagsCall.enqueue(new Callback<List<Tag>>() {
             @Override
@@ -186,7 +186,7 @@ public class quizNewInsertAct extends AppCompatActivity {
         entry.setQuestion(question);
         entry.setAnswer(answer);
         entry.setDescription(description);
-        entry.setGroupID(App.groupID);
+        entry.setGroupID(App.group.getGroupID());
 
         // Add selected tags to the entry
         for (Tag tag : selectedTags) {

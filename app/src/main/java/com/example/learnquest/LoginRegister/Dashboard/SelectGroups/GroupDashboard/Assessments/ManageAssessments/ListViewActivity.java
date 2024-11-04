@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 import com.example.learnquest.model.assessment.Assessment;
 import com.github.mikephil.charting.charts.PieChart;
@@ -19,9 +20,13 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ListViewActivity extends AppCompatActivity {
     private ArrayAdapter<Assessment> adapter;
@@ -79,36 +84,67 @@ public class ListViewActivity extends AppCompatActivity {
         EditText etWeighting = dialogView.findViewById(R.id.etWeighting);
         EditText etDate = dialogView.findViewById(R.id.etDate);
 
-        etDate.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                    (view, year1, month1, dayOfMonth) -> etDate.setText(dayOfMonth + "/" + (month1 + 1) + "/" + year1),
-                    year, month, day);
-            datePickerDialog.show();
-        });
+        etDate.setOnClickListener(v -> showDatePicker(etDate));
 
         builder.setPositiveButton("Add", (dialog, which) -> {
-            String name = etName.getText().toString();
-            String date = etDate.getText().toString();
-            int weighting = Integer.parseInt(etWeighting.getText().toString());
+            String name = etName.getText().toString().trim();
+            String dateString = etDate.getText().toString().trim();
+
+            // Validate input
+            if (name.isEmpty() || dateString.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            Float weighting;
+            try {
+                weighting = Float.parseFloat(etWeighting.getText().toString().trim());
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Weighting must be a valid number.", Toast.LENGTH_LONG).show();
+                return;
+            }
 
             if (getTotalWeighting() + weighting > 100) {
                 Toast.makeText(this, "Total weighting exceeds 100.", Toast.LENGTH_LONG).show();
-            } else {
-                Assessment assessment = new Assessment(name, date, weighting);
-                assessments.add(assessment);
-                adapter.notifyDataSetChanged();
-                updatePieChart();
-                Toast.makeText(this, "Added assessment.", Toast.LENGTH_LONG).show();
+                return;
             }
+
+            Date dueDate = parseDate(dateString);
+            if (dueDate == null) {
+                Toast.makeText(this, "Invalid date format. Use dd/MM/yyyy.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            Assessment assessment = new Assessment(dueDate, App.group.getGroupID(), name, weighting);
+            assessments.add(assessment);
+            adapter.notifyDataSetChanged();
+            updatePieChart();
+            Toast.makeText(this, "Added assessment.", Toast.LENGTH_LONG).show();
         });
 
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
         builder.create().show();
+    }
+
+    private void showDatePicker(EditText etDate) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (view, selectedYear, selectedMonth, dayOfMonth) -> etDate.setText(dayOfMonth + "/" + (selectedMonth + 1) + "/" + selectedYear),
+                year, month, day);
+        datePickerDialog.show();
+    }
+
+    private Date parseDate(String dateString) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        try {
+            return format.parse(dateString);
+        } catch (ParseException e) {
+            return null; // Return null for invalid date formats
+        }
     }
 
     private int getTotalWeighting() {

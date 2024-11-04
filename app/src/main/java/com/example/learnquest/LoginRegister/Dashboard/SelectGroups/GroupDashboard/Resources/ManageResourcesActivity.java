@@ -1,14 +1,10 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources;
 
-import android.Manifest;
 import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -20,8 +16,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -30,6 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.Adapter.EqualSpacingItemDecoration;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.Adapter.ResourceAdapter;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.Background.DownloadReceiver;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.Background.DownloadService;
 import com.example.learnquest.R;
 import com.example.learnquest.model.group.Group;
 import com.example.learnquest.model.studyResource.StudyResource;
@@ -41,7 +39,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -11,7 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.GroupAssessmentListActivity;
 import com.example.learnquest.R;
+import com.example.learnquest.model.assessment.Assessment;
+import com.example.learnquest.model.assessment.StudentAssessment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,7 +50,7 @@ public class AddGoalActivity extends AppCompatActivity {
     public void btnAddClicked(View v){
         Float markDesired = Float.parseFloat(edtMarkDesired.getText().toString());
         GroupAssessmentListActivity.adapter.remove(pos);
-        newGoal = new StudentAssessment(App.userID,data.getAssessmentID(),null,markDesired,null);
+        newGoal = new StudentAssessment(data.getAssessmentID(),"",null,markDesired,null);
         Call<Void> assessmentCall = App.api.addGoal(newGoal);
         assessmentCall.enqueue(new Callback<Void>() {
             @Override
