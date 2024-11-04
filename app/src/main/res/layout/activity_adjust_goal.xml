@@ -7,23 +7,13 @@
     android:background="@color/narsi_background"
     tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AdjustGoalActivity">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="168dp"
-        android:layout_marginBottom="40dp"
-        android:clickable="true"
-        android:onClick="onBtnBackPressed"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="?attr/homeAsUpIndicator" />
-
     <TextView
         android:id="@+id/lblAssessmentName"
+        style="@style/HeadingGreenFinal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:backgroundTint="@color/greenTint"
         android:text="Assessment Name"
         android:textAlignment="center"
         android:textSize="40sp"
@@ -76,18 +66,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnConfirmUpdateGoal"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/button16"
+        style="@style/ButtonStyleGreenFinal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/narsi_teal"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="onBtnBackPressed"
+        android:text="Cancel"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button17"
+        style="@style/ButtonStyleGreenFinal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="btnUpdateConfirmClicked"
         android:text="Update"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMarkObtained" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

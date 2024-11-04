@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.JoinGroupActivity">
+    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.JoinGroupActivity"
+    style="@style/backgroundStyle">
 
     <TextView
         android:id="@+id/JoinGroupActivitylabelGroupName"
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
         android:layout_marginEnd="128dp"
-        android:layout_marginBottom="460dp"
+        android:layout_marginBottom="472dp"
         android:text="TextView"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,41 +26,56 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="130dp"
-        android:layout_marginTop="70dp"
         android:layout_marginEnd="130dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="10dp"
         app:cardBackgroundColor="#76FF03"
         app:cardCornerRadius="100dp"
         app:layout_constraintBottom_toTopOf="@+id/JoinGroupActivitylabelGroupName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button5"
+        style="@style/ButtonStyleGreenFinal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="364dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="408dp"
         android:onClick="btnJoinClicked"
         android:text="Join"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button6"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintStart_toEndOf="@+id/button6"
+        tools:textSize="20sp" />
 
     <Button
         android:id="@+id/button6"
+        style="@style/ButtonStyleGreenFinal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="364dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="408dp"
         android:onClick="btnCancelClicked"
         android:text="Cancel"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button5" />
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

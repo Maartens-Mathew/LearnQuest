@@ -79,6 +79,8 @@ public class GroupHomeFragment extends Fragment {
             startActivity(intent);
         });
         Button btnLeaveGroup = view.findViewById(R.id.btnLeaveGroup);
+        Button btnViewMembers = view.findViewById(R.id.btnViewMembers);
+        btnViewMembers.setOnClickListener(this::btnViewMembersClicked);
         btnLeaveGroup.setOnClickListener(this::btnLeaveGroupClicked);
     }
 

@@ -26,7 +26,6 @@ public class AdjustGoalActivity extends AppCompatActivity {
     private TrackProgressAssessmentData data;
     private EditText edtMarkDesired, edtMarkObtained;
     private TextView lblAssessmentName;
-    private AppCompatButton btnUpdateConfirm;
     private int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +35,10 @@ public class AdjustGoalActivity extends AppCompatActivity {
             data = (TrackProgressAssessmentData) getIntent().getExtras().get("data");
             edtMarkDesired = findViewById(R.id.edtDesiredMark);
             edtMarkObtained = findViewById(R.id.edtMarkObtained);
-            btnUpdateConfirm = findViewById(R.id.btnConfirmUpdateGoal);
             lblAssessmentName = findViewById(R.id.lblAssessmentName);
             lblAssessmentName.setText(data.getName());
             edtMarkDesired.setText(data.getIdeal_mark().toString());
             edtMarkObtained.setText(data.getMark_obtained().toString());
-            btnUpdateConfirm.setOnClickListener(this::btnUpdateConfirmClicked);
         }
     }
 

@@ -91,8 +91,9 @@ public class ManageGroupsFragment extends Fragment {
 
     public void getGroups(){
 
-        Call<List<Group>> groupCall = App.api.getUserGroups(App.user.getUserID());
-
+        //TODO: Revert change here
+        //Call<List<Group>> groupCall = App.api.getUserGroups(App.user.getUserID());
+        Call<List<Group>> groupCall = App.api.getUserGroups(0);
         Response<List<Group>> groupResponse = null;
 
         try{

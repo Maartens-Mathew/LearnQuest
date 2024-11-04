@@ -28,15 +28,14 @@
         android:id="@+id/avp_adjust_goals"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="164dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/narsi_teal"
         android:text="@string/viewprogress_adjust_goals_button"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button7"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <TextView
@@ -78,11 +77,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="248dp"
         android:text="@string/explanation_view_progress_activity"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avp_adjust_goals" />
+
+    <Button
+        android:id="@+id/button7"
+        style="@style/ButtonStyleGreenFinal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="5dp"
+        android:onClick="onBtnBackPressed"
+        android:text="Back"
+        app:layout_constraintEnd_toStartOf="@+id/avp_adjust_goals"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

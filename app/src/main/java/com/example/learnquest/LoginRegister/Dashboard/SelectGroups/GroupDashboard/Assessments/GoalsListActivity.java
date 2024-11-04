@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.EqualSpacingItemDecoration;
 import com.example.learnquest.R;
 
 import java.util.Collections;
@@ -177,6 +178,7 @@ public class GoalsListActivity extends AppCompatActivity{
         GoalAdapter adapter = new GoalAdapter(entries, this, listener);
         rwGoalsList.setAdapter(adapter);
         rwGoalsList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        rwGoalsList.addItemDecoration(new EqualSpacingItemDecoration(5));
     }
 
     private void getDatabaseData(){

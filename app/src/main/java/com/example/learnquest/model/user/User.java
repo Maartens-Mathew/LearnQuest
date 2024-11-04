@@ -1,5 +1,7 @@
 package com.example.learnquest.model.user;
 
+import com.example.learnquest.model.group.Group;
+
 public class User {
 
     String userID;
@@ -10,6 +12,10 @@ public class User {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public static User demoUser(){
+        return new User("Ben","Tennyson", "0401195092087","ben10@gmail.com", "ben10", "#003eb3");
     }
 
     String firstName;
