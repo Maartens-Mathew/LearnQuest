@@ -2,54 +2,96 @@ package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboa
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AssessmentFragment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GoalsListActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.GroupHomeFragment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizFragment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.takingQuiz.takeQuizSplasha;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ResourcesFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.StudyToolsFragment;
 import com.example.learnquest.R;
+import com.example.learnquest.Utils.BottomSheet;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class GroupView extends AppCompatActivity {
-    int currentTab = 0;
 
+public class GroupView extends AppCompatActivity {
+
+    int currentTab = 0;
     BottomNavigationView groupBottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_group_view);
 
-        groupBottomNavigation = findViewById(R.id.group_bottom_navigation);
+       setContentView(R.layout.activity_group_view);
 
-
-
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.resources_constraint), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        groupBottomNavigation = findViewById(R.id.group_bottom_navigation);
+
         groupBottomNavigation.setOnItemSelectedListener(this::onItemSelectedListener);
+        groupBottomNavigation.setOnItemReselectedListener(this::onLongClick);
+
 
 
 
 
     }
+
+
+
+    public void onLongClick(MenuItem menuItem) {
+        FragmentManager manager = getSupportFragmentManager();
+
+
+        switch (menuItem.getTitle().toString()) {
+
+
+            case "Quiz": {
+
+                new BottomSheet.Builder()
+                        .with(GroupView.this)
+                        .getItemTitles("Quiz Bank", "Quiz Pool", "Manage Tags", "Take Quiz")
+                        .andClasses(quizBankHome.class, quizValidHome.class, TagManageHome.class, takeQuizSplasha.class)
+                        .build()
+                        .show(manager, "This is a tag");
+            }
+            break;
+
+            case "Assessment": {
+
+                new BottomSheet.Builder()
+                        .with(this)
+                        .getItemTitles("Set Weightings", "Manage Goals")
+                        .andClasses(ListViewActivity.class, GoalsListActivity.class);
+            }
+            break;
+
+
+        }
+    }
+
+
 
     public boolean onItemSelectedListener(MenuItem item){
         Fragment fragment = null;

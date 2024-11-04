@@ -1,11 +1,12 @@
 package com.example.learnquest.model.studyResource;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class StudyResource {
 
     @SerializedName("resourceID")
-    Short resourceID;
+    Integer resourceID;
 
     @SerializedName("fileName")
     String fileName;
@@ -16,8 +17,52 @@ public class StudyResource {
     @SerializedName("filePathURL")
     String filePathURL;
 
+    @SerializedName("dateAdded")
+    String dateAdded;
+
+    @SerializedName("URL")
+    String URL;
+
+    public String getURL() {
+        return URL;
+    }
+
+    public void setURL(String URL) {
+        this.URL = URL;
+    }
+
+    @Expose
+    String filePath;
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    @SerializedName("person")
+    String person;
+
+    public String getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(String dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public String getPerson() {
+        return person;
+    }
+
+    public void setPerson(String person) {
+        this.person = person;
+    }
+
     @SerializedName("groupID")
-    Short groupID;
+    Integer groupID;
 
     public String getFileName() {
         return fileName;
@@ -25,14 +70,6 @@ public class StudyResource {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
-
-    public String getFilePathURL() {
-        return filePathURL;
-    }
-
-    public void setFilePathURL(String filePathURL) {
-        this.filePathURL = filePathURL;
     }
 
     public String getFileType() {
@@ -43,19 +80,19 @@ public class StudyResource {
         this.fileType = fileType;
     }
 
-    public Short getGroupID() {
+    public Integer getGroupID() {
         return groupID;
     }
 
-    public void setGroupID(Short groupID) {
+    public void setGroupID(Integer groupID) {
         this.groupID = groupID;
     }
 
-    public Short getResourceID() {
+    public Integer getResourceID() {
         return resourceID;
     }
 
-    public void setResourceID(Short resourceID) {
+    public void setResourceID(Integer resourceID) {
         this.resourceID = resourceID;
     }
 }

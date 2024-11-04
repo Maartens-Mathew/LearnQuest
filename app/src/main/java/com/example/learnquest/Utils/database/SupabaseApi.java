@@ -11,6 +11,7 @@ import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboar
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.model.group.Group;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
+import com.example.learnquest.model.studyResource.StudyResource;
 import com.example.learnquest.model.user.User;
 
 import java.util.List;
@@ -69,6 +70,9 @@ public interface SupabaseApi {
 
     @GET("rpc/getQuizEntries")
     Call<List<QuizEntry>> getQuizEntries(@Query("groupID_input") Integer groupID);
+
+    @GET("rpc/getStudyResources")
+    Call<List<StudyResource>> getStudyResources(@Query("groupID_input") Integer groupID_input);
 
 
 

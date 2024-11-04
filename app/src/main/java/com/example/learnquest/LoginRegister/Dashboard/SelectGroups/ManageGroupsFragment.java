@@ -1,13 +1,12 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups;
 
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,17 +17,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.LoginRegister.Dashboard.Dashboard;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView;
 import com.example.learnquest.R;
-import com.example.learnquest.model.group.Group;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 import com.example.learnquest.model.group.Group;
 
 import java.io.IOException;
@@ -46,7 +37,6 @@ public class ManageGroupsFragment extends Fragment {
     }
 
     Context context;
-
     RecyclerView groupView;
     Button btnSearch;
 
@@ -54,9 +44,9 @@ public class ManageGroupsFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_manage_groups, container);
+        View view = inflater.inflate(R.layout.fragment_manage_groups, container, false);
 
         groupView = view.findViewById(R.id.recyclerView_groups);
         btnSearch = view.findViewById(R.id.btnSearch);
@@ -96,8 +86,6 @@ public class ManageGroupsFragment extends Fragment {
 
     public void selectGroup(View view) {
 
-        Intent intent = new Intent(getActivity(), GroupView.class);
-        startActivity(intent);
 
     }
 
@@ -131,4 +119,5 @@ public class ManageGroupsFragment extends Fragment {
         groups = new ArrayList<>();
 
     }
+
 }

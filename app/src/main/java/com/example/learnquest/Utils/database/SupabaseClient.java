@@ -3,12 +3,14 @@ package com.example.learnquest.Utils.database;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
 //import com.example.learnquest.Utils.database.Serializers.QuizEntryDeserializer;
+import com.example.learnquest.Utils.database.JsonConverters.StudyResource_JSONConverter;
 import com.example.learnquest.Utils.database.Serializers.QuizEntry_JSONConverter;
 import com.example.learnquest.Utils.database.Serializers.Tag_JSONConverter;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.Utils.database.JsonConverters.Group_JSONConverter;
 
 import com.example.learnquest.model.group.Group;
+import com.example.learnquest.model.studyResource.StudyResource;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -41,6 +43,7 @@ public class SupabaseClient {
                     .registerTypeAdapter(QuizEntry.class, new QuizEntry_JSONConverter())
                     .registerTypeAdapter(Tag.class, new Tag_JSONConverter())
                     .registerTypeAdapter(Group.class, new Group_JSONConverter())
+                    .registerTypeAdapter(StudyResource.class, new StudyResource_JSONConverter())
                     .create();
 
 
