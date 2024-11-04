@@ -1,7 +1,7 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups;
 
-public class PendingUsersResult {
-    Integer userID;
+public class Pending {
+    Integer userID; Integer groupID;
     String firstName, lastName, roleName;
 
     public Integer getUserID() {
@@ -36,7 +36,7 @@ public class PendingUsersResult {
         this.roleName = roleName;
     }
 
-    public PendingUsersResult(Integer userID, String firstName, String lastName, String roleName) {
+    public Pending(Integer userID, String firstName, String lastName, String roleName) {
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;

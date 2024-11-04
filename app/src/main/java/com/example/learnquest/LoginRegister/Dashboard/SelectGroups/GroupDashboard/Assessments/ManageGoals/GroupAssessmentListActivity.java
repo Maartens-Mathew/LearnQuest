@@ -9,14 +9,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.Assessment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AddGoalActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.AssessmentAdapter;
 import com.example.learnquest.R;
+import com.example.learnquest.model.assessment.Assessment;
+import com.example.learnquest.model.assessment.StudentAssessment;
+import com.example.learnquest.model.group.Group;
+import com.example.learnquest.model.user.User;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +33,6 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
 
     public static final String GROUP_ASSESSMENT_ACTIVITY = "GroupAssessmentActivity";
     private List<Assessment> assessments;
-    private List<StudentAssessment> assessmentsToFilter;
     private RecyclerView rwAssessmentList;
     private TextView lblAssesmentAddInfo;
     public static AssessmentAdapter adapter;
@@ -35,35 +41,24 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_assessment_list);
+        assessments = new ArrayList<>();
+
+        App.user = User.demoUser();
+        App.group = Group.demoGroup();
         databaseCall();
-        filter();
+
         rwAssessmentList = findViewById(R.id.rwAssessmentList);
         lblAssesmentAddInfo = findViewById(R.id.lblInfoDisplay);
-        if (assessments == null){
-            rwAssessmentList.setVisibility(View.GONE);
-            lblAssesmentAddInfo.setText("No assessment to add as Goal");
-        }
-        else{
-            rwAssessmentList.setVisibility(View.VISIBLE);
-            setUpRecyclerView();
-        }
-    }
-    public void filter(){
-        for (int i = 0; i < assessments.size(); i++){
-            Assessment a = assessments.get(i);
-            for (StudentAssessment s : assessmentsToFilter){
-                if (a.getAssessmentID() == s.getAssessmentID()){
-                    assessments.remove(a);
-                }
-            }
-        }
+
+
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         databaseCall();
-        filter();
         if (assessments == null){
             lblAssesmentAddInfo.setText("No assessment to add as Goal");
             rwAssessmentList.setVisibility(View.GONE);
@@ -78,7 +73,7 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         databaseCall();
-        filter();
+
         if (assessments == null) {
             lblAssesmentAddInfo.setText("No assessment to add as Goal");
             rwAssessmentList.setVisibility(View.GONE);
@@ -90,7 +85,7 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
 
     private void setUpRecyclerView(){
         adapter = new AssessmentAdapter(assessments,v ->{
-            Intent intent = new Intent(v.getContext(), AddGoalActivity.class);
+            Intent intent = new Intent(GroupAssessmentListActivity.this, AddGoalActivity.class);
             int pos = rwAssessmentList.findContainingViewHolder(v).getBindingAdapterPosition();
             intent.putExtra("assessment",assessments.get(pos));
             intent.putExtra("pos",pos);
@@ -101,39 +96,46 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
     }
 
     public void databaseCall(){
-        Call<List<Assessment>> assessmentCall = App.api.getAssessments();
-        Log.i(GROUP_ASSESSMENT_ACTIVITY, "LOGCAT IS WORKING!!!!");
-        Call<List<StudentAssessment>> studentAssessmentCall = App.api.getStudentAssessments(0);
-        studentAssessmentCall.enqueue(new Callback<List<StudentAssessment>>() {
+        Call<List<Assessment>> assessmentCall = App.api.getAvailableAssessments(App.user.getUserID(), App.group.getGroupID());
+
+        assessmentCall.enqueue(new Callback<List<Assessment>>() {
             @Override
-            public void onResponse(Call<List<StudentAssessment>> call, Response<List<StudentAssessment>> response) {
-                if (response.isSuccessful()){
-                    assessmentsToFilter = Collections.synchronizedList(response.body());
+            public void onResponse(Call<List<Assessment>> call, Response<List<Assessment>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    assessments.addAll(response.body());
+                    onAssessments();
                 }
                 else{
-                    Log.e(GROUP_ASSESSMENT_ACTIVITY, "something went wrong");
+                    if (!response.isSuccessful() && response.body() == null){
+                        runOnUiThread(() -> Toast.makeText(GroupAssessmentListActivity.this, "There are no assessments to add as goals", Toast.LENGTH_SHORT).show());
+                        onNoAssessments();
+                    }
+
+                    if (!response.isSuccessful()){
+                        try {
+                            Log.e("Custom", response.errorBody().string());
+                        } catch (IOException e) {
+                            Log.e("Custom","Something happened.");
+                        }
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<List<StudentAssessment>> call, Throwable throwable) {
-                Log.e(GROUP_ASSESSMENT_ACTIVITY,throwable.getStackTrace().toString());
-            }
-        });
-        assessmentCall.enqueue(new Callback<List<Assessment>>() {
-            @Override
-            public void onResponse(Call<List<Assessment>> call, Response<List<Assessment>> response) {
-                if (response.isSuccessful()){
-                    assessments = Collections.synchronizedList(response.body());
-                }
-                else{
-                    Log.e(GROUP_ASSESSMENT_ACTIVITY,"something went wrong");
-                }
-            }
-            @Override
             public void onFailure(Call<List<Assessment>> call, Throwable throwable) {
-                Log.e(GROUP_ASSESSMENT_ACTIVITY,throwable.getStackTrace().toString());
+                runOnUiThread(() -> Toast.makeText(GroupAssessmentListActivity.this, "Could not connect to database successfully.", Toast.LENGTH_SHORT).show());
             }
         });
+    }
+
+    public void onNoAssessments(){
+
+        rwAssessmentList.setVisibility(View.GONE);
+        lblAssesmentAddInfo.setText("No assessment to add as Goal");
+    }
+
+    public void onAssessments(){
+        rwAssessmentList.setVisibility(View.VISIBLE);
+        setUpRecyclerView();
     }
 }

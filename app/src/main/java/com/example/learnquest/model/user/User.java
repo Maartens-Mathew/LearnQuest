@@ -19,6 +19,19 @@ public class User {
     String username;
     String password;
 
+
+    public static User demoUser(){
+        return new User(0,"Mathew","Maartens","0303025049089","maartens.mathew@gmail.com","Maartens.Mathew","qwerty");
+    }
+
+    private User(Integer userID, String firstName, String lastName, String nationalID, String email, String username, String password){
+        this.userID = userID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nationalID = nationalID;
+        this.email = email;
+    }
+
     public String getFirstName() {
         return firstName;
     }

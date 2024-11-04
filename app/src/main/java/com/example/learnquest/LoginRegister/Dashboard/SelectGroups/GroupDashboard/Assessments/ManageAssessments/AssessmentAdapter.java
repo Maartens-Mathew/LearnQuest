@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learnquest.R;
+import com.example.learnquest.model.assessment.Assessment;
 
 import java.util.List;
 

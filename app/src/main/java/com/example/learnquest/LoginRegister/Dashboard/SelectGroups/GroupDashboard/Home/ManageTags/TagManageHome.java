@@ -199,10 +199,10 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
 
         Log.d("AddTag", "Attempting to add tag with name: " + tagName + " and color: " + colorHex);
 
-        Call<Void> addTagCall = App.api.addTag(newTag);
-        addTagCall.enqueue(new Callback<Void>() {
+        Call<Tag> addTagCall = App.api.addTag(newTag);
+        addTagCall.enqueue(new Callback<Tag>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Tag> call, Response<Tag> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Log.d("AddTag", "Tag added successfully: " + response.body());
@@ -226,7 +226,7 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
 
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Tag> call, Throwable t) {
                 Log.e("AddTag", "Error adding tag: " + t.getMessage(), t);
                 Toast.makeText(TagManageHome.this, "Error adding tag", Toast.LENGTH_SHORT).show();
             }

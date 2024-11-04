@@ -13,10 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
+import com.example.learnquest.model.group.PendingResponse;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,9 +23,9 @@ import retrofit2.Response;
 
 public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingViewHolder>{
     public static final String PENDING_ADAPTER = "PendingAdapter";
-    List<PendingUsersResult> pending;
+    List<Pending> pending;
 
-    public PendingAdapter(List<PendingUsersResult> pending) {
+    public PendingAdapter(List<Pending> pending) {
         this.pending = pending;
     }
 
@@ -54,7 +53,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
 
     public static class PendingViewHolder extends RecyclerView.ViewHolder{
         TextView pendingName;
-        PendingUsersResult user;
+        Pending user;
         Button btnAccept, btnReject;
         int pos;
         PendingAdapter adapter;
@@ -62,12 +61,30 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
             super(itemView);
             pendingName = itemView.findViewById(R.id.lblNamePending);//might not be the right R imported
             btnAccept = itemView.findViewById(R.id.btnAcceptPending);
-            btnAccept.setOnClickListener(view -> {
+            btnAccept.setOnClickListener(this::onAcceptClick);
+            btnReject = itemView.findViewById(R.id.btnRejectPending);
+            btnReject.setOnClickListener(this::onRejectClick);
+        }
+
+        @SuppressLint("SetTextI18n")
+        public void setData(Pending pendingUser, int pos, PendingAdapter adapter){
+            pendingName.setText(pendingUser.getPendingUserFirstName() + " " + pendingUser.getPendingUserLastName());
+            user = pendingUser;
+            this.adapter = adapter;
+            this.pos = pos;
+        }
+
+
+
+        public void onAcceptClick(View view){
+
                 //TODO:remember to make this not hardcoded
                 //TODO:PendingActivity Approve/Reject doesn't work
-                Map<String, Object> body = new HashMap<>();
-                body.put("roleID",1);
-                Call<Void> updateCall = App.api.updateGroupMembership("eq." + user.userID,"eq." + 1, body);
+
+
+
+
+                Call<Void> updateCall = App.api.updateGroupMembership(PendingResponse.accept(user));
                 updateCall.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
@@ -86,10 +103,12 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
                     }
                 });
                 adapter.remove(pos);
-            });
-            btnReject = itemView.findViewById(R.id.btnRejectPending);
-            btnReject.setOnClickListener(view ->{
-                Call<Void> rejectionCall = App.api.deleteGroupMembership("eq." + user.userID, "eq."+ 1);
+
+        }
+
+        public void onRejectClick(View view){
+
+                Call<Void> rejectionCall = App.api.removeUser(user.getUserID(), App.group.getGroupID());
                 Log.i(PENDING_ADAPTER, "start of database call");
                 rejectionCall.enqueue(new Callback<Void>() {
                     @Override
@@ -106,15 +125,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
                     }
                 });
                 adapter.remove(pos);
-            });
-        }
 
-        @SuppressLint("SetTextI18n")
-        public void setData(PendingUsersResult pendingUser, int pos, PendingAdapter adapter){
-            pendingName.setText(pendingUser.getPendingUserFirstName() + " " + pendingUser.getPendingUserLastName());
-            user = pendingUser;
-            this.adapter = adapter;
-            this.pos = pos;
         }
     }
 }

@@ -20,7 +20,7 @@ import retrofit2.Response;
 
 public class PendingUsersActivity extends AppCompatActivity {
 
-    List<PendingUsersResult> entries;
+    List<Pending> entries;
     private RecyclerView recyclerView;
     private PendingAdapter adapter;
 
@@ -39,7 +39,7 @@ public class PendingUsersActivity extends AppCompatActivity {
         }
 
         List<String> names = entries.stream()
-                .map(pendingUsersResult ->  pendingUsersResult.getPendingUserFirstName() + " " +  pendingUsersResult.getPendingUserLastName())
+                .map(pending ->  pending.getPendingUserFirstName() + " " +  pending.getPendingUserLastName())
                 .collect(Collectors.toList());
         adapter = new PendingAdapter(entries);
         setUpRecyclerView();
@@ -51,8 +51,8 @@ public class PendingUsersActivity extends AppCompatActivity {
     }
 
     public void getPendingUsers(){
-        Call<List<PendingUsersResult>> pendingCall = App.api.getPendingUsers(1);
-        Response<List<PendingUsersResult>> pendingResponse = null;
+        Call<List<Pending>> pendingCall = App.api.getPendingUsers(1);
+        Response<List<Pending>> pendingResponse = null;
 
         try{
             pendingResponse = pendingCall.execute();

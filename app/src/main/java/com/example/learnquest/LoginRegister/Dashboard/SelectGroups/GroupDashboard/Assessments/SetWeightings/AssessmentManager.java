@@ -1,5 +1,7 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings;
 
+import com.example.learnquest.model.assessment.Assessment;
+
 import java.util.ArrayList;
 import java.util.List;
 

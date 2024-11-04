@@ -70,13 +70,10 @@ public class AdjustGoalsListActivity extends AppCompatActivity {
         }
     }
 
-    private final Comparator<TrackProgressAssessmentData> comparator = new Comparator<TrackProgressAssessmentData>() {
-        @Override
-        public int compare(TrackProgressAssessmentData o1, TrackProgressAssessmentData o2) {
-            java.util.Date d1 = o1.getDate_due();
-            java.util.Date d2 = o2.getDate_due();
-            return d1.compareTo(d2);
-        }
+    private final Comparator<TrackProgressAssessmentData> comparator = (o1, o2) -> {
+        java.util.Date d1 = o1.getDate_due();
+        java.util.Date d2 = o2.getDate_due();
+        return d1.compareTo(d2);
     };
 
     public void Listener(View v){

@@ -34,7 +34,7 @@ public class RemoveGroupMemberActivity extends AppCompatActivity {
 
     public void btnOnConfirmClicked(View v){
         Call<Void> deleteMemberCall = App.api.
-                deleteGroupMembership("eq"+user.getUserid(),"eq"+App.group.getGroupID());
+                removeUser(user.getUserID(),App.group.getGroupID());
         deleteMemberCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

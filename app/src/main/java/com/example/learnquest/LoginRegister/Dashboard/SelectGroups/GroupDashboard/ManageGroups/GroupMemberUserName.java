@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class GroupMemberUserName implements Serializable {
 
-    private Integer userid;
+    private Integer userID;
 
-    public GroupMemberUserName(Integer userid, String username) {
-        this.userid = userid;
+    public GroupMemberUserName(Integer userID, String username) {
+        this.userID = userID;
         this.username = username;
     }
 
@@ -21,11 +21,11 @@ public class GroupMemberUserName implements Serializable {
         this.username = username;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 }
