@@ -75,13 +75,13 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
+        super.onRestart();
         databaseCall();
         filter();
-        if (assessments == null){
+        if (assessments == null) {
             lblAssesmentAddInfo.setText("No assessment to add as Goal");
             rwAssessmentList.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             rwAssessmentList.setVisibility(View.VISIBLE);
             setUpRecyclerView();
         }
