@@ -2,7 +2,8 @@ package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboa
 
 public class StudentAssessment {
     private int userID, assessmentID;
-    private float markObtained, idealMark;
+    private Float markObtained;
+    private Float idealMark;
     private String feedback;
 
     public int getUserID() {
@@ -21,19 +22,19 @@ public class StudentAssessment {
         this.assessmentID = assessmentID;
     }
 
-    public float getMarkObtained() {
+    public Float getMarkObtained() {
         return markObtained;
     }
 
-    public void setMarkObtained(float markObtained) {
+    public void setMarkObtained(Float markObtained) {
         this.markObtained = markObtained;
     }
 
-    public float getIdealMark() {
+    public Float getIdealMark() {
         return idealMark;
     }
 
-    public void setIdealMark(float idealMark) {
+    public void setIdealMark(Float idealMark) {
         this.idealMark = idealMark;
     }
 
@@ -45,7 +46,7 @@ public class StudentAssessment {
         this.feedback = feedback;
     }
 
-    public StudentAssessment(int userID, int assessmentID, float markObtained, float idealMark, String feedback) {
+    public StudentAssessment(int userID, int assessmentID, Float markObtained, Float idealMark, String feedback) {
         this.userID = userID;
         this.assessmentID = assessmentID;
         this.markObtained = markObtained;
