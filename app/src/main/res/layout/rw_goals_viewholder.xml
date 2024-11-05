@@ -5,70 +5,119 @@
     android:id="@+id/card_goal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/narsi_teal"
-    android:foreground="?attr/selectableItemBackground"
-    app:cardElevation="10dp"
+    android:backgroundTint="@color/narsi_background"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:clickable="false"
         android:focusable="false">
 
-        <TextView
-            android:id="@+id/lblAssessmentName1"
+        <LinearLayout
+            android:id="@+id/goal_viewholder_controls"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:clickable="false"
-            android:text="TextView"
-            android:focusable="false"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="48sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblMarkObtained1"
+            tools:visibility="visible">
+
+            <Button
+                android:id="@+id/button8"
+                style="@style/ButtonStyleGreenFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:onClick="btnUpdateClicked"
+                android:text="Update" />
+
+            <Button
+                android:id="@+id/button18"
+                style="@style/ButtonStyleGreenFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:onClick="btnDeleteClicked"
+                android:text="Delete" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lblAssessmentName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:text="@string/assessment_name"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/lblMarkDesired1"
-            android:clickable="false"
-            android:focusable="false"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            android:focusable="false"
             android:text="@string/adjust_goals_mark_desired"
-            android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblAssessmentName1" />
+            app:layout_constraintTop_toBottomOf="@+id/lblWeighting1" />
 
         <TextView
             android:id="@+id/lblMarkObtained1"
-            android:clickable="false"
-            android:focusable="false"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            android:focusable="false"
             android:text="@string/adjust_goals_mark_obtained"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/lblMarkDesired1"
-            app:layout_constraintTop_toBottomOf="@+id/lblAssessmentName1" />
+            android:textColor="@color/gray"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/lblDueDate"
+            tools:layout_editor_absoluteX="16dp" />
 
         <TextView
             android:id="@+id/lblWeighting1"
-            android:clickable="false"
-            android:focusable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            android:focusable="false"
             android:text="@string/adjust_goals_weighting"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toEndOf="@+id/lblMarkObtained1"
-            app:layout_constraintTop_toBottomOf="@+id/lblAssessmentName1" />
+            android:textColor="@color/gray"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/lblAssessmentName1"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <TextView
+            android:id="@+id/lblDueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:text="@string/due_date"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/lblMarkDesired1"
+            tools:layout_editor_absoluteX="16dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

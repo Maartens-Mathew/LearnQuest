@@ -1,5 +1,7 @@
 package com.example.learnquest.model.user;
 
+import com.example.learnquest.model.group.Group;
+
 public class User {
 
     Integer userID;

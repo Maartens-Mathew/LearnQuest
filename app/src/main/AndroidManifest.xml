@@ -19,8 +19,8 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LearnQuest"
         tools:targetApi="31">
@@ -72,11 +72,6 @@
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ManageResourcesActivity"
             android:exported="true"></activity>
         <activity
-            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ManageResourcesActivity"
-            android:exported="true">
-
-        </activity>
-        <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.DeleteGroupActivity"
             android:exported="false" />
         <activity
@@ -114,7 +109,7 @@
         </activity>
         <activity
             android:name=".LoginRegister.LoginActivity"
-            android:exported="true" />
+            android:exported="true"></activity>
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.ViewProgressActivity"
             android:exported="true" />
@@ -124,16 +119,15 @@
         <activity
             android:name=".LoginRegister.RegisterActivity"
             android:exported="true" />
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity" />
-        <activity
-            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.MainActivity"
-            android:exported="true" />
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity"
+            android:exported="true"/>
+
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.AdjustGoalActivity"
             android:exported="true" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity"
-            android:exported="true" />
+            android:exported="true"></activity>
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.Pomodoro.pomoDoroMain"
             android:exported="true" />

@@ -59,14 +59,14 @@
         android:layout_height="wrap_content"
         android:onClick="onLoginClick"
         android:text="Log in"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
+        app:layout_constraintBottom_toTopOf="@+id/btnViewMembers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/btnViewMembers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onRegisterClick"
@@ -96,7 +96,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/btnViewMembers" />
 
     <ProgressBar
         android:id="@+id/progressBar2"

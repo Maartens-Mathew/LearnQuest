@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,10 +21,10 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
     private View.OnClickListener listener;
     private Context context;
 
-    public void edit(int pos, AssessmentData data){
-        TrackProgressAssessmentData oldData = assessments.get(pos);
-        notifyItemChanged(assessments.size()-1);
-    }
+//    public void edit(int pos, AssessmentData data){
+//        TrackProgressAssessmentData oldData = assessments.get(pos);
+//        notifyItemChanged(assessments.size()-1);
+//    }
 
     public GoalAdapter(List<TrackProgressAssessmentData> assessments, Context context, View.OnClickListener listener){
         this.assessments = assessments;
@@ -55,9 +56,10 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
 
     public static class GoalViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView lblAssessmentName, lblMarkDesired, lblMarkObtained, lblWeighting;
+        public TextView lblAssessmentName, lblMarkDesired, lblMarkObtained, lblWeighting, lblDueDate;
         public TrackProgressAssessmentData data;
         public View.OnClickListener listener;
+        public LinearLayout controls;
         public CardView cardView;
         public GoalViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,10 +67,12 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
             lblMarkDesired = itemView.findViewById(R.id.lblMarkDesired1);
             lblMarkObtained = itemView.findViewById(R.id.lblMarkObtained1);
             lblWeighting = itemView.findViewById(R.id.lblWeighting1);
+            lblDueDate = itemView.findViewById(R.id.lblDueDate);
             cardView = itemView.findViewById(R.id.card_goal);
         }
         public void setData(TrackProgressAssessmentData data, Context context){
-            lblAssessmentName.setText(data.getName());
+            lblAssessmentName.setText(context.getResources().getString(R.string.assessment_name, data.getName()));
+            lblDueDate.setText(context.getResources().getString(R.string.assessment_name, data.getDate_due().toString()));
             if (data.getMark_obtained() == null){
                 lblMarkObtained.setVisibility(View.GONE);
             }

@@ -40,13 +40,18 @@ public class AddGoalActivity extends AppCompatActivity {
         if (intent != null){
             data = (Assessment) intent.getExtras().get("assessment");
             pos = intent.getExtras().getInt("pos");
-            lblAssessmentName.setText("Assessment: " + data.getName());
-            lblWeighting.setText("Weighting: " + data.getWeighting());
-            lblDueDate.setText("Due Date: "+ data.getDueDate());
+            lblAssessmentName.setText(getResources().getString(R.string.assessment_name, data.getName()));
+            lblWeighting.setText(getResources().getString(R.string.adjust_goals_weighting,
+                    String.format("%.0f",data.getWeighting())));
+            lblDueDate.setText(getResources().getString(R.string.due_date, data.getDueDate()));
         }
     }
 
     public void btnAddClicked(View v){
+        if (edtMarkDesired.getText().toString().length() == 0){
+            Toast.makeText(this, "Please enter a desired mark", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Float markDesired = Float.parseFloat(edtMarkDesired.getText().toString());
         GroupAssessmentListActivity.adapter.remove(pos);
         newGoal = new StudentAssessment(data.getAssessmentID(),"",null,markDesired,null);
@@ -59,12 +64,14 @@ public class AddGoalActivity extends AppCompatActivity {
                     Toast.makeText(AddGoalActivity.this, "Added new Goal", Toast.LENGTH_LONG).show();
                 }
                 else{
+                    Toast.makeText(AddGoalActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                     Log.e(ADD_GOAL_ACTIVITY,"Something went wrong: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable throwable) {
+                Toast.makeText(AddGoalActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 Log.e(ADD_GOAL_ACTIVITY,throwable.getStackTrace().toString());
             }
         });

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.learnquest.AppState.App;
@@ -25,8 +26,6 @@ public class JoinGroupActivity extends AppCompatActivity {
 
     public static final String JOIN_GROUP_ACTIVITY = "JoinGroupActivity";
     private GroupMembership newGroupMember;
-    private CardView groupColor;
-    private TextView groupName;
     private Group group;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +33,12 @@ public class JoinGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_join_group);
         newGroupMember = new GroupMembership(App.user.getUserID(),App.group.getGroupID(), 4);
         getGroupDataFromDatabase();
-        groupColor = findViewById(R.id.JoinGroupActivityGroupColor);
-        groupName = findViewById(R.id.JoinGroupActivitylabelGroupName);
+        CardView groupColor = findViewById(R.id.JoinGroupActivityGroupColor);
+        TextView groupName = findViewById(R.id.JoinGroupActivitylabelGroupName);
+        ImageView groupImage = findViewById(R.id.joinGroupImage);
         groupName.setText(group.getTopic());
         groupColor.setCardBackgroundColor(Color.parseColor(group.getGroupColour()));
+        groupImage.setImageBitmap(group.getImage());
     }
 
     public void btnJoinClicked(View v){

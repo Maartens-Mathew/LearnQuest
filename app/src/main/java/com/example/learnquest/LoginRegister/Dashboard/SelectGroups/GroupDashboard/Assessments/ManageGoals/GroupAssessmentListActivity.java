@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.AssessmentAdapter;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.EqualSpacingItemDecoration;
 import com.example.learnquest.R;
 import com.example.learnquest.model.assessment.Assessment;
 import com.example.learnquest.model.group.Group;
@@ -48,8 +48,10 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
         lblAssesmentAddInfo = findViewById(R.id.lblInfoDisplay);
 
 
+    }
 
-
+    public void onGroupAssessmentBtnBackPressed(View v){
+        getOnBackPressedDispatcher().onBackPressed();
     }
 
     @Override
@@ -90,6 +92,7 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
         });
         rwAssessmentList.setAdapter(adapter);
         rwAssessmentList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        rwAssessmentList.addItemDecoration(new EqualSpacingItemDecoration(5));
     }
 
     public void databaseCall(){

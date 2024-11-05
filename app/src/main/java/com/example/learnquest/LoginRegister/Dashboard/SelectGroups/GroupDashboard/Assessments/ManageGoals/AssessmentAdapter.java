@@ -1,5 +1,6 @@
-package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments;
+package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,9 +81,12 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
 
         public void setData(Assessment data){
             this.data = data;
-            lblAssessmentName.setText("Assessment: " + data.getName());
-            lblWeighting.setText("Weighting: " + data.getWeighting());
-            lblDueDate.setText("Due Date: "+ data.getDueDate());
+            lblAssessmentName.setText(itemView.getContext().getResources().getString(R.string.assessment_name,
+                    this.data.getName()));
+            lblWeighting.setText(itemView.getContext().getResources().getString(R.string.adjust_goals_weighting,
+                    String.format("%.0f",this.data.getWeighting())));
+            lblDueDate.setText(itemView.getContext().getResources().getString(R.string.due_date,
+                    this.data.getDueDate()));
         };
 
         public void setListener(View.OnClickListener listener) {

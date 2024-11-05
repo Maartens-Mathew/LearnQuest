@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
@@ -23,6 +24,10 @@ public class PendingUsersActivity extends AppCompatActivity {
     List<Pending> entries;
     private RecyclerView recyclerView;
     private PendingAdapter adapter;
+
+    public void onPendingUserBtnBackPressed(View v){
+        getOnBackPressedDispatcher().onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
