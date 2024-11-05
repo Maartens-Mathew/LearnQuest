@@ -13,7 +13,7 @@ public class Assessment implements Serializable {
 
     @Override
     public String toString() {
-        return name + " \n" + weighting;
+        return name + " " + "("+weighting+ ")";
     }
 
     public Assessment(Date dueDate, Integer groupID, String name, Float weighting) {

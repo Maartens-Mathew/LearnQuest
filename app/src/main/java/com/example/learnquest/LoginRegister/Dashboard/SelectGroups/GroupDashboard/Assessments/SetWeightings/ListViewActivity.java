@@ -242,9 +242,8 @@ public class ListViewActivity extends AppCompatActivity {
         pieChart.getLegend().setTextSize(13f);
 
         PieData data = new PieData(dataSet);
-        pieChart.getDescription().setText("Assessments Legend");
-        pieChart.getDescription().setTextSize(14f);
-        pieChart.getDescription().setPosition(360f, 750f);
+
+        pieChart.getDescription().setText("");
 
         pieChart.setData(data);
         pieChart.invalidate();

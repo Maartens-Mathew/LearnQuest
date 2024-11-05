@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
 import com.example.learnquest.R;
+import com.example.learnquest.model.group.Group;
+import com.example.learnquest.model.user.User;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.flexbox.FlexboxLayout;
@@ -38,7 +40,8 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
     private TagAdapter adapter;
     private FlexboxLayout flexboxLayout;
     private String selectedColorHex = "#000000"; // Default white color
-
+    private Integer GROUP_ID;
+    private Integer USER_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +50,24 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
         recyclerView = findViewById(R.id.tagRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+        if (App.group == null) {
+            App.group = Group.demoGroup();
+            App.user = User.demoUser();
+        }
+
+        GROUP_ID = App.group.getGroupID();
+        USER_ID = App.user.getUserID();
+
+
+
         // Initialize FlexboxLayout
         flexboxLayout = findViewById(R.id.flexboxForValidatingQuizs);
 
         // Assuming you set your group ID like this; adjust as needed
-        App.group.setGroupID(1);
 
         // Fetch tags by group ID
-        fetchTagsByGroup(App.group.getGroupID());
+        fetchTagsByGroup(GROUP_ID);
     }
 
     private void fetchTagsByGroup(Integer groupID) {
@@ -195,7 +208,7 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
         Tag newTag = new Tag();
         newTag.setTagName(tagName);
         newTag.setTagColour(colorHex);
-        newTag.setGroupID(App.group.getGroupID()); // Assuming groupID is a String
+        newTag.setGroupID(GROUP_ID); // Assuming groupID is a String
 
         Log.d("AddTag", "Attempting to add tag with name: " + tagName + " and color: " + colorHex);
 
@@ -207,19 +220,19 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
                     if (response.body() != null) {
                         Log.d("AddTag", "Tag added successfully: " + response.body());
                         Toast.makeText(TagManageHome.this, "Tag added successfully", Toast.LENGTH_SHORT).show();
-                        fetchTagsByGroup(App.group.getGroupID()); // Refresh the tag list
+                        fetchTagsByGroup(GROUP_ID); // Refresh the tag list
                        // runOnUiThread(() -> TagManageHome.this.recyclerView.on);
 
                     } else {
                         Log.e("AddTag", "Response body is null");
                       //  Toast.makeText(TagManageHome.this, "Failed to add tag: No response body", Toast.LENGTH_SHORT).show();
-                        fetchTagsByGroup(App.group.getGroupID()); // Refresh the tag list
+                        fetchTagsByGroup(GROUP_ID); // Refresh the tag list
 
                     }
                 } else {
                 //    Log.e("AddTag", "Failed to add tag. Response Code: " + response.code() + ", Message: " + response.message());
                     Toast.makeText(TagManageHome.this, "Failed to add tag", Toast.LENGTH_SHORT).show();
-                    fetchTagsByGroup(App.group.getGroupID()); // Refresh the tag list
+                    fetchTagsByGroup(GROUP_ID); // Refresh the tag list
 
                 }
             }
@@ -257,7 +270,7 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
 
     @Override
     public void onTagsChanged() {
-        fetchTagsByGroup(App.group.getGroupID());
+        fetchTagsByGroup(GROUP_ID);
     }
 
 
@@ -303,7 +316,7 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
                 if (response.isSuccessful()) {
                     Toast.makeText(TagManageHome.this, "Tag deleted successfully", Toast.LENGTH_SHORT).show();
                     // Refresh tags after deletion
-                    fetchTagsByGroup(App.group.getGroupID());
+                    fetchTagsByGroup(GROUP_ID);
                 } else {
                     Toast.makeText(TagManageHome.this, "Failed to delete tag", Toast.LENGTH_SHORT).show();
                     Log.e("DeleteTag", "Response Code: " + response.code() + ", Message: " + response.message());

@@ -24,6 +24,8 @@ import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
 import com.example.learnquest.R;
+import com.example.learnquest.model.group.Group;
+import com.example.learnquest.model.user.User;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.io.IOException;
@@ -54,7 +56,8 @@ public class editQuizFromValidAct extends AppCompatActivity {
     private Spinner spinnerForAddNewTags ;
     private QuizEntry currentQuizEntry;
 
-
+    private Integer GROUP_ID;
+    private Integer USER_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,8 +118,15 @@ public class editQuizFromValidAct extends AppCompatActivity {
         // Convert the comma-separated tags string to a List<String>
         List<String> tagsList = tagsString != null ? Arrays.asList(tagsString.split(",")) : new ArrayList<>();
 
-        App.group.setGroupID(1);
-        fetchTagsByGroup(App.group.getGroupID(), tagsList);
+        if (App.group == null) {
+            App.group = Group.demoGroup();
+            App.user = User.demoUser();
+        }
+
+        GROUP_ID = App.group.getGroupID();
+        USER_ID = App.user.getUserID();
+
+        fetchTagsByGroup(GROUP_ID, tagsList);
         switchInContention.setVisibility(View.GONE); // or View.INVISIBLE depending on your needs
 
     }
@@ -236,7 +246,7 @@ public class editQuizFromValidAct extends AppCompatActivity {
         entry.setAnswer(edtAnswer.getText().toString());
         entry.setDescription(edtDescription.getText().toString());
         entry.setInContention(switchInContention.isChecked());
-        entry.setGroupID(App.group.getGroupID());
+        entry.setGroupID(GROUP_ID);
 
         if (entry.getQuestion().isEmpty() || entry.getAnswer().isEmpty() || entry.getDescription().isEmpty() ) {
             Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
