@@ -56,7 +56,7 @@ public class takeQuizSplasha extends AppCompatActivity {
     private Integer GROUP_ID;
     private Integer USER_ID;
 
-
+    private  Button btnSetTagsforQuizz;
 
 
     @Override
@@ -74,7 +74,7 @@ public class takeQuizSplasha extends AppCompatActivity {
 
         GROUP_ID = App.group.getGroupID();
         USER_ID = App.user.getUserID();
-
+        btnSetTagsforQuizz = findViewById(R.id.btnSetTagsforQuizz);
 
 
 
@@ -132,11 +132,15 @@ public class takeQuizSplasha extends AppCompatActivity {
         } else {
             Log.e("Custom", "Entries list is null!");
         }
-
-
         txtRecNum = findViewById(R.id.txtRecSize);
-        Integer seventyPOfSize = (int) (0.7*entries.size());
-        txtRecNum.setText("Ideally a quiz of: " + seventyPOfSize +" as a rough estimate");
+
+btnSetTagsforQuizz.setOnClickListener(v -> {
+    Integer seventyPOfSize = (int) (0.7*entries.size());
+    txtRecNum.setText("Ideally a quiz of: " + seventyPOfSize +" as a rough estimate");
+});
+
+
+
 
     }
 
