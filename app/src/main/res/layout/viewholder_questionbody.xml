@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/edtAnswer"
-        android:layout_width="239dp"
+        android:layout_width="wrap_content"
         android:layout_height="107dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -37,7 +37,7 @@
 
     <TextView
         android:id="@+id/edtDescription"
-        android:layout_width="238dp"
+        android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
@@ -116,7 +116,7 @@
 
     <TextView
         android:id="@+id/txtinContention"
-        android:layout_width="81dp"
+        android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
