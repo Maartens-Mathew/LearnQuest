@@ -72,11 +72,6 @@
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ManageResourcesActivity"
             android:exported="true"></activity>
         <activity
-            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ManageResourcesActivity"
-            android:exported="true">
-
-        </activity>
-        <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.DeleteGroupActivity"
             android:exported="false" />
         <activity
@@ -124,10 +119,9 @@
         <activity
             android:name=".LoginRegister.RegisterActivity"
             android:exported="true" />
-        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity" />
-        <activity
-            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.MainActivity"
-            android:exported="true" />
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity"
+            android:exported="true"/>
+
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.AdjustGoalActivity"
             android:exported="true" />

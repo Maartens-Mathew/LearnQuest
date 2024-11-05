@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
+import com.example.learnquest.model.group.Group;
+import com.example.learnquest.model.user.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,14 +29,25 @@ public class quizBankHome extends AppCompatActivity {
     private QuizExpandableListAdapter quizAdapter;
     private ExpandableListView expandableListView;
     private static final int REQUEST_CODE_EDIT = 2;
-
+    private Integer GROUP_ID;
+    private Integer USER_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_bank);
 
         entries = new ArrayList<>();
-        App.group.setGroupID(1);
+
+        if (App.group == null) {
+            App.group = Group.demoGroup();
+            App.user = User.demoUser();
+        }
+
+        GROUP_ID = App.group.getGroupID();
+        USER_ID = App.user.getUserID();
+
+
+
         App.setApplicationContext(getApplicationContext());
 
         expandableListView = findViewById(R.id.elvQuizEntries);
@@ -58,7 +71,7 @@ public class quizBankHome extends AppCompatActivity {
     }
 
     private void GetQuizQuestions() {
-        Call<List<QuizEntry>> call = App.api.getQuizEntries(App.group.getGroupID()); // Replace 1 with actual groupID
+        Call<List<QuizEntry>> call = App.api.getQuizEntries(GROUP_ID); // Replace 1 with actual groupID
         Response<List<QuizEntry>> response;
 
         try {

@@ -11,6 +11,11 @@ public class Assessment implements Serializable {
     Float weighting;
     Integer groupID;
 
+    @Override
+    public String toString() {
+        return name + " \n" + weighting;
+    }
+
     public Assessment(Date dueDate, Integer groupID, String name, Float weighting) {
         this.dueDate = dueDate;
         this.groupID = groupID;

@@ -22,6 +22,8 @@ import com.example.learnquest.R;
 import com.example.learnquest.Utils.database.SupabaseApi;
 import com.example.learnquest.Utils.database.SupabaseClient;
 import com.example.learnquest.model.assessment.Assessment;
+import com.example.learnquest.model.group.Group;
+import com.example.learnquest.model.user.User;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -47,21 +49,29 @@ public class ListViewActivity extends AppCompatActivity {
     private int selectedIndex = -1;
     private PieChart pieChart;
     private ProgressBar progressBar;
+
+
+
     List<Assessment> assessments = new ArrayList<>();
+
+    private Integer GROUP_ID;
+    private Integer USER_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
 
-        int groupIDPassedIn = getIntent().getIntExtra("groupID", -1);
-        if (groupIDPassedIn != -1) {
-            App.group.setGroupID(groupIDPassedIn);
-        } else {
-            Log.e("ListViewActivity", "No groupID passed in the intent!");
-            Toast.makeText(this, "Error: No groupID passed.", Toast.LENGTH_LONG).show();
-            finish();
+        if (App.group == null) {
+            App.group = Group.demoGroup();
+            App.user = User.demoUser();
         }
+
+        GROUP_ID = App.group.getGroupID();
+        USER_ID = App.user.getUserID();
+
+
+
 
 
         Thread thread = new Thread(this::getAssessments);
@@ -98,7 +108,7 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     public void getAssessments() {
-        Call<List<Assessment>> assessmentsCall = App.api.getGroupAssessments(App.group.getGroupID());
+        Call<List<Assessment>> assessmentsCall = App.api.getGroupAssessments(GROUP_ID);
         Response<List<Assessment>> assessmentsResponse = null;
         try {
             assessmentsResponse = assessmentsCall.execute();
@@ -196,7 +206,7 @@ public class ListViewActivity extends AppCompatActivity {
                     Toast.makeText(this, "Invalid date format.", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Assessment assessment = new Assessment(date, App.group.getGroupID(), name, weighting);
+                Assessment assessment = new Assessment(date, GROUP_ID, name, weighting);
                 assessments.add(assessment);
                 adapter.notifyDataSetChanged();
                 updatePieChart();
@@ -261,7 +271,7 @@ public class ListViewActivity extends AppCompatActivity {
 
 
     public void onSaveClicked(View view) {
-        int groupIDToDelete = 1; // Update this as needed
+        int groupIDToDelete = GROUP_ID; // Update this as needed
 
         SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
 
