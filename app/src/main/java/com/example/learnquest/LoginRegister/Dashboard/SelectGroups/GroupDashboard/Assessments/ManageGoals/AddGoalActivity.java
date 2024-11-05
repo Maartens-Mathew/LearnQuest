@@ -14,6 +14,7 @@ import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 import com.example.learnquest.model.assessment.Assessment;
 import com.example.learnquest.model.assessment.StudentAssessment;
+import com.example.learnquest.model.user.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,18 +44,18 @@ public class AddGoalActivity extends AppCompatActivity {
             lblAssessmentName.setText(getResources().getString(R.string.assessment_name, data.getName()));
             lblWeighting.setText(getResources().getString(R.string.adjust_goals_weighting,
                     String.format("%.0f",data.getWeighting())));
-            lblDueDate.setText(getResources().getString(R.string.due_date, data.getDueDate()));
+            lblDueDate.setText(getResources().getString(R.string.due_date,
+                    String.format("%tF",data.getDueDate())));
         }
     }
 
-    public void btnAddClicked(View v){
+    public void btnAddGoalAddClicked(View v){
         if (edtMarkDesired.getText().toString().length() == 0){
             Toast.makeText(this, "Please enter a desired mark", Toast.LENGTH_SHORT).show();
             return;
         }
         Float markDesired = Float.parseFloat(edtMarkDesired.getText().toString());
-        GroupAssessmentListActivity.adapter.remove(pos);
-        newGoal = new StudentAssessment(data.getAssessmentID(),"",null,markDesired,null);
+        newGoal = new StudentAssessment(data.getAssessmentID(),"",markDesired,null, App.user.getUserID());
         Call<Void> assessmentCall = App.api.addGoal(newGoal);
         assessmentCall.enqueue(new Callback<Void>() {
             @Override
@@ -66,6 +67,10 @@ public class AddGoalActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(AddGoalActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                     Log.e(ADD_GOAL_ACTIVITY,"Something went wrong: " + response.message());
+                    if (response.errorBody() != null){
+                        Log.e(ADD_GOAL_ACTIVITY, String.valueOf(response.code()));
+                        Log.e(ADD_GOAL_ACTIVITY,response.errorBody().toString());
+                    }
                 }
             }
 
@@ -78,7 +83,7 @@ public class AddGoalActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().onBackPressed();
     }
 
-    public void btnCancelClicked(View v){
+    public void btnAddGoalCancelClicked(View v){
         getOnBackPressedDispatcher().onBackPressed();
     }
 }

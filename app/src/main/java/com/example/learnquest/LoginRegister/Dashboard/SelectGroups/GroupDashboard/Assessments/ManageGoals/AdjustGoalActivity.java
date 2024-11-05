@@ -55,15 +55,15 @@ public class AdjustGoalActivity extends AppCompatActivity {
         double newIdealMark = Double.parseDouble(edtMarkDesired.getText().toString());
         double newMarkObtained = Double.parseDouble(edtMarkObtained.getText().toString());
         Map<String, Object> body = new HashMap<>();
-        if (data.getIdeal_mark() != newIdealMark){
+        if (data.getIdeal_mark() == null || data.getIdeal_mark() != newIdealMark){
             data.setIdeal_mark(newIdealMark);
             body.put("idealMark",data.getIdeal_mark());
         }
-        if (data.getMark_obtained() != newMarkObtained){
+        if (data.getMark_obtained() == null || data.getMark_obtained() != newMarkObtained){
             data.setMark_obtained(newMarkObtained);
             body.put("markObtained", data.getMark_obtained());
         }
-        Call<Void> updateCall = App.api.updateGoal("eq." + 0, "eq." + data.getAssessment_id(),body);
+        Call<Void> updateCall = App.api.updateGoal("eq." + App.user.getUserID(), "eq." + data.getAssessment_id(),body);
         updateCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

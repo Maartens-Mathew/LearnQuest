@@ -33,13 +33,16 @@ public class DeleteGoalActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null){
             data = (TrackProgressAssessmentData) intent.getExtras().get("data");
-            lblAssessmentName.setText("Assessment Name: " + data.getName());
-            lblDueDate.setText("Due Date: " + data.getDate_due().toString());
-            lblWeighting.setText("Weighting: "+ data.getWeight());
-            lblMarkDesired.setText("Mark Desired: "+data.getIdeal_mark());
+            lblAssessmentName.setText(getResources().getString(R.string.assessment_name,data.getName()));
+            lblDueDate.setText(getResources().getString(R.string.due_date, String.format("%tF",data.getDate_due())));
+            lblWeighting.setText(getResources().
+                    getString(R.string.adjust_goals_weighting, String.format("%.0f",data.getWeight())));
+            lblMarkDesired.setText(getResources()
+                    .getString(R.string.adjust_goals_mark_desired, String.format("%.0f",data.getIdeal_mark())));
             if (data.getMark_obtained() != null){
                 lblMarkObtained.setVisibility(View.VISIBLE);
-                lblMarkObtained.setText("Mark Obtained: " + data.getMark_obtained());
+                lblMarkObtained.setText(getResources()
+                        .getString(R.string.adjust_goals_mark_obtained, String.format("%.0f",data.getMark_obtained())));
             }
             else{
                 lblMarkObtained.setVisibility(View.INVISIBLE);
@@ -52,7 +55,7 @@ public class DeleteGoalActivity extends AppCompatActivity {
     }
 
     public void onBtnDeleteClicked(View v){
-        Call<Void> deleteCall = App.api.deleteGoal("eq." + 0, "eq." + data.getAssessment_id());
+        Call<Void> deleteCall = App.api.deleteGoal("eq." + App.user.getUserID(), "eq." + data.getAssessment_id());
         deleteCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

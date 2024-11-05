@@ -1,5 +1,7 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,6 +11,24 @@ public class TrackProgressAssessmentData implements Serializable {
     private Double mark_obtained, ideal_mark;
     private float weight;
     private Date date_due;
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof TrackProgressAssessmentData){
+            TrackProgressAssessmentData t = (TrackProgressAssessmentData) obj;
+            return t.getAssessment_id() == this.assessment_id;
+        }
+        else{
+            return super.equals(obj);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 3;
+        result = 37*result + assessment_id;
+        return result;
+    }
 
     public int getAssessment_id() {
         return assessment_id;

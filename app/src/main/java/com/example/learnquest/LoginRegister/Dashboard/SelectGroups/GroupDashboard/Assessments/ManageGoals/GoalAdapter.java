@@ -13,22 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.AssessmentData;
 import com.example.learnquest.R;
+import com.example.learnquest.model.assessment.Assessment;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder> {
     private List<TrackProgressAssessmentData> assessments;
     private View.OnClickListener listener;
-    private Context context;
 
 //    public void edit(int pos, AssessmentData data){
 //        TrackProgressAssessmentData oldData = assessments.get(pos);
 //        notifyItemChanged(assessments.size()-1);
 //    }
 
-    public GoalAdapter(List<TrackProgressAssessmentData> assessments, Context context, View.OnClickListener listener){
-        this.assessments = assessments;
-        this.context = context;
+    public GoalAdapter(List<TrackProgressAssessmentData> assessments, View.OnClickListener listener){
+        List<TrackProgressAssessmentData> noDupes = assessments.stream().distinct().collect(Collectors.toList());
+        this.assessments = noDupes;
         this.listener = listener;
     }
 
@@ -46,7 +47,7 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
     public void onBindViewHolder(@NonNull GoalViewHolder holder, int position) {
         TrackProgressAssessmentData data = assessments.get(position);
         holder.listener = listener;
-        holder.setData(data, context.getApplicationContext());
+        holder.setData(data);
     }
 
     @Override
@@ -69,19 +70,24 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
             lblWeighting = itemView.findViewById(R.id.lblWeighting1);
             lblDueDate = itemView.findViewById(R.id.lblDueDate);
             cardView = itemView.findViewById(R.id.card_goal);
+            controls = itemView.findViewById(R.id.goal_viewholder_controls);
         }
-        public void setData(TrackProgressAssessmentData data, Context context){
-            lblAssessmentName.setText(context.getResources().getString(R.string.assessment_name, data.getName()));
-            lblDueDate.setText(context.getResources().getString(R.string.assessment_name, data.getDate_due().toString()));
+        public void setData(TrackProgressAssessmentData data){
+            lblAssessmentName.setText(cardView.getContext().getResources().getString(R.string.assessment_name, data.getName()));
+            lblDueDate.setText(cardView.getContext()
+                    .getResources().getString(R.string.due_date, String.format("%tF",data.getDate_due())));
             if (data.getMark_obtained() == null){
                 lblMarkObtained.setVisibility(View.GONE);
             }
             else{
                 lblMarkObtained.setVisibility(View.VISIBLE);
-                lblMarkObtained.setText(context.getResources().getString(R.string.adjust_goals_mark_obtained, String.format("%.0f",data.getMark_obtained())));
+                lblMarkObtained.setText(cardView.getContext().getResources()
+                        .getString(R.string.adjust_goals_mark_obtained, String.format("%.0f",data.getMark_obtained())));
             }
-            lblMarkDesired.setText(context.getResources().getString(R.string.adjust_goals_mark_desired, String.format("%.0f",data.getIdeal_mark())));
-            lblWeighting.setText(context.getResources().getString(R.string.adjust_goals_weighting, String.format("%.0f",data.getWeight())));
+            lblMarkDesired.setText(cardView.getContext().getResources()
+                    .getString(R.string.adjust_goals_mark_desired, String.format("%.0f",data.getIdeal_mark())));
+            lblWeighting.setText(cardView.getContext()
+                    .getResources().getString(R.string.adjust_goals_weighting, String.format("%.0f",data.getWeight())));
             this.data = data;
             cardView.setOnClickListener(listener);
         }

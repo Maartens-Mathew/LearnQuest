@@ -20,7 +20,11 @@ import com.example.learnquest.model.user.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +36,7 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
     private List<Assessment> assessments;
     private RecyclerView rwAssessmentList;
     private TextView lblAssesmentAddInfo;
-    public static AssessmentAdapter adapter;
+    private AssessmentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +46,9 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
 
         App.user = User.demoUser();
         App.group = Group.demoGroup();
-        databaseCall();
-
         rwAssessmentList = findViewById(R.id.rwAssessmentList);
         lblAssesmentAddInfo = findViewById(R.id.lblInfoDisplay);
-
+        databaseCall();
 
     }
 
@@ -57,6 +59,7 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i(GROUP_ASSESSMENT_ACTIVITY,"onResume() activated");
         databaseCall();
         if (assessments == null){
             lblAssesmentAddInfo.setText("No assessment to add as Goal");
@@ -71,6 +74,7 @@ public class GroupAssessmentListActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+        Log.i(GROUP_ASSESSMENT_ACTIVITY,"onRestart() activated");
         databaseCall();
 
         if (assessments == null) {

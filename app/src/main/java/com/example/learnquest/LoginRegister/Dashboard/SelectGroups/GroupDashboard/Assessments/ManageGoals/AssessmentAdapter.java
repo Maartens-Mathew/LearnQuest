@@ -13,7 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.learnquest.R;
 import com.example.learnquest.model.assessment.Assessment;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.AssessmentViewHolder> {
     @NonNull
@@ -43,7 +47,8 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     }
 
     public AssessmentAdapter(List<Assessment> assessments, View.OnClickListener listener) {
-        this.assessments = assessments;
+        List<Assessment> noDupes = assessments.stream().distinct().collect(Collectors.toList());
+        this.assessments = noDupes;
         this.listener = listener;
     }
 
@@ -51,10 +56,6 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     public void onBindViewHolder(@NonNull AssessmentViewHolder holder, int position) {
         holder.setData(assessments.get(position));
         holder.setListener(listener);
-    }
-
-    public AssessmentAdapter(List<Assessment> assessments) {
-        this.assessments = assessments;
     }
 
     public void remove(int p){
@@ -86,7 +87,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             lblWeighting.setText(itemView.getContext().getResources().getString(R.string.adjust_goals_weighting,
                     String.format("%.0f",this.data.getWeighting())));
             lblDueDate.setText(itemView.getContext().getResources().getString(R.string.due_date,
-                    this.data.getDueDate()));
+                    String.format("%tF", this.data.getDueDate())));
         };
 
         public void setListener(View.OnClickListener listener) {

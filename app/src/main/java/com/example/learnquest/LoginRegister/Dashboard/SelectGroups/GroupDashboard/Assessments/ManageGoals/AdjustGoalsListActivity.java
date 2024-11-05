@@ -90,7 +90,7 @@ public class AdjustGoalsListActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView(View.OnClickListener listener){
-        GoalAdapter adapter = new GoalAdapter(entries, this, listener);
+        GoalAdapter adapter = new GoalAdapter(entries, listener);
         rwGoalsList.setAdapter(adapter);
         rwGoalsList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
     }

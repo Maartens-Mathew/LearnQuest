@@ -23,13 +23,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="140dp"
             android:layout_marginEnd="8dp"
             android:orientation="horizontal"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblMarkObtained1"
+            app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible">
 
             <Button
@@ -86,38 +86,41 @@
             android:id="@+id/lblMarkObtained1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:clickable="false"
             android:focusable="false"
             android:text="@string/adjust_goals_mark_obtained"
             android:textColor="@color/gray"
             android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@+id/lblDueDate"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblDueDate" />
 
         <TextView
             android:id="@+id/lblWeighting1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:clickable="false"
             android:focusable="false"
             android:text="@string/adjust_goals_weighting"
             android:textColor="@color/gray"
             android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@+id/lblAssessmentName1"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblAssessmentName1" />
 
         <TextView
             android:id="@+id/lblDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:clickable="false"
             android:focusable="false"
             android:text="@string/due_date"
             android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@+id/lblMarkDesired1"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblMarkDesired1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

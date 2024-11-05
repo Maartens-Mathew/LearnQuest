@@ -106,9 +106,15 @@ public class GoalsListActivity extends AppCompatActivity{
     }
 
     public void btnDeleteClicked(View v){
+        Log.i(GOAL_LIST_ACTIVITY, "Delete has been clicked");
         Intent intent = new Intent(this, DeleteGoalActivity.class);
         intent.putExtra("data",selected.data);
-        startActivity(intent);
+        try{
+            startActivity(intent);
+        }
+        catch (Exception e){
+            Log.e(GOAL_LIST_ACTIVITY, e.getStackTrace().toString());
+        }
     }
 
     public void btnUpdateClicked(View v){
@@ -121,16 +127,15 @@ public class GoalsListActivity extends AppCompatActivity{
 
     public void setUpRecyclerView(View.OnClickListener listener){
         rwGoalsList = findViewById(R.id.aga_goal_recyclerview);
-        GoalAdapter adapter = new GoalAdapter(entries, this, listener);
+        GoalAdapter adapter = new GoalAdapter(entries, listener);
         rwGoalsList.setAdapter(adapter);
         rwGoalsList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         rwGoalsList.addItemDecoration(new EqualSpacingItemDecoration(5));
     }
 
     private void getDatabaseData(){
-        //ensure we have the correct userID and groupID
-        //use userID & groupId
-        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(0, 1);
+        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(App.user.getUserID(),
+                App.group.getGroupID());
         Response<List<TrackProgressAssessmentData>> response = null;
         try{
             response = call.execute();

@@ -70,7 +70,7 @@
             android:exported="false" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ManageResourcesActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.DeleteGroupActivity"
             android:exported="false" />

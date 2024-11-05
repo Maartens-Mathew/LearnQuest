@@ -1,5 +1,7 @@
 package com.example.learnquest.model.assessment;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,6 +16,24 @@ public class Assessment implements Serializable {
     @Override
     public String toString() {
         return name + " " + "("+weighting+ ")";
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof Assessment){
+            Assessment t = (Assessment) obj;
+            return this.assessmentID.intValue() == t.assessmentID.intValue();
+        }
+        else{
+            return super.equals(obj);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 9;
+        result = 37*result + assessmentID;
+        return result;
     }
 
     public Assessment(Date dueDate, Integer groupID, String name, Float weighting) {
