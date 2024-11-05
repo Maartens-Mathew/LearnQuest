@@ -14,10 +14,6 @@ public class User {
         this.userID = userID;
     }
 
-    public static User demoUser(){
-        return new User("Ben","Tennyson", "0401195092087","ben10@gmail.com", "ben10", "#003eb3");
-    }
-
     String firstName;
     String lastName;
     String nationalID;
