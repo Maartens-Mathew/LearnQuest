@@ -30,7 +30,6 @@ public class quizValidHome extends AppCompatActivity {
     private Spinner spinnerTags;
     private List<QuizEntry> entries; // Data for RecyclerView
     private QuizRecyclerViewAdapter recyclerAdapter; // Adapter for RecyclerView
-    private int selectedGroupId = 1; // Default selected group ID
 
     private Integer GROUP_ID;
     private Integer USER_ID;

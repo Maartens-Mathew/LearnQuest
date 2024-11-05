@@ -22,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
+import com.example.learnquest.model.group.Group;
+import com.example.learnquest.model.user.User;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.io.IOException;
@@ -50,7 +52,8 @@ public class EditQuizActivity extends AppCompatActivity {
     private List<Tag> foundTags; // New list for found tags
 
     private Spinner spinnerForAddNewTags ;
-
+    private Integer GROUP_ID;
+    private Integer USER_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +113,14 @@ public class EditQuizActivity extends AppCompatActivity {
         // Convert the comma-separated tags string to a List<String>
         List<String> tagsList = tagsString != null ? Arrays.asList(tagsString.split(",")) : new ArrayList<>();
 
-        App.group.setGroupID(1);
-        fetchTagsByGroup(App.group.getGroupID(), tagsList);
+        if (App.group == null) {
+            App.group = Group.demoGroup();
+            App.user = User.demoUser();
+        }
+
+        GROUP_ID = App.group.getGroupID();
+        USER_ID = App.user.getUserID();
+        fetchTagsByGroup(GROUP_ID, tagsList);
     }
 
     private void populateSpinner(List<Tag> tagList) {
@@ -229,7 +238,7 @@ public class EditQuizActivity extends AppCompatActivity {
         entry.setAnswer(edtAnswer.getText().toString());
         entry.setDescription(edtDescription.getText().toString());
         entry.setInContention(switchInContention.isChecked()); // Use isChecked() instead of isSelected()
-        entry.setGroupID(App.group.getGroupID());
+        entry.setGroupID(GROUP_ID);
 
         // Add selected tags
         for (Tag tag : selectedTags) {
