@@ -2,42 +2,38 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/backgroundStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.JoinGroupActivity">
+    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.JoinGroupActivity"><![CDATA[
     tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.JoinGroupActivity"
     style="@style/backgroundStyle">
+
+    ]]>
 
     <TextView
         android:id="@+id/JoinGroupActivitylabelGroupName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="128dp"
-        android:layout_marginBottom="472dp"
         android:text="TextView"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/JoinGroupActivityGroupColor" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/JoinGroupActivityGroupColor"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="130dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="127dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="8dp"
         app:cardBackgroundColor="#76FF03"
         app:cardCornerRadius="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/JoinGroupActivitylabelGroupName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/joinGroupImage"
+        tools:layout_editor_absoluteX="146dp" />
 
     <Button
         android:id="@+id/button5"
@@ -45,14 +41,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="408dp"
         android:onClick="btnJoinClicked"
         android:text="Join"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.839"
         app:layout_constraintStart_toEndOf="@+id/button6"
+        app:layout_constraintTop_toBottomOf="@+id/JoinGroupActivitylabelGroupName"
         tools:textSize="20sp" />
 
     <Button
@@ -61,23 +57,35 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="408dp"
+        android:layout_marginTop="8dp"
         android:onClick="btnCancelClicked"
         android:text="Cancel"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/JoinGroupActivitylabelGroupName" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/joinGroupImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView25"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textView25"
+        style="@style/HeadingGreenFinal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Join Group"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
