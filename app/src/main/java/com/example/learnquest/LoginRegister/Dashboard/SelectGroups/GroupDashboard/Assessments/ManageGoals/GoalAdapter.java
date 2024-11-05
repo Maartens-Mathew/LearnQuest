@@ -21,10 +21,10 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
     private View.OnClickListener listener;
     private Context context;
 
-    public void edit(int pos, AssessmentData data){
-        TrackProgressAssessmentData oldData = assessments.get(pos);
-        notifyItemChanged(assessments.size()-1);
-    }
+//    public void edit(int pos, AssessmentData data){
+//        TrackProgressAssessmentData oldData = assessments.get(pos);
+//        notifyItemChanged(assessments.size()-1);
+//    }
 
     public GoalAdapter(List<TrackProgressAssessmentData> assessments, Context context, View.OnClickListener listener){
         this.assessments = assessments;

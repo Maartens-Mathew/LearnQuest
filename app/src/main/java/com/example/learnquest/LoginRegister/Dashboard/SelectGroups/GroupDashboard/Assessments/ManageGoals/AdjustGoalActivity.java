@@ -43,7 +43,7 @@ public class AdjustGoalActivity extends AppCompatActivity {
     }
 
 
-    public void onBtnBackPressed(View view){
+    public void onAdjustGoalBtnBackPressed(View view){
         getOnBackPressedDispatcher().onBackPressed();
     }
 

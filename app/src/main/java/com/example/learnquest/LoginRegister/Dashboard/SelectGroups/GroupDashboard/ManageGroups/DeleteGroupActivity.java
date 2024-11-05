@@ -40,7 +40,7 @@ public class DeleteGroupActivity extends AppCompatActivity {
     }
 
 
-    public void btnConfirmClicked(View v){
+    public void btnDeleteGroupConfirmClicked(View v){
         Call<Void> deleteGroupCall = App.api.deleteGroup("eq" + App.group.getGroupID());
         deleteGroupCall.enqueue(new Callback<Void>() {
             @Override
@@ -61,7 +61,7 @@ public class DeleteGroupActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().onBackPressed();
     }
 
-    public void btnCancelClicked(View v){
+    public void btnDeleteGroupCancelClicked(View v){
         getOnBackPressedDispatcher().onBackPressed();
     }
 }

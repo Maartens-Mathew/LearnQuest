@@ -78,7 +78,7 @@ public class ViewProgressActivity extends AppCompatActivity {
         lnChrtProgress.invalidate();
     }
 
-    public void onBtnBackPressed(View v){
+    public void onViewProgressBtnBackPressed(View v){
         getOnBackPressedDispatcher().onBackPressed();
     }
 
