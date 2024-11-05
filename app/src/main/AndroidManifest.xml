@@ -43,7 +43,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AddGoalActivity"
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.AddGoalActivity"
             android:exported="false" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.GroupAssessmentListActivity"

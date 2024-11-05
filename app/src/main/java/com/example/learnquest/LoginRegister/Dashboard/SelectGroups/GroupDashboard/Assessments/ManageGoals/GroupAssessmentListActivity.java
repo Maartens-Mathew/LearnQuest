@@ -12,17 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AddGoalActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.AssessmentAdapter;
 import com.example.learnquest.R;
 import com.example.learnquest.model.assessment.Assessment;
-import com.example.learnquest.model.assessment.StudentAssessment;
 import com.example.learnquest.model.group.Group;
 import com.example.learnquest.model.user.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
