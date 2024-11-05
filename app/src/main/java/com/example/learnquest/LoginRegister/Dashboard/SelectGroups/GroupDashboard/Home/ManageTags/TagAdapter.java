@@ -116,7 +116,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagViewHolder> {
             new AlertDialog.Builder(context)
                     .setTitle("Delete Tag")
                     .setMessage("Are you sure you want to delete this tag?")
-                    .setPositiveButton("Yes", (dialog, which) -> deleteTag(String.valueOf(currentTag.getTagID()), position))
+                    .setPositiveButton("Yes", (dialog, which) -> deleteTag(currentTag))
                     .setNegativeButton("No", null)
                     .show();
         });
@@ -127,20 +127,20 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagViewHolder> {
         return tagList.size();
     }
 
-    private void deleteTag(String tagID, int position) {
-        Log.d("TagAdapter", "Attempting to delete tag with ID: " + tagID);
+    private void deleteTag(Tag tag) {
+
 
         // Use the correct format for the filter (e.g., "id=eq.<tagID>")
-        String filter = "eq." + tagID;
+
 
         // API call to delete the tag using the correct filter format
-        Call<Void> call = App.api.deleteTag(filter);
+        Call<Void> call = App.api.deleteTag(tag);
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Log.d("TagAdapter", "Tag deleted successfully: " + tagID);
+
                     Toast.makeText(context, "Tag deleted successfully", Toast.LENGTH_SHORT).show();
 
                     // Notify the listener to refresh the tag list
@@ -172,11 +172,11 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagViewHolder> {
         String filter = "eq." + tag.getTagID(); // Example: "eq.22" to filter by tagID 22
 
         // Make the API call
-        Call<Void> call = App.api.updateTagwID(filter, tag);
+        Call<Tag> call = App.api.updateTag(tag);
 
-        call.enqueue(new Callback<Void>() {
+        call.enqueue(new Callback<Tag>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Tag> call, Response<Tag> response) {
                 if (response.isSuccessful()) {
                     Log.d("TagAdapter", "Tag updated successfully: " + tag.getTagID());
                     Toast.makeText(context, "Tag updated successfully", Toast.LENGTH_SHORT).show();
@@ -199,7 +199,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagViewHolder> {
 
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Tag> call, Throwable t) {
                 Log.e("TagAdapter", "Error updating tag: " + t.getMessage(), t);
                 Toast.makeText(context, "Error updating tag: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

@@ -51,15 +51,15 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
         flexboxLayout = findViewById(R.id.flexboxForValidatingQuizs);
 
         // Assuming you set your group ID like this; adjust as needed
-        App.groupID = 1;
+        App.group.setGroupID(1);
 
         // Fetch tags by group ID
-        fetchTagsByGroup(App.groupID.toString());
+        fetchTagsByGroup(App.group.getGroupID());
     }
 
-    private void fetchTagsByGroup(String groupID) {
+    private void fetchTagsByGroup(Integer groupID) {
         // Direct API call to fetch tags
-        Call<List<Tag>> tagsCall = App.api.getTagsByGroup("eq." + groupID);
+        Call<List<Tag>> tagsCall = App.api.getTagsByGroup(groupID);
 
         tagsCall.enqueue(new Callback<List<Tag>>() {
             @Override
@@ -195,38 +195,38 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
         Tag newTag = new Tag();
         newTag.setTagName(tagName);
         newTag.setTagColour(colorHex);
-        newTag.setGroupID(App.groupID); // Assuming groupID is a String
+        newTag.setGroupID(App.group.getGroupID()); // Assuming groupID is a String
 
         Log.d("AddTag", "Attempting to add tag with name: " + tagName + " and color: " + colorHex);
 
-        Call<Void> addTagCall = App.api.addTag(newTag);
-        addTagCall.enqueue(new Callback<Void>() {
+        Call<Tag> addTagCall = App.api.addTag(newTag);
+        addTagCall.enqueue(new Callback<Tag>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Tag> call, Response<Tag> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Log.d("AddTag", "Tag added successfully: " + response.body());
                         Toast.makeText(TagManageHome.this, "Tag added successfully", Toast.LENGTH_SHORT).show();
-                        fetchTagsByGroup(App.groupID.toString()); // Refresh the tag list
+                        fetchTagsByGroup(App.group.getGroupID()); // Refresh the tag list
                        // runOnUiThread(() -> TagManageHome.this.recyclerView.on);
 
                     } else {
                         Log.e("AddTag", "Response body is null");
                       //  Toast.makeText(TagManageHome.this, "Failed to add tag: No response body", Toast.LENGTH_SHORT).show();
-                        fetchTagsByGroup(App.groupID.toString()); // Refresh the tag list
+                        fetchTagsByGroup(App.group.getGroupID()); // Refresh the tag list
 
                     }
                 } else {
                 //    Log.e("AddTag", "Failed to add tag. Response Code: " + response.code() + ", Message: " + response.message());
                     Toast.makeText(TagManageHome.this, "Failed to add tag", Toast.LENGTH_SHORT).show();
-                    fetchTagsByGroup(App.groupID.toString()); // Refresh the tag list
+                    fetchTagsByGroup(App.group.getGroupID()); // Refresh the tag list
 
                 }
             }
 
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Tag> call, Throwable t) {
                 Log.e("AddTag", "Error adding tag: " + t.getMessage(), t);
                 Toast.makeText(TagManageHome.this, "Error adding tag", Toast.LENGTH_SHORT).show();
             }
@@ -257,7 +257,7 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
 
     @Override
     public void onTagsChanged() {
-        fetchTagsByGroup(App.groupID.toString());
+        fetchTagsByGroup(App.group.getGroupID());
     }
 
 
@@ -295,17 +295,15 @@ public class TagManageHome extends AppCompatActivity implements OnTagsChangedLis
     private void deleteTag(Tag tag) {
         // Call the API to delete the tag
 
-        String filter = "eq." + tag.getTagID();
 
-
-        Call<Void> deleteTagCall = App.api.deleteTag(filter);
+        Call<Void> deleteTagCall = App.api.deleteTag(tag);
         deleteTagCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(TagManageHome.this, "Tag deleted successfully", Toast.LENGTH_SHORT).show();
                     // Refresh tags after deletion
-                    fetchTagsByGroup(App.groupID.toString());
+                    fetchTagsByGroup(App.group.getGroupID());
                 } else {
                     Toast.makeText(TagManageHome.this, "Failed to delete tag", Toast.LENGTH_SHORT).show();
                     Log.e("DeleteTag", "Response Code: " + response.code() + ", Message: " + response.message());

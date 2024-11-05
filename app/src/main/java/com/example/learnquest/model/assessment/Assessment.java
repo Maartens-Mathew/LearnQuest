@@ -1,34 +1,71 @@
 package com.example.learnquest.model.assessment;
 
-public class Assessment {
-    protected String name;
+import java.io.Serializable;
+import java.util.Date;
 
-    //Try to record as date
-    protected String date;
+public class Assessment implements Serializable {
 
+    Integer assessmentID;
+    String name;
+    Date dueDate;
+    Float weighting;
+    Integer groupID;
 
-    protected int weighting;
-
-    public Assessment(String name, String date, int weighting) {
+    public Assessment(Date dueDate, Integer groupID, String name, Float weighting) {
+        this.dueDate = dueDate;
+        this.groupID = groupID;
         this.name = name;
-        this.date = date;
         this.weighting = weighting;
+    }
+
+    public Assessment(Integer assessmentID, Date dueDate, Integer groupID, String name, Float weighting) {
+        this.assessmentID = assessmentID;
+        this.dueDate = dueDate;
+        this.groupID = groupID;
+        this.name = name;
+        this.weighting = weighting;
+    }
+
+    public Assessment() {
+    }
+
+    public Integer getAssessmentID() {
+        return assessmentID;
+    }
+
+    public void setAssessmentID(Integer assessmentID) {
+        this.assessmentID = assessmentID;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public Integer getGroupID() {
+        return groupID;
+    }
+
+    public void setGroupID(Integer groupID) {
+        this.groupID = groupID;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDate() {
-        return date;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getWeighting() {
+    public Float getWeighting() {
         return weighting;
     }
 
-    @Override
-    public String toString() {
-        return name + " (" + date + ") - " + weighting + "%";
+    public void setWeighting(Float weighting) {
+        this.weighting = weighting;
     }
 }

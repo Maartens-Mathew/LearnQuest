@@ -4,13 +4,13 @@ import com.example.learnquest.model.group.Group;
 
 public class User {
 
-    String userID;
+    Integer userID;
 
-    public String getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 
@@ -24,6 +24,19 @@ public class User {
     String email;
     String username;
     String password;
+
+
+    public static User demoUser(){
+        return new User(0,"Mathew","Maartens","0303025049089","maartens.mathew@gmail.com","Maartens.Mathew","qwerty");
+    }
+
+    private User(Integer userID, String firstName, String lastName, String nationalID, String email, String username, String password){
+        this.userID = userID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nationalID = nationalID;
+        this.email = email;
+    }
 
     public String getFirstName() {
         return firstName;

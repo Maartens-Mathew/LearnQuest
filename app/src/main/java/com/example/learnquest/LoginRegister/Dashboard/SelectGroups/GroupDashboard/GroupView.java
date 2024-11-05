@@ -13,20 +13,27 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AssessmentFragment;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GoalsListActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.AssessmentFragment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.GoalsListActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageAssessments.ListViewActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.ViewProgressActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.GroupHomeFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.DeleteGroupActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.PendingUsersActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.RemoveGroupMemberActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.ViewGroupMembersActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizFragment;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.takingQuiz.takeQuizSplasha;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ResourcesFragment;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.Pomodoro.pomoDoroMain;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.StudyToolsFragment;
 import com.example.learnquest.R;
 import com.example.learnquest.Utils.BottomSheet;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 
 public class GroupView extends AppCompatActivity {
@@ -54,14 +61,13 @@ public class GroupView extends AppCompatActivity {
 
 
 
-
-
     }
 
 
 
     public void onLongClick(MenuItem menuItem) {
         FragmentManager manager = getSupportFragmentManager();
+        BottomSheetDialogFragment popup = null;
 
 
         switch (menuItem.getTitle().toString()) {
@@ -69,26 +75,63 @@ public class GroupView extends AppCompatActivity {
 
             case "Quiz": {
 
-                new BottomSheet.Builder()
+                popup = new BottomSheet.Builder()
                         .with(GroupView.this)
                         .getItemTitles("Quiz Bank", "Quiz Pool", "Manage Tags", "Take Quiz")
                         .andClasses(quizBankHome.class, quizValidHome.class, TagManageHome.class, takeQuizSplasha.class)
-                        .build()
-                        .show(manager, "This is a tag");
+                        .andLastly_theLayout(R.menu.quiz_menu)
+                        .build();
+
             }
             break;
 
             case "Assessment": {
 
-                new BottomSheet.Builder()
+
+                popup = new BottomSheet.Builder()
                         .with(this)
-                        .getItemTitles("Set Weightings", "Manage Goals")
-                        .andClasses(ListViewActivity.class, GoalsListActivity.class);
+                        .getItemTitles("Set Weightings", "View Progress", "Manage Goals")
+                        .andClasses(ListViewActivity.class, ViewProgressActivity.class, GoalsListActivity.class)
+                        .andLastly_theLayout(R.menu.assessment_menu)
+                        .build();
+
             }
             break;
 
+            case "Dashboard": {
+
+
+                popup = new BottomSheet.Builder()
+                        .with(this)
+                        .getItemTitles("View members", "Join requests", "Remove member","Leave group")
+                        .andClasses(ViewGroupMembersActivity.class, PendingUsersActivity.class, RemoveGroupMemberActivity.class, DeleteGroupActivity.class)
+                        .andLastly_theLayout(R.menu.dashboard_menu)
+                        .build();
+
+            }
+            break;
+
+            case "Study Tools": {
+
+
+                popup = new BottomSheet.Builder()
+                        .with(this)
+                        .getItemTitles("Pomodoro Timer")
+                        .andClasses(pomoDoroMain.class)
+                        .andLastly_theLayout(R.menu.tools_menu)
+                        .build();
+
+            }
+            break;
+
+            default:return;
+
 
         }
+
+        popup.show(manager,"new_fragment");
+
+
     }
 
 

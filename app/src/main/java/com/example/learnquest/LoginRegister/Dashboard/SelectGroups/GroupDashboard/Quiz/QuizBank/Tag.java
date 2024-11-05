@@ -26,7 +26,7 @@ public class Tag implements Serializable {
     // Constructor
     public Tag(Integer tagID, String tagName) {
         this.tagID = tagID;
-        this.groupID = App.groupID;
+        this.groupID = App.group.getGroupID();
         this.tagName = tagName;
     }
 

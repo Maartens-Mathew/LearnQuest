@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.JoinGroupActivity">
     tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.JoinGroupActivity"
     style="@style/backgroundStyle">
 
@@ -26,6 +27,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="130dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="130dp"
         android:layout_marginBottom="10dp"
         app:cardBackgroundColor="#76FF03"

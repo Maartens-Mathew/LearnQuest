@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/narsi_background"
-    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.GoalsListActivity">
+    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.GoalsListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/aga_goal_recyclerview"

@@ -21,6 +21,8 @@ public class Group implements Serializable {
 
     public static Group demoGroup(){
         return new Group(1,"Maths", "Calc 1 MAT102",3, "PeerToPeer", "#003eb3");
+
+        //once working -> return App.group;
     }
 
     private Group(Integer groupID, String topic, String description, Integer typeID, String groupType, String groupColour){

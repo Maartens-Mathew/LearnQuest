@@ -110,8 +110,8 @@ public class EditQuizActivity extends AppCompatActivity {
         // Convert the comma-separated tags string to a List<String>
         List<String> tagsList = tagsString != null ? Arrays.asList(tagsString.split(",")) : new ArrayList<>();
 
-        App.groupID = 1;
-        fetchTagsByGroup(String.valueOf(App.groupID), tagsList);
+        App.group.setGroupID(1);
+        fetchTagsByGroup(App.group.getGroupID(), tagsList);
     }
 
     private void populateSpinner(List<Tag> tagList) {
@@ -198,8 +198,8 @@ public class EditQuizActivity extends AppCompatActivity {
         return drawable;
     }
 
-    private void fetchTagsByGroup(String groupID, List<String> tagsList) {
-        Call<List<Tag>> tagsCall = App.api.getTagsByGroup("eq." + groupID);
+    private void fetchTagsByGroup(Integer groupID, List<String> tagsList) {
+        Call<List<Tag>> tagsCall = App.api.getTagsByGroup(groupID);
 
         tagsCall.enqueue(new Callback<List<Tag>>() {
             @Override
@@ -229,7 +229,7 @@ public class EditQuizActivity extends AppCompatActivity {
         entry.setAnswer(edtAnswer.getText().toString());
         entry.setDescription(edtDescription.getText().toString());
         entry.setInContention(switchInContention.isChecked()); // Use isChecked() instead of isSelected()
-        entry.setGroupID(App.groupID);
+        entry.setGroupID(App.group.getGroupID());
 
         // Add selected tags
         for (Tag tag : selectedTags) {

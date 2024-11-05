@@ -34,7 +34,7 @@ public class quizBankHome extends AppCompatActivity {
         setContentView(R.layout.activity_quiz_bank);
 
         entries = new ArrayList<>();
-        App.groupID = 1;
+        App.group.setGroupID(1);
         App.setApplicationContext(getApplicationContext());
 
         expandableListView = findViewById(R.id.elvQuizEntries);
@@ -58,7 +58,7 @@ public class quizBankHome extends AppCompatActivity {
     }
 
     private void GetQuizQuestions() {
-        Call<List<QuizEntry>> call = App.api.getQuizEntries(App.groupID); // Replace 1 with actual groupID
+        Call<List<QuizEntry>> call = App.api.getQuizEntries(App.group.getGroupID()); // Replace 1 with actual groupID
         Response<List<QuizEntry>> response;
 
         try {

@@ -21,8 +21,6 @@ import retrofit2.Response;
  */
 public class App {
 
-    public static Integer userID;
-    public static Integer groupID;
     public static Context applicationContext;
 
     public static User user;

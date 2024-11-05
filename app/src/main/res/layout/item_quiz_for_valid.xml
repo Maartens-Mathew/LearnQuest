@@ -12,12 +12,12 @@
 
     <TextView
         android:id="@+id/txtQuestionV"
-        android:layout_width="250dp"
-        android:layout_height="21dp"
+        android:layout_width="377dp"
+        android:layout_height="35dp"
         android:layout_marginStart="3dp"
         android:layout_marginTop="4dp"
         android:text="Question"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.022"
@@ -29,22 +29,22 @@
         android:layout_width="264dp"
         android:layout_height="36dp"
         android:layout_marginStart="3dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:text="Description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtQuestionV" />
 
     <TextView
         android:id="@+id/answerTextViewV"
-        android:layout_width="272dp"
-        android:layout_height="56dp"
+        android:layout_width="275dp"
+        android:layout_height="80dp"
         android:layout_marginStart="3dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:text="Answer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintHorizontal_bias="0.022"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descriptionTextViewV" />
 
@@ -63,20 +63,18 @@
         android:id="@+id/btnEditValid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
+        android:layout_marginTop="68dp"
         android:backgroundTint="@color/greenTint"
         android:onClick="editAInCon"
         android:text="Edit"
-        app:layout_constraintBottom_toTopOf="@+id/ValidSwitch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.975"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/flexboxForValidatingQuizs"
-        android:layout_width="275dp"
+        android:layout_width="0dp"
         android:layout_height="165dp"
         android:layout_marginTop="17dp"
         android:padding="8dp"

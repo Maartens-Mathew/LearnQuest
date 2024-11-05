@@ -53,7 +53,7 @@ public class quizValidHome extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         App.setApplicationContext(getApplicationContext());
 
-        App.groupID =1;
+        App.group.setGroupID(1);
 
         // Fetch the quiz entries for a group (replace with the actual groupID)
         //fetchQuizQuestions(App.groupID);
@@ -64,7 +64,7 @@ public class quizValidHome extends AppCompatActivity {
 
         Runnable runnable = () ->{
 
-            fetchQuizQuestions(App.groupID);
+            fetchQuizQuestions(App.group.getGroupID());
         };
 
         Thread thread = new Thread(runnable);

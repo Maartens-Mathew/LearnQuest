@@ -5,7 +5,7 @@
     style="@style/backgroundStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.DeleteGroupActivity">
+    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.DeleteGroupActivity">
 
     <Button
         android:id="@+id/button10"

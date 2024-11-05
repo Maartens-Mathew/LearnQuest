@@ -115,8 +115,8 @@ public class editQuizFromValidAct extends AppCompatActivity {
         // Convert the comma-separated tags string to a List<String>
         List<String> tagsList = tagsString != null ? Arrays.asList(tagsString.split(",")) : new ArrayList<>();
 
-        App.groupID = 1;
-        fetchTagsByGroup(String.valueOf(App.groupID), tagsList);
+        App.group.setGroupID(1);
+        fetchTagsByGroup(App.group.getGroupID(), tagsList);
         switchInContention.setVisibility(View.GONE); // or View.INVISIBLE depending on your needs
 
     }
@@ -205,8 +205,8 @@ public class editQuizFromValidAct extends AppCompatActivity {
         return drawable;
     }
 
-    private void fetchTagsByGroup(String groupID, List<String> tagsList) {
-        Call<List<Tag>> tagsCall = App.api.getTagsByGroup("eq." + groupID);
+    private void fetchTagsByGroup(Integer groupID, List<String> tagsList) {
+        Call<List<Tag>> tagsCall = App.api.getTagsByGroup(groupID);
 
         tagsCall.enqueue(new Callback<List<Tag>>() {
             @Override
@@ -236,7 +236,7 @@ public class editQuizFromValidAct extends AppCompatActivity {
         entry.setAnswer(edtAnswer.getText().toString());
         entry.setDescription(edtDescription.getText().toString());
         entry.setInContention(switchInContention.isChecked());
-        entry.setGroupID(App.groupID);
+        entry.setGroupID(App.group.getGroupID());
 
         if (entry.getQuestion().isEmpty() || entry.getAnswer().isEmpty() || entry.getDescription().isEmpty() ) {
             Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();

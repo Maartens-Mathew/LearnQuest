@@ -21,6 +21,7 @@ import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 import com.example.learnquest.Utils.database.SupabaseApi;
 import com.example.learnquest.Utils.database.SupabaseClient;
+import com.example.learnquest.model.assessment.Assessment;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -55,7 +56,7 @@ public class ListViewActivity extends AppCompatActivity {
 
         int groupIDPassedIn = getIntent().getIntExtra("groupID", -1);
         if (groupIDPassedIn != -1) {
-            App.groupID = groupIDPassedIn;
+            App.group.setGroupID(groupIDPassedIn);
         } else {
             Log.e("ListViewActivity", "No groupID passed in the intent!");
             Toast.makeText(this, "Error: No groupID passed.", Toast.LENGTH_LONG).show();
@@ -97,7 +98,7 @@ public class ListViewActivity extends AppCompatActivity {
     }
 
     public void getAssessments() {
-        Call<List<Assessment>> assessmentsCall = App.api.getGroupAssessments("eq." + App.groupID);
+        Call<List<Assessment>> assessmentsCall = App.api.getGroupAssessments(App.group.getGroupID());
         Response<List<Assessment>> assessmentsResponse = null;
         try {
             assessmentsResponse = assessmentsCall.execute();
@@ -106,7 +107,10 @@ public class ListViewActivity extends AppCompatActivity {
             return;
         }
         if (assessmentsResponse.isSuccessful()) {
-            assessments = Collections.synchronizedList(assessmentsResponse.body());
+            if (assessmentsResponse.body() != null)
+             assessments = Collections.synchronizedList(assessmentsResponse.body());
+            else
+                assessments = new ArrayList<>();
         } else {
             Log.e("Custom", "Something went wrong.");
             try {
@@ -167,7 +171,7 @@ public class ListViewActivity extends AppCompatActivity {
         builder.setPositiveButton("Add", (dialog, which) -> {
             String name = etName.getText().toString();
             String dateInput = etDate.getText().toString();
-            int weighting;
+            float weighting;
             if (name.isEmpty()) {
                 Toast.makeText(this, "Name cannot be empty.", Toast.LENGTH_LONG).show();
                 return;
@@ -184,14 +188,15 @@ public class ListViewActivity extends AppCompatActivity {
                 SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
                 SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = "";
+                Date date;
                 try {
-                    Date date = inputFormat.parse(dateInput);
+                    date = inputFormat.parse(dateInput);
                     formattedDate = outputFormat.format(date);
                 } catch (ParseException e) {
                     Toast.makeText(this, "Invalid date format.", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Assessment assessment = new Assessment(name, formattedDate, weighting, App.groupID);
+                Assessment assessment = new Assessment(date, App.group.getGroupID(), name, weighting);
                 assessments.add(assessment);
                 adapter.notifyDataSetChanged();
                 updatePieChart();
