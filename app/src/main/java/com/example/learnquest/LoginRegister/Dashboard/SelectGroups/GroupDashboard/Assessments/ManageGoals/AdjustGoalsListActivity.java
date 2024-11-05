@@ -47,6 +47,10 @@ public class AdjustGoalsListActivity extends AppCompatActivity {
 //        });
     }
 
+    public void onAdjustGoalsListActivityBtnBackPressed(View v){
+        getOnBackPressedDispatcher().onBackPressed();
+    }
+
     private void databaseCall(){
         Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(0, 1);
         Response<List<TrackProgressAssessmentData>> response = null;
@@ -76,7 +80,7 @@ public class AdjustGoalsListActivity extends AppCompatActivity {
         return d1.compareTo(d2);
     };
 
-    public void Listener(View v){
+    private void Listener(View v){
         int pos = rwGoalsList.findContainingViewHolder(v).getBindingAdapterPosition();
         GoalAdapter.GoalViewHolder gvh = (GoalAdapter.GoalViewHolder)rwGoalsList.findContainingViewHolder(v);
         TrackProgressAssessmentData selected = gvh.data;
@@ -85,7 +89,7 @@ public class AdjustGoalsListActivity extends AppCompatActivity {
         startActivity(newIntent);
     }
 
-    public void setUpRecyclerView(View.OnClickListener listener){
+    private void setUpRecyclerView(View.OnClickListener listener){
         GoalAdapter adapter = new GoalAdapter(entries, this, listener);
         rwGoalsList.setAdapter(adapter);
         rwGoalsList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
@@ -115,30 +119,6 @@ public class AdjustGoalsListActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         setUpRecyclerView(this::Listener);
-    }
-
-    private void getDatabaseData(){
-        //ensure we have the correct userID and groupID
-        //use userID & groupId
-        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(0, 1);
-        Response<List<TrackProgressAssessmentData>> response = null;
-        try{
-            response = call.execute();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        if (response.isSuccessful()){
-            entries = Collections.synchronizedList(response.body());
-        }
-        else{
-            try{
-                Log.e("TrackProgressFragment",response.errorBody().string());
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
     }
 
 }

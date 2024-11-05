@@ -2,10 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/skyBlueGreenBackGround"
-    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.MainActivity">
+    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.MainActivity"
+    style="@style/backgroundStyle">
 
     <Button
         android:id="@+id/button_go_to_weights"

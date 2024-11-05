@@ -3,6 +3,7 @@ package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboa
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.TrackProgressAssessmentData;
 import com.example.learnquest.R;
 
 import java.util.HashMap;
@@ -25,7 +27,6 @@ public class AdjustGoalActivity extends AppCompatActivity {
     private TrackProgressAssessmentData data;
     private EditText edtMarkDesired, edtMarkObtained;
     private TextView lblAssessmentName;
-    private AppCompatButton btnUpdateConfirm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,21 +35,23 @@ public class AdjustGoalActivity extends AppCompatActivity {
             data = (TrackProgressAssessmentData) getIntent().getExtras().get("data");
             edtMarkDesired = findViewById(R.id.edtDesiredMark);
             edtMarkObtained = findViewById(R.id.edtMarkObtained);
-            btnUpdateConfirm = findViewById(R.id.btnConfirmUpdateGoal);
             lblAssessmentName = findViewById(R.id.lblAssessmentName);
-            lblAssessmentName.setText(data.getName());
-            edtMarkDesired.setText(data.getIdeal_mark().toString());
-            edtMarkObtained.setText(data.getMark_obtained().toString());
-            btnUpdateConfirm.setOnClickListener(this::btnUpdateConfirmClicked);
+            lblAssessmentName.setText(getResources().getString(R.string.assessment_name,data.getName()));
+            edtMarkDesired.setText(String.format("%.0f",data.getIdeal_mark()));
+            edtMarkObtained.setText(String.format("%.0f",data.getMark_obtained()));
         }
     }
 
 
-    public void onBtnBackPressed(View view){
+    public void onAdjustGoalBtnBackPressed(View view){
         getOnBackPressedDispatcher().onBackPressed();
     }
 
     public void btnUpdateConfirmClicked(View view){
+        if (edtMarkObtained.getText().toString().length() == 0 && edtMarkObtained.getText().toString().length() == 0){
+            Toast.makeText(this, "Please enter desired and obtained marks", Toast.LENGTH_SHORT).show();
+            return;
+        }
         double newIdealMark = Double.parseDouble(edtMarkDesired.getText().toString());
         double newMarkObtained = Double.parseDouble(edtMarkObtained.getText().toString());
         Map<String, Object> body = new HashMap<>();
@@ -69,12 +72,14 @@ public class AdjustGoalActivity extends AppCompatActivity {
                     Toast.makeText(AdjustGoalActivity.this,"Updated successfully",Toast.LENGTH_LONG).show();
                 }
                 else{
+                    Toast.makeText(AdjustGoalActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                     Log.e("AdjustGoalActivity","Update Failed: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable throwable) {
+                Toast.makeText(AdjustGoalActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 Log.e("AdjustGoalActivity","Error: "+ throwable.getStackTrace());
             }
         });

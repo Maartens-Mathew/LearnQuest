@@ -25,6 +25,7 @@ public class App {
 
     public static User user;
     public static Group group;
+    public static boolean isModerator;
 
     public static void setApplicationContext(Context context){
         applicationContext = context;

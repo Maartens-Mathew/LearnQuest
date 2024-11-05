@@ -79,8 +79,12 @@ public class CreateGroupActivity extends AppCompatActivity {
         });
     }
 
+    public void onBtnCreateGroupCancelClicked(View v){
+        getOnBackPressedDispatcher().onBackPressed();
+    }
+
     //TODO: Do error checking here
-    public void btnCreateClicked(View v){
+    public void onBtnCreateGroupClicked(View v){
         String description = this.description.getText().toString();
         String topic = this.topic.getText().toString();
         String color = selectedColorHex;

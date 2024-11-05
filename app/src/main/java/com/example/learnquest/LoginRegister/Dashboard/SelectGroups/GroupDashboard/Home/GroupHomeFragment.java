@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.PendingUsersActivity;
@@ -79,6 +80,8 @@ public class GroupHomeFragment extends Fragment {
             startActivity(intent);
         });
         Button btnLeaveGroup = view.findViewById(R.id.btnLeaveGroup);
+        Button btnViewMembers = view.findViewById(R.id.btnViewMembers);
+        btnViewMembers.setOnClickListener(this::btnViewMembersClicked);
         btnLeaveGroup.setOnClickListener(this::btnLeaveGroupClicked);
     }
 
@@ -88,18 +91,22 @@ public class GroupHomeFragment extends Fragment {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()){
+                    Toast.makeText(getContext(), "Successfully left group", Toast.LENGTH_SHORT).show();
                     Log.i(GROUP_HOME_FRAGMENT,"response is successful");
                 }
                 else{
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                     Log.e(GROUP_HOME_FRAGMENT, response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable throwable) {
+                Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                 Log.e(GROUP_HOME_FRAGMENT, throwable.getStackTrace().toString());
             }
         });
+        getActivity().getOnBackPressedDispatcher().onBackPressed();
     }
 
     public void btnViewMembersClicked(View v){
