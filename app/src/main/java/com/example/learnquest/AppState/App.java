@@ -4,6 +4,7 @@ package com.example.learnquest.AppState;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.learnquest.Utils.database.FileClient;
 import com.example.learnquest.Utils.database.SupabaseApi;
 import com.example.learnquest.Utils.database.SupabaseClient;
 import com.example.learnquest.model.group.Group;
@@ -32,6 +33,15 @@ public class App {
     }
 
     public static SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
+    public static FileClient client;
+
+    public static FileClient getInstance(){
+        if (client == null)
+            client  = new FileClient();
+
+        return client;
+    }
+
 
 
     public static void updateUser(){

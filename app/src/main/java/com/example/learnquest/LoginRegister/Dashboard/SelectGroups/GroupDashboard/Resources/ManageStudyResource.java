@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.database.Cursor;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,7 +13,13 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ManageStudyResource extends AppCompatActivity {
 
@@ -20,6 +27,8 @@ public class ManageStudyResource extends AppCompatActivity {
     private EditText editTextResourceName;
     private TextView textViewFileName;
     private Uri selectedFileUri;
+
+    File selectedFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +78,56 @@ public class ManageStudyResource extends AppCompatActivity {
         if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             selectedFileUri = data.getData();
             if (selectedFileUri != null) {
-                textViewFileName.setText(getFileName(selectedFileUri));
+                try (InputStream inputStream = getContentResolver().openInputStream(selectedFileUri)) {
+                    // Process the InputStream as needed
+                    // For example, you can read the file content or upload it as a byte array
+                    selectedFile = getFile(inputStream);
+                    uploadEntry();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Handle the exception, e.g., display an error message
+                }
             }
         }
+    }
+
+    public File getFile(InputStream inputStream){
+        File file = null;
+        try {
+            file = File.createTempFile("Test","jpg", getCacheDir());
+
+            FileOutputStream outputStream = new FileOutputStream(file);
+
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+
+                return file;
+
+
+
+
+
+        } catch (IOException e) {
+            Log.e("Custom", "Error getting file.");
+        }
+
+        return null;
+    }
+
+
+
+
+
+
+    public void uploadEntry(){
+        App.client = App.getInstance();
+        App.client.uploadFile("StudyResources","Test.jpg",selectedFile);
+
     }
 
     // Retrieves file name from Uri

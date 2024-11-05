@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.Packaging
 import org.jetbrains.kotlin.gradle.plugin.kotlinToolingVersion
 
 plugins {
@@ -14,6 +15,14 @@ plugins {
 android {
     namespace = "com.example.learnquest"
     compileSdk = 34
+
+    packaging {
+        resources {
+            excludes.add("META-INF/INDEX.LIST")
+            excludes.add("META-INF/DEPENDENCIES")
+            excludes.add("META-INF/io.netty.versions.properties");
+        }
+    }
 
     defaultConfig {
         applicationId = "com.example.learnquest"
@@ -46,6 +55,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation(platform("io.github.jan-tennert.supabase:bom:2.6.0"))
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
@@ -54,6 +64,8 @@ dependencies {
     implementation("io.ktor:ktor-client-android:2.3.12")
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
     implementation ("com.github.Kennyc1012:BottomSheetMenu:5.1")
+
+    implementation ("software.amazon.awssdk:s3:2.20.0")
 
 
 
@@ -74,8 +86,8 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation ("com.google.android.flexbox:flexbox:3.0.0")//pill overview of tags A500
     implementation ("com.github.QuadFlask:colorpicker:0.0.15")
-    implementation("androidx.activity:activity:1.9.3")
-    implementation("com.google.firebase:firebase-crashlytics-buildtools:3.0.2")
+    implementation("androidx.activity:activity-ktx:1.9.3")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

@@ -96,6 +96,11 @@ public class ManageResourcesActivity extends AppCompatActivity {
         filesView.addItemDecoration(new EqualSpacingItemDecoration(3));
     }
 
+    public void onAddClick(View view){
+        Intent intent = new Intent("com.example.ACTION_STUDY_RESOURCES");
+        startActivity(intent);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
