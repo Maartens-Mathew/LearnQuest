@@ -19,8 +19,8 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.LearnQuest"
         tools:targetApi="31">
@@ -60,7 +60,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AddGoalActivity"
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.AddGoalActivity"
             android:exported="false" />
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.GroupAssessmentListActivity"
@@ -68,6 +68,9 @@
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.AdjustGoalsListActivity"
             android:exported="false" />
+        <activity
+            android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ManageResourcesActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ManageResourcesActivity"
             android:exported="true">

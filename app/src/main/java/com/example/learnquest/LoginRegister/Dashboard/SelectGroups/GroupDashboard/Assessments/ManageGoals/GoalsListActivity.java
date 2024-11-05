@@ -134,28 +134,12 @@ public class GoalsListActivity extends AppCompatActivity{
     public void btnDeleteClicked(View v){
         if (selected == null){
             Toast.makeText(this,"Please select a goal", Toast.LENGTH_LONG).show();
-        };
-        int pos = selected.getBindingAdapterPosition();
-        TrackProgressAssessmentData data = entries.remove(pos);
-        rwGoalsList.getAdapter().notifyItemRemoved(pos);
-        Call<Void> deleteCall = App.api.deleteGoal("eq." + 0, "eq." + data.getAssessment_id());
-        deleteCall.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()){
-                    Log.i(GOAL_LIST_ACTIVITY, "Delete worked successfully");
-                }
-                else{
-                    Log.e(GOAL_LIST_ACTIVITY,"Update Failed: " + response.errorBody());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable throwable) {
-                Log.e(GOAL_LIST_ACTIVITY,"Error: "+ throwable.getStackTrace());
-            }
-        });
-        //TODO:delete data from database
+        }
+        else{
+            Intent intent = new Intent(this, DeleteGoalActivity.class);
+            intent.putExtra("data",selected.data);
+            startActivity(intent);
+        }
     }
 
     public void btnUpdateClicked(View v){

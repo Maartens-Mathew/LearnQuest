@@ -25,7 +25,6 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         notifyItemChanged(assessments.size()-1);
     }
 
-
     public GoalAdapter(List<TrackProgressAssessmentData> assessments, Context context, View.OnClickListener listener){
         this.assessments = assessments;
         this.context = context;

@@ -26,7 +26,6 @@ public class AdjustGoalActivity extends AppCompatActivity {
     private EditText edtMarkDesired, edtMarkObtained;
     private TextView lblAssessmentName;
     private AppCompatButton btnUpdateConfirm;
-    private int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

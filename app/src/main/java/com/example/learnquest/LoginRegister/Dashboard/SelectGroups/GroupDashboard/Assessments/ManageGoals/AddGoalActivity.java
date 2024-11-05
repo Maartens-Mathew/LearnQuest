@@ -1,4 +1,4 @@
-package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments;
+package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
-import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.GroupAssessmentListActivity;
 import com.example.learnquest.R;
 import com.example.learnquest.model.assessment.Assessment;
 import com.example.learnquest.model.assessment.StudentAssessment;

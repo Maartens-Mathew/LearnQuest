@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.AddGoalActivity">
+    tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.AddGoalActivity">
 
     <TextView
         android:id="@+id/lblAddGoalAssessmentName"
