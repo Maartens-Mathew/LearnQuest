@@ -25,6 +25,7 @@ public class QuizNavigationActivity extends AppCompatActivity {
     private Button toggleAnswerButton;
     private ImageButton prevButton, nextButton;
 
+
     private List<QuizEntry> quizEntries;
     private int currentIndex = 0;
     private boolean isAnswerVisible = false;
@@ -46,7 +47,6 @@ public class QuizNavigationActivity extends AppCompatActivity {
         toggleAnswerButton = findViewById(R.id.btnUnhide);
         prevButton = findViewById(R.id.prevButton);
         nextButton = findViewById(R.id.nextButton);
-
         App.group.setGroupID(1); // Set group ID as needed
 
         quizEntries = (List<QuizEntry>) getIntent().getSerializableExtra("quizEntries");

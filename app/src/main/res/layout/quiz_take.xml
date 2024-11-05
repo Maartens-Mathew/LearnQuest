@@ -73,8 +73,8 @@
         <!-- Answer input box -->
         <TextView
             android:id="@+id/answerEditText"
-            android:layout_width="200dp"
-            android:layout_height="67dp"
+            android:layout_width="239dp"
+            android:layout_height="82dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/rounded_edittext"
             android:hint="Answer appears here"

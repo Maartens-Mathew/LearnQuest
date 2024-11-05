@@ -57,7 +57,7 @@ public interface SupabaseApi {
 
 
             //adding an assessment to the DB
-    @POST("Assessment")
+    @POST("rpc/addAssessment")
     Call<Assessment> addAssessment(@Body Assessment assessment);
 
 

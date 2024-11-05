@@ -52,6 +52,10 @@ public class takeQuizSplasha extends AppCompatActivity {
         public  Integer sizeOfFilteredSet;
     private List<QuizEntry> filteredEntries = new ArrayList<>();
     List<QuizEntry> reducedEntriesToIntentOver ;
+    private  Button btnSetTagsforQuizz;
+
+
+
 
     private Integer GROUP_ID;
     private Integer USER_ID;
@@ -64,6 +68,8 @@ public class takeQuizSplasha extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_splash);
         sizeOfFilteredSet = 0;
+        btnSetTagsforQuizz = findViewById(R.id.btnSetTagsforQuizz);
+
         entries = new ArrayList<>();
        // filteredEntries = new ArrayList<>();
         reducedEntriesToIntentOver = new ArrayList<>();
@@ -132,9 +138,14 @@ public class takeQuizSplasha extends AppCompatActivity {
         } else {
             Log.e("Custom", "Entries list is null!");
         }
-        txtRecNum = findViewById(R.id.txtRecSize);
-        Integer seventyPOfSize = (int) (0.7*entries.size());
-        txtRecNum.setText("Ideally a quiz of: " + seventyPOfSize);
+
+        btnSetTagsforQuizz.setOnClickListener(v->{
+            txtRecNum = findViewById(R.id.txtRecSize);
+            Integer seventyPOfSize = (int) (0.7*entries.size());
+            txtRecNum.setText("Ideally a quiz of: " + seventyPOfSize +" as a rough estimate");
+
+        });
+
 
     }
 
@@ -293,52 +304,58 @@ public class takeQuizSplasha extends AppCompatActivity {
 
     private void displayFilteredQuizEntries(List<QuizEntry> filteredEntries) {
         // Update your UI here, for example, displaying the filtered quiz entries in a RecyclerView or FlexboxLayout
-        Toast.makeText(takeQuizSplasha.this, "Filtered quizzes: " + filteredEntries.size(), Toast.LENGTH_LONG).show();
+        Toast.makeText(takeQuizSplasha.this, "We have prepared a Quiz!", Toast.LENGTH_LONG).show();
     }
 
     public void getOnClick(View view) {
-        Button btnStart = findViewById(R.id.btnStartQuiz);
-
         String numOfQuestionsString = edtNumQ.getText().toString().trim();
 
-        // Check if the input is empty
+        // Validate input is present and a valid number
+        Integer numOfQuestionsFromUser;
         if (numOfQuestionsString.isEmpty()) {
-            Toast.makeText(takeQuizSplasha.this, "Please enter the number of questions.", Toast.LENGTH_SHORT).show();
+            showToast("Please enter the number of questions.");
             return;
         }
-
-        // Check if the input is a valid integer
-        Integer numOfQuestionsFromUser;
         try {
             numOfQuestionsFromUser = Integer.parseInt(numOfQuestionsString);
         } catch (NumberFormatException e) {
-            Toast.makeText(takeQuizSplasha.this, "Please enter a valid number.", Toast.LENGTH_SHORT).show();
+            showToast("Please enter a valid number.");
             return;
         }
 
-        // Check if the number of questions is within a valid range
+        // Validate input range
+        int maxQuestions = (int) (entries.size() * 0.80);
         if (numOfQuestionsFromUser <= 0) {
-            Toast.makeText(takeQuizSplasha.this, "Please enter a positive number.", Toast.LENGTH_SHORT).show();
+            showToast("Please enter a positive number.");
             return;
-        } else if (numOfQuestionsFromUser > entries.size() * 0.75) {
-            Toast.makeText(takeQuizSplasha.this, "Select a smaller number of questions (less than 75% of available quizzes).", Toast.LENGTH_LONG).show();
+        } else if (numOfQuestionsFromUser > maxQuestions) {
+            showToast("Please select fewer questions (max: " + maxQuestions + ").");
             return;
         }
 
-        // Filter quiz entries by tags
+        // Filter quiz entries by selected tags
         filterQuizEntriesByTags();
 
-        // Update reducedEntriesToIntentOver based on user input
+        // Populate `reducedEntriesToIntentOver` based on the filtered entries and requested question count
         reducedEntriesToIntentOver.clear();
         for (int i = 0; i < numOfQuestionsFromUser && i < filteredEntries.size(); i++) {
             reducedEntriesToIntentOver.add(filteredEntries.get(i));
         }
 
+        // Control visibility of Start Quiz button based on results
+        Button btnStart = findViewById(R.id.btnStartQuiz);
         if (!reducedEntriesToIntentOver.isEmpty()) {
             btnStart.setVisibility(View.VISIBLE);
+            edtNumQ.setEnabled(false); // Disable the EditText when "Start Quiz" button is visible
         } else {
             btnStart.setVisibility(View.GONE);
+            edtNumQ.setEnabled(true); // Re-enable EditText if no quiz entries are available
         }
+
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -358,9 +375,34 @@ public class takeQuizSplasha extends AppCompatActivity {
         Log.d("QuizEntriesDebug", "Entries count: " + reducedEntriesToIntentOver.size());
         intent.putExtra("quizEntries", (Serializable) reducedEntriesToIntentOver);
         startActivity(intent);
+        resetValues();
     }
 
+    private void resetValues() {
+        // Clear selected tags and remove buttons from FlexboxLayout
+        selectedTags.clear();
+        flexboxLayoutTT.removeAllViews();
 
+        // Reset EditText for the number of questions
+        edtNumQ.setText("");
+
+        // Reset the TextView recommendation
+        txtRecNum.setText("");
+
+        // Clear filtered and reduced entries
+        filteredEntries.clear();
+        reducedEntriesToIntentOver.clear();
+
+        // Hide the Start Quiz button again
+        findViewById(R.id.btnStartQuiz).setVisibility(View.GONE);
+
+        // Re-populate spinner in case of any changes
+        populateSpinner(tagList);
+        edtNumQ.setEnabled(true);
+
+
+        //Toast.makeText(this, "All fields reset!", Toast.LENGTH_SHORT).show();
+    }
 
 
 }

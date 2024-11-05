@@ -7,15 +7,6 @@
     android:background="@color/skyBlueGreenBackGround"
     tools:context="com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -26,7 +17,7 @@
         android:text="Assessment List"
         android:textColor="@color/design_default_color_secondary_variant"
         android:textColorHint="@color/white"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,18 +50,20 @@
 
     <Button
         android:id="@+id/btnSaveAssessment"
+        style="@style/green_button_white_text"
         android:onClick="onSaveClicked"
         android:text="Save Assessment"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnDeleteAssessment"
-        app:layout_constraintVertical_bias="0.0"
-        style="@style/green_button_white_text" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnDeleteAssessment"
+        style="@style/ButtonStyleGreenFinal"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="8dp"
