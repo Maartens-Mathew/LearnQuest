@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.R;
+import com.example.learnquest.model.group.Group;
+import com.example.learnquest.model.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ public class quizValidHome extends AppCompatActivity {
     private QuizRecyclerViewAdapter recyclerAdapter; // Adapter for RecyclerView
     private int selectedGroupId = 1; // Default selected group ID
 
+    private Integer GROUP_ID;
+    private Integer USER_ID;
 
 
     private static final int REQUEST_CODE_EDIT = 2;
@@ -53,7 +57,13 @@ public class quizValidHome extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         App.setApplicationContext(getApplicationContext());
 
-        App.group.setGroupID(1);
+        if (App.group == null) {
+            App.group = Group.demoGroup();
+            App.user = User.demoUser();
+        }
+
+        GROUP_ID = App.group.getGroupID();
+        USER_ID = App.user.getUserID();
 
         // Fetch the quiz entries for a group (replace with the actual groupID)
         //fetchQuizQuestions(App.groupID);
@@ -64,7 +74,7 @@ public class quizValidHome extends AppCompatActivity {
 
         Runnable runnable = () ->{
 
-            fetchQuizQuestions(App.group.getGroupID());
+            fetchQuizQuestions(GROUP_ID);
         };
 
         Thread thread = new Thread(runnable);

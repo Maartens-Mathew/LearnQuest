@@ -17,6 +17,8 @@ import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.QuizEntry;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.Tag;
 import com.example.learnquest.R;
+import com.example.learnquest.model.group.Group;
+import com.example.learnquest.model.user.User;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.io.Serializable;
@@ -51,6 +53,11 @@ public class takeQuizSplasha extends AppCompatActivity {
     private List<QuizEntry> filteredEntries = new ArrayList<>();
     List<QuizEntry> reducedEntriesToIntentOver ;
 
+    private Integer GROUP_ID;
+    private Integer USER_ID;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +67,17 @@ public class takeQuizSplasha extends AppCompatActivity {
         entries = new ArrayList<>();
        // filteredEntries = new ArrayList<>();
         reducedEntriesToIntentOver = new ArrayList<>();
-        App.group.setGroupID(1);
+        if (App.group == null) {
+            App.group = Group.demoGroup();
+            App.user = User.demoUser();
+        }
+
+        GROUP_ID = App.group.getGroupID();
+        USER_ID = App.user.getUserID();
+
+
+
+
 
         spinnerForTarget = findViewById(R.id.spinAddTagsToFIlter);
         flexboxLayoutTT = findViewById(R.id.flexboxForshowingTagsToFil);
@@ -71,7 +88,7 @@ public class takeQuizSplasha extends AppCompatActivity {
         selectedTags.clear();
 
         // Fetch tags by group ID (for Spinner)
-        fetchTagsByGroup(App.group.getGroupID());
+        fetchTagsByGroup(GROUP_ID);
 
 
         // Set listener to handle spinner selections
@@ -210,7 +227,7 @@ public class takeQuizSplasha extends AppCompatActivity {
         return drawable;
     }
     private void fetchQuizQuestions() {
-        Call<List<QuizEntry>> call = App.api.getValidQuizEntries(App.group.getGroupID());
+        Call<List<QuizEntry>> call = App.api.getValidQuizEntries(GROUP_ID);
         Response<List<QuizEntry>> response = null;
 
 

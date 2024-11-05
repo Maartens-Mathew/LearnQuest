@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
+import com.example.learnquest.model.group.Group;
+import com.example.learnquest.model.user.User;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.io.IOException;
@@ -39,13 +41,20 @@ public class quizNewInsertAct extends AppCompatActivity {
     private EditText edtQuizQ;
     private EditText edtQuizD;
     private EditText edtQuizA;
-
+    private Integer GROUP_ID;
+    private Integer USER_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_new_insert);
 
-        App.group.setGroupID(1);
+        if (App.group == null) {
+            App.group = Group.demoGroup();
+            App.user = User.demoUser();
+        }
+
+        GROUP_ID = App.group.getGroupID();
+        USER_ID = App.user.getUserID();
 
         spinnerTags = findViewById(R.id.spinAddTagsE);
         flexboxLayout = findViewById(R.id.flexboxForValidatingQuizs);
@@ -58,7 +67,7 @@ public class quizNewInsertAct extends AppCompatActivity {
         selectedTags.clear();
 
         // Fetch tags by group ID (for Spinner)
-        fetchTagsByGroup(App.group.getGroupID());
+        fetchTagsByGroup(GROUP_ID);
 
         // Set listener to handle spinner selections
         spinnerTags.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -186,7 +195,7 @@ public class quizNewInsertAct extends AppCompatActivity {
         entry.setQuestion(question);
         entry.setAnswer(answer);
         entry.setDescription(description);
-        entry.setGroupID(App.group.getGroupID());
+        entry.setGroupID(GROUP_ID);
 
         // Add selected tags to the entry
         for (Tag tag : selectedTags) {
