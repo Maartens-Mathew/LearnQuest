@@ -18,6 +18,7 @@ import android.widget.Button;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.CreateGroupActivity;
 import com.example.learnquest.R;
 
 import com.example.learnquest.model.group.Group;
@@ -39,7 +40,7 @@ public class ManageGroupsFragment extends Fragment {
 
     Context context;
     RecyclerView groupView;
-    Button btnSearch;
+    Button btnSearch, btnCreate;
 
     List<Group> groups;
 
@@ -51,6 +52,7 @@ public class ManageGroupsFragment extends Fragment {
 
         groupView = view.findViewById(R.id.recyclerView_groups);
         btnSearch = view.findViewById(R.id.btnSearch);
+        btnCreate = view.findViewById(R.id.btnManageGroupCreateGroup);
         App.setApplicationContext(getActivity());
         App.user = User.demoUser();
 
@@ -75,6 +77,11 @@ public class ManageGroupsFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
 
+    }
+
+    private void onBtnCreateGroupClicked(View v){
+        Intent intent = new Intent(getContext(), CreateGroupActivity.class);
+        startActivity(intent);
     }
 
     public View.OnClickListener onGroupClick(Group group){

@@ -52,7 +52,7 @@ public class ViewGroupMembersActivity extends AppCompatActivity {
 
     public void doCode(){
         databaseCall();
-        GroupMemberAdapter adapter = new GroupMemberAdapter(users);
+        GroupMemberAdapter adapter = new GroupMemberAdapter(users, isModerator);
         if (isModerator){
             adapter.listener = v ->{
                 if (selected != null){
