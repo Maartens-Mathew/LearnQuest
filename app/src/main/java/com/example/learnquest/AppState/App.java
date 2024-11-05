@@ -31,6 +31,8 @@ public class App {
     public static void setApplicationContext(Context context){
         applicationContext = context;
         Group.loadImages();
+
+
     }
 
     public static SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);

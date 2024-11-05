@@ -49,13 +49,9 @@ public class takeQuizSplasha extends AppCompatActivity {
     private EditText edtNumQ;
     private TextView txtRecNum;
     public List<QuizEntry> entries ;
-        public  Integer sizeOfFilteredSet;
+    public  Integer sizeOfFilteredSet;
     private List<QuizEntry> filteredEntries = new ArrayList<>();
     List<QuizEntry> reducedEntriesToIntentOver ;
-    private  Button btnSetTagsforQuizz;
-
-
-
 
     private Integer GROUP_ID;
     private Integer USER_ID;
@@ -68,10 +64,8 @@ public class takeQuizSplasha extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_splash);
         sizeOfFilteredSet = 0;
-        btnSetTagsforQuizz = findViewById(R.id.btnSetTagsforQuizz);
-
         entries = new ArrayList<>();
-       // filteredEntries = new ArrayList<>();
+        // filteredEntries = new ArrayList<>();
         reducedEntriesToIntentOver = new ArrayList<>();
         if (App.group == null) {
             App.group = Group.demoGroup();
@@ -139,13 +133,10 @@ public class takeQuizSplasha extends AppCompatActivity {
             Log.e("Custom", "Entries list is null!");
         }
 
-        btnSetTagsforQuizz.setOnClickListener(v->{
-            txtRecNum = findViewById(R.id.txtRecSize);
-            Integer seventyPOfSize = (int) (0.7*entries.size());
-            txtRecNum.setText("Ideally a quiz of: " + seventyPOfSize +" as a rough estimate");
 
-        });
-
+        txtRecNum = findViewById(R.id.txtRecSize);
+        Integer seventyPOfSize = (int) (0.7*entries.size());
+        txtRecNum.setText("Ideally a quiz of: " + seventyPOfSize +" as a rough estimate");
 
     }
 
@@ -298,7 +289,7 @@ public class takeQuizSplasha extends AppCompatActivity {
         sizeOfFilteredSet = filteredEntries.size();
 
         // Notify user
-        displayFilteredQuizEntries(filteredEntries);
+
     }
 
 
@@ -323,7 +314,10 @@ public class takeQuizSplasha extends AppCompatActivity {
             return;
         }
 
-        // Validate input range
+        // Filter quiz entries by selected tags before proceeding
+        filterQuizEntriesByTags();
+
+        // Validate the size of filtered entries and range
         int maxQuestions = (int) (entries.size() * 0.80);
         if (numOfQuestionsFromUser <= 0) {
             showToast("Please enter a positive number.");
@@ -332,11 +326,12 @@ public class takeQuizSplasha extends AppCompatActivity {
             showToast("Please select fewer questions (max: " + maxQuestions + ").");
             return;
         }
+        if (filteredEntries.size() <= 1) {
+            showToast("There are not enough filtered quizzes for these tags.");
+            return;
+        }
 
-        // Filter quiz entries by selected tags
-        filterQuizEntriesByTags();
-
-        // Populate `reducedEntriesToIntentOver` based on the filtered entries and requested question count
+        // Populate reducedEntriesToIntentOver based on the filtered entries and requested question count
         reducedEntriesToIntentOver.clear();
         for (int i = 0; i < numOfQuestionsFromUser && i < filteredEntries.size(); i++) {
             reducedEntriesToIntentOver.add(filteredEntries.get(i));
@@ -351,7 +346,6 @@ public class takeQuizSplasha extends AppCompatActivity {
             btnStart.setVisibility(View.GONE);
             edtNumQ.setEnabled(true); // Re-enable EditText if no quiz entries are available
         }
-
     }
 
     private void showToast(String message) {

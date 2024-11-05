@@ -14,8 +14,8 @@ import java.net.URI;
 public class FileClient {
 
     private static final String SUPABASE_ENDPOINT = "https://hddpqiabofrxxyptexff.supabase.co/storage/v1/s3";
-    private static final String ACCESS_KEY = "b0941c5565c517c410adc3559768f0f4";
-    private static final String SECRET_KEY = "2fca55361dccf819fa805932f558f6051fc7b7e92499193b5f2510892a7156b0";
+    private static final String ACCESS_KEY = "a5bf58719c484964a3278c5516dc878b";
+    private static final String SECRET_KEY = "5ca553e347d9617ceaeb543d757861a89fe739c795aa9aa8e6999e26e6e9c243";
     private static final Region REGION = Region.EU_CENTRAL_1; // Use a region that S3 client accepts, does not matter for Supabase
 
     private final S3Client s3Client;
@@ -26,6 +26,7 @@ public class FileClient {
                 .region(REGION) // Supabase does not enforce region, so this is a formality
                 .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(ACCESS_KEY, SECRET_KEY)))
                 .build();
+
     }
 
     public void uploadFile(String bucketName, String objectKey, File file) {
