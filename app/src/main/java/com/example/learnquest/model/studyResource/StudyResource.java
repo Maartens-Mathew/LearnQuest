@@ -3,7 +3,9 @@ package com.example.learnquest.model.studyResource;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class StudyResource {
+import java.io.Serializable;
+
+public class StudyResource implements Serializable {
 
     @SerializedName("resourceID")
     Integer resourceID;
@@ -51,6 +53,10 @@ public class StudyResource {
 
     public void setDateAdded(String dateAdded) {
         this.dateAdded = dateAdded;
+    }
+
+    public boolean isPDF(){
+        return fileType.equals("pdf");
     }
 
     public String getPerson() {

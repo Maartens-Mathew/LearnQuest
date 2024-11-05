@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/edit"
+        android:title="Edit/View" />
+    <item
+        android:icon="@drawable/delete"
+        android:title="Delete" />
+    <item
+        android:icon="@drawable/ai"
+        android:title="Analyze PDF" />
+</menu>

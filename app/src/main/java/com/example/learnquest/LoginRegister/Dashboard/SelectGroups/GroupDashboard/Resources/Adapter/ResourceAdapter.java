@@ -17,10 +17,12 @@ public class ResourceAdapter extends RecyclerView.Adapter<ResourceViewHolder> {
 
     private List<TreeNode> nodeList;
     private OnNodeClickListener listener;
+    private OnNodeLongClickListener long_listener;
 
-    public ResourceAdapter(List<TreeNode> nodeList, OnNodeClickListener listener) {
+    public ResourceAdapter(List<TreeNode> nodeList, OnNodeClickListener listener, OnNodeLongClickListener long_listener) {
         this.nodeList = nodeList;
         this.listener = listener;
+        this.long_listener = long_listener;
     }
 
     @NonNull
@@ -34,7 +36,7 @@ public class ResourceAdapter extends RecyclerView.Adapter<ResourceViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ResourceViewHolder holder, int position) {
         TreeNode node = nodeList.get(position);
-        holder.bind(node, listener);
+        holder.bind(node, listener, long_listener);
     }
 
     @Override

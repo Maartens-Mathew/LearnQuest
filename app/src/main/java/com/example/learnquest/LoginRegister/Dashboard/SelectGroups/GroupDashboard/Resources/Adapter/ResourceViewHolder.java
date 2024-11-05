@@ -31,11 +31,13 @@ public class ResourceViewHolder extends RecyclerView.ViewHolder{
         txtDataAdded = itemView.findViewById(R.id.txt_DateAdded);
         txtPerson = itemView.findViewById(R.id.txt_person);
 
+
     }
 
-    public void bind(TreeNode treeNode, OnNodeClickListener listener){
+    public void bind(TreeNode treeNode, OnNodeClickListener listener, OnNodeLongClickListener longListener){
         this.treeNode = treeNode;
         itemView.setOnClickListener(listener.onNodeClick(treeNode));
+        itemView.setOnLongClickListener(longListener.onLongClick(treeNode));
 
         if (treeNode.isLeaf()) {
             studyResource = ((LeafNode)treeNode).getCargo();
@@ -45,6 +47,8 @@ public class ResourceViewHolder extends RecyclerView.ViewHolder{
         }
 
     }
+
+
 
 
 

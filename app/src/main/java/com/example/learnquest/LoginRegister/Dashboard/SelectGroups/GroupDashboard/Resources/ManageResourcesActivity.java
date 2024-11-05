@@ -15,7 +15,9 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -26,6 +28,7 @@ import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.Adapter.EqualSpacingItemDecoration;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.Adapter.ResourceAdapter;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.AnalyzePDFActivity.AnalyzePDF_Activity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.Background.DownloadReceiver;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.Background.DownloadService;
 import com.example.learnquest.R;
@@ -101,7 +104,7 @@ public class ManageResourcesActivity extends AppCompatActivity {
 
     public void setAdapter(List<TreeNode> studyResources){
         if (adapter == null) {
-            adapter = new ResourceAdapter(studyResources, this::onResourceClick);
+            adapter = new ResourceAdapter(studyResources, this::onResourceClick, this::onLongClick);
             filesView.setAdapter(adapter);
         }
         else{
@@ -109,10 +112,74 @@ public class ManageResourcesActivity extends AppCompatActivity {
         }
     }
 
+    public View.OnLongClickListener onLongClick(TreeNode treeNode) {
+        return view -> {
+            PopupMenu popup = new PopupMenu(view.getContext(), view);
+            // Inflate the appropriate menu based on whether the node is a PDF
+            if (treeNode.isLeaf() && ((LeafNode)treeNode).getCargo().isPDF()) {
+                popup.getMenuInflater().inflate(R.menu.pdf_menu, popup.getMenu());
+            } else if (treeNode.isLeaf()) {
+                popup.getMenuInflater().inflate(R.menu.resource_item_menu, popup.getMenu());
+            } else {
+                return false; // No menu for inner nodes
+            }
+
+            LeafNode leafNode = (LeafNode)treeNode;
+            StudyResource resource = leafNode.getCargo();
+
+            // Set click listeners for common menu items
+            popup.setOnMenuItemClickListener(item -> {
+                switch (item.getTitle().toString()) {
+                    case "Edit/View":
+                        editOrViewItem(resource);
+                        return true;
+                    case "Delete":
+                        deleteItem(resource);
+                        return true;
+                    case "Analyze PDF":
+                        // Only present in pdf_menu, launches AnalyzePDFActivity
+                        analyzePdf(resource);
+                        return true;
+                    default:
+                        return false;
+                }
+            });
+
+            popup.show();
+            return true; // Indicates the event was handled
+        };
+    }
+
+    private void editOrViewItem(StudyResource studyResource) {
+        // Implement the logic for editing or viewing the TreeNode
+    }
+
+    // Method for the "Delete" option
+    private void deleteItem(StudyResource studyResource) {
+        // Implement the logic for deleting the TreeNode
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Tag")
+                .setMessage("Are you sure you want to delete this tag?")
+                .setPositiveButton("Yes", (dialog, which) -> deleteStudyResource(studyResource))
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    private void analyzePdf(StudyResource studyResource) {
+        Intent intent = new Intent(this, AnalyzePDF_Activity.class);
+        // Pass additional data if needed, for example, the file URI or ID
+        intent.putExtra("studyResource", studyResource); // Assuming treeNode has getFileUri() method
+        startActivity(intent);
+    }
+
     public void traverseUp(){
         tree.setParentToCurrent();
         setAdapter(tree.getCurrentChildren());
         changeFolderName();
+
+    }
+
+    public void deleteStudyResource(StudyResource studyResource){
 
     }
 
@@ -137,6 +204,8 @@ public class ManageResourcesActivity extends AppCompatActivity {
             }
         };
     }
+
+
 
     public void processResource(StudyResource studyResource) {
         String fileType = studyResource.getFileType();

@@ -61,7 +61,7 @@ dependencies {
 
 
 
-
+    implementation ("org.json:json:20231013")
 
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
@@ -75,6 +75,7 @@ dependencies {
     implementation ("com.google.android.flexbox:flexbox:3.0.0")//pill overview of tags A500
     implementation ("com.github.QuadFlask:colorpicker:0.0.15")
     implementation("androidx.activity:activity:1.9.3")
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:3.0.2")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
