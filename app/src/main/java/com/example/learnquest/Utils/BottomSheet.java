@@ -21,7 +21,7 @@ public class BottomSheet {
         List<Class<?>> classes;
         Activity activity;
         int layout_menu;
-
+        Boolean hasPermission;
         public Builder with(Activity activity){
             this.activity = activity;
             return this;
@@ -35,6 +35,11 @@ public class BottomSheet {
 
         public Builder andClasses(Class<?>... classes){
             this.classes = List.of(classes);
+            return this;
+        }
+
+        public Builder hasPermission(Boolean hasPermission){
+            this.hasPermission= hasPermission;
             return this;
         }
 
@@ -62,7 +67,7 @@ public class BottomSheet {
 
                 @Override
                 public void onSheetItemSelected(@NonNull BottomSheetMenuDialogFragment bottomSheetMenuDialogFragment, @NonNull MenuItem menuItem, @Nullable Object o) {
-                    
+
                     String title = itemTitles.get(menuItem.getOrder());
                     if (title.contentEquals(menuItem.getTitle())){
                         Intent intent = new Intent(activity, classes.get(menuItem.getOrder()));

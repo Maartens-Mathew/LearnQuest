@@ -82,7 +82,7 @@ public interface SupabaseApi {
 //this gets all the quiz entries,
     //SQL functions added by Mathew. Start...
     @GET("rpc/hasPermission")
-    Call<Boolean> hasPermission(@Query("userID_input") Integer userID);
+    Call<Boolean> hasPermission(@Query("userID_input") Integer userID,Integer groupID_input );////////////////////////////////////////////////////////////////////////////
 
     @GET("rpc/getWaitingQuizEntries")
     Call<List<QuizEntry>> getWaitingQuizEntries(@Query("groupID_input") Integer groupID_input);

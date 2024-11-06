@@ -12,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.takingQuiz.takeQuizSplasha;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.StudyTools.Pomodoro.pomoDoroMain;
 import com.example.learnquest.R;
 import com.example.learnquest.Utils.database.SupabaseApi;
@@ -34,23 +38,19 @@ public class StudyToolsFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_study_tools, container, false);
     }
-    public void getStudyResources(){
-        /* Granville you NEED to regularly merge your branches into the main branch.
-            App is a class with static fields, like groupID and userID to track
-             the current user and the current group. If you don't have that class, then
-             a lot of functionality won't work. So it's important that you branch asap so
-             that you get the latest changes.
-
-         */
-
-
-        //Short groupID = App.groupID;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button btnPomodoro = view.findViewById(R.id.btnPomodoro);
+        btnPomodoro.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), pomoDoroMain.class);
+            startActivity(intent);
+        });
 
 
-
-
-
-        SupabaseApi api = SupabaseClient.getClient().create(SupabaseApi.class);
-        //Call<List<StudyResource>> studyCall = api.getStudyResources(1);
     }
+
+
+
+
 }

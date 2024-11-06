@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.GoalsListActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.ViewProgressActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity;
 import com.example.learnquest.R;
 
 public class AssessmentFragment extends Fragment {
@@ -43,5 +44,15 @@ public class AssessmentFragment extends Fragment {
             intent.putExtra("stateType",0);
             startActivity(intent);
         });
+
+        Button btnSetW = view.findViewById(R.id.btnSetW);
+        btnSetW.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), ListViewActivity.class);
+            intent.putExtra("stateType",0);
+            startActivity(intent);
+        });
+
+
+
     }
 }

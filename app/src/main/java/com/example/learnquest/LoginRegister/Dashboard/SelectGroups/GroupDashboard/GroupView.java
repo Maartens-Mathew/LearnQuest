@@ -1,6 +1,7 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
@@ -59,6 +60,15 @@ public class GroupView extends AppCompatActivity {
         groupBottomNavigation.setOnItemSelectedListener(this::onItemSelectedListener);
         groupBottomNavigation.setOnItemReselectedListener(this::onLongClick);
 
+        Menu menu = groupBottomNavigation.getMenu();
+        MenuItem menuItem = menu.getItem(2);
+
+                // Simulate the click for the menu item
+                        groupBottomNavigation.setSelectedItemId(menuItem.getItemId()); // This triggers the onItemSelectedListener
+
+
+
+
 
 
     }
@@ -78,6 +88,7 @@ public class GroupView extends AppCompatActivity {
                 popup = new BottomSheet.Builder()
                         .with(GroupView.this)
                         .getItemTitles("Quiz Bank", "Quiz Pool", "Manage Tags", "Take Quiz")
+                        //.hasPermission()
                         .andClasses(quizBankHome.class, quizValidHome.class, TagManageHome.class, takeQuizSplasha.class)
                         .andLastly_theLayout(R.menu.quiz_menu)
                         .build();
