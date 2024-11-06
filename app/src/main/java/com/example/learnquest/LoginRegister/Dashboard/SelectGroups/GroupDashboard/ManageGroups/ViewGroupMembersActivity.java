@@ -32,9 +32,7 @@ public class ViewGroupMembersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getIntent() != null){
-            isModerator = getIntent().getExtras().getBoolean("isModerator");
-        }
+        isModerator = App.isModerator;
         setContentView(R.layout.activity_view_group_members);
         recyclerView = findViewById(R.id.groupMembersRecyclerView);
         users = new ArrayList<>();

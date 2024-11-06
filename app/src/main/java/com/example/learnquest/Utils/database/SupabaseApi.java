@@ -158,8 +158,8 @@ public interface SupabaseApi {
     Call<Void> addGroupMembership(@Body GroupMembership newJoin);
 
 
-    @POST("rpc/removeUser")
-    Call<Void> removeUser(@Query("userID_input") String userID, @Query("groupID_input") String groupID);
+    @DELETE("groupMembership")
+    Call<Void> removeUser(@Query("userID") String userID, @Query("groupID") String groupID);
 
     @GET("rpc/getUserWithID")
     Call<List<User>> getUserWithID(@Query("userID_input") Integer userID);
