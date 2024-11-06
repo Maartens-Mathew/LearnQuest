@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -22,11 +23,14 @@ import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText edtUsername, edtPassword;
+
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,9 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        progressBar = findViewById(R.id.progress_login);
+        progressBar.setVisibility(View.GONE);
 
 
 
@@ -53,37 +60,31 @@ public class LoginActivity extends AppCompatActivity {
         String password = edtPassword.getText().toString();
 
         Call<Integer> validCall = App.api.isUserValid(username, password);
-        final Response<Integer>[] validResponse = new Response[]{null};
+        progressBar.setVisibility(View.VISIBLE);
+        validCall.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    int valid = response.body();
+                    //progressBar.setVisibility(View.GONE);
+                    processLogin(valid); // Handle successful login
 
-        Thread thread = new Thread( () -> {
-
-            try {
-                validResponse[0] = validCall.execute();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-
-            if (validResponse[0].isSuccessful() && validResponse[0].body() != null) {
-              int valid = validResponse[0].body();
-                processLogin(valid);
-            } else {
-                try {
-                    Log.e("Custom", validResponse[0].errorBody().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } else {
+                    try {
+                        Log.e("Custom", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                t.printStackTrace();
+            }
         });
-
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-
     }
+
 
     private void processLogin(int valid) {
 
@@ -95,14 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (valid == 2) {
             setUser();
-            runOnUiThread(() -> {
 
-                        Toast.makeText(getApplicationContext(), "Login successful.", Toast.LENGTH_SHORT).show();
-
-                        ProceedToDashboard();
-
-                    }
-            );
         }
 
     }
@@ -112,35 +106,40 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void setUser(){
+    private void setUser() {
         String username = edtUsername.getText().toString();
-
 
         Call<List<User>> getCall = App.api.getUser(username);
 
-        Response<List<User>> getResponse = null;
+        //progressBar.setVisibility(View.VISIBLE);
 
-        try{
-            getResponse = getCall.execute();
-        }catch(IOException e){
-            e.printStackTrace();
-            return;
-        }
+        getCall.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    App.user = response.body().get(0);
+                    runOnUiThread(() -> {
 
-        if (getResponse.isSuccessful())
-            App.user = getResponse.body().get(0);
-        else {
+                                Toast.makeText(getApplicationContext(), "Login successful.", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                                ProceedToDashboard();
 
-            try {
-                Log.e("Custom", getResponse.errorBody().string());
-            } catch (IOException e) {
-                e.printStackTrace();
+                            }
+                    );
+                } else {
+                    try {
+                        Log.e("Custom", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
-        }
-
-
-
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     public void onRegisterClick(View view) {

@@ -58,7 +58,7 @@ public class ResourceViewHolder extends RecyclerView.ViewHolder{
         setImageUI(fileExtension);
 
         txtDataAdded.setText(studyResource.getDateAdded());
-        txtPerson.setText(studyResource.getPerson());
+
 
     }
 

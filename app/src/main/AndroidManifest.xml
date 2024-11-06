@@ -34,12 +34,15 @@
 
                 <!-- Custom action for the intent -->
                 <action android:name="com.example.ACTION_STUDY_RESOURCES" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
 
                 <!-- Category allows it to show in the launcher if specified -->
-                <category android:name="android.intent.category.DEFAULT" />
+
 
                 <!-- Optional: specify the MIME type if your intent includes data -->
                 <!-- <data android:mimeType="text/plain" /> -->

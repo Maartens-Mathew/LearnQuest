@@ -98,6 +98,7 @@ public class ManageResourcesActivity extends AppCompatActivity {
 
     public void onAddClick(View view){
         Intent intent = new Intent("com.example.ACTION_STUDY_RESOURCES");
+        intent.putExtra("filePath", tree.getCurrentPath());
         startActivity(intent);
     }
 

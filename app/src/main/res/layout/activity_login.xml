@@ -103,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnViewMembers" />
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/progress_login"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

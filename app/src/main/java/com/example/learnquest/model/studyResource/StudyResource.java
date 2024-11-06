@@ -23,6 +23,12 @@ public class StudyResource implements Serializable {
     @SerializedName("URL")
     String URL;
 
+    @SerializedName("groupID")
+    Integer groupID;
+
+    @SerializedName("filePath")
+    String filePath;
+
     public String getURL() {
         return URL;
     }
@@ -31,8 +37,7 @@ public class StudyResource implements Serializable {
         this.URL = URL;
     }
 
-    @Expose
-    String filePath;
+
 
     public String getFilePath() {
         return filePath;
@@ -41,9 +46,6 @@ public class StudyResource implements Serializable {
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
-
-    @SerializedName("person")
-    String person;
 
     public String getDateAdded() {
         return dateAdded;
@@ -56,17 +58,6 @@ public class StudyResource implements Serializable {
     public boolean isPDF(){
         return fileType.equals("pdf");
     }
-
-    public String getPerson() {
-        return person;
-    }
-
-    public void setPerson(String person) {
-        this.person = person;
-    }
-
-    @SerializedName("groupID")
-    Integer groupID;
 
     public String getFileName() {
         return fileName;
@@ -94,7 +85,6 @@ public class StudyResource implements Serializable {
         this.fileType = fileType;
         this.groupID = groupID;
         this.resourceID = resourceID;
-        this.URL = URL;
     }
 
     public Integer getGroupID() {

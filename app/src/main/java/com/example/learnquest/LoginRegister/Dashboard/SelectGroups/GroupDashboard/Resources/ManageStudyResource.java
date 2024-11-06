@@ -21,7 +21,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 import com.example.learnquest.Utils.database.FileClient;
+import com.example.learnquest.model.group.Group;
 import com.example.learnquest.model.studyResource.StudyResource;
+import com.example.learnquest.model.user.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -33,6 +35,7 @@ import java.io.InputStream;
 import java.time.Instant;
 import java.util.Date;
 
+import kotlinx.datetime.LocalDate;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,6 +61,8 @@ public class ManageStudyResource extends AppCompatActivity {
 
     String filePath;
 
+    Boolean isEdit;
+
 
 
 
@@ -70,15 +75,23 @@ public class ManageStudyResource extends AppCompatActivity {
         edtResourceName = findViewById(R.id.edtResourceName);
         btnSelectFile = findViewById(R.id.btnSelectFile);
 
+        App.group = Group.demoGroup();
+        App.user = User.demoUser();
+
 
         storage = FirebaseStorage.getInstance();
 
         // Check if editing an existing study resource
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("studyResource")) {
-            studyResource = (StudyResource) intent.getSerializableExtra("studyResource");
-            filePath = intent.getStringExtra("filePath");
-            setupUI();
+        if (intent != null) {
+            if (intent.hasExtra("studyResource")) {
+                studyResource = (StudyResource) intent.getSerializableExtra("studyResource");
+                isEdit = true;
+                setupUI();
+            }else {
+                filePath = intent.getStringExtra("filePath");
+            }
+
         }
 
         txtExtension.setEnabled(false);
@@ -212,9 +225,8 @@ public class ManageStudyResource extends AppCompatActivity {
 
 
     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot){
-        Toast.makeText(this, "Upload Successful", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, ManageResourcesActivity.class);
-        startActivity(intent);
+        getUrl();
+
 
     }
 
@@ -223,27 +235,29 @@ public class ManageStudyResource extends AppCompatActivity {
     }
 
     public void addStudyEntry(){
-        Call<Void> addCall = App.api.addStudyResource(studyResource);
+        // Run the network call in a separate thread to avoid blocking the main thread
+        new Thread(() -> {
+            try {
+                // Execute the call synchronously
+                Response<Void> response = App.api.addStudyResource(studyResource).execute();
 
-        addCall.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful())
-                    Toast.makeText(ManageStudyResource.this.getApplicationContext(), "Study Resource added", Toast.LENGTH_SHORT).show();
-                else {
-                    try {
-                        Log.e("Custom",response.errorBody().string());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                // Check if the response was successful
+                if (response.isSuccessful()) {
+                    // Run UI updates on the main thread
+                    runOnUiThread(() ->
+                            Toast.makeText(ManageStudyResource.this.getApplicationContext(), "Study Resource added", Toast.LENGTH_SHORT).show()
+                    );
+                } else {
+                    // Log the error from the response
+                    String errorMsg = response.errorBody() != null ? response.errorBody().string() : "Unknown error";
+                    Log.e("Custom", errorMsg);
                 }
+            } catch (IOException e) {
+                // Handle IOException that may occur during the network call
+                Log.e("Custom", "Network call failed", e);
             }
+        }).start();
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable throwable) {
-
-            }
-        });
     }
 
     public void build(){
@@ -251,18 +265,24 @@ public class ManageStudyResource extends AppCompatActivity {
         String fileType = txtFileName.getText().toString();
         String extension = txtExtension.getText().toString();
         Integer groupID = App.group.getGroupID();
-        String dateAdded = Date.from(Instant.now()).toString();
+        java.time.LocalDate currentDate = java.time.LocalDate.now();
 
-        studyResource =  new StudyResource(dateAdded,fileName,fileType,filePath,groupID,0);
-        getUrl();
+
+        studyResource =  new StudyResource(currentDate.toString(),fileName,filePath,fileType,groupID,0);
+
 
 
 
     }
 
     public void getUrl(){
-        FileClient.getUrl(studyResource.getFileName(), (uri -> {
-            studyResource.setURL(uri.toString()); addStudyEntry();
+        FileClient.getUrl(studyResource.getFileName(), (uri ->
+        {
+            studyResource.setURL(uri.toString());
+            addStudyEntry();
+            Toast.makeText(ManageStudyResource.this, "Upload Successful", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(ManageStudyResource.this, ManageResourcesActivity.class);
+            startActivity(intent);
         }),(e) -> Toast.makeText(this, "Failed to get URL", Toast.LENGTH_SHORT).show());
     }
 }
