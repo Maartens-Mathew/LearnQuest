@@ -59,6 +59,13 @@ public class LoginActivity extends AppCompatActivity {
         String username = edtUsername.getText().toString();
         String password = edtPassword.getText().toString();
 
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter both username and password.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         Call<Integer> validCall = App.api.isUserValid(username, password);
         progressBar.setVisibility(View.VISIBLE);
         validCall.enqueue(new Callback<Integer>() {
