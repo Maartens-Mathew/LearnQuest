@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.CreateGroupActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.DeleteGroupActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.JoinGroupActivity;
 import com.example.learnquest.R;
 
@@ -28,6 +31,7 @@ import com.example.learnquest.model.group.Group;
 import com.example.learnquest.model.user.User;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -50,6 +54,10 @@ public class ManageGroupsFragment extends Fragment {
     EditText edtSearchTerm;
 
     List<Group> groups;
+
+    ActivityResultLauncher confirmationLauncher;
+
+
 
 
     @Override
@@ -82,7 +90,6 @@ public class ManageGroupsFragment extends Fragment {
         btnCreate.setOnClickListener(this::onCreateGroupBtnCreateGroupClicked);
         btnSearch.setOnClickListener(this::selectGroup);
 
-
         // Inflate the layout for this fragment
         return view;
 
@@ -108,7 +115,7 @@ public class ManageGroupsFragment extends Fragment {
             Toast.makeText(context, "Enter an actual search term", Toast.LENGTH_SHORT).show();
             return;
         }
-        Call<List<Group>> getGroupsCall = App.api.getGroupByTopic(searchTerm);
+        Call<List<Group>> getGroupsCall = App.api.getGroupByTopic("topic~~*"+searchTerm+"%");
         getGroupsCall.enqueue(new Callback<List<Group>>() {
             @Override
             public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
@@ -117,9 +124,9 @@ public class ManageGroupsFragment extends Fragment {
                         Toast.makeText(context, "could not find group", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Group group = response.body().get(0);
+                        List<Group> groups = response.body();
                         Intent intent = new Intent(getActivity(), JoinGroupActivity.class);
-                        intent.putExtra("group",group);
+                        intent.putExtra("groups", (Serializable) groups);
                         startActivity(intent);
                     }
                 }

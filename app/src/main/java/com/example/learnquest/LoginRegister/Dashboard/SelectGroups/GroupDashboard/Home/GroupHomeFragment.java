@@ -3,6 +3,8 @@ package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboa
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -41,6 +43,8 @@ public class GroupHomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private ActivityResultLauncher confirmationLauncher;
+    public final static int RESULT_OK = 69;
     public GroupHomeFragment() {
         // Required empty public constructor
     }
@@ -77,9 +81,34 @@ public class GroupHomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Button btnJoinRequest = view.findViewById(R.id.join_requests_button_group_home_fragment);
         Button btnDeleteGroup = view.findViewById(R.id.btnDeleteGroup);
-        btnDeleteGroup.setOnClickListener(v ->{
+        confirmationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result ->{
+                    if (result.getResultCode() != RESULT_OK) return;
+                    Intent data = result.getData();
+                    boolean isDelete = data.getExtras().getBoolean("isDelete");
+                    if (isDelete){
+                        Call<Void> deleteGroupCall = App.api.deleteGroup("eq." + App.group.getGroupID());
+                        deleteGroupCall.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.isSuccessful()){
+                                    Log.i(GROUP_HOME_FRAGMENT, "deleting group successful");
+                                }
+                                else{
+                                    Log.e(GROUP_HOME_FRAGMENT,"something went wrong");
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable throwable) {
+                                Log.e(GROUP_HOME_FRAGMENT,throwable.getStackTrace().toString());
+                            }
+                        });
+                        getActivity().getOnBackPressedDispatcher().onBackPressed();
+                    }
+                });        btnDeleteGroup.setOnClickListener(v ->{
             Intent intent = new Intent(getContext(), DeleteGroupActivity.class);
-            startActivity(intent);
+            confirmationLauncher.launch(intent);
         });
         btnJoinRequest.setOnClickListener(v ->{
             Intent intent = new Intent(getContext(), PendingUsersActivity.class);

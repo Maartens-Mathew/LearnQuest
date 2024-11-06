@@ -3,6 +3,7 @@ package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboa
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.learnquest.AppState.App;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.GroupHomeFragment;
 import com.example.learnquest.R;
 
 import retrofit2.Call;
@@ -21,6 +23,7 @@ import com.example.learnquest.model.group.Group;
 public class DeleteGroupActivity extends AppCompatActivity {
 
     private Group group;
+
 
     public static final String DELETE_GROUP_ACTIVITY = "DeleteGroupActivity";
 
@@ -39,27 +42,16 @@ public class DeleteGroupActivity extends AppCompatActivity {
 
 
     public void btnDeleteGroupConfirmClicked(View v){
-        Call<Void> deleteGroupCall = App.api.deleteGroup("eq" + App.group.getGroupID());
-        deleteGroupCall.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()){
-                    Log.i(DELETE_GROUP_ACTIVITY, "deleting group successful");
-                }
-                else{
-                    Log.e(DELETE_GROUP_ACTIVITY,"something went wrong");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable throwable) {
-                Log.e(DELETE_GROUP_ACTIVITY,throwable.getStackTrace().toString());
-            }
-        });
-        getOnBackPressedDispatcher().onBackPressed();
+        Intent result = new Intent();
+        result.putExtra("isDelete",true);
+        setResult(GroupHomeFragment.RESULT_OK, result);
+        finish();
     }
 
     public void btnDeleteGroupCancelClicked(View v){
-        getOnBackPressedDispatcher().onBackPressed();
+        Intent result = new Intent();
+        result.putExtra("isDelete",false);
+        setResult(GroupHomeFragment.RESULT_OK, result);
+        finish();
     }
 }
