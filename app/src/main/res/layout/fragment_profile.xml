@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout3"
+    style="@style/backgroundStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginRegister.Dashboard.Profile.ProfileFragment">
 
     <TextView
         android:id="@+id/lbl_profile_title"
+        style="@style/HeadingGreenFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -100,10 +102,11 @@
 
     <Button
         android:id="@+id/btn_profile_update"
+        style="@style/ButtonStyleGreenFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
 
+        android:layout_marginBottom="24dp"
         android:text="Update Profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

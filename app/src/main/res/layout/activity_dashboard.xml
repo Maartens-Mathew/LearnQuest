@@ -10,22 +10,24 @@
         android:layout_height="match_parent"
         >
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fcv_dashboard"
-            android:name="com.example.learnquest.LoginRegister.Dashboard.SelectGroups.ManageGroupsFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/navBarDash"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fcv_dashboard"
+        android:name="com.example.learnquest.LoginRegister.Dashboard.SelectGroups.ManageGroupsFragment"
+        style="@style/backgroundStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/navBarDash"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navBarDash"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/nav_bar" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navBarDash"
+        style="@style/backgroundStyle"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/nav_bar" />
     </androidx.constraintlayout.widget.ConstraintLayout>

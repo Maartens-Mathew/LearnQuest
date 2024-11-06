@@ -7,11 +7,13 @@
     tools:context=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Resources.ResourcesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/backgroundStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
             android:id="@+id/button14"
+            style="@style/ButtonStyleGreenFinal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

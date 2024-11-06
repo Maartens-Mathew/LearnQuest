@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/resources_constraint"
+    style="@style/backgroundStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginRegister.LoginActivity">
 
     <TextView
         android:id="@+id/lbl_login_title"
+        style="@style/HeadingGreenFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -16,7 +18,7 @@
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/txt_login_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,6 +57,7 @@
 
     <Button
         android:id="@+id/button6"
+        style="@style/ButtonStyleGreenFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onLoginClick"
@@ -67,6 +70,7 @@
 
     <Button
         android:id="@+id/btnViewMembers"
+        style="@style/ButtonStyleGreenFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onRegisterClick"
