@@ -61,7 +61,7 @@ public class CircularProgressBar extends View {
         canvas.drawCircle(centerX, centerY, radius, circlePaint);
 
         // Update the color of the progress paint based on the progress value
-        progressPaint.setColor(getInterpolatedColor(0xFF00796B, 0xFFFF0000, progress / 100f));
+        progressPaint.setColor(getInterpolatedColor(0xFF00796B , 0xFFFF0000, progress / 100f));
 
         // Draw progress arc
         canvas.drawArc(strokeWidth / 2f, strokeWidth / 2f,

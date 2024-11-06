@@ -8,11 +8,11 @@
 
     <TextView
         android:id="@+id/txtInsertNew"
+        style="@style/HeadingGreenFinal"
         android:layout_width="235dp"
         android:layout_height="41dp"
         android:layout_marginTop="32dp"
         android:text="Insert New Quiz Entry"
-        android:textColor="@color/greenTint"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -37,6 +37,9 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/skyBlueGreenBackGround</item>
     </style>
+    <style name="CustomDatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/greenTint</item> <!-- Customize this color -->
+    </style>
 
 
 </resources>
