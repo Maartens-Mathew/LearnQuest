@@ -79,7 +79,7 @@ public class ManageGroupsFragment extends Fragment {
 
     }
 
-    private void onBtnCreateGroupClicked(View v){
+    public void onCreateGroupBtnCreateGroupClicked(View v){
         Intent intent = new Intent(getContext(), CreateGroupActivity.class);
         startActivity(intent);
     }

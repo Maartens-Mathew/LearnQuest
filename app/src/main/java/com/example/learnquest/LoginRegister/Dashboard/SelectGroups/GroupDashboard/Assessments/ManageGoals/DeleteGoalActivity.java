@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,10 @@ public class DeleteGoalActivity extends AppCompatActivity {
         lblWeighting = findViewById(R.id.lblDeleteGoalWeighting);
         lblMarkDesired = findViewById(R.id.lblDeleteGoalMarkDesired);
         lblMarkObtained = findViewById(R.id.lblDeleteGoalMarkObtained);
+        Button btnDelete = findViewById(R.id.btnDeleteGoalDelete);
+        Button btnCancel = findViewById(R.id.btnDeleteGoalCancel);
+        btnDelete.setOnClickListener(this::onBtnDeleteClicked);
+        btnCancel.setOnClickListener(this::onBtnCancelClicked);
         Intent intent = getIntent();
         if (intent != null){
             data = (TrackProgressAssessmentData) intent.getExtras().get("data");
@@ -47,6 +52,9 @@ public class DeleteGoalActivity extends AppCompatActivity {
             else{
                 lblMarkObtained.setVisibility(View.INVISIBLE);
             }
+        }
+        else{
+            getOnBackPressedDispatcher().onBackPressed();
         }
     }
 

@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lblDeleteGoalMarkDesired" />
 
     <Button
-        android:id="@+id/button15"
+        android:id="@+id/btnDeleteGoalCancel"
         style="@style/ButtonStyleGreenFinal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -71,12 +71,12 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="5dp"
         android:text="cancel"
-        app:layout_constraintEnd_toStartOf="@+id/button16"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeleteGoalDelete"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <Button
-        android:id="@+id/button16"
+        android:id="@+id/btnDeleteGoalDelete"
         style="@style/ButtonStyleGreenFinal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
         android:layout_marginEnd="8dp"
         android:text="delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button15"
+        app:layout_constraintStart_toEndOf="@+id/btnDeleteGoalCancel"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <TextView

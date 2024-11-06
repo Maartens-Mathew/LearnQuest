@@ -113,7 +113,10 @@ public class GoalsListActivity extends AppCompatActivity{
             startActivity(intent);
         }
         catch (Exception e){
-            Log.e(GOAL_LIST_ACTIVITY, e.getStackTrace().toString());
+            Log.e(GOAL_LIST_ACTIVITY, e.getMessage());
+            for (StackTraceElement ele : e.getStackTrace()){
+                Log.e(GOAL_LIST_ACTIVITY, ele.toString());
+            }
         }
     }
 

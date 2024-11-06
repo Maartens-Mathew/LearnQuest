@@ -74,6 +74,8 @@
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.DeleteGroupActivity"
             android:exported="false" />
+        <activity android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.DeleteGoalActivity"
+            android:exported="false"/>
         <activity
             android:name=".LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.CreateGroupActivity"
             android:exported="false" />
