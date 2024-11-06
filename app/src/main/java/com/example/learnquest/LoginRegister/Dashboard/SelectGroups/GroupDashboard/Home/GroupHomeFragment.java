@@ -149,7 +149,6 @@ public class GroupHomeFragment extends Fragment  {
 
     public void btnViewMembersClicked(View v){
         Intent intent = new Intent(getContext(), ViewGroupMembersActivity.class);
-        intent.putExtra("isModerator",false);
         startActivity(intent);
     }
 
