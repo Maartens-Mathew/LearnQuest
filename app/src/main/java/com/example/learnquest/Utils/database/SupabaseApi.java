@@ -159,7 +159,7 @@ public interface SupabaseApi {
 
 
     @POST("rpc/removeUser")
-    Call<Void> removeUser(@Query("userID_input") Integer userID, @Query("groupID_input") Integer groupID);
+    Call<Void> removeUser(@Query("userID_input") String userID, @Query("groupID_input") String groupID);
 
     @GET("rpc/getUserWithID")
     Call<List<User>> getUserWithID(@Query("userID_input") Integer userID);
@@ -172,6 +172,8 @@ public interface SupabaseApi {
     Call<Void> updateGroupMembership(@Body PendingResponse pendingResponse);
 
 
+    @GET("Group")
+    Call<List<Group>> getGroupByTopic(@Query("topic") String topic);
 
     @PUT("User")
     Call<Void> updateUser(@Query("userID") String userID, @Body User user);

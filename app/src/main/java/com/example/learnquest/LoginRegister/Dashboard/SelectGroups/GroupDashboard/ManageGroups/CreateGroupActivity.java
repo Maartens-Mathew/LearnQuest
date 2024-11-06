@@ -44,12 +44,6 @@ public class CreateGroupActivity extends AppCompatActivity {
         topic = findViewById(R.id.edtCreateGroupTopic);
         groupType = findViewById(R.id.spinnerGroupType);
         groupColorCardView = findViewById(R.id.cardViewCreateGroupColor);
-        List<String> groupTypes = new ArrayList<>();
-        groupTypes.add("Social");
-        groupTypes.add("Peer-to-Peer");
-        groupTypes.add("Student-Teacher");
-        groupTypes.add("Personal");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.grouptype_holder,groupTypes);
         btnPickColor.setOnClickListener(v -> {ColorPickerDialogBuilder
                 .with(this)
                 .setTitle("Choose Color")

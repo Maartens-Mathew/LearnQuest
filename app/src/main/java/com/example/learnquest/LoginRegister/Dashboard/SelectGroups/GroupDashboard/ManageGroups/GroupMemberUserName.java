@@ -1,16 +1,22 @@
 package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
+
+import retrofit2.http.Field;
 
 public class GroupMemberUserName implements Serializable {
 
-    private Integer userID;
+    @SerializedName("userid")
+    private Integer userid;
 
-    public GroupMemberUserName(Integer userID, String username) {
-        this.userID = userID;
+    public GroupMemberUserName(Integer userid, String username) {
+        this.userid = userid;
         this.username = username;
     }
 
+    @SerializedName("username")
     private String username;
 
     public String getUsername() {
@@ -21,11 +27,11 @@ public class GroupMemberUserName implements Serializable {
         this.username = username;
     }
 
-    public Integer getUserID() {
-        return userID;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 }

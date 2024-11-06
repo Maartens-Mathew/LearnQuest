@@ -3,6 +3,7 @@ package com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboa
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,14 +32,17 @@ public class JoinGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_group);
-        newGroupMember = new GroupMembership(App.user.getUserID(),App.group.getGroupID(), 4);
-        getGroupDataFromDatabase();
-        CardView groupColor = findViewById(R.id.JoinGroupActivityGroupColor);
-        TextView groupName = findViewById(R.id.JoinGroupActivitylabelGroupName);
-        ImageView groupImage = findViewById(R.id.joinGroupImage);
-        groupName.setText(group.getTopic());
-        groupColor.setCardBackgroundColor(Color.parseColor(group.getGroupColour()));
-        groupImage.setImageBitmap(group.getImage());
+        Intent intent = getIntent();
+        if (intent != null){
+            group = (Group) intent.getExtras().get("group");
+            newGroupMember = new GroupMembership(App.user.getUserID(),group.getGroupID(), 4);
+            CardView groupColor = findViewById(R.id.JoinGroupActivityGroupColor);
+            TextView groupName = findViewById(R.id.JoinGroupActivitylabelGroupName);
+            ImageView groupImage = findViewById(R.id.joinGroupImage);
+            groupName.setText(group.getTopic());
+            groupColor.setCardBackgroundColor(Color.parseColor(group.getGroupColour()));
+            groupImage.setImageBitmap(group.getImage());
+        }
     }
 
     public void btnJoinClicked(View v){
@@ -53,6 +57,7 @@ public class JoinGroupActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable throwable) {
+                Log.e(JOIN_GROUP_ACTIVITY, throwable.getMessage());
                 Log.e(JOIN_GROUP_ACTIVITY,throwable.getStackTrace().toString());
             }
         });

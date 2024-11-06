@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +15,8 @@ import com.example.learnquest.R;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,20 +37,19 @@ public class ViewGroupMembersActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_view_group_members);
         recyclerView = findViewById(R.id.groupMembersRecyclerView);
-        //users = new ArrayList<>();
-        doCode();
+        users = new ArrayList<>();
+        databaseCall();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        doCode();
+        databaseCall();
     }
 
     //TODO: Need a way to determine whether a user is a moderator of a group when the user selects the group and store that in the App class;
 
-    public void doCode(){
-        databaseCall();
+    public void doCode(List<GroupMemberUserName> users){
         GroupMemberAdapter adapter = new GroupMemberAdapter(users, isModerator);
         if (isModerator){
             adapter.listener = v ->{
@@ -59,7 +57,7 @@ public class ViewGroupMembersActivity extends AppCompatActivity {
                     selected.btnRemove.setVisibility(View.GONE);
                 }
                 selected = (GroupMemberAdapter.GroupMemberViewHolder) recyclerView.findContainingViewHolder(v);
-                if (!selected.user.getUserID().equals(App.user.getUserID()))
+                if (!selected.user.getUserid().equals(App.user.getUserID()))
                     selected.btnRemove.setVisibility(View.VISIBLE);
             };
         }
@@ -74,7 +72,7 @@ public class ViewGroupMembersActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        doCode();
+        databaseCall();
     }
 
     public void onViewGroupMembersBtnBackButtonPressed(View v){
@@ -82,26 +80,37 @@ public class ViewGroupMembersActivity extends AppCompatActivity {
     }
 
     private void databaseCall(){
-        Call<List<GroupMemberUserName>> membersCall = App.api.getGroupMembers(App.group.getGroupID());
-        membersCall.enqueue(new Callback<List<GroupMemberUserName>>() {
-            @Override
-            public void onResponse(Call<List<GroupMemberUserName>> call, Response<List<GroupMemberUserName>> response) {
-                if (response.isSuccessful()){
-                    users = response.body();
-                }
-                else{
-                    try {
-                        Log.e(VIEW_GROUP_MEMBERS_ACTIVITY,response.errorBody().string());
-                    } catch (IOException e) {
-                        Log.e(VIEW_GROUP_MEMBERS_ACTIVITY, e.getStackTrace().toString());
+        new DatabaseThread().start();
+    }
+
+    private class DatabaseThread extends Thread{
+
+
+        @Override
+        public void run() {
+            super.run();
+            Call<List<GroupMemberUserName>> membersCall = App.api.getGroupMembers(App.group.getGroupID());
+
+            membersCall.enqueue(new Callback<List<GroupMemberUserName>>() {
+                @Override
+                public void onResponse(Call<List<GroupMemberUserName>> call, Response<List<GroupMemberUserName>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        // This runs on a background thread, so use runOnUiThread to update the UI
+                        runOnUiThread(() -> {
+                            doCode(response.body());
+                        });
+                    } else {
+                        // Handle error response if body is null or not successful
+                        runOnUiThread(() -> Log.e(VIEW_GROUP_MEMBERS_ACTIVITY, "Something went wrong"));
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<GroupMemberUserName>> call, Throwable throwable) {
-                Log.e(VIEW_GROUP_MEMBERS_ACTIVITY,throwable.getStackTrace().toString());
-            }
-        });
+                @Override
+                public void onFailure(Call<List<GroupMemberUserName>> call, Throwable t) {
+                    // Handle failure (e.g., network issues)
+                    Log.e(VIEW_GROUP_MEMBERS_ACTIVITY, "Request failed", t);
+                }
+            });
+        }
     }
 }

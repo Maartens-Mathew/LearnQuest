@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.learnquest.AppState.App;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.EqualSpacingItemDecoration;
 import com.example.learnquest.R;
 
 import java.util.Collections;
@@ -17,10 +18,12 @@ import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AdjustGoalsListActivity extends AppCompatActivity {
 
+    public static final String ADJUST_GOALS_LIST_ACTIVITY = "AdjustGoalsListActivity";
     private List<TrackProgressAssessmentData> entries;
     private RecyclerView rwGoalsList;
     @Override
@@ -29,13 +32,13 @@ public class AdjustGoalsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_adjust_goals_list);
         rwGoalsList = findViewById(R.id.rwAdjustGoalsList);
         Thread thread = new Thread(this::databaseCall);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-        setUpRecyclerView(this::Listener);
+        thread.start();
+//        try{
+//            thread.start();
+//            thread.join();
+//        }catch(InterruptedException e){
+//            e.printStackTrace();
+//        }
 
 //        setUpRecyclerView(v ->{
 //            int pos = rwGoalsList.findContainingViewHolder(v).getBindingAdapterPosition();
@@ -52,33 +55,36 @@ public class AdjustGoalsListActivity extends AppCompatActivity {
     }
 
     private void databaseCall(){
-        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(0, 1);
-        Response<List<TrackProgressAssessmentData>> response = null;
-        try{
-            response = call.execute();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        if (response.isSuccessful()){
-            entries = Collections.synchronizedList(response.body());
-            entries.sort(comparator);
-        }
-        else{
-            try{
-                Log.e("TrackProgressFragment",response.errorBody().string());
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
+        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(App.user.getUserID(), App.group.getGroupID());
 
-    private final Comparator<TrackProgressAssessmentData> comparator = (o1, o2) -> {
-        java.util.Date d1 = o1.getDate_due();
-        java.util.Date d2 = o2.getDate_due();
-        return d1.compareTo(d2);
-    };
+        call.enqueue(new Callback<List<TrackProgressAssessmentData>>() {
+            @Override
+            public void onResponse(Call<List<TrackProgressAssessmentData>> call, Response<List<TrackProgressAssessmentData>> response) {
+                if (response.isSuccessful()) {
+                    // This runs on a background thread, so use runOnUiThread to update the UI
+                    entries = Collections.synchronizedList(response.body());
+                    // If you need to update the UI, use runOnUiThread
+                    runOnUiThread(() -> {
+                        // You can update UI elements here, like notifying an adapter or other UI actions
+                        setUpRecyclerView(entries, AdjustGoalsListActivity.this::Listener);
+                    });
+                } else {
+                    // Handle error response
+                    try {
+                        Log.e(ADJUST_GOALS_LIST_ACTIVITY, response.errorBody().string());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<TrackProgressAssessmentData>> call, Throwable t) {
+                // Handle failure (e.g., network errors)
+                Log.e(ADJUST_GOALS_LIST_ACTIVITY, "Request failed", t);
+            }
+        });
+    }
 
     private void Listener(View v){
         int pos = rwGoalsList.findContainingViewHolder(v).getBindingAdapterPosition();
@@ -89,36 +95,39 @@ public class AdjustGoalsListActivity extends AppCompatActivity {
         startActivity(newIntent);
     }
 
-    private void setUpRecyclerView(View.OnClickListener listener){
+    private void setUpRecyclerView(List<TrackProgressAssessmentData> entries, View.OnClickListener listener){
         GoalAdapter adapter = new GoalAdapter(entries, listener);
         rwGoalsList.setAdapter(adapter);
         rwGoalsList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL,false));
+        rwGoalsList.addItemDecoration(new EqualSpacingItemDecoration(5));
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
         Thread thread = new Thread(this::databaseCall);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-        setUpRecyclerView(this::Listener);
+        thread.start();
+//        try{
+//            thread.start();
+//            thread.join();
+//        }catch(InterruptedException e){
+//            e.printStackTrace();
+//        }
+//        setUpRecyclerView(this::Listener);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Thread thread = new Thread(this::databaseCall);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-        setUpRecyclerView(this::Listener);
+        thread.start();
+//        try{
+//            thread.start();
+//            thread.join();
+//        }catch(InterruptedException e){
+//            e.printStackTrace();
+//        }
+//        setUpRecyclerView(this::Listener);
     }
 
 }

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.DeleteGroupActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.PendingUsersActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.ViewGroupMembersActivity;
 import com.example.learnquest.R;
@@ -75,6 +76,11 @@ public class GroupHomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Button btnJoinRequest = view.findViewById(R.id.join_requests_button_group_home_fragment);
+        Button btnDeleteGroup = view.findViewById(R.id.btnDeleteGroup);
+        btnDeleteGroup.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), DeleteGroupActivity.class);
+            startActivity(intent);
+        });
         btnJoinRequest.setOnClickListener(v ->{
             Intent intent = new Intent(getContext(), PendingUsersActivity.class);
             startActivity(intent);
@@ -86,7 +92,7 @@ public class GroupHomeFragment extends Fragment {
     }
 
     public void btnLeaveGroupClicked(View v){
-        Call<Void> leaveGroupCall = App.api.removeUser(App.user.getUserID(), App.group.getGroupID());
+        Call<Void> leaveGroupCall = App.api.removeUser("eq."+App.user.getUserID(), "eq."+App.group.getGroupID());
         leaveGroupCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -113,10 +119,6 @@ public class GroupHomeFragment extends Fragment {
         Intent intent = new Intent(getContext(), ViewGroupMembersActivity.class);
         intent.putExtra("isModerator",false);
         startActivity(intent);
-    }
-
-    public void btnRemoveMemberClicked(View v){
-
     }
 
     @Override

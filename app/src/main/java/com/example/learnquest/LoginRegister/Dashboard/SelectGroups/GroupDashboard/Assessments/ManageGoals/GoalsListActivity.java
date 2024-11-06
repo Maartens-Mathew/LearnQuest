@@ -39,31 +39,14 @@ public class GoalsListActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goals_list);
         Thread thread = new Thread(this::getDatabaseData);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-        setUp();
-//        if (selected == null){
-//            selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
-//            selected.controls.setVisibility(View.VISIBLE);
-//        }
-//        else{
-//            selected.controls.setVisibility(View.GONE);
-//            selected = (GoalAdapter.GoalViewHolder) rwGoalsList.findContainingViewHolder(v);
-//            selected.controls.setVisibility(View.VISIBLE);
-//        }
-
-
+        thread.start();
     }
 
 
-    private void setUp(){
+    private void setUp(List<TrackProgressAssessmentData> entries){
         btnAdd = findViewById(R.id.btnAddGoal);
         btnAdd.setOnClickListener(this::btnAddClicked);
-        setUpRecyclerView(v -> {
+        setUpRecyclerView(entries,v -> {
             Log.i(GOAL_LIST_ACTIVITY, "OnClick is triggering");
             if (selected != null) {
                 selected.controls.setVisibility(View.GONE);
@@ -79,26 +62,21 @@ public class GoalsListActivity extends AppCompatActivity{
     protected void onRestart() {
         super.onRestart();
         Thread thread = new Thread(this::getDatabaseData);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-        setUp();
+        thread.start();
+//        try{
+//            thread.start();
+//            thread.join();
+//        }catch(InterruptedException e){
+//            e.printStackTrace();
+//        }
+//        setUp();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Thread thread = new Thread(this::getDatabaseData);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-        setUp();
+        thread.start();
     }
 
     public void btnAddClicked(View v){
@@ -128,7 +106,7 @@ public class GoalsListActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void setUpRecyclerView(View.OnClickListener listener){
+    public void setUpRecyclerView(List<TrackProgressAssessmentData> entries, View.OnClickListener listener){
         rwGoalsList = findViewById(R.id.aga_goal_recyclerview);
         GoalAdapter adapter = new GoalAdapter(entries, listener);
         rwGoalsList.setAdapter(adapter);
@@ -137,26 +115,35 @@ public class GoalsListActivity extends AppCompatActivity{
     }
 
     private void getDatabaseData(){
-        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(App.user.getUserID(),
-                App.group.getGroupID());
-        Response<List<TrackProgressAssessmentData>> response = null;
-        try{
-            response = call.execute();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        if (response.isSuccessful()){
-            entries = Collections.synchronizedList(response.body());
-        }
-        else{
-            try{
-                Log.e("TrackProgressFragment",response.errorBody().string());
+        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(App.user.getUserID(), App.group.getGroupID());
+
+        call.enqueue(new Callback<List<TrackProgressAssessmentData>>() {
+            @Override
+            public void onResponse(Call<List<TrackProgressAssessmentData>> call, Response<List<TrackProgressAssessmentData>> response) {
+                if (response.isSuccessful()) {
+                    // This runs on a background thread, so use runOnUiThread to update the UI
+                    entries = Collections.synchronizedList(response.body());
+                    // If you need to update the UI, use runOnUiThread
+                    runOnUiThread(() -> {
+                        // You can update UI elements here, like notifying an adapter or other UI actions
+                        setUp(entries);
+                    });
+                } else {
+                    // Handle error response
+                    try {
+                        Log.e("ADJUST_GOALS_LIST_ACTIVITY", response.errorBody().string());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            catch (Exception e){
-                e.printStackTrace();
+
+            @Override
+            public void onFailure(Call<List<TrackProgressAssessmentData>> call, Throwable t) {
+                // Handle failure (e.g., network errors)
+                Log.e("ADJUST_GOALS_LIST_ACTIVITY", "Request failed", t);
             }
-        }
+        });
     }
 
 }

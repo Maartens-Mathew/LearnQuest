@@ -15,10 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.GroupView;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.CreateGroupActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.ManageGroups.JoinGroupActivity;
 import com.example.learnquest.R;
 
 import com.example.learnquest.model.group.Group;
@@ -30,9 +33,12 @@ import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ManageGroupsFragment extends Fragment {
+
+    public static final String MANAGE_GROUPS_FRAGMENT = "ManageGroupsFragment";
 
     public ManageGroupsFragment() {
         // Required empty public constructor
@@ -41,6 +47,7 @@ public class ManageGroupsFragment extends Fragment {
     Context context;
     RecyclerView groupView;
     Button btnSearch, btnCreate;
+    EditText edtSearchTerm;
 
     List<Group> groups;
 
@@ -53,6 +60,7 @@ public class ManageGroupsFragment extends Fragment {
         groupView = view.findViewById(R.id.recyclerView_groups);
         btnSearch = view.findViewById(R.id.btnSearch);
         btnCreate = view.findViewById(R.id.btnManageGroupCreateGroup);
+        edtSearchTerm = view.findViewById(R.id.edtSearchTerm);
         App.setApplicationContext(getActivity());
         App.user = User.demoUser();
 
@@ -71,15 +79,16 @@ public class ManageGroupsFragment extends Fragment {
 
         GroupAdapter adapter = new GroupAdapter(groups, this::onGroupClick);
         groupView.setAdapter(adapter);
-
+        btnCreate.setOnClickListener(this::onCreateGroupBtnCreateGroupClicked);
         btnSearch.setOnClickListener(this::selectGroup);
+
 
         // Inflate the layout for this fragment
         return view;
 
     }
 
-    public void onCreateGroupBtnCreateGroupClicked(View v){
+    private void onCreateGroupBtnCreateGroupClicked(View v){
         Intent intent = new Intent(getContext(), CreateGroupActivity.class);
         startActivity(intent);
     }
@@ -94,15 +103,45 @@ public class ManageGroupsFragment extends Fragment {
     }
 
     public void selectGroup(View view) {
+        String searchTerm = edtSearchTerm.getText().toString();
+        if (searchTerm.length() == 0){
+            Toast.makeText(context, "Enter an actual search term", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Call<List<Group>> getGroupsCall = App.api.getGroupByTopic(searchTerm);
+        getGroupsCall.enqueue(new Callback<List<Group>>() {
+            @Override
+            public void onResponse(Call<List<Group>> call, Response<List<Group>> response) {
+                if (response.isSuccessful()){
+                    if (response.body() == null){
+                        Toast.makeText(context, "could not find group", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Group group = response.body().get(0);
+                        Intent intent = new Intent(getActivity(), JoinGroupActivity.class);
+                        intent.putExtra("group",group);
+                        startActivity(intent);
+                    }
+                }
+                else{
+                    Log.e(MANAGE_GROUPS_FRAGMENT,"something went wrong");
+                }
+            }
 
-
+            @Override
+            public void onFailure(Call<List<Group>> call, Throwable throwable) {
+                Log.e(MANAGE_GROUPS_FRAGMENT,throwable.getMessage());
+                for (StackTraceElement e : throwable.getStackTrace()){
+                    Log.e(MANAGE_GROUPS_FRAGMENT, e.toString());
+                }
+            }
+        });
     }
 
     public void getGroups(){
 
         //TODO: Revert change here
-        //Call<List<Group>> groupCall = App.api.getUserGroups(App.user.getUserID());
-        Call<List<Group>> groupCall = App.api.getUserGroups(0);
+        Call<List<Group>> groupCall = App.api.getUserGroups(App.user.getUserID());
         Response<List<Group>> groupResponse = null;
 
         try{

@@ -80,10 +80,6 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
 
                 //TODO:remember to make this not hardcoded
                 //TODO:PendingActivity Approve/Reject doesn't work
-
-
-
-
                 Call<Void> updateCall = App.api.updateGroupMembership(PendingResponse.accept(user));
                 updateCall.enqueue(new Callback<Void>() {
                     @Override
@@ -108,7 +104,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingV
 
         public void onRejectClick(View view){
 
-                Call<Void> rejectionCall = App.api.removeUser(user.getUserID(), App.group.getGroupID());
+                Call<Void> rejectionCall = App.api.removeUser("eq."+user.getUserID(), "eq."+App.group.getGroupID());
                 Log.i(PENDING_ADAPTER, "start of database call");
                 rejectionCall.enqueue(new Callback<Void>() {
                     @Override

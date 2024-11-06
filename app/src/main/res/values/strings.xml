@@ -14,6 +14,13 @@
 
     <string name="enterbutton">Enter</string>
 
+    <string-array name="spinner_items">
+        <item>Student</item>
+        <item>Peer-to-Peer</item>
+        <item>Teacher-Student</item>
+        <item>Personal</item>
+    </string-array>
+    
     <!-- Login Page Strings -->
     <string name="LoginDescription">Hello, fellow student! Please enter your details below to log in.</string>
     <string name="LoginTitle">Login</string>

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.learnquest.AppState.App;
 import com.example.learnquest.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.GroupMemberViewHolder> {
@@ -29,6 +29,8 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
     private boolean isMod;
 
     public GroupMemberAdapter(List<GroupMemberUserName> users, boolean isMod) {
+        this.users = new ArrayList<>();
+        this.users.addAll(users);
         this.users = users;
         this.isMod = isMod;
     }
@@ -79,7 +81,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
         }
 
         public void viewHolderListener(View v){
-            if (isModerator && !App.user.getUserID().equals(user.getUserID())){
+            if (isModerator && !App.user.getUserID().equals(user.getUserid())){
                 Intent intent = new Intent(v.getContext(), RemoveGroupMemberActivity.class);
                 intent.putExtra("user",user);
                 v.getContext().startActivity(intent);

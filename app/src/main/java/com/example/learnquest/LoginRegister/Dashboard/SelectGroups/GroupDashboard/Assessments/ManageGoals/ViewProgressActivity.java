@@ -22,6 +22,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ViewProgressActivity extends AppCompatActivity {
@@ -44,19 +45,8 @@ public class ViewProgressActivity extends AppCompatActivity {
         btnAdjustGoals = findViewById(R.id.avp_adjust_goals);
         lnChrtProgress = findViewById(R.id.avp_progress_chart);
         Thread thread = new Thread(this::getDatabaseData);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-        createDataSets();
-        lblDesiredFinal.setText(getResources().getString(R.string.desired_final_mark,
-                String.format("%.0f",accumDesired)));
-        lblProjectedFinal.setText(getResources().getString(R.string.projected_final_mark,
-                String.format("%.0f",accumProj)));
-        setUpChart();
-        btnAdjustGoals.setOnClickListener(this::onBtnAdjustGoalsClicked);
+        thread.start();
+
 //        btnAdjustGoals.setOnClickListener(
 //                v -> {
 //                    Intent intent = new Intent(this, AdjustGoalsListActivity.class);
@@ -86,48 +76,25 @@ public class ViewProgressActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         Thread thread = new Thread(this::getDatabaseData);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
-        createDataSets();
-        lblDesiredFinal.setText(getResources().getString(R.string.desired_final_mark,
-                String.format("%.0f",accumDesired)));
-        lblProjectedFinal.setText(getResources().getString(R.string.projected_final_mark,
-                String.format("%.0f",accumProj)));
-        setUpChart();
-        btnAdjustGoals.setOnClickListener(
-                v -> {
-                    Intent intent = new Intent(this, AdjustGoalsListActivity.class);
-                    intent.putExtra("isViewProgress",true);
-                    startActivity(intent);
-                });
+        thread.start();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Thread thread = new Thread(this::getDatabaseData);
-        try{
-            thread.start();
-            thread.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
-        }
+        thread.start();
+    }
+
+    private void doCode(List<TrackProgressAssessmentData> entries){
+        this.entries = entries;
         createDataSets();
         lblDesiredFinal.setText(getResources().getString(R.string.desired_final_mark,
                 String.format("%.0f",accumDesired)));
         lblProjectedFinal.setText(getResources().getString(R.string.projected_final_mark,
                 String.format("%.0f",accumProj)));
         setUpChart();
-        btnAdjustGoals.setOnClickListener(
-                v -> {
-                    Intent intent = new Intent(this, AdjustGoalsListActivity.class);
-                    intent.putExtra("isViewProgress",true);
-                    startActivity(intent);
-                });
+        btnAdjustGoals.setOnClickListener(this::onBtnAdjustGoalsClicked);
     }
 
     private void createDataSets(){
@@ -173,26 +140,56 @@ public class ViewProgressActivity extends AppCompatActivity {
     private void getDatabaseData(){
         //ensure we have the correct userID and groupID
         //use userID & groupId
-        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(0, 1);
-        Response<List<TrackProgressAssessmentData>> response = null;
-        try{
-            response = call.execute();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        if (response.isSuccessful()){
-            entries = Collections.synchronizedList(response.body());
-            entries.sort(comparator);
-        }
-        else{
-            try{
-                Log.e("TrackProgressFragment",response.errorBody().string());
+        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(App.user.getUserID(), App.group.getGroupID());
+
+        call.enqueue(new Callback<List<TrackProgressAssessmentData>>() {
+            @Override
+            public void onResponse(Call<List<TrackProgressAssessmentData>> call, Response<List<TrackProgressAssessmentData>> response) {
+                if (response.isSuccessful()) {
+                    // This runs on a background thread, so use runOnUiThread to update the UI
+                    List<TrackProgressAssessmentData> entries = Collections.synchronizedList(response.body());
+                    entries.sort(comparator);
+                    // If you need to update the UI, use runOnUiThread
+                    runOnUiThread(() -> {
+                        // You can update UI elements here, like notifying an adapter or other UI actions
+                        doCode(entries);
+                    });
+                } else {
+                    // Handle error response
+                    try {
+                        Log.e("ADJUST_GOALS_LIST_ACTIVITY", response.errorBody().string());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            catch (Exception e){
-                e.printStackTrace();
+
+            @Override
+            public void onFailure(Call<List<TrackProgressAssessmentData>> call, Throwable t) {
+                // Handle failure (e.g., network errors)
+                Log.e("ADJUST_GOALS_LIST_ACTIVITY", "Request failed", t);
             }
-        }
+        });
+//        Call<List<TrackProgressAssessmentData>> call = App.api.getAssessmentData(0, 1);
+//        Response<List<TrackProgressAssessmentData>> response = null;
+//        try{
+//            response = call.execute();
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        if (response.isSuccessful()){
+//            entries = Collections.synchronizedList(response.body());
+//            entries.sort(comparator);
+//        }
+//        else{
+//            try{
+//                Log.e("TrackProgressFragment",response.errorBody().string());
+//            }
+//            catch (Exception e){
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     private final Comparator<TrackProgressAssessmentData> comparator = new Comparator<TrackProgressAssessmentData>() {

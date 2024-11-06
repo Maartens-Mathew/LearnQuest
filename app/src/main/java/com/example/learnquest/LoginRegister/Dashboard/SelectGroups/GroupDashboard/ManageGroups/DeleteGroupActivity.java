@@ -28,9 +28,7 @@ public class DeleteGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_group);
-        if (getIntent() != null){
-            group = (Group)getIntent().getExtras().get("group");
-        }
+        group = App.group;
         TextView groupTopic = findViewById(R.id.deleteGroupTopic);
         ImageView groupImage = findViewById(R.id.deleteGroupImage);
         CardView groupColor = findViewById(R.id.deleteGroupColor);
