@@ -6,6 +6,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("plugin.serialization") version "1.9.0"
+    id("com.google.gms.google-services")
 
 
 
@@ -65,8 +66,10 @@ dependencies {
     implementation("com.github.QuadFlask:colorpicker:0.0.15")
     implementation ("com.github.Kennyc1012:BottomSheetMenu:5.1")
 
-    implementation ("software.amazon.awssdk:s3:2.20.0")
 
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+
+    implementation("com.google.firebase:firebase-analytics")
 
 
 
@@ -87,6 +90,7 @@ dependencies {
     implementation ("com.google.android.flexbox:flexbox:3.0.0")//pill overview of tags A500
     implementation ("com.github.QuadFlask:colorpicker:0.0.15")
     implementation("androidx.activity:activity-ktx:1.9.3")
+    implementation("com.google.firebase:firebase-storage:21.0.1")
 
 
     testImplementation("junit:junit:4.13.2")

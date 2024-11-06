@@ -1,6 +1,8 @@
 package com.example.learnquest.model.studyResource.Temp;
 
 
+import android.util.Log;
+
 import com.example.learnquest.model.studyResource.StudyResource;
 
 import java.util.Comparator;
@@ -11,10 +13,16 @@ public class Tree {
 
     private TreeNode currentRoot;
     private final TreeNode root;
+    private String currentPath;
+
+    public String getCurrentPath() {
+        return currentPath;
+    }
 
     public Tree() {
         root = new InnerNode("File Resources", NodeType.INNER, null);
         currentRoot = root;  // Initialize currentRoot to root
+        currentPath = "";
     }
 
     public StudyResource getResource(){
@@ -23,6 +31,47 @@ public class Tree {
         else
             return null;
     }
+
+    public void buildPathDown(String folderName) {
+        // Remove the trailing "/o" from the current path if it exists.
+
+
+        if (currentPath.endsWith("/o")) {
+            currentPath = currentPath.substring(0, currentPath.length() - 2); // Remove the trailing "o"
+
+            Log.e("Tree",currentPath);
+
+        }
+
+        if (currentPath.endsWith("o"))
+            currentPath = "";
+
+        // Append the new folder name with "/o".
+        if (currentPath.isEmpty())
+            currentPath = folderName + "/o";
+        else
+         currentPath =  currentPath + "/" + folderName + "/o";
+    }
+
+
+    public void unbuildPathUp() {
+
+        String[] entries = currentPath.split("/");
+        if (entries.length == 2)
+            currentPath = "o";
+        else if (entries.length < 2)
+            return;
+        else
+        {
+            for(int i = 0; i < entries.length - 2; i++){
+                currentPath = entries[i] + "/";
+            }
+            currentPath = currentPath + "o";
+
+        }
+        Log.e("Tree",currentPath);
+    }
+
 
     public String getCurrentName() {
         return currentRoot.getName();
@@ -37,6 +86,8 @@ public class Tree {
             TreeNode child = ((InnerNode) currentRoot).getChild(name);
             if (child != null) {
                 currentRoot = child;
+                buildPathDown(name);
+                Log.e("Tree",currentPath);
                 return currentRoot.getName();
             } else {
                 return "Child node not found!";
@@ -86,7 +137,9 @@ public class Tree {
 
     public String setParentToCurrent() {
         if (currentRoot.getParent() != null) {
+            unbuildPathUp();
             currentRoot = currentRoot.getParent();
+
             return currentRoot.getName();
         }
         return "Already at the root!";

@@ -28,12 +28,13 @@ public class StudyResource_JSONConverter implements JsonSerializer<StudyResource
     public JsonElement serialize(StudyResource resource, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject object = new JsonObject();
 
-        object.addProperty("resourceID", resource.getResourceID());
-        object.addProperty("fileName", resource.getFileName());
-        object.addProperty("fileType", resource.getFileType());
-        object.addProperty("groupID", resource.getGroupID());
-        object.addProperty("URL", resource.getURL());
-        object.addProperty("filePath", resource.getFilePath());
+        object.addProperty("resourceID_input", resource.getResourceID());
+        object.addProperty("fileName_input", resource.getFileName());
+        object.addProperty("fileType_input", resource.getFileType());
+        object.addProperty("groupID_input", resource.getGroupID());
+        object.addProperty("URL_input", resource.getURL());
+        object.addProperty("filePath_input", resource.getFilePath());
+        object.addProperty("dateAdded_input", resource.getDateAdded());
         return object;
     }
 }

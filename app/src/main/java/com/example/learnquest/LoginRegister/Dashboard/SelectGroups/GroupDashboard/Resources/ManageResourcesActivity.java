@@ -157,7 +157,13 @@ public class ManageResourcesActivity extends AppCompatActivity {
 
     private void editOrViewItem(StudyResource studyResource) {
         // Implement the logic for editing or viewing the TreeNode
+        Intent intent = new Intent("com.example.ACTION_STUDY_RESOURCES");
+        intent.putExtra("studyResource", studyResource);
+        intent.putExtra("filePath",tree.getCurrentPath());
+        startActivity(intent);
     }
+
+
 
     // Method for the "Delete" option
     private void deleteItem(StudyResource studyResource) {

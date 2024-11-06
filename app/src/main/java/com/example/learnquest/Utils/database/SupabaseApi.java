@@ -60,6 +60,9 @@ public interface SupabaseApi {
     @POST("rpc/addAssessment")
     Call<Assessment> addAssessment(@Body Assessment assessment);
 
+    @POST("rpc/addStudyResource")
+    Call<Void> addStudyResource(@Body StudyResource studyResource);
+
 
 
     @GET("rpc/getUserGroups")

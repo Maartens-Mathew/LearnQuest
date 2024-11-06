@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "65609883736",
+    "project_id": "learnquest-2a228",
+    "storage_bucket": "learnquest-2a228.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65609883736:android:3e990fb503e4e95f43ea2d",
+        "android_client_info": {
+          "package_name": "com.example.learnquest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoUeCmeY2oRuJLxOhCPWffRASOnBdyM4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

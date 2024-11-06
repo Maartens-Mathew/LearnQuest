@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class StudyResource implements Serializable {
 
@@ -15,9 +16,6 @@ public class StudyResource implements Serializable {
 
     @SerializedName("fileType")
     String fileType;
-
-    @SerializedName("filePathURL")
-    String filePathURL;
 
     @SerializedName("dateAdded")
     String dateAdded;
@@ -84,6 +82,19 @@ public class StudyResource implements Serializable {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public StudyResource() {
+    }
+
+    public StudyResource(String dateAdded, String fileName, String filePath, String fileType, Integer groupID, Integer resourceID) {
+        this.dateAdded = dateAdded;
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.fileType = fileType;
+        this.groupID = groupID;
+        this.resourceID = resourceID;
+        this.URL = URL;
     }
 
     public Integer getGroupID() {
