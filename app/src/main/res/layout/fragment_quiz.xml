@@ -53,7 +53,7 @@
         style="@style/HeadingGreenFinal"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="56dp"
         android:text="Quiz Dashboard"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"

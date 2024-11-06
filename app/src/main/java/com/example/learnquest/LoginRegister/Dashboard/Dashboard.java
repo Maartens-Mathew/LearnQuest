@@ -59,14 +59,11 @@ public class Dashboard extends AppCompatActivity {
 
             }
 
-            if (view.getItemId() == R.id.calendar) {
-                fragment = new CalendarFragment();
-                newTab = 1;
-            }
+
 
             if (view.getItemId() == R.id.profile) {
                 fragment = new ProfileFragment();
-                newTab = 2;
+                newTab = 1;
             }
 
 
