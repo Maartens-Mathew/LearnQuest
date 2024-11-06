@@ -81,6 +81,9 @@ public class GroupHomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Button btnJoinRequest = view.findViewById(R.id.join_requests_button_group_home_fragment);
         Button btnDeleteGroup = view.findViewById(R.id.btnDeleteGroup);
+        if (!App.isModerator){
+            btnDeleteGroup.setVisibility(View.GONE);
+        }
         confirmationLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result ->{
                     if (result.getResultCode() != RESULT_OK) return;

@@ -101,11 +101,32 @@ public class ManageGroupsFragment extends Fragment {
     }
 
     public View.OnClickListener onGroupClick(Group group){
-
         return (view) -> {
-            Intent intent = new Intent(getActivity(), GroupView.class);
-            App.group = group;
-            startActivity(intent);
+            Call<Boolean> isModeratorCall = App.api.hasPermission(App.user.getUserID(), group.getGroupID());
+            isModeratorCall.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    if (response.isSuccessful() && response.body() != null){
+                        getActivity().runOnUiThread(() -> {
+                            App.isModerator = response.body();
+                            Intent intent = new Intent(getActivity(), GroupView.class);
+                            App.group = group;
+                            startActivity(intent);
+                        });
+                    }
+                    else{
+                        Log.e(MANAGE_GROUPS_FRAGMENT, "something went wrong");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable throwable) {
+                    Log.e(MANAGE_GROUPS_FRAGMENT, throwable.getMessage());
+                    for(StackTraceElement ele : throwable.getStackTrace()){
+                        Log.e(MANAGE_GROUPS_FRAGMENT,ele.toString());
+                    }
+                }
+            });
         };
     }
 
