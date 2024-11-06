@@ -11,6 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/btnSetW"
+            style="@style/ButtonStyleGreenFinal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="304dp"
+            android:text="Set Weightings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textView27"
             style="@style/HeadingGreenFinal"
@@ -40,10 +51,11 @@
             style="@style/ButtonStyleGreenFinal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="232dp"
+            android:layout_marginStart="240dp"
+            android:layout_marginTop="208dp"
             android:text="Manage Goals"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="208dp" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

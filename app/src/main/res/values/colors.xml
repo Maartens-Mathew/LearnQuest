@@ -22,5 +22,10 @@
     <color name="chatLeft">#001BB1</color>
     <color name="chatRight">#006158</color>
     <color name="chatLogMessage">#FFF5B9</color>
+    <color name="colorSelected">#00796B</color> <!-- green for selected -->
+    <color name="colorUnselected">#808080</color>
+
+        <color name="colorPrimary">#00796B</color> <!-- Primary color -->
+        <color name="colorAccent">#808080</color> <!-- Accent color -->
 
 </resources>
