@@ -11,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.GoalsListActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.ViewProgressActivity;
+import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Home.ManageTags.TagManageHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.QuizBank.quizBankHome;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Quiz.addValidation.quizValidHome;
@@ -54,17 +57,32 @@ public class QuizFragment extends Fragment {
         });
         ///////////////////////////////////////////////////////////////////////////////////////////////////
         Button btnQuizPoolFromFrag = view.findViewById(R.id.btnQuizPoolFromFrag);
-        btnQuizPoolFromFrag.setOnClickListener(v ->{
-            Intent intent = new Intent(getContext(), quizValidHome.class);
-            startActivity(intent);
-        });
+        if (!App.isModerator) {
+            btnQuizPoolFromFrag.setOnClickListener(v -> {
+                Toast.makeText(getContext(), "You do not have the sufficient permission for this", Toast.LENGTH_LONG).show();
+            });
+        } else {
+            btnQuizPoolFromFrag.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), ListViewActivity.class);
+                startActivity(intent);
+            });
+        }
+
+
+
+
         //////////////////////////////////////////////////////////////////////////////////////////////////////
         Button btnManageTags = view.findViewById(R.id.btnManageTags);
-        btnManageTags.setOnClickListener(v ->{
-            Intent intent = new Intent(getContext(), TagManageHome.class);
-            startActivity(intent);
-        });
-
+        if (!App.isModerator) {
+            btnManageTags.setOnClickListener(v -> {
+                Toast.makeText(getContext(), "You do not have the sufficient permission for this", Toast.LENGTH_LONG).show();
+            });
+        } else {
+            btnManageTags.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), ListViewActivity.class);
+                startActivity(intent);
+            });
+        }
 
     }
 }

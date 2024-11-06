@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.learnquest.AppState.App;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.GoalsListActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.ManageGoals.ViewProgressActivity;
 import com.example.learnquest.LoginRegister.Dashboard.SelectGroups.GroupDashboard.Assessments.SetWeightings.ListViewActivity;
@@ -46,12 +48,16 @@ public class AssessmentFragment extends Fragment {
         });
 
         Button btnSetW = view.findViewById(R.id.btnSetW);
-        btnSetW.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), ListViewActivity.class);
-            intent.putExtra("stateType",0);
-            startActivity(intent);
-        });
-
+        if (!App.isModerator) {
+            btnSetW.setOnClickListener(v -> {
+                Toast.makeText(getContext(), "You do not have the sufficient permission for this", Toast.LENGTH_LONG).show();
+            });
+        } else {
+            btnSetW.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), ListViewActivity.class);
+                startActivity(intent);
+            });
+        }
 
 
     }
